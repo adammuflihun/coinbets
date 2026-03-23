@@ -4,7 +4,7 @@ import { ChevronRight } from "lucide-react";
 
 const reviews = [
   {
-    logo: "/reviews/logo-luckyblock.svg",
+    logo: "/reviews/logo-luckyblock.png",
     name: "Lucky Block",
     url: "luckyblock.com",
     review: "A delightful surprise that left me amazed...",
@@ -13,7 +13,7 @@ const reviews = [
     rating: 4.7,
   },
   {
-    logo: "/reviews/logo-luckyblock.svg",
+    logo: "/reviews/logo-luckyblock.png",
     name: "Lucky Block",
     url: "luckyblock.com",
     review: "A delightful surprise that left me amazed...",
@@ -22,7 +22,7 @@ const reviews = [
     rating: 4.7,
   },
   {
-    logo: "/reviews/logo-yeet.svg",
+    logo: "/reviews/logo-yeet.png",
     name: "Yeet",
     url: "yeet.com",
     review: "I've been meaning to check out Gamdom…",
@@ -31,7 +31,7 @@ const reviews = [
     rating: 1.7,
   },
   {
-    logo: "/reviews/logo-bcgame.svg",
+    logo: "/reviews/logo-bcgame.png",
     name: "BC.Game",
     url: "bc.game",
     review: "I originally did a VIP transfer and…",
@@ -40,7 +40,7 @@ const reviews = [
     rating: 4.7,
   },
   {
-    logo: "/reviews/logo-luckyblock.svg",
+    logo: "/reviews/logo-luckyblock.png",
     name: "Lucky Block",
     url: "luckyblock.com",
     review: "After my past review betbolt did made…",
@@ -50,32 +50,36 @@ const reviews = [
   },
 ];
 
-function StarIcon({ filled, color }: { filled: boolean; color: string }) {
+const STAR_BG = "M15.9988 0H4C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0Z";
+const STAR_SHAPE =
+  "M10.38 4.035a.75.75 0 0 0-.753 0c-.206.098-.32.269-.377.362a4.7 4.7 0 0 0-.18.34L7.814 7.285l-2.813.411a4.7 4.7 0 0 0-.378.065c-.107.026-.304.081-.46.247a.75.75 0 0 0-.233.716c.03.226.157.387.228.47.074.087.172.182.268.276l2.034 1.981-.48 2.8a4.7 4.7 0 0 0-.055.38c-.009.11-.017.314.092.515a.75.75 0 0 0 .61.443c.224.041.416-.03.517-.072a4.7 4.7 0 0 0 .345-.17l2.514-1.322 2.515 1.322c.118.063.24.127.344.17.102.042.294.113.518.072a.75.75 0 0 0 .61-.443c.108-.2.1-.405.091-.515a4.7 4.7 0 0 0-.055-.38l-.48-2.799 2.035-1.982a4.7 4.7 0 0 0 .268-.275c.071-.083.198-.244.228-.47a.75.75 0 0 0-.232-.717c-.157-.165-.354-.221-.461-.247a4.7 4.7 0 0 0-.378-.065l-2.813-.411-1.257-2.548a4.7 4.7 0 0 0-.18-.34.75.75 0 0 0-.377-.362Z";
+
+const RATING_COLORS: Record<number, string> = {
+  5: "#23BA21",
+  4: "#9FF11A",
+  3: "#D8DC00",
+  2: "#FFB257",
+  1: "#FF6847",
+};
+
+function StarIcon({ color }: { color: string }) {
   return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      className="shrink-0"
-    >
-      <path
-        d="M10 1.5L12.47 6.86L18.34 7.72L14.17 11.78L15.18 17.63L10 14.9L4.82 17.63L5.83 11.78L1.66 7.72L7.53 6.86L10 1.5Z"
-        fill={filled ? color : "#E5E5E5"}
-      />
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+      <path d={STAR_BG} fill={color} />
+      <path d={STAR_SHAPE} fill="white" />
     </svg>
   );
 }
 
 function StarRating({ rating }: { rating: number }) {
-  const filled = Math.round(rating);
-  const color = rating >= 3 ? "#22C55E" : "#EF4444";
+  const filled = Math.min(5, Math.max(1, Math.round(rating)));
+  const activeColor = RATING_COLORS[filled] ?? RATING_COLORS[3];
 
   return (
     <div className="flex items-center gap-1.5">
       <div className="flex items-center gap-0.5">
         {Array.from({ length: 5 }, (_, i) => (
-          <StarIcon key={i} filled={i < filled} color={color} />
+          <StarIcon key={i} color={i < filled ? activeColor : "#DDDDDD"} />
         ))}
       </div>
       <span className="text-sm font-medium text-[#060D17]">{rating}</span>
@@ -86,7 +90,6 @@ function StarRating({ rating }: { rating: number }) {
 function ReviewCard({
   logo,
   name,
-  url,
   review,
   userName,
   timeAgo,
@@ -105,10 +108,7 @@ function ReviewCard({
             className="object-contain"
           />
         </div>
-        <div>
-          <p className="text-base font-semibold text-[#060D17]">{name}</p>
-          <p className="text-xs text-[#1c1c1c]/50">{url}</p>
-        </div>
+        <p className="text-base font-semibold text-[#060D17]">{name}</p>
       </div>
 
       {/* Review text */}

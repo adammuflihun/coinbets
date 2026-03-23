@@ -1,0 +1,331 @@
+import Image from "next/image";
+import Link from "next/link";
+import { ChevronRight, ArrowUpRight, ArrowDownRight } from "lucide-react";
+
+const STAR_BG =
+  "M15.9988 0H4C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0Z";
+const STAR_SHAPE =
+  "M10.38 4.035a.75.75 0 0 0-.753 0c-.206.098-.32.269-.377.362a4.7 4.7 0 0 0-.18.34L7.814 7.285l-2.813.411a4.7 4.7 0 0 0-.378.065c-.107.026-.304.081-.46.247a.75.75 0 0 0-.233.716c.03.226.157.387.228.47.074.087.172.182.268.276l2.034 1.981-.48 2.8a4.7 4.7 0 0 0-.055.38c-.009.11-.017.314.092.515a.75.75 0 0 0 .61.443c.224.041.416-.03.517-.072a4.7 4.7 0 0 0 .345-.17l2.514-1.322 2.515 1.322c.118.063.24.127.344.17.102.042.294.113.518.072a.75.75 0 0 0 .61-.443c.108-.2.1-.405.091-.515a4.7 4.7 0 0 0-.055-.38l-.48-2.799 2.035-1.982a4.7 4.7 0 0 0 .268-.275c.071-.083.198-.244.228-.47a.75.75 0 0 0-.232-.717c-.157-.165-.354-.221-.461-.247a4.7 4.7 0 0 0-.378-.065l-2.813-.411-1.257-2.548a4.7 4.7 0 0 0-.18-.34.75.75 0 0 0-.377-.362Z";
+
+const SHIELD_BG =
+  "M15.9988 0H4C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0Z";
+const SHIELD_SHAPE =
+  "M4.272 6.52C4.328 8.534 4.892 10.531 5.897 12.273C6.903 14.015 8.351 15.501 10.067 16.557C12.308 15.171 14.077 13.062 15.038 10.609C15.553 9.297 15.828 7.922 15.865 6.518C12.273 4.574 7.867 4.573 4.272 6.52Z";
+
+const USER_RATING_COLORS: Record<number, string> = {
+  5: "#23BA21",
+  4: "#9FF11A",
+  3: "#D8DC00",
+  2: "#FFB257",
+  1: "#FF6847",
+};
+
+const casinos = [
+  {
+    rank: 1,
+    name: "Stake",
+    logo: "/casino-index/logo-stake.svg",
+    userScore: 3.8,
+    reviews: 63,
+    expertScore: 3.7,
+    traffic: "78.7M",
+    trafficChange: 0.1,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 2,
+    name: "Roobet",
+    logo: "/casino-index/logo-roobet.svg",
+    userScore: 3.8,
+    reviews: 63,
+    expertScore: 4.2,
+    traffic: "78.7M",
+    trafficChange: 0.1,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 3,
+    name: "Bitsler",
+    logo: "/casino-index/logo-bitsler.svg",
+    userScore: 3.8,
+    reviews: 63,
+    expertScore: 3.8,
+    traffic: "78.7M",
+    trafficChange: -13.3,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 4,
+    name: "Shuffle",
+    logo: "/casino-index/logo-shuffle.svg",
+    userScore: 3.8,
+    reviews: 63,
+    expertScore: 3.2,
+    traffic: "78.7M",
+    trafficChange: 0.1,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 5,
+    name: "Thrill",
+    logo: "/casino-index/logo-thrill.svg",
+    logoBg: "#1d1837",
+    userScore: 3.8,
+    reviews: 63,
+    expertScore: 3.5,
+    traffic: "78.7M",
+    trafficChange: -13.3,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 6,
+    name: "Gamdom",
+    logo: "/casino-index/logo-gamdom.svg",
+    userScore: 3.8,
+    reviews: 63,
+    expertScore: 2.6,
+    traffic: "78.7M",
+    trafficChange: 0.1,
+    safetyIndex: "Normal",
+  },
+];
+
+function UserStarIcon({ color }: { color: string }) {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      className="shrink-0"
+    >
+      <path d={STAR_BG} fill={color} />
+      <path d={STAR_SHAPE} fill="white" />
+    </svg>
+  );
+}
+
+function UserStarRating({ rating }: { rating: number }) {
+  const filled = Math.min(5, Math.max(1, Math.round(rating)));
+  const activeColor = USER_RATING_COLORS[filled] ?? USER_RATING_COLORS[3];
+
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center gap-2">
+        <span
+          className="text-[19px] font-semibold"
+          style={{ color: activeColor }}
+        >
+          {rating}
+        </span>
+        <div className="flex items-center gap-0.5">
+          {Array.from({ length: 5 }, (_, i) => (
+            <UserStarIcon
+              key={i}
+              color={i < filled ? activeColor : "#DDDDDD"}
+            />
+          ))}
+        </div>
+      </div>
+      <span className="text-xs text-white/50">Verified Players</span>
+    </div>
+  );
+}
+
+function ExpertShieldIcon({ filled }: { filled: boolean }) {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      className="shrink-0"
+    >
+      <path d={SHIELD_BG} fill={filled ? "#003EB6" : "#DDDDDD"} />
+      <path d={SHIELD_SHAPE} fill="white" />
+    </svg>
+  );
+}
+
+function ExpertRating({ rating }: { rating: number }) {
+  const filled = Math.min(5, Math.max(1, Math.round(rating)));
+
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center gap-2">
+        <span className="text-[19px] font-semibold text-white">{rating}</span>
+        <div className="flex items-center gap-0.5">
+          {Array.from({ length: 5 }, (_, i) => (
+            <ExpertShieldIcon key={i} filled={i < filled} />
+          ))}
+        </div>
+      </div>
+      <span className="text-xs text-white/50">Independent Audit</span>
+    </div>
+  );
+}
+
+function SortIcon() {
+  return (
+    <svg
+      width="10"
+      height="14"
+      viewBox="0 0 10 14"
+      fill="none"
+      className="shrink-0 opacity-67"
+    >
+      <path d="M5 0L9.33 5H0.67L5 0Z" fill="#f8f8f8" />
+      <path d="M5 14L0.67 9H9.33L5 14Z" fill="#f8f8f8" />
+    </svg>
+  );
+}
+
+function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
+  const isPositive = casino.trafficChange >= 0;
+
+  return (
+    <div className="grid grid-cols-[40px_140px_1fr_100px_1fr_120px_80px_80px] items-center gap-4 bg-[#121212] rounded-md px-5 py-3.5">
+      {/* Rank */}
+      <span className="text-sm font-semibold text-[#a7a7a7]">
+        #{casino.rank}
+      </span>
+
+      {/* Casino name + logo */}
+      <div className="flex items-center gap-3">
+        <div
+          className="w-[61px] h-[43px] rounded flex items-center justify-center shrink-0"
+          style={{ backgroundColor: casino.logoBg ?? "#020202" }}
+        >
+          <Image
+            src={casino.logo}
+            alt={casino.name}
+            width={45}
+            height={29}
+            className="object-contain"
+          />
+        </div>
+        <span className="text-sm font-semibold text-white">{casino.name}</span>
+      </div>
+
+      {/* User score */}
+      <UserStarRating rating={casino.userScore} />
+
+      {/* Reviews */}
+      <div className="flex items-center gap-1">
+        <span className="text-sm font-semibold text-white">
+          {casino.reviews}
+        </span>
+        <span className="text-xs text-white/50">Reviews</span>
+      </div>
+
+      {/* Expert score */}
+      <ExpertRating rating={casino.expertScore} />
+
+      {/* 30D Traffic */}
+      <div className="flex items-center gap-1">
+        <span className="text-sm font-semibold text-white">
+          {casino.traffic}
+        </span>
+        {isPositive ? (
+          <ArrowUpRight className="size-3.5 text-green-500" />
+        ) : (
+          <ArrowDownRight className="size-3.5 text-red-500" />
+        )}
+        <span
+          className={`text-sm font-semibold ${isPositive ? "text-green-500" : "text-red-500"}`}
+        >
+          {Math.abs(casino.trafficChange)}%
+        </span>
+      </div>
+
+      {/* Safety Index */}
+      <span className="inline-flex items-center justify-center rounded-full bg-[#eaee45] px-2 py-0.5 text-xs font-semibold text-[#060d17]">
+        {casino.safetyIndex}
+      </span>
+
+      {/* View button */}
+      <Link
+        href="#"
+        className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#d4d4d4] px-3 py-1.5 text-sm font-medium text-[#f5f5f5] hover:bg-white/5 transition-colors"
+      >
+        View
+        <ChevronRight className="size-4" />
+      </Link>
+    </div>
+  );
+}
+
+export function CasinoIndex() {
+  return (
+    <section
+      data-section="casino-index"
+      className="site-container py-8"
+    >
+      <div className="relative overflow-hidden rounded-lg bg-[#020202] border border-neutral-200 shadow-sm">
+        {/* Header */}
+        <div className="flex flex-col items-center gap-4 pt-16 pb-10 px-5">
+          <div className="flex items-center gap-2.5">
+            <h2 className="text-[45px] font-black text-white tracking-tight">
+              CoinBets Casino Index
+            </h2>
+            <span className="rounded-lg bg-[#e6b830] px-2 py-0.5 text-xs font-semibold text-[#101010]">
+              Beta
+            </span>
+          </div>
+          <p className="text-base text-white/70 text-center max-w-[545px]">
+            Ranked by real player reviews and verified signals. No casino
+            influence. No affiliate revenue. Just data.
+          </p>
+        </div>
+
+        {/* Table header */}
+        <div className="grid grid-cols-[40px_140px_1fr_100px_1fr_120px_80px_80px] items-center gap-4 px-10 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase">
+          <div className="flex items-center gap-2">
+            Rank
+            <SortIcon />
+          </div>
+          <div>Casino Name</div>
+          <div className="flex items-center gap-2">
+            User Score
+            <SortIcon />
+          </div>
+          <div className="flex items-center gap-2">
+            In Last 6M
+            <SortIcon />
+          </div>
+          <div className="flex items-center gap-2">
+            Expert Score
+            <SortIcon />
+          </div>
+          <div className="flex items-center gap-2">
+            30D Traffic
+            <SortIcon />
+          </div>
+          <div className="flex items-center gap-2">
+            Safety Index
+            <SortIcon />
+          </div>
+          <div>View</div>
+        </div>
+
+        {/* Casino rows */}
+        <div className="flex flex-col gap-1.5 px-5 pb-8">
+          {casinos.map((casino) => (
+            <CasinoRow key={casino.rank} casino={casino} />
+          ))}
+        </div>
+
+        {/* Gradient fade + View Full Index */}
+        <div className="absolute bottom-0 left-0 right-0 h-[250px] bg-gradient-to-b from-transparent to-[#020202] flex items-end justify-center pb-10 pointer-events-none">
+          <Link
+            href="/casino-index"
+            className="pointer-events-auto inline-flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-2.5 text-sm font-bold text-[#171717] hover:bg-white transition-colors"
+          >
+            View Full Index
+            <ChevronRight className="size-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
