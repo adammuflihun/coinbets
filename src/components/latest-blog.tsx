@@ -141,7 +141,7 @@ function MobileCarousel() {
   return (
     <div ref={flickityRef} data-name="blog-carousel">
       {blogPosts.map((post, i) => (
-        <div key={i} className="w-[75vw] mr-3">
+        <div key={i} className="w-[calc(100vw-3rem)] mr-3">
           <BlogCard {...post} />
         </div>
       ))}
@@ -180,7 +180,7 @@ export function LatestBlog() {
           </h2>
           <Link
             href="/blog"
-            className="group flex w-fit items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-[#020202] hover:bg-neutral-100 transition-colors"
+            className="group flex w-full sm:w-fit items-center justify-center sm:justify-start gap-1.5 rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-[#020202] hover:bg-neutral-100 transition-colors"
           >
             Read all articles
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -230,7 +230,7 @@ export function LatestBlog() {
 
       {/* Blog cards */}
       {isMobile ? (
-        <div className="-mt-20 relative z-10">
+        <div className="-mt-20 -mx-5 relative z-10">
           <MobileCarousel />
         </div>
       ) : (

@@ -227,7 +227,7 @@ export function LatestReviews() {
         </h2>
         <Link
           href="/reviews"
-          className="group flex items-center gap-1 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors"
+          className="group flex items-center justify-center gap-1 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors shrink-0"
         >
           See all
           <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />

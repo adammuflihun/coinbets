@@ -444,7 +444,7 @@ export function ExpertReviews() {
           </div>
           <Link
             href="/expert-reviews"
-            className="group flex items-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors shrink-0 w-fit"
+            className="group flex items-center justify-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors shrink-0 w-full sm:w-fit"
           >
             Read all Expert reviews
             <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />

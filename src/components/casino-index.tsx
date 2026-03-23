@@ -179,18 +179,20 @@ function SortIcon() {
   );
 }
 
+const TABLE_GRID = "grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4";
+
 function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
   const isPositive = casino.trafficChange >= 0;
 
   return (
-    <div data-name="casino-row" className="grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 bg-[#121212] rounded-md px-5 py-3.5 whitespace-nowrap">
+    <div data-name="casino-row" className={`${TABLE_GRID} bg-[#121212] rounded-md pl-5 pr-8 py-3.5 whitespace-nowrap`}>
       {/* Rank */}
       <span className="text-sm font-semibold text-[#a7a7a7] text-center">
         #{casino.rank}
       </span>
 
       {/* Casino name + logo */}
-      <div data-name="casino-name-logo" className="flex items-center gap-3">
+      <div data-name="casino-name-logo" className="sticky left-0 z-10 flex items-center gap-3 self-stretch bg-[#121212] pr-3 shadow-[8px_0_12px_#121212] sm:static sm:self-auto sm:shadow-none sm:pr-0">
         <div
           data-name="row-logo"
           className="w-[61px] h-[43px] rounded-lg overflow-hidden flex items-center justify-center shrink-0"
@@ -211,11 +213,14 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
       <UserStarRating rating={casino.userScore} />
 
       {/* Reviews */}
-      <div data-name="reviews-count" className="flex items-center gap-1">
-        <span className="text-sm font-semibold text-white">
-          {casino.reviews}
-        </span>
-        <span className="text-xs text-white/50">Reviews</span>
+      <div data-name="reviews-count" className="flex flex-col gap-2">
+        <div className="flex items-center gap-1">
+          <span className="text-[19px] font-semibold text-white">
+            {casino.reviews}
+          </span>
+          <span className="text-xs text-white/50">Reviews</span>
+        </div>
+        <span className="text-xs text-white/50">In Last 6 Months</span>
       </div>
 
       {/* Expert score */}
@@ -286,48 +291,50 @@ export function CasinoIndex() {
 
         {/* Scrollable table wrapper */}
         <div className="overflow-x-auto" style={{ scrollbarWidth: "none" }}>
-          <div className="min-w-[900px]">
-            {/* Table header */}
-            <div data-name="table-header" className="grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 px-5 sm:px-10 lg:px-20 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase">
-              <div className="flex items-center justify-center gap-2">
-                Rank
-                <SortIcon />
+          <div className="min-w-[1200px]">
+            {/* Table header + rows share the same padding context */}
+            <div className="px-4 sm:px-8 lg:px-15">
+              <div data-name="table-header" className={`${TABLE_GRID} pl-5 pr-8 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase whitespace-nowrap`}>
+                <div className="flex items-center justify-center gap-2">
+                  Rank
+                  <SortIcon />
+                </div>
+                <div>Casino Name</div>
+                <div className="flex items-center gap-2">
+                  User Score
+                  <SortIcon />
+                </div>
+                <div className="flex items-center gap-2">
+                  In Last 6M
+                  <SortIcon />
+                </div>
+                <div className="flex items-center gap-2">
+                  Expert Score
+                  <SortIcon />
+                </div>
+                <div className="flex items-center gap-2">
+                  30D Traffic
+                  <SortIcon />
+                </div>
+                <div className="flex items-center gap-2">
+                  Safety
+                  <SortIcon />
+                </div>
+                <div>View</div>
               </div>
-              <div>Casino Name</div>
-              <div className="flex items-center gap-2">
-                User Score
-                <SortIcon />
-              </div>
-              <div className="flex items-center gap-2">
-                In Last 6M
-                <SortIcon />
-              </div>
-              <div className="flex items-center gap-2">
-                Expert Score
-                <SortIcon />
-              </div>
-              <div className="flex items-center gap-2">
-                30D Traffic
-                <SortIcon />
-              </div>
-              <div className="flex items-center gap-2">
-                Safety
-                <SortIcon />
-              </div>
-              <div>View</div>
-            </div>
 
-            {/* Casino rows */}
-            <div data-name="casino-rows" className="flex flex-col gap-1.5 px-4 sm:px-8 lg:px-15 pb-8">
+              {/* Casino rows */}
+              <div data-name="casino-rows" className="flex flex-col gap-1.5 pb-8">
               {casinos.map((casino) => (
                 <CasinoRow key={casino.rank} casino={casino} />
               ))}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Gradient fade + View Full Index */}
-        <div data-name="index-gradient" className="absolute bottom-0 left-0 right-0 h-[250px] bg-linear-to-b from-transparent to-[#020202] flex items-center justify-center pb-10 pointer-events-none">
+        <div data-name="index-gradient" className="absolute bottom-0 left-0 right-0 z-20 h-[250px] bg-linear-to-b from-transparent to-[#020202] flex items-center justify-center pb-10 pointer-events-none">
           <Link
             href="/casino-index"
             className="group pointer-events-auto inline-flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-2.5 text-sm font-bold text-[#171717] hover:bg-white transition-colors"

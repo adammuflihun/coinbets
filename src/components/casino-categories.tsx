@@ -146,10 +146,10 @@ function MobileCarousel({ casinos }: { casinos: Casino[] }) {
         flktyInstance.current = null;
       }
     };
-  }, [casinos]);
+  }, []);
 
   return (
-    <div ref={flickityRef} data-name="categories-carousel">
+    <div ref={flickityRef} data-name="cards-grid" className="w-full">
       {casinos.map((casino, i) => (
         <div key={i} className="w-[75vw] mr-3">
           <CasinoCategoryCard casino={casino} />
@@ -163,19 +163,19 @@ function CasinoCategoryCard({ casino }: { casino: Casino }) {
   return (
     <div
       data-name="casino-card"
-      className="flex gap-4 rounded-lg border border-neutral-200 bg-white p-4 shadow-sm"
+      className="flex flex-col sm:flex-row gap-4 rounded-lg border border-neutral-200 bg-white p-4 shadow-sm"
     >
       {/* Logo */}
       <div
         data-name="casino-logo"
-        className="w-[108px] h-[89px] bg-[#060D17] rounded-lg shrink-0 flex items-center justify-center overflow-hidden"
+        className="w-full h-[89px] sm:w-[108px] bg-[#060D17] rounded-lg shrink-0 flex items-center justify-center overflow-hidden"
       >
         <Image
           src={casino.logo}
           alt={casino.name}
           width={108}
           height={89}
-          className="object-contain w-full h-full"
+          className="object-contain h-full"
         />
       </div>
 
@@ -271,7 +271,7 @@ export function CasinoCategories() {
 
         {/* Cards */}
         {isMobile ? (
-          <MobileCarousel casinos={activeCasinos} />
+          <MobileCarousel key={activeTab} casinos={activeCasinos} />
         ) : (
           <div
             data-name="cards-grid"
