@@ -4,18 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const STAR_BG =
+const SHIELD_BG =
   "M15.9988 0H4C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0Z";
-const STAR_SHAPE =
-  "M10.38 4.035a.75.75 0 0 0-.753 0c-.206.098-.32.269-.377.362a4.7 4.7 0 0 0-.18.34L7.814 7.285l-2.813.411a4.7 4.7 0 0 0-.378.065c-.107.026-.304.081-.46.247a.75.75 0 0 0-.233.716c.03.226.157.387.228.47.074.087.172.182.268.276l2.034 1.981-.48 2.8a4.7 4.7 0 0 0-.055.38c-.009.11-.017.314.092.515a.75.75 0 0 0 .61.443c.224.041.416-.03.517-.072a4.7 4.7 0 0 0 .345-.17l2.514-1.322 2.515 1.322c.118.063.24.127.344.17.102.042.294.113.518.072a.75.75 0 0 0 .61-.443c.108-.2.1-.405.091-.515a4.7 4.7 0 0 0-.055-.38l-.48-2.799 2.035-1.982a4.7 4.7 0 0 0 .268-.275c.071-.083.198-.244.228-.47a.75.75 0 0 0-.232-.717c-.157-.165-.354-.221-.461-.247a4.7 4.7 0 0 0-.378-.065l-2.813-.411-1.257-2.548a4.7 4.7 0 0 0-.18-.34.75.75 0 0 0-.377-.362Z";
-
-const RATING_COLORS: Record<number, string> = {
-  5: "#23BA21",
-  4: "#9FF11A",
-  3: "#D8DC00",
-  2: "#FFB257",
-  1: "#FF6847",
-};
+const SHIELD_SHAPE =
+  "M4.272 6.52C4.328 8.534 4.892 10.531 5.897 12.273C6.903 14.015 8.351 15.501 10.067 16.557C12.308 15.171 14.077 13.062 15.038 10.609C15.553 9.297 15.828 7.922 15.865 6.518C12.273 4.574 7.867 4.573 4.272 6.52Z";
 
 const tabs = ["Expert Reviews", "Newest Casinos", "Provably Fair"];
 
@@ -83,7 +75,7 @@ const casinosByTab: Record<string, Casino[]> = {
   "Provably Fair": [],
 };
 
-function StarIcon({ color }: { color: string }) {
+function ExpertShieldIcon({ filled }: { filled: boolean }) {
   return (
     <svg
       width="20"
@@ -92,57 +84,34 @@ function StarIcon({ color }: { color: string }) {
       fill="none"
       className="shrink-0"
     >
-      <path d={STAR_BG} fill={color} />
-      <path d={STAR_SHAPE} fill="white" />
+      <path d={SHIELD_BG} fill={filled ? "#003EB6" : "#DDDDDD"} />
+      <path d={SHIELD_SHAPE} fill="white" />
     </svg>
   );
 }
 
-function RatingBadge({ rating }: { rating: number }) {
+function ExpertRatingBadge({ rating }: { rating: number }) {
   const filled = Math.min(5, Math.max(1, Math.round(rating)));
-  const activeColor = RATING_COLORS[filled] ?? RATING_COLORS[3];
 
   return (
-    <div data-name="rating-badge" className="flex items-start gap-1.5">
-      {/* Large star score box */}
+    <div data-name="expert-rating-badge" className="flex items-start gap-1.5">
+      {/* Large shield score box */}
       <svg
         width="35"
         height="35"
-        viewBox="0 0 35 35"
+        viewBox="0 0 20 20"
         fill="none"
         className="shrink-0"
       >
-        <path
-          d="M33.8953 9.24919C33.4854 6.95628 32.3445 4.90706 30.7051 3.38953C29.243 2.02707 27.3931 1.07446 25.3439 0.708923C22.7298 0.243694 20.0492 0 17.3021 0C14.555 0 11.8744 0.243694 9.26027 0.708923C7.0892 1.09661 5.13967 2.13784 3.64429 3.63321C2.14891 5.12859 1.09661 7.07813 0.70892 9.26027C0.243691 11.8744 0 14.555 0 17.3021C0 20.0492 0.243691 22.7298 0.70892 25.3439C1.09661 27.515 2.13784 29.4534 3.62214 30.9488C5.11752 32.4552 7.06705 33.5076 9.24919 33.8953C11.8633 34.3605 14.5439 34.6042 17.291 34.6042C20.0381 34.6042 22.7187 34.3605 25.3328 33.8953C27.7365 33.4633 29.8633 32.2226 31.414 30.4614C32.6657 29.0436 33.5408 27.2824 33.8842 25.3439C34.3494 22.7298 34.5931 20.0492 34.5931 17.3021C34.5931 14.555 34.3494 11.8744 33.8842 9.26027L33.8953 9.24919Z"
-          fill="#E6B830"
-        />
-        <path
-          d="M8.23047 9.00561C8.95047 10.1687 9.94739 11.1545 11.1215 11.8524C12.3511 12.5834 13.7578 12.9933 15.1978 13.0265C15.8846 11.7638 16.228 10.3459 16.2169 8.90592C16.2058 7.53239 15.8514 6.18101 15.1978 4.97363C12.3621 5.05117 9.71477 6.57978 8.23047 8.99454V9.00561Z"
-          fill="white"
-        />
-        <path
-          d="M24.5791 22.9625C23.2499 22.0764 21.7102 21.589 20.1262 21.5447C19.373 22.9404 19.0185 24.5244 19.1293 26.1194C19.2068 27.3268 19.5502 28.5342 20.1262 29.5976C22.9619 29.52 25.6092 27.9914 27.0935 25.5767C26.4511 24.5354 25.5871 23.6382 24.5791 22.9736V22.9625Z"
-          fill="white"
-        />
-        <path
-          d="M9.28311 20.4037C10.712 19.7059 11.9083 18.6204 12.7502 17.269C11.9194 15.9065 10.7342 14.821 9.30526 14.101C8.21973 13.5582 7.01235 13.2481 5.79389 13.2148C4.43143 15.7071 4.42036 18.7644 5.76066 21.2677C6.97912 21.2345 8.1865 20.9465 9.28311 20.4148V20.4037Z"
-          fill="white"
-        />
-        <path
-          d="M20.1148 4.97363C19.4502 6.20317 19.0957 7.59885 19.0957 8.99454C19.0957 10.3902 19.4502 11.7859 20.1148 13.0154C21.9425 12.9601 23.7369 12.3065 25.1658 11.1656C25.9301 10.5564 26.5726 9.8253 27.0821 8.99454C25.5978 6.57978 22.9505 5.05117 20.1148 4.97363Z"
-          fill="white"
-        />
-        <path
-          d="M10.4458 23.1731C9.55969 23.8266 8.80647 24.6241 8.23047 25.5657C9.71477 27.9804 12.3621 29.5091 15.1978 29.5866C15.6631 28.7226 15.9732 27.8032 16.1172 26.8395C16.3941 25.0229 16.0729 23.1509 15.1978 21.5337C13.4809 21.578 11.8305 22.1429 10.4348 23.162L10.4458 23.1731Z"
-          fill="white"
-        />
+        <path d={SHIELD_BG} fill="#003EB6" />
+        <path d={SHIELD_SHAPE} fill="white" />
       </svg>
 
-      {/* Stars + score */}
-      <div data-name="stars-and-score" className="flex flex-col gap-1.5">
-        <div data-name="star-icons" className="flex items-center gap-0.5">
+      {/* Shields + score */}
+      <div data-name="shields-and-score" className="flex flex-col gap-1.5">
+        <div data-name="expert-shields" className="flex items-center gap-0.5">
           {Array.from({ length: 5 }, (_, i) => (
-            <StarIcon key={i} color={i < filled ? activeColor : "#DDDDDD"} />
+            <ExpertShieldIcon key={i} filled={i < filled} />
           ))}
         </div>
         <div
@@ -150,7 +119,7 @@ function RatingBadge({ rating }: { rating: number }) {
           className="flex items-center gap-1 text-sm"
         >
           <span className="font-medium text-[#060D17]">{rating}</span>
-          <span className="text-neutral-600">Excellent</span>
+          <span className="text-neutral-600">Expert Rating</span>
         </div>
       </div>
     </div>
@@ -205,7 +174,7 @@ function CasinoCategoryCard({ casino }: { casino: Casino }) {
           </div>
 
           {/* Rating */}
-          <RatingBadge rating={casino.rating} />
+          <ExpertRatingBadge rating={casino.rating} />
         </div>
 
         {/* CTA */}
