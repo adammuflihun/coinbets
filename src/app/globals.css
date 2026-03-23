@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "flickity/css/flickity.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -131,6 +132,10 @@
 
 .site-container {
   @apply mx-auto max-w-[1600px] px-5 sm:px-10 lg:px-26;
+}
+
+[data-name="expert-grid"]::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes aurora-1 {

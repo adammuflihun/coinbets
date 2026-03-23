@@ -242,7 +242,7 @@ export function LatestFromCommunity() {
 
       <Link
         href="/reviews"
-        className="group mt-6 flex w-fit items-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors"
+        className="group mt-6 mx-auto flex w-fit items-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors"
       >
         Read all reviews
         <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />

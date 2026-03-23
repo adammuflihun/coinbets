@@ -2,31 +2,31 @@ import Image from "next/image";
 
 const categories = [
   {
-    icon: "/categories/icon-crypto-casinos.svg",
+    icon: "/categories/icon-crypto-casinos-orig.svg",
     title: "Crypto Casinos",
     badge: 27,
     description: "Top-Rated Crypto Casinos Reviewed",
   },
   {
-    icon: "/categories/icon-sports-betting.svg",
+    icon: "/categories/icon-sports-betting-orig.svg",
     title: "Sports Betting",
     badge: 78,
     description: "Best Crypto Sportsbooks Ranked",
   },
   {
-    icon: "/categories/icon-crypto-esport.svg",
+    icon: "/categories/icon-crypto-esport-orig.svg",
     title: "Crypto Esport",
     badge: 78,
     description: "Leading Crypto Esports Platforms",
   },
   {
-    icon: "/categories/icon-user-reviews.svg",
+    icon: "/categories/icon-user-reviews-orig.svg",
     title: "User Reviews",
     badge: 78,
     description: "Reviews You Can Trust",
   },
   {
-    icon: "/categories/icon-expert-reviews.svg",
+    icon: "/categories/icon-expert-reviews-orig.svg",
     title: "Expert Reviews",
     badge: 27,
     description: "Expert Reviews You Can Count On",
