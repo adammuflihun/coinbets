@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 const STAR_BG =
   "M15.9988 0H4C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0Z";
@@ -24,8 +24,8 @@ const casinos = [
   {
     rank: 1,
     name: "Stake",
-    logo: "/casino-index/logo-stake.svg",
-    userScore: 3.8,
+    logo: "/casino-index/logo-stake.png",
+    userScore: 4.5,
     reviews: 63,
     expertScore: 3.7,
     traffic: "78.7M",
@@ -35,8 +35,8 @@ const casinos = [
   {
     rank: 2,
     name: "Roobet",
-    logo: "/casino-index/logo-roobet.svg",
-    userScore: 3.8,
+    logo: "/casino-index/logo-roobet.png",
+    userScore: 4.2,
     reviews: 63,
     expertScore: 4.2,
     traffic: "78.7M",
@@ -46,8 +46,8 @@ const casinos = [
   {
     rank: 3,
     name: "Bitsler",
-    logo: "/casino-index/logo-bitsler.svg",
-    userScore: 3.8,
+    logo: "/casino-index/logo-bitsler.png",
+    userScore: 2.9,
     reviews: 63,
     expertScore: 3.8,
     traffic: "78.7M",
@@ -57,8 +57,8 @@ const casinos = [
   {
     rank: 4,
     name: "Shuffle",
-    logo: "/casino-index/logo-shuffle.svg",
-    userScore: 3.8,
+    logo: "/casino-index/logo-shuffle.png",
+    userScore: 3.4,
     reviews: 63,
     expertScore: 3.2,
     traffic: "78.7M",
@@ -68,9 +68,9 @@ const casinos = [
   {
     rank: 5,
     name: "Thrill",
-    logo: "/casino-index/logo-thrill.svg",
+    logo: "/casino-index/logo-thrill.png",
     logoBg: "#1d1837",
-    userScore: 3.8,
+    userScore: 1.6,
     reviews: 63,
     expertScore: 3.5,
     traffic: "78.7M",
@@ -80,8 +80,8 @@ const casinos = [
   {
     rank: 6,
     name: "Gamdom",
-    logo: "/casino-index/logo-gamdom.svg",
-    userScore: 3.8,
+    logo: "/casino-index/logo-gamdom.png",
+    userScore: 4.8,
     reviews: 63,
     expertScore: 2.6,
     traffic: "78.7M",
@@ -184,7 +184,7 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
   const isPositive = casino.trafficChange >= 0;
 
   return (
-    <div className="grid grid-cols-[40px_140px_1fr_100px_1fr_120px_80px_80px] items-center gap-4 bg-[#121212] rounded-md px-5 py-3.5">
+    <div className="grid grid-cols-[3fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 bg-[#121212] rounded-md px-5 py-3.5">
       {/* Rank */}
       <span className="text-sm font-semibold text-[#a7a7a7]">
         #{casino.rank}
@@ -226,11 +226,20 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
         <span className="text-sm font-semibold text-white">
           {casino.traffic}
         </span>
-        {isPositive ? (
-          <ArrowUpRight className="size-3.5 text-green-500" />
-        ) : (
-          <ArrowDownRight className="size-3.5 text-red-500" />
-        )}
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          className={`shrink-0 ${isPositive ? "" : "rotate-180"}`}
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M6.5872 1.33736C6.81499 1.10955 7.18436 1.10955 7.41215 1.33736L11.4955 5.42069C11.6623 5.58752 11.7122 5.83842 11.6219 6.05641C11.5316 6.2744 11.319 6.4165 11.083 6.4165H9.33301V11.7966C9.33307 11.8661 9.33307 11.9491 9.32712 12.0222C9.32017 12.1069 9.30244 12.2283 9.23763 12.3554C9.15375 12.52 9.01993 12.6539 8.85526 12.7378C8.72815 12.8026 8.60682 12.8203 8.52212 12.8273C8.44897 12.8332 8.36602 12.8332 8.29654 12.8332C7.43198 12.8328 6.56742 12.8328 5.70285 12.8332C5.63337 12.8332 5.55039 12.8332 5.47729 12.8273C5.39258 12.8203 5.27125 12.8026 5.14411 12.7378C4.97947 12.6539 4.84562 12.52 4.76173 12.3554C4.69695 12.2283 4.67919 12.1069 4.67227 12.0222C4.6663 11.9491 4.66633 11.8662 4.66635 11.7966L4.66636 6.4165H2.91636C2.68042 6.4165 2.46772 6.2744 2.37743 6.05641C2.28714 5.83842 2.33704 5.58752 2.50388 5.42069L6.5872 1.33736Z"
+            fill={isPositive ? "#22C55E" : "#EF4444"}
+          />
+        </svg>
         <span
           className={`text-sm font-semibold ${isPositive ? "text-green-500" : "text-red-500"}`}
         >
@@ -239,17 +248,17 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
       </div>
 
       {/* Safety Index */}
-      <span className="inline-flex items-center justify-center rounded-full bg-[#eaee45] px-2 py-0.5 text-xs font-semibold text-[#060d17]">
+      <span className="inline-flex w-fit items-center rounded-full bg-[#eaee45] px-2 py-0.5 text-xs font-semibold text-[#060d17]">
         {casino.safetyIndex}
       </span>
 
       {/* View button */}
       <Link
         href="#"
-        className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#d4d4d4] px-3 py-1.5 text-sm font-medium text-[#f5f5f5] hover:bg-white/5 transition-colors"
+        className="group inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#d4d4d4] px-3 py-1.5 text-sm font-medium text-[#f5f5f5] hover:bg-white/5 transition-colors"
       >
         View
-        <ChevronRight className="size-4" />
+        <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
       </Link>
     </div>
   );
@@ -257,10 +266,7 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
 
 export function CasinoIndex() {
   return (
-    <section
-      data-section="casino-index"
-      className="site-container py-8"
-    >
+    <section data-section="casino-index" className="site-container py-8">
       <div className="relative overflow-hidden rounded-lg bg-[#020202] border border-neutral-200 shadow-sm">
         {/* Header */}
         <div className="flex flex-col items-center gap-4 pt-16 pb-10 px-5">
@@ -272,14 +278,14 @@ export function CasinoIndex() {
               Beta
             </span>
           </div>
-          <p className="text-base text-white/70 text-center max-w-[545px]">
+          <p className="text-base text-white/70 text-center max-w-[545px] pb-15">
             Ranked by real player reviews and verified signals. No casino
             influence. No affiliate revenue. Just data.
           </p>
         </div>
 
         {/* Table header */}
-        <div className="grid grid-cols-[40px_140px_1fr_100px_1fr_120px_80px_80px] items-center gap-4 px-10 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase">
+        <div className="grid grid-cols-[3fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 px-20 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase">
           <div className="flex items-center gap-2">
             Rank
             <SortIcon />
@@ -302,27 +308,27 @@ export function CasinoIndex() {
             <SortIcon />
           </div>
           <div className="flex items-center gap-2">
-            Safety Index
+            Safety
             <SortIcon />
           </div>
           <div>View</div>
         </div>
 
         {/* Casino rows */}
-        <div className="flex flex-col gap-1.5 px-5 pb-8">
+        <div className="flex flex-col gap-1.5 px-15 pb-8">
           {casinos.map((casino) => (
             <CasinoRow key={casino.rank} casino={casino} />
           ))}
         </div>
 
         {/* Gradient fade + View Full Index */}
-        <div className="absolute bottom-0 left-0 right-0 h-[250px] bg-gradient-to-b from-transparent to-[#020202] flex items-end justify-center pb-10 pointer-events-none">
+        <div className="absolute bottom-0 left-0 right-0 h-[250px] bg-linear-to-b from-transparent to-[#020202] flex items-center justify-center pb-10 pointer-events-none">
           <Link
             href="/casino-index"
-            className="pointer-events-auto inline-flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-2.5 text-sm font-bold text-[#171717] hover:bg-white transition-colors"
+            className="group pointer-events-auto inline-flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-2.5 text-sm font-bold text-[#171717] hover:bg-white transition-colors"
           >
             View Full Index
-            <ChevronRight className="size-4" />
+            <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
       </div>
