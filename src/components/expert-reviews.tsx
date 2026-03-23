@@ -99,6 +99,11 @@ const reviews = [
   },
 ];
 
+const SAFETY_COLORS: Record<string, string> = {
+  High: "#00de00",
+  Normal: "#eaee45",
+};
+
 function PlayerRatingIcon({ size = 30 }: { size?: number }) {
   return (
     <svg
@@ -173,7 +178,10 @@ function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
             <span className="text-xs font-bold text-[#404040] uppercase">
               Safety Index
             </span>
-            <span className="rounded-full bg-[#eaee45] px-2 py-0.5 text-xs font-semibold text-[#060d17]">
+            <span
+              className="rounded-full px-2 py-0.5 text-xs font-semibold text-[#060d17]"
+              style={{ backgroundColor: SAFETY_COLORS[review.safetyIndex] || "#eaee45" }}
+            >
               {review.safetyIndex}
             </span>
           </div>
@@ -341,13 +349,28 @@ export function ExpertReviews() {
   const rafRef = useRef<number | null>(null);
   const speedRef = useRef(0);
 
+  // Render cards 3x for seamless infinite loop
+  const loopedReviews = [...reviews, ...reviews, ...reviews];
+
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
 
+    // Start at the middle set
+    const oneSetWidth = el.scrollWidth / 3;
+    el.scrollLeft = oneSetWidth;
+
     const tick = () => {
       if (speedRef.current !== 0 && el) {
         el.scrollLeft += speedRef.current;
+
+        // Infinite loop: wrap around seamlessly
+        const oneSet = el.scrollWidth / 3;
+        if (el.scrollLeft >= oneSet * 2) {
+          el.scrollLeft -= oneSet;
+        } else if (el.scrollLeft <= 0) {
+          el.scrollLeft += oneSet;
+        }
       }
       rafRef.current = requestAnimationFrame(tick);
     };
@@ -415,14 +438,14 @@ export function ExpertReviews() {
         </div>
       </div>
 
-      {/* Hover-scroll carousel – full width */}
+      {/* Infinite hover-scroll carousel – full width */}
       <div
         ref={scrollRef}
         data-name="expert-grid"
-        className="flex gap-4 overflow-x-auto items-stretch"
+        className="flex gap-4 overflow-x-auto items-stretch px-5 sm:px-10 lg:px-26"
         style={{ scrollbarWidth: "none" }}
       >
-        {reviews.map((review, i) => (
+        {loopedReviews.map((review, i) => (
           <div key={i} className="w-[400px] shrink-0">
             <ReviewCard review={review} />
           </div>
