@@ -104,7 +104,7 @@ function ReviewCard({
   return (
     <div
       data-name="review-card"
-      className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full"
+      className="group flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full"
     >
       {/* Review text */}
       <div
@@ -124,7 +124,7 @@ function ReviewCard({
             fill="white"
           />
         </svg>
-        <div className="tracking-[.5px]  font-serif text-[22px] leading-[1.3] bg-linear-to-b from-white to-[#cbcbcb] bg-clip-text text-transparent">
+        <div className="tracking-[.5px] font-serif text-[22px] leading-[1.3] bg-linear-to-b from-white to-[#cbcbcb] bg-clip-text text-transparent group-hover:bg-[linear-gradient(120deg,#cbcbcb_30%,#ffffff_45%,#ffffff_55%,#cbcbcb_70%)] group-hover:bg-size-[200%_100%] group-hover:animate-[shine_6s_ease-in-out_infinite]">
           {review.split("\n\n").map((paragraph, i) => (
             <p key={i} className={i > 0 ? "mt-3.5" : ""}>
               {paragraph}
