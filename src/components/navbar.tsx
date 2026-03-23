@@ -22,9 +22,9 @@ const navLinks = [
 export function Navbar() {
   return (
     <header data-section="navbar" className="bg-white border-b border-neutral-100">
-      <nav className="flex items-center justify-between h-14 px-4 lg:px-10">
+      <nav data-name="nav-bar" className="flex items-center justify-between h-14 px-4 lg:px-10">
         {/* Mobile: Hamburger */}
-        <div className="lg:hidden">
+        <div data-name="nav-mobile-trigger" className="lg:hidden">
           <MobileNav />
         </div>
 
@@ -68,7 +68,7 @@ export function Navbar() {
         {/* Right: Links & Actions */}
         <div data-section="nav-actions" className="flex items-center gap-5">
           {/* Desktop only links */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div data-name="nav-links" className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
@@ -80,7 +80,7 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div data-name="nav-right-actions" className="flex items-center gap-2.5">
             {/* Search - desktop only */}
             <button
               data-section="nav-search"

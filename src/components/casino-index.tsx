@@ -23,8 +23,8 @@ const USER_RATING_COLORS: Record<number, string> = {
 const casinos = [
   {
     rank: 1,
-    name: "Stake",
-    logo: "/casino-index/logo-stake.png",
+    name: "Menace",
+    logo: "/casino-index/base-5.svg",
     userScore: 4.5,
     reviews: 63,
     expertScore: 3.7,
@@ -35,7 +35,7 @@ const casinos = [
   {
     rank: 2,
     name: "Roobet",
-    logo: "/casino-index/logo-roobet.png",
+    logo: "/casino-index/base-8.svg",
     userScore: 4.2,
     reviews: 63,
     expertScore: 4.2,
@@ -46,7 +46,7 @@ const casinos = [
   {
     rank: 3,
     name: "Bitsler",
-    logo: "/casino-index/logo-bitsler.png",
+    logo: "/casino-index/base-6.svg",
     userScore: 2.9,
     reviews: 63,
     expertScore: 3.8,
@@ -57,7 +57,7 @@ const casinos = [
   {
     rank: 4,
     name: "Shuffle",
-    logo: "/casino-index/logo-shuffle.png",
+    logo: "/casino-index/base-3.svg",
     userScore: 3.4,
     reviews: 63,
     expertScore: 3.2,
@@ -68,8 +68,7 @@ const casinos = [
   {
     rank: 5,
     name: "Thrill",
-    logo: "/casino-index/logo-thrill.png",
-    logoBg: "#1d1837",
+    logo: "/casino-index/base-7.svg",
     userScore: 1.6,
     reviews: 63,
     expertScore: 3.5,
@@ -79,8 +78,8 @@ const casinos = [
   },
   {
     rank: 6,
-    name: "Gamdom",
-    logo: "/casino-index/logo-gamdom.png",
+    name: "BC Game",
+    logo: "/casino-index/base-2.svg",
     userScore: 4.8,
     reviews: 63,
     expertScore: 2.6,
@@ -110,15 +109,15 @@ function UserStarRating({ rating }: { rating: number }) {
   const activeColor = USER_RATING_COLORS[filled] ?? USER_RATING_COLORS[3];
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2">
+    <div data-name="user-star-rating" className="flex flex-col gap-2">
+      <div data-name="user-rating-row" className="flex items-center gap-2">
         <span
           className="text-[19px] font-semibold"
           style={{ color: activeColor }}
         >
           {rating}
         </span>
-        <div className="flex items-center gap-0.5">
+        <div data-name="user-stars" className="flex items-center gap-0.5">
           {Array.from({ length: 5 }, (_, i) => (
             <UserStarIcon
               key={i}
@@ -151,10 +150,10 @@ function ExpertRating({ rating }: { rating: number }) {
   const filled = Math.min(5, Math.max(1, Math.round(rating)));
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2">
+    <div data-name="expert-rating" className="flex flex-col gap-2">
+      <div data-name="expert-rating-row" className="flex items-center gap-2">
         <span className="text-[19px] font-semibold text-white">{rating}</span>
-        <div className="flex items-center gap-0.5">
+        <div data-name="expert-shields" className="flex items-center gap-0.5">
           {Array.from({ length: 5 }, (_, i) => (
             <ExpertShieldIcon key={i} filled={i < filled} />
           ))}
@@ -184,17 +183,18 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
   const isPositive = casino.trafficChange >= 0;
 
   return (
-    <div className="grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 bg-[#121212] rounded-md px-5 py-3.5">
+    <div data-name="casino-row" className="grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 bg-[#121212] rounded-md px-5 py-3.5">
       {/* Rank */}
       <span className="text-sm font-semibold text-[#a7a7a7] text-center">
         #{casino.rank}
       </span>
 
       {/* Casino name + logo */}
-      <div className="flex items-center gap-3">
+      <div data-name="casino-name-logo" className="flex items-center gap-3">
         <div
-          className="w-[61px] h-[43px] rounded flex items-center justify-center shrink-0"
-          style={{ backgroundColor: casino.logoBg ?? "#020202" }}
+          data-name="row-logo"
+          className="w-[61px] h-[43px] rounded-lg overflow-hidden flex items-center justify-center shrink-0"
+          style={{ backgroundColor: "#020202" }}
         >
           <Image
             src={casino.logo}
@@ -211,7 +211,7 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
       <UserStarRating rating={casino.userScore} />
 
       {/* Reviews */}
-      <div className="flex items-center gap-1">
+      <div data-name="reviews-count" className="flex items-center gap-1">
         <span className="text-sm font-semibold text-white">
           {casino.reviews}
         </span>
@@ -222,7 +222,7 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
       <ExpertRating rating={casino.expertScore} />
 
       {/* 30D Traffic */}
-      <div className="flex items-center gap-1">
+      <div data-name="traffic-info" className="flex items-center gap-1">
         <span className="text-sm font-semibold text-white">
           {casino.traffic}
         </span>
@@ -267,10 +267,10 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
 export function CasinoIndex() {
   return (
     <section data-section="casino-index" className="site-container py-8">
-      <div className="relative overflow-hidden rounded-lg bg-[#020202] border border-neutral-200 shadow-sm">
+      <div data-name="index-card" className="relative overflow-hidden rounded-lg bg-[#020202] border border-neutral-200 shadow-sm">
         {/* Header */}
-        <div className="flex flex-col items-center gap-4 pt-16 pb-10 px-5">
-          <div className="flex items-center gap-2.5">
+        <div data-name="index-header" className="flex flex-col items-center gap-4 pt-16 pb-10 px-5">
+          <div data-name="index-title" className="flex items-center gap-2.5">
             <h2 className="text-[45px] font-black text-white tracking-tight">
               CoinBets Casino Index
             </h2>
@@ -285,7 +285,7 @@ export function CasinoIndex() {
         </div>
 
         {/* Table header */}
-        <div className="grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 px-20 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase">
+        <div data-name="table-header" className="grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 px-20 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase">
           <div className="flex items-center justify-center gap-2">
             Rank
             <SortIcon />
@@ -315,14 +315,14 @@ export function CasinoIndex() {
         </div>
 
         {/* Casino rows */}
-        <div className="flex flex-col gap-1.5 px-15 pb-8">
+        <div data-name="casino-rows" className="flex flex-col gap-1.5 px-15 pb-8">
           {casinos.map((casino) => (
             <CasinoRow key={casino.rank} casino={casino} />
           ))}
         </div>
 
         {/* Gradient fade + View Full Index */}
-        <div className="absolute bottom-0 left-0 right-0 h-[250px] bg-linear-to-b from-transparent to-[#020202] flex items-center justify-center pb-10 pointer-events-none">
+        <div data-name="index-gradient" className="absolute bottom-0 left-0 right-0 h-[250px] bg-linear-to-b from-transparent to-[#020202] flex items-center justify-center pb-10 pointer-events-none">
           <Link
             href="/casino-index"
             className="group pointer-events-auto inline-flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-2.5 text-sm font-bold text-[#171717] hover:bg-white transition-colors"

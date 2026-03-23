@@ -46,7 +46,7 @@ function CategoryCard({
   description,
 }: (typeof categories)[number]) {
   return (
-    <div className="flex gap-2 items-start rounded-lg border border-neutral-200 bg-white p-2.5 shadow-sm">
+    <div data-name="category-card" className="flex gap-2 items-start rounded-lg border border-neutral-200 bg-white p-2.5 shadow-sm">
       <Image
         src={icon}
         alt=""
@@ -54,8 +54,8 @@ function CategoryCard({
         height={32}
         className="size-8 shrink-0"
       />
-      <div className="flex flex-1 flex-col gap-1.5 min-w-0">
-        <div className="flex items-center justify-between gap-2">
+      <div data-name="category-content" className="flex flex-1 flex-col gap-1.5 min-w-0">
+        <div data-name="category-title-row" className="flex items-center justify-between gap-2">
           <p className="text-base font-medium text-neutral-900 truncate">
             {title}
           </p>
@@ -77,16 +77,16 @@ export function HeroCategory() {
     >
       <h2 className="text-base font-bold text-white mb-3">Categories</h2>
 
-      <div>
+      <div data-name="category-grids">
         {/* Row 1: 4 cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div data-name="category-row-1" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           {categories.slice(0, 4).map((cat) => (
             <CategoryCard key={cat.title} {...cat} />
           ))}
         </div>
 
         {/* Row 2: 2 cards, left-aligned */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mt-3.5">
+        <div data-name="category-row-2" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mt-3.5">
           {categories.slice(4).map((cat) => (
             <CategoryCard key={cat.title} {...cat} />
           ))}

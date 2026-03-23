@@ -28,8 +28,8 @@ export function HeroHeader() {
         style={{ backgroundImage: "url('/hero/background.svg')" }}
       />
 
-      <div className="relative site-container py-5 lg:py-5">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10">
+      <div data-name="hero-container" className="relative site-container py-5 lg:py-5">
+        <div data-name="hero-layout" className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10">
           {/* Left: Content */}
           <div
             data-section="hero-content"
@@ -62,7 +62,7 @@ export function HeroHeader() {
               }
             >
               {/* Shimmer border layer */}
-              <div className="absolute inset-0 overflow-visible blur-[2px] [container-type:size]">
+              <div data-name="shimmer-border" className="absolute inset-0 overflow-visible blur-[2px] [container-type:size]">
                 <div className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]">
                   <div className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
                 </div>
@@ -72,8 +72,8 @@ export function HeroHeader() {
               <div className="absolute rounded-[8px] bg-[#020202] ring-1 ring-inset ring-[#e6b830] [inset:var(--cut)]" />
 
               {/* Input content */}
-              <div className="relative">
-                <div className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-10">
+              <div data-name="search-input" className="relative">
+                <div data-name="search-icon" className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-10">
                   <Search className="size-5 sm:size-6 text-white" />
                 </div>
                 <Input
@@ -85,7 +85,7 @@ export function HeroHeader() {
             </div>
 
             {/* Below: Crypto Icons + Description */}
-            <div className="flex flex-col gap-5">
+            <div data-name="icons-description" className="flex flex-col gap-5">
               {/* Crypto Icons Row */}
               <div
                 data-section="hero-crypto-icons"

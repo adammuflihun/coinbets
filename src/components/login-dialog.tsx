@@ -50,7 +50,7 @@ export function LoginDialog() {
             </DialogTitle>
           </DialogHeader>
 
-          <div className="flex flex-col gap-3.5">
+          <div data-name="login-form" className="flex flex-col gap-3.5">
             {/* Continue with Apple */}
             <Button
               variant="default"
@@ -89,7 +89,7 @@ export function LoginDialog() {
             </Button>
 
             {/* Divider */}
-            <div className="relative flex items-center py-2">
+            <div data-name="login-divider" className="relative flex items-center py-2">
               <div className="flex-1 border-t border-neutral-200" />
               <span className="px-3 text-xs text-neutral-400">
                 or Continue with your email or user
@@ -112,8 +112,8 @@ export function LoginDialog() {
             />
 
             {/* Remember + Forgot */}
-            <div className="flex items-center justify-between pt-1">
-              <div className="flex items-center gap-2">
+            <div data-name="login-remember-row" className="flex items-center justify-between pt-1">
+              <div data-name="login-remember" className="flex items-center gap-2">
                 <Checkbox id="remember" />
                 <Label
                   htmlFor="remember"

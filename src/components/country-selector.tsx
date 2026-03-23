@@ -49,7 +49,7 @@ export function CountrySelector() {
         </button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-[240px] p-0">
-        <div className="p-2 border-b border-neutral-100">
+        <div data-name="country-search" className="p-2 border-b border-neutral-100">
           <p className="text-xs font-medium text-neutral-500 px-2 pb-2">
             Your Country of Residence
           </p>
@@ -60,7 +60,7 @@ export function CountrySelector() {
             className="h-8 text-sm"
           />
         </div>
-        <div className="max-h-[280px] overflow-y-auto p-1">
+        <div data-name="country-list" className="max-h-[280px] overflow-y-auto p-1">
           {filtered.map((country) => (
             <button
               key={country.code}

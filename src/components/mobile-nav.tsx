@@ -51,10 +51,10 @@ export function MobileNav() {
             </SheetTitle>
           </SheetHeader>
 
-          <div className="flex flex-col py-2 overflow-y-auto">
+          <div data-name="mobile-nav-content" className="flex flex-col py-2 overflow-y-auto">
             {/* Search */}
-            <div className="px-4 py-3">
-              <div className="flex items-center gap-2 rounded-lg border border-neutral-200 px-3 py-2">
+            <div data-name="mobile-search" className="px-4 py-3">
+              <div data-name="mobile-search-input" className="flex items-center gap-2 rounded-lg border border-neutral-200 px-3 py-2">
                 <Search className="size-4 text-neutral-400" />
                 <input
                   type="text"
@@ -65,7 +65,7 @@ export function MobileNav() {
             </div>
 
             {/* Categories */}
-            <div className="px-2">
+            <div data-name="mobile-categories" className="px-2">
               <p className="px-3 py-2 text-xs font-medium text-neutral-500">
                 Categories
               </p>
@@ -93,7 +93,7 @@ export function MobileNav() {
             <div className="my-2 border-t border-neutral-100" />
 
             {/* Pages */}
-            <div className="px-2">
+            <div data-name="mobile-pages" className="px-2">
               <p className="px-3 py-2 text-xs font-medium text-neutral-500">
                 Pages
               </p>
@@ -112,7 +112,7 @@ export function MobileNav() {
             <div className="my-2 border-t border-neutral-100" />
 
             {/* Country Selector */}
-            <div className="px-4 py-2">
+            <div data-name="mobile-language" className="px-4 py-2">
               <p className="px-1 pb-2 text-xs font-medium text-neutral-500">
                 Language
               </p>

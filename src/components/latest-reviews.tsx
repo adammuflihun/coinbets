@@ -4,7 +4,7 @@ import { ChevronRight } from "lucide-react";
 
 const reviews = [
   {
-    logo: "/casino-index/logo-bitsler.png",
+    logo: "/casino-index/base-6.svg",
     name: "Bitsler",
     url: "bitsler.com",
     review: "A delightful surprise that left me amazed...",
@@ -13,7 +13,7 @@ const reviews = [
     rating: 4.7,
   },
   {
-    logo: "/casino-index/logo-thrill.png",
+    logo: "/casino-index/base-7.svg",
     name: "Thrill",
     url: "thrill.com",
     review: "A delightful surprise that left me amazed...",
@@ -22,16 +22,16 @@ const reviews = [
     rating: 4.7,
   },
   {
-    logo: "/casino-index/logo-gamdom.png",
-    name: "Gamdom",
-    url: "gamdom.com",
-    review: "I've been meaning to check out Gamdom…",
+    logo: "/casino-index/base-2.svg",
+    name: "BC Game",
+    url: "bcgame.com",
+    review: "I've been meaning to check out BC Game…",
     userName: "LegiaTmz",
     timeAgo: "1 day ago",
     rating: 1.7,
   },
   {
-    logo: "/casino-index/logo-roobet.png",
+    logo: "/casino-index/base-8.svg",
     name: "Roobet",
     url: "roobet.com",
     review: "I originally did a VIP transfer and…",
@@ -40,9 +40,9 @@ const reviews = [
     rating: 4.7,
   },
   {
-    logo: "/casino-index/logo-stake.png",
-    name: "Stake",
-    url: "stake.com",
+    logo: "/casino-index/base-5.svg",
+    name: "Menace",
+    url: "menace.com",
     review: "After my past review betbolt did made…",
     userName: "LegiaTmz",
     timeAgo: "1 day ago",
@@ -83,8 +83,8 @@ function StarRating({ rating }: { rating: number }) {
   const activeColor = RATING_COLORS[filled] ?? RATING_COLORS[3];
 
   return (
-    <div className="flex items-center gap-1.5">
-      <div className="flex items-center gap-0.5">
+    <div data-name="star-rating" className="flex items-center gap-1.5">
+      <div data-name="star-icons" className="flex items-center gap-0.5">
         {Array.from({ length: 5 }, (_, i) => (
           <StarIcon key={i} color={i < filled ? activeColor : "#DDDDDD"} />
         ))}
@@ -103,21 +103,21 @@ function ReviewCard({
   rating,
 }: (typeof reviews)[number]) {
   return (
-    <div className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm min-w-[240px]">
+    <div data-name="review-card" className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm min-w-[240px]">
       {/* Casino logo */}
-      <div className="flex flex-col gap-1.5">
+      <div data-name="review-casino" className="flex flex-col gap-1.5">
         <Image
           src={logo}
           alt={name}
           width={92}
           height={76}
-          className="w-[92px] h-[76px] object-cover rounded"
+          className="w-[92px] h-[76px] object-cover rounded-lg"
         />
         <p className="text-base font-semibold text-[#060D17]">{name}</p>
       </div>
 
       {/* Review text */}
-      <div className="bg-[#f8f8f8] rounded-md px-2.5 py-1.5 flex flex-col gap-2.5">
+      <div data-name="review-text" className="bg-[#f8f8f8] rounded-md px-2.5 py-1.5 flex flex-col gap-2.5">
         <svg
           width="10"
           height="8"
@@ -136,9 +136,9 @@ function ReviewCard({
       </div>
 
       {/* User info & rating */}
-      <div className="flex flex-col gap-1.5">
-        <div className="flex items-center gap-2 text-sm">
-          <div className="flex items-center gap-1">
+      <div data-name="review-user-info" className="flex flex-col gap-1.5">
+        <div data-name="review-user-row" className="flex items-center gap-2 text-sm">
+          <div data-name="review-username" className="flex items-center gap-1">
             <div className="size-[17px] rounded-full bg-red-400 shrink-0" />
             <span className="text-neutral-600 text-sm">{userName}</span>
           </div>
@@ -155,7 +155,7 @@ export function LatestReviews() {
   return (
     <section data-section="latest-reviews" className="site-container py-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div data-name="reviews-header" className="flex items-center justify-between mb-4">
         <h2 className="text-base font-bold text-[#060D17]">
           Latest User Reviews
         </h2>
@@ -169,7 +169,7 @@ export function LatestReviews() {
       </div>
 
       {/* Review cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div data-name="reviews-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {reviews.map((review, i) => (
           <ReviewCard key={i} {...review} />
         ))}
