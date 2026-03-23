@@ -50,7 +50,7 @@ export function CountrySelector() {
       </PopoverTrigger>
       <PopoverContent align="end" className="w-[240px] p-0">
         <div className="p-2 border-b border-neutral-100">
-          <p className="text-xs font-medium text-neutral-500 uppercase tracking-wider px-2 pb-2">
+          <p className="text-xs font-medium text-neutral-500 px-2 pb-2">
             Your Country of Residence
           </p>
           <Input

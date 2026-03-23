@@ -58,7 +58,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${interDisplay.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body data-section="body" className="min-h-full flex flex-col">
           <Navbar />
           {children}
         </body>

@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Search } from "lucide-react";
 import { CountrySelector } from "@/components/country-selector";
+import { LoginDialog } from "@/components/login-dialog";
+import { MobileNav } from "@/components/mobile-nav";
 
 const navCategories = [
   { label: "Crypto Casinos", icon: "/icon-casino.svg", hasDropdown: true },
@@ -19,10 +21,18 @@ const navLinks = [
 
 export function Navbar() {
   return (
-    <header className="bg-white border-b border-neutral-100">
-      <nav className="flex items-center justify-between h-14 px-10">
-        {/* Left: Category Nav */}
-        <div className="flex items-center gap-2">
+    <header data-section="navbar" className="bg-white border-b border-neutral-100">
+      <nav className="flex items-center justify-between h-14 px-4 lg:px-10">
+        {/* Mobile: Hamburger */}
+        <div className="lg:hidden">
+          <MobileNav />
+        </div>
+
+        {/* Desktop: Category Nav */}
+        <div
+          data-section="nav-categories"
+          className="hidden lg:flex items-center gap-0"
+        >
           {navCategories.map((item) => (
             <button
               key={item.label}
@@ -50,44 +60,42 @@ export function Navbar() {
             alt="CoinBets"
             width={135}
             height={32}
+            className="w-[110px] lg:w-[135px]"
             priority
           />
         </Link>
 
         {/* Right: Links & Actions */}
-        <div className="flex items-center gap-5">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="text-sm font-medium text-neutral-900 hover:text-neutral-600 transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <div data-section="nav-actions" className="flex items-center gap-5">
+          {/* Desktop only links */}
+          <div className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-sm font-medium text-neutral-900 hover:bg-neutral-100 transition-colors rounded-lg px-3 py-1.5"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
 
           <div className="flex items-center gap-2.5">
-            {/* Search */}
-            <button className="bg-neutral-100 rounded p-1 hover:bg-neutral-200 transition-colors">
+            {/* Search - desktop only */}
+            <button
+              data-section="nav-search"
+              className="hidden lg:block bg-neutral-100 rounded p-1 hover:bg-neutral-200 transition-colors"
+            >
               <Search className="size-6 text-neutral-600" />
             </button>
 
-            {/* Language Selector */}
-            <CountrySelector />
+            {/* Language Selector - desktop only */}
+            <div className="hidden lg:block">
+              <CountrySelector />
+            </div>
 
-            {/* Login */}
-            <button className="flex items-center gap-1.5 bg-neutral-100 rounded-lg px-3 py-1.5 hover:bg-neutral-200 transition-colors">
-              <span className="text-sm font-medium text-neutral-900">
-                Login
-              </span>
-              <Image
-                src="/icon-login.svg"
-                alt=""
-                width={16}
-                height={16}
-                className="shrink-0"
-              />
-            </button>
+            {/* Login - shimmer button with dialog */}
+            <LoginDialog />
           </div>
         </div>
       </nav>
