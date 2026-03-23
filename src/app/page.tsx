@@ -14,14 +14,16 @@ export default function Home() {
     <main data-section="main" className="flex-1">
       <HeroHeader />
       <HeroCategory />
-      <LatestReviews />
-      <VideoHome />
-      <CasinoCategories />
-      <CryptoCasinoBanner />
-      <ExpertReviews />
-      <LatestBlog />
-      <CasinoIndex />
-      <LatestFromCommunity />
+      <div className="space-y-12">
+        <LatestReviews />
+        <VideoHome />
+        <CasinoCategories />
+        <CryptoCasinoBanner />
+        <ExpertReviews />
+        <LatestBlog />
+        <CasinoIndex />
+        <LatestFromCommunity />
+      </div>
     </main>
   );
 }

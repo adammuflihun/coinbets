@@ -223,3 +223,22 @@
 @utility animate-spin-around {
   animation: spin-around calc(var(--speed) * 2) infinite linear;
 }
+
+/* Positive vs Negative voting animation */
+@keyframes vote-green {
+  0%, 100% { width: 51%; }
+  50% { width: 48%; }
+}
+
+@keyframes vote-red {
+  0%, 100% { width: 49%; }
+  50% { width: 52%; }
+}
+
+@utility animate-vote-green {
+  animation: vote-green 3s ease-in-out infinite;
+}
+
+@utility animate-vote-red {
+  animation: vote-red 3s ease-in-out infinite;
+}

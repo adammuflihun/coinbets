@@ -96,16 +96,6 @@ function ExpertRatingBadge({ rating }: { rating: number }) {
   return (
     <div data-name="expert-rating-badge" className="flex items-start gap-1.5">
       {/* Large shield score box */}
-      <svg
-        width="35"
-        height="35"
-        viewBox="0 0 20 20"
-        fill="none"
-        className="shrink-0"
-      >
-        <path d={SHIELD_BG} fill="#003EB6" />
-        <path d={SHIELD_SHAPE} fill="white" />
-      </svg>
 
       {/* Shields + score */}
       <div data-name="shields-and-score" className="flex flex-col gap-1.5">
@@ -154,7 +144,7 @@ function CasinoCategoryCard({ casino }: { casino: Casino }) {
         <div data-name="name-safety-rating" className="flex flex-col gap-2.5">
           {/* Name + Safety */}
           <div data-name="name-safety">
-            <p className="text-base font-semibold text-[#060D17]">
+            <p className="text-lg font-semibold text-[#060D17]">
               {casino.name}
             </p>
             <div
@@ -180,7 +170,7 @@ function CasinoCategoryCard({ casino }: { casino: Casino }) {
         {/* CTA */}
         <Link
           href="#"
-          className="flex items-center justify-center h-[30px] bg-[#003EB6] text-white text-sm font-semibold uppercase rounded hover:bg-[#0035a0] transition-colors"
+          className="flex items-center justify-center h-[30px] bg-[#003EB6] text-white text-[12px] font-semibold uppercase rounded hover:bg-[#0035a0] transition-colors"
         >
           Coinbet Expert Reviews
         </Link>

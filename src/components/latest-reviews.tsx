@@ -103,7 +103,10 @@ function ReviewCard({
   rating,
 }: (typeof reviews)[number]) {
   return (
-    <div data-name="review-card" className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm min-w-[240px]">
+    <div
+      data-name="review-card"
+      className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm min-w-[240px]"
+    >
       {/* Casino logo */}
       <div data-name="review-casino" className="flex flex-col gap-1.5">
         <Image
@@ -117,7 +120,10 @@ function ReviewCard({
       </div>
 
       {/* Review text */}
-      <div data-name="review-text" className="bg-[#f8f8f8] rounded-md px-2.5 py-1.5 flex flex-col gap-2.5">
+      <div
+        data-name="review-text"
+        className="bg-[#f8f8f8] rounded-md p-5.5 flex flex-col gap-2.5"
+      >
         <svg
           width="10"
           height="8"
@@ -137,7 +143,10 @@ function ReviewCard({
 
       {/* User info & rating */}
       <div data-name="review-user-info" className="flex flex-col gap-1.5">
-        <div data-name="review-user-row" className="flex items-center gap-2 text-sm">
+        <div
+          data-name="review-user-row"
+          className="flex items-center gap-2 text-sm"
+        >
           <div data-name="review-username" className="flex items-center gap-1">
             <div className="size-[17px] rounded-full bg-red-400 shrink-0" />
             <span className="text-neutral-600 text-sm">{userName}</span>
@@ -155,7 +164,10 @@ export function LatestReviews() {
   return (
     <section data-section="latest-reviews" className="site-container py-8">
       {/* Header */}
-      <div data-name="reviews-header" className="flex items-center justify-between mb-4">
+      <div
+        data-name="reviews-header"
+        className="flex items-center justify-between mb-4"
+      >
         <h2 className="text-base font-bold text-[#060D17]">
           Latest User Reviews
         </h2>
@@ -169,7 +181,10 @@ export function LatestReviews() {
       </div>
 
       {/* Review cards */}
-      <div data-name="reviews-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div
+        data-name="reviews-grid"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4"
+      >
         {reviews.map((review, i) => (
           <ReviewCard key={i} {...review} />
         ))}

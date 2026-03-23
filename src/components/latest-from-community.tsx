@@ -121,23 +121,32 @@ function CommunityReviewCard({
   rating,
 }: (typeof reviews)[number]) {
   return (
-    <div data-name="community-card" className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm">
+    <div
+      data-name="community-card"
+      className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
+    >
       {/* Casino info */}
-      <div data-name="community-casino-info" className="flex items-start gap-3.5">
+      <div
+        data-name="community-casino-info"
+        className="flex items-start gap-3.5"
+      >
         <div
           data-name="community-logo"
-          className="flex items-center justify-center rounded-lg overflow-hidden w-[108px] h-[89px] shrink-0"
+          className="flex items-center justify-center rounded-lg overflow-hidden w-[108px] h-[89px] shrink-0 p-0"
           style={{ backgroundColor: "#060d17" }}
         >
           <Image
             src={logo}
             alt={name}
-            width={60}
-            height={40}
-            className="object-contain"
+            width={108}
+            height={89}
+            className="object-contain w-full h-full"
           />
         </div>
-        <div data-name="community-casino-details" className="flex flex-col gap-0.5">
+        <div
+          data-name="community-casino-details"
+          className="flex flex-col gap-0.5"
+        >
           <p className="text-base font-semibold text-[#060D17]">{name}</p>
           <div data-name="community-safety" className="flex items-center gap-2">
             <span className="text-xs font-bold text-neutral-600 uppercase">
@@ -152,7 +161,10 @@ function CommunityReviewCard({
       </div>
 
       {/* Review text */}
-      <div data-name="community-review-text" className="bg-[#f8f8f8] rounded-md p-5.5 flex flex-col gap-2.5">
+      <div
+        data-name="community-review-text"
+        className="bg-[#f8f8f8] rounded-md p-5.5 flex flex-col gap-2.5"
+      >
         <QuoteIcon />
         <p className="text-sm font-medium text-[#060D17] leading-relaxed">
           {review}
@@ -161,8 +173,14 @@ function CommunityReviewCard({
 
       {/* User info & rating */}
       <div data-name="community-user-info" className="flex flex-col gap-1.5">
-        <div data-name="community-user-row" className="flex items-center gap-2 text-sm">
-          <div data-name="community-username" className="flex items-center gap-1">
+        <div
+          data-name="community-user-row"
+          className="flex items-center gap-2 text-sm"
+        >
+          <div
+            data-name="community-username"
+            className="flex items-center gap-1"
+          >
             <div className="size-[17px] rounded-full bg-red-400 shrink-0" />
             <span className="text-neutral-600 text-sm">{userName}</span>
           </div>
@@ -176,38 +194,59 @@ function CommunityReviewCard({
 }
 
 export function LatestFromCommunity() {
+  const leftCol = reviews.filter((_, i) => i % 2 === 0);
+  const rightCol = reviews.filter((_, i) => i % 2 === 1);
+
   return (
     <section
       data-section="latest-from-community"
-      className="site-container py-8"
+      className="mx-auto max-w-[1100px] px-4 py-8 mb-40"
     >
-      {/* Header */}
-      <div data-name="community-header" className="flex items-end justify-between mb-6">
-        <div data-name="community-header-text" className="flex flex-col gap-3">
-          <p className="text-base font-bold text-[#060D17]">
-            Most helpful from The Community
-          </p>
-          <h2 className="text-[35px] font-black text-[#060D17] leading-[1.2] tracking-tight">
-            Helpful User Reviews
-            <br />
-            from our community
-          </h2>
+      <div
+        data-name="community-layout"
+        className="grid grid-cols-1 lg:grid-cols-2 gap-4"
+      >
+        {/* Left column: header + cards */}
+        <div data-name="community-left-col" className="flex flex-col gap-4">
+          {/* Header */}
+          <div
+            data-name="community-header"
+            className="flex items-end justify-between mb-2"
+          >
+            <div
+              data-name="community-header-text"
+              className="flex flex-col gap-3"
+            >
+              <p className="text-base font-bold text-[#060D17]">
+                Most helpful from The Community
+              </p>
+              <h2 className="text-[35px] font-black text-[#060D17] leading-[1.2] tracking-tight">
+                Helpful User Reviews
+                <br />
+                from our community
+              </h2>
+            </div>
+          </div>
+          {leftCol.map((review, i) => (
+            <CommunityReviewCard key={i * 2} {...review} />
+          ))}
         </div>
-        <Link
-          href="/reviews"
-          className="group flex items-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors"
-        >
-          Watch all Videos
-          <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-        </Link>
+
+        {/* Right column: cards only */}
+        <div data-name="community-right-col" className="flex flex-col gap-4">
+          {rightCol.map((review, i) => (
+            <CommunityReviewCard key={i * 2 + 1} {...review} />
+          ))}
+        </div>
       </div>
 
-      {/* Review cards */}
-      <div data-name="community-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {reviews.map((review, i) => (
-          <CommunityReviewCard key={i} {...review} />
-        ))}
-      </div>
+      <Link
+        href="/reviews"
+        className="group mt-6 flex w-fit items-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors"
+      >
+        Read all reviews
+        <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+      </Link>
     </section>
   );
 }
