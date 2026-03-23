@@ -19,7 +19,7 @@ export function HeroHeader() {
   return (
     <section
       data-section="hero"
-      className="relative overflow-hidden bg-[#020202]"
+      className="relative overflow-hidden bg-[#020202] pb-16 sm:pb-20 lg:pb-20"
     >
       {/* Background gradient SVG */}
       <div
@@ -28,7 +28,7 @@ export function HeroHeader() {
         style={{ backgroundImage: "url('/hero/background.svg')" }}
       />
 
-      <div className="relative mx-auto max-w-[1600px] px-5 sm:px-10 lg:px-36 py-10 lg:py-10">
+      <div className="relative site-container py-5 lg:py-5">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10">
           {/* Left: Content */}
           <div
@@ -123,13 +123,13 @@ export function HeroHeader() {
           {/* Right: Casino Illustration */}
           <div
             data-section="hero-illustration"
-            className="relative hidden h-[480px] w-[500px] shrink-0 lg:block"
+            className="relative hidden h-[500px] w-[540px] shrink-0 lg:block"
           >
             <Image
               src="/hero/hero-illustration.png"
               alt="Casino wheel, slot machine, cards and chips"
-              width={500}
-              height={480}
+              width={540}
+              height={500}
               className="absolute inset-0 size-full object-contain"
               priority
             />
