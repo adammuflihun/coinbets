@@ -320,7 +320,7 @@ export function CasinoIndex() {
                   Safety
                   <SortIcon />
                 </div>
-                <div>View</div>
+                <div className="text-center">View</div>
               </div>
 
               {/* Casino rows */}
