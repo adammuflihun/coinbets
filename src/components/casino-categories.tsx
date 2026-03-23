@@ -2,15 +2,15 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import type Flickity from "flickity";
 
-const SHIELD_BG =
-  "M15.9988 0H4C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0Z";
-const SHIELD_SHAPE =
-  "M4.272 6.52C4.328 8.534 4.892 10.531 5.897 12.273C6.903 14.015 8.351 15.501 10.067 16.557C12.308 15.171 14.077 13.062 15.038 10.609C15.553 9.297 15.828 7.922 15.865 6.518C12.273 4.574 7.867 4.573 4.272 6.52Z";
-
 const tabs = ["Expert Reviews", "Newest Casinos", "Provably Fair"];
+
+const badgeByTab: Record<string, string> = {
+  "Expert Reviews": "/badges/coinbet expert.svg",
+  "Newest Casinos": "/badges/news casino.svg",
+  "Provably Fair": "/badges/provably fair.svg",
+};
 
 interface Casino {
   logo: string;
@@ -72,9 +72,112 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
   ],
-  "Newest Casinos": [],
-  "Provably Fair": [],
+  "Newest Casinos": [
+    {
+      logo: "/casino-index/base-5.svg",
+      name: "Stake",
+      safetyLevel: "Normal",
+      safetyColor: "#EAEE45",
+      rating: 4.0,
+      ratingLabel: "Excellent",
+    },
+    {
+      logo: "/casino-index/base-2.svg",
+      name: "Gamdom",
+      safetyLevel: "Normal",
+      safetyColor: "#EAEE45",
+      rating: 4.0,
+      ratingLabel: "Excellent",
+    },
+    {
+      logo: "/casino-index/base-8.svg",
+      name: "Roobet",
+      safetyLevel: "Normal",
+      safetyColor: "#EAEE45",
+      rating: 4.6,
+      ratingLabel: "Excellent",
+    },
+    {
+      logo: "/casino-index/base-3.svg",
+      name: "Shuffle",
+      safetyLevel: "High",
+      safetyColor: "#00DE00",
+      rating: 4.0,
+      ratingLabel: "Excellent",
+    },
+    {
+      logo: "/casino-index/base-6.svg",
+      name: "Bitsler",
+      safetyLevel: "High",
+      safetyColor: "#00DE00",
+      rating: 4.0,
+      ratingLabel: "Excellent",
+    },
+    {
+      logo: "/casino-index/base-7.svg",
+      name: "Thrill",
+      safetyLevel: "Normal",
+      safetyColor: "#EAEE45",
+      rating: 4.6,
+      ratingLabel: "Excellent",
+    },
+  ],
+  "Provably Fair": [
+    {
+      logo: "/casino-index/base-5.svg",
+      name: "Stake",
+      safetyLevel: "Normal",
+      safetyColor: "#EAEE45",
+      rating: 4.0,
+      ratingLabel: "Excellent",
+    },
+    {
+      logo: "/casino-index/base-2.svg",
+      name: "Gamdom",
+      safetyLevel: "Normal",
+      safetyColor: "#EAEE45",
+      rating: 4.0,
+      ratingLabel: "Excellent",
+    },
+    {
+      logo: "/casino-index/base-8.svg",
+      name: "Roobet",
+      safetyLevel: "Normal",
+      safetyColor: "#EAEE45",
+      rating: 4.6,
+      ratingLabel: "Excellent",
+    },
+    {
+      logo: "/casino-index/base-3.svg",
+      name: "Shuffle",
+      safetyLevel: "High",
+      safetyColor: "#00DE00",
+      rating: 4.0,
+      ratingLabel: "Excellent",
+    },
+    {
+      logo: "/casino-index/base-6.svg",
+      name: "Bitsler",
+      safetyLevel: "High",
+      safetyColor: "#00DE00",
+      rating: 4.0,
+      ratingLabel: "Excellent",
+    },
+    {
+      logo: "/casino-index/base-7.svg",
+      name: "Thrill",
+      safetyLevel: "Normal",
+      safetyColor: "#EAEE45",
+      rating: 4.6,
+      ratingLabel: "Excellent",
+    },
+  ],
 };
+
+const SHIELD_BG =
+  "M15.9988 0H4C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0Z";
+const SHIELD_SHAPE =
+  "M4.272 6.52C4.328 8.534 4.892 10.531 5.897 12.273C6.903 14.015 8.351 15.501 10.067 16.557C12.308 15.171 14.077 13.062 15.038 10.609C15.553 9.297 15.828 7.922 15.865 6.518C12.273 4.574 7.867 4.573 4.272 6.52Z";
 
 function ExpertShieldIcon({ filled }: { filled: boolean }) {
   return (
@@ -96,9 +199,6 @@ function ExpertRatingBadge({ rating }: { rating: number }) {
 
   return (
     <div data-name="expert-rating-badge" className="flex items-start gap-1.5">
-      {/* Large shield score box */}
-
-      {/* Shields + score */}
       <div data-name="shields-and-score" className="flex flex-col gap-1.5">
         <div data-name="expert-shields" className="flex items-center gap-0.5">
           {Array.from({ length: 5 }, (_, i) => (
@@ -117,7 +217,13 @@ function ExpertRatingBadge({ rating }: { rating: number }) {
   );
 }
 
-function MobileCarousel({ casinos }: { casinos: Casino[] }) {
+function MobileCarousel({
+  casinos,
+  badge,
+}: {
+  casinos: Casino[];
+  badge: string;
+}) {
   const flickityRef = useRef<HTMLDivElement>(null);
   const flktyInstance = useRef<Flickity | null>(null);
 
@@ -152,18 +258,24 @@ function MobileCarousel({ casinos }: { casinos: Casino[] }) {
     <div ref={flickityRef} data-name="cards-grid" className="w-full">
       {casinos.map((casino, i) => (
         <div key={i} className="w-[75vw] mr-3">
-          <CasinoCategoryCard casino={casino} />
+          <CasinoCategoryCard casino={casino} badge={badge} />
         </div>
       ))}
     </div>
   );
 }
 
-function CasinoCategoryCard({ casino }: { casino: Casino }) {
+function CasinoCategoryCard({
+  casino,
+  badge,
+}: {
+  casino: Casino;
+  badge: string;
+}) {
   return (
     <div
       data-name="casino-card"
-      className="flex flex-col sm:flex-row gap-4 rounded-lg border border-neutral-200 bg-white p-4 shadow-sm"
+      className="relative flex flex-col sm:flex-row gap-4 rounded-lg border border-neutral-200 bg-white p-4 shadow-sm overflow-hidden"
     >
       {/* Logo */}
       <div
@@ -209,14 +321,11 @@ function CasinoCategoryCard({ casino }: { casino: Casino }) {
           {/* Rating */}
           <ExpertRatingBadge rating={casino.rating} />
         </div>
+      </div>
 
-        {/* CTA */}
-        <Link
-          href="#"
-          className="flex items-center justify-center h-[30px] bg-[#003EB6] text-white text-[12px] font-semibold uppercase rounded hover:bg-[#0035a0] transition-colors"
-        >
-          Coinbet Expert Reviews
-        </Link>
+      {/* Badge overlay */}
+      <div className="absolute -top-[5px] -right-[5px] w-[100px] h-[100px]">
+        <Image src={badge} alt="" width={100} height={100} />
       </div>
     </div>
   );
@@ -225,7 +334,9 @@ function CasinoCategoryCard({ casino }: { casino: Casino }) {
 export function CasinoCategories() {
   const [activeTab, setActiveTab] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const activeCasinos = casinosByTab[tabs[activeTab]] ?? [];
+  const activeTab_name = tabs[activeTab];
+  const activeCasinos = casinosByTab[activeTab_name] ?? [];
+  const activeBadge = badgeByTab[activeTab_name] ?? "";
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 640);
@@ -271,14 +382,18 @@ export function CasinoCategories() {
 
         {/* Cards */}
         {isMobile ? (
-          <MobileCarousel key={activeTab} casinos={activeCasinos} />
+          <MobileCarousel
+            key={activeTab}
+            casinos={activeCasinos}
+            badge={activeBadge}
+          />
         ) : (
           <div
             data-name="cards-grid"
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full"
           >
             {activeCasinos.map((casino, i) => (
-              <CasinoCategoryCard key={i} casino={casino} />
+              <CasinoCategoryCard key={i} casino={casino} badge={activeBadge} />
             ))}
           </div>
         )}
