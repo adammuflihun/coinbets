@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { useEffect, useRef } from "react";
+import type Flickity from "flickity";
 
 const SHIELD_BG =
   "M15.9988 0H4C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0Z";
@@ -256,13 +260,8 @@ function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
             data-name="bonus-badge"
             className="flex items-center gap-1 rounded-lg bg-[#f5f5f5] px-2 py-1"
           >
-            <svg width="15" height="15" viewBox="0 0 31 31" fill="none" className="size-[15px] shrink-0">
-              <path d="M30.0039 8.18734C29.6411 6.15767 28.6312 4.34371 27.18 3.0004C25.8857 1.79436 24.2483 0.951107 22.4343 0.627535C20.1203 0.215717 17.7474 0 15.3157 0C12.884 0 10.5112 0.215717 8.19715 0.627535C6.27533 0.970717 4.54961 1.8924 3.22591 3.21611C1.90221 4.53981 0.970714 6.26553 0.627532 8.19715C0.215714 10.5112 0 12.884 0 15.3157C0 17.7474 0.215714 20.1203 0.627532 22.4343C0.970714 24.3561 1.8924 26.072 3.2063 27.3957C4.53 28.7292 6.25572 29.6607 8.18734 30.0039C10.5014 30.4157 12.8742 30.6314 15.3059 30.6314C17.7376 30.6314 20.1105 30.4157 22.4245 30.0039C24.5522 29.6215 26.4348 28.5233 27.8076 26.9643C28.9155 25.7092 29.6902 24.1502 29.9941 22.4343C30.4059 20.1203 30.6216 17.7474 30.6216 15.3157C30.6216 12.884 30.4059 10.5112 29.9941 8.19715L30.0039 8.18734Z" fill="#003EB6" />
-              <path d="M9.2462 20.5125C8.46178 21.091 7.79503 21.7969 7.28516 22.6304C8.59905 24.7679 10.9425 26.121 13.4526 26.1897C13.8644 25.4249 14.139 24.611 14.2665 23.758C14.5116 22.1499 14.2272 20.4928 13.4526 19.0613C11.9328 19.1005 10.4718 19.6006 9.23639 20.5027L9.2462 20.5125Z" fill="white" />
-              <path d="M17.8064 4.40259C17.2181 5.49097 16.9043 6.72642 16.9043 7.96188C16.9043 9.19733 17.2181 10.4328 17.8064 11.5212C19.4242 11.4721 21.0127 10.8936 22.2776 9.88369C22.9541 9.34441 23.5228 8.69727 23.9739 7.96188C22.66 5.82434 20.3165 4.47122 17.8064 4.40259Z" fill="white" />
-              <path d="M8.2164 18.0611C9.48127 17.4434 10.5402 16.4825 11.2854 15.2862C10.55 14.0802 9.50089 13.1193 8.23601 12.4819C7.2751 12.0015 6.20634 11.7269 5.12776 11.6975C3.92172 13.9037 3.91192 16.6099 5.09835 18.8259C6.17692 18.7965 7.24569 18.5415 8.2164 18.0709V18.0611Z" fill="white" />
-              <path d="M21.7578 20.3261C20.5812 19.5417 19.2182 19.1103 17.8161 19.071C17.1493 20.3065 16.8356 21.7086 16.9336 23.1206C17.0023 24.1894 17.3062 25.2581 17.8161 26.1994C20.3262 26.1308 22.6697 24.7777 23.9836 22.6401C23.4149 21.7184 22.6501 20.9242 21.7578 20.3359V20.3261Z" fill="white" />
-              <path d="M7.28516 7.97168C7.92249 9.00122 8.80496 9.87389 9.84431 10.4916C10.9327 11.1388 12.178 11.5016 13.4526 11.531C14.0606 10.4132 14.3645 9.15811 14.3547 7.88343C14.3449 6.66759 14.0311 5.47135 13.4526 4.40259C10.9425 4.47122 8.59905 5.82434 7.28516 7.96188V7.97168Z" fill="white" />
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" className="size-[15px] shrink-0">
+              <path fillRule="evenodd" clipRule="evenodd" d="M7.5 0.625488C3.70304 0.625488 0.625 3.70353 0.625 7.50049C0.625 11.2974 3.70304 14.3755 7.5 14.3755C11.2969 14.3755 14.375 11.2974 14.375 7.50049C14.375 3.70353 11.2969 0.625488 7.5 0.625488ZM10.7544 6.06743C10.9985 5.82335 10.9985 5.42763 10.7544 5.18354C10.5104 4.93947 10.1146 4.93947 9.87056 5.18354L6.5625 8.49161L5.12944 7.05855C4.88536 6.81449 4.48964 6.81449 4.24556 7.05855C4.00148 7.30261 4.00148 7.69836 4.24556 7.94243L6.12056 9.81743C6.36463 10.0615 6.76038 10.0615 7.00444 9.81743L10.7544 6.06743Z" fill="#171717" />
             </svg>
             <span className="text-sm font-semibold text-[#171717]">Bonus</span>
           </div>
@@ -281,6 +280,33 @@ function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
 }
 
 export function ExpertReviews() {
+  const flickityRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!flickityRef.current) return;
+
+    let flkty: Flickity;
+
+    import("flickity").then((Flickity) => {
+      const FlickityClass = Flickity.default || Flickity;
+      if (!flickityRef.current) return;
+      flkty = new FlickityClass(flickityRef.current, {
+        cellAlign: "left",
+        contain: true,
+        freeScroll: true,
+        prevNextButtons: false,
+        pageDots: false,
+        draggable: true,
+        friction: 0.28,
+        selectedAttraction: 0.025,
+      });
+    });
+
+    return () => {
+      if (flkty) flkty.destroy();
+    };
+  }, []);
+
   return (
     <section data-section="expert-reviews" className="overflow-hidden py-8">
       <div className="site-container">
@@ -307,10 +333,10 @@ export function ExpertReviews() {
           </Link>
         </div>
 
-        {/* Review cards - overflows right */}
-        <div data-name="expert-grid" className="flex gap-4 items-stretch">
+        {/* Flickity carousel */}
+        <div ref={flickityRef} data-name="expert-grid">
           {reviews.map((review, i) => (
-            <div key={i} className="min-w-[340px] max-w-[340px] shrink-0 flex">
+            <div key={i} className="min-w-[340px] max-w-[340px] mr-4 flex h-full">
               <ReviewCard review={review} />
             </div>
           ))}
