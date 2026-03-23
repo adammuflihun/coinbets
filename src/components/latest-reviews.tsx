@@ -9,47 +9,42 @@ const reviews = [
   {
     logo: "/casino-index/base-6.svg",
     name: "Bitsler",
-    url: "bitsler.com",
-    review: "A delightful surprise that left me amazed...",
+    review:
+      "I have played on Fortunejack for about a year during 2023-2024\n\nTheir giveaways on site and discord are really good, maybe the best in industry.",
     userName: "LegiaTmz",
     timeAgo: "1 day ago",
     rating: 4.7,
+    safetyIndex: "Normal",
   },
   {
     logo: "/casino-index/base-7.svg",
     name: "Thrill",
-    url: "thrill.com",
-    review: "A delightful surprise that left me amazed...",
+    review:
+      "A delightful surprise that left me amazed. The platform runs smoothly and payouts are fast.",
     userName: "LegiaTmz",
     timeAgo: "1 day ago",
     rating: 4.7,
+    safetyIndex: "Normal",
   },
   {
     logo: "/casino-index/base-2.svg",
     name: "BC Game",
-    url: "bcgame.com",
-    review: "I've been meaning to check out BC Game…",
+    review:
+      "I've been meaning to check out BC Game for a while now. The variety of games is impressive.",
     userName: "LegiaTmz",
     timeAgo: "1 day ago",
     rating: 1.7,
+    safetyIndex: "Normal",
   },
   {
     logo: "/casino-index/base-8.svg",
     name: "Roobet",
-    url: "roobet.com",
-    review: "I originally did a VIP transfer and…",
+    review:
+      "I originally did a VIP transfer and the experience has been great so far. Support is responsive.",
     userName: "LegiaTmz",
     timeAgo: "1 day ago",
     rating: 4.7,
-  },
-  {
-    logo: "/casino-index/base-5.svg",
-    name: "Menace",
-    url: "menace.com",
-    review: "After my past review betbolt did made…",
-    userName: "LegiaTmz",
-    timeAgo: "1 day ago",
-    rating: 1.2,
+    safetyIndex: "Normal",
   },
 ];
 
@@ -104,60 +99,85 @@ function ReviewCard({
   userName,
   timeAgo,
   rating,
+  safetyIndex,
 }: (typeof reviews)[number]) {
   return (
     <div
       data-name="review-card"
       className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full"
     >
-      {/* Casino logo */}
-      <div data-name="review-casino" className="flex flex-col gap-1.5">
-        <Image
-          src={logo}
-          alt={name}
-          width={92}
-          height={76}
-          className="w-[92px] h-[76px] object-cover rounded-lg"
-        />
-        <p className="text-base font-semibold text-[#060D17]">{name}</p>
-      </div>
-
       {/* Review text */}
       <div
         data-name="review-text"
-        className="bg-[#f8f8f8] rounded-md p-5.5 flex flex-col gap-2.5"
+        className="bg-[#000000] rounded-md p-7 flex flex-1 flex-col gap-2.5"
       >
         <svg
-          width="10"
-          height="8"
-          viewBox="0 0 10 8"
+          width="25"
+          height="20"
+          viewBox="0 0 25 20"
           fill="none"
           className="shrink-0"
         >
           <path
-            d="M3.41 0.5L4.26 1.36C3.12 2.06 2.34 3.08 1.96 4.42H3.64V8H0V5.24C0 2.68 1.26 1.12 3.41 0.5ZM8.77 0.5L9.62 1.36C8.48 2.06 7.7 3.08 7.32 4.42H9V8H5.36V5.24C5.36 2.68 6.62 1.12 8.77 0.5Z"
-            fill="#9CA3AF"
+            opacity="0.2"
+            d="M10.6553 2.78711C8.03247 4.42643 5.40981 7.70546 5 10.4922C5.16393 10.4102 5.81974 10.3281 6.31152 10.3281C8.77044 10.3281 10.6553 12.2952 10.6553 15C10.6552 17.7046 8.52474 19.9997 5.65625 20C2.62368 20 0.000190601 17.4591 0 13.1152C0 7.78755 2.95068 2.95072 7.13086 0L10.6553 2.78711ZM24.7539 2.78711C22.131 4.42639 19.5895 7.7054 19.1797 10.4922C19.3436 10.4102 19.9174 10.3281 20.4092 10.3281C22.8681 10.3281 24.835 12.2952 24.835 15C24.8349 17.7047 22.6225 19.9998 19.8359 20C16.8034 20 14.1799 17.4591 14.1797 13.1152C14.1797 7.78759 17.1303 2.95072 21.2285 0L24.7539 2.78711Z"
+            fill="white"
           />
         </svg>
-        <p className="text-sm font-medium text-[#060D17] leading-[18px]">
-          {review}
-        </p>
+        <div className="tracking-[.5px]  font-serif text-[22px] leading-[1.3] bg-linear-to-b from-white to-[#cbcbcb] bg-clip-text text-transparent">
+          {review.split("\n\n").map((paragraph, i) => (
+            <p key={i} className={i > 0 ? "mt-3.5" : ""}>
+              {paragraph}
+            </p>
+          ))}
+        </div>
       </div>
 
       {/* User info & rating */}
-      <div data-name="review-user-info" className="flex flex-col gap-1.5">
+      <div data-name="review-user-info" className="flex flex-col gap-[7px]">
         <div
           data-name="review-user-row"
           className="flex items-center gap-2 text-sm"
         >
           <div data-name="review-username" className="flex items-center gap-1">
             <div className="size-[17px] rounded-full bg-red-400 shrink-0" />
-            <span className="text-neutral-600 text-sm">{userName}</span>
+            <span className="text-[#404040] text-sm">{userName}</span>
           </div>
           <span className="size-[3px] rounded-full bg-neutral-400 shrink-0" />
           <span className="text-xs text-[#1c1c1c]/50">{timeAgo}</span>
         </div>
         <StarRating rating={rating} />
+      </div>
+
+      {/* Divider */}
+      <div className="py-[15px]">
+        <div className="h-px w-full bg-[#d9d9d9]" />
+      </div>
+
+      {/* Product info */}
+      <div data-name="review-product" className="flex items-start gap-3.5">
+        <div className="bg-[#060d17] rounded-sm px-1.5 py-2 shrink-0 flex items-center justify-center">
+          <Image
+            src={logo}
+            alt={name}
+            width={43}
+            height={27}
+            className="object-contain"
+          />
+        </div>
+        <div className="flex flex-col gap-[3px]">
+          <p className="text-base font-semibold text-[#060D17] leading-[1.4]">
+            {name}
+          </p>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold uppercase text-[#404040]">
+              Safety Index
+            </span>
+            <span className="rounded-full bg-[#eaee45] px-2 py-0.5 text-xs font-semibold text-[#060d17]">
+              {safetyIndex}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -241,7 +261,7 @@ export function LatestReviews() {
       {!isMobile && (
         <div
           data-name="reviews-grid"
-          className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"
         >
           {reviews.map((review, i) => (
             <ReviewCard key={i} {...review} />
