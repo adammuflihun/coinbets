@@ -184,9 +184,9 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
   const isPositive = casino.trafficChange >= 0;
 
   return (
-    <div className="grid grid-cols-[3fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 bg-[#121212] rounded-md px-5 py-3.5">
+    <div className="grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 bg-[#121212] rounded-md px-5 py-3.5">
       {/* Rank */}
-      <span className="text-sm font-semibold text-[#a7a7a7]">
+      <span className="text-sm font-semibold text-[#a7a7a7] text-center">
         #{casino.rank}
       </span>
 
@@ -285,8 +285,8 @@ export function CasinoIndex() {
         </div>
 
         {/* Table header */}
-        <div className="grid grid-cols-[3fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 px-20 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase">
-          <div className="flex items-center gap-2">
+        <div className="grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 px-20 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase">
+          <div className="flex items-center justify-center gap-2">
             Rank
             <SortIcon />
           </div>
