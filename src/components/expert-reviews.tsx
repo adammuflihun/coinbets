@@ -104,11 +104,6 @@ const SAFETY_COLORS: Record<string, string> = {
   Normal: "#eaee45",
 };
 
-const STAR_BG =
-  "M15.9988 0H4C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0Z";
-const STAR_SHAPE =
-  "M10.38 4.035a.75.75 0 0 0-.753 0c-.206.098-.32.269-.377.362a4.7 4.7 0 0 0-.18.34L7.814 7.285l-2.813.411a4.7 4.7 0 0 0-.378.065c-.107.026-.304.081-.46.247a.75.75 0 0 0-.233.716c.03.226.157.387.228.47.074.087.172.182.268.276l2.034 1.981-.48 2.8a4.7 4.7 0 0 0-.055.38c-.009.11-.017.314.092.515a.75.75 0 0 0 .61.443c.224.041.416-.03.517-.072a4.7 4.7 0 0 0 .345-.17l2.514-1.322 2.515 1.322c.118.063.24.127.344.17.102.042.294.113.518.072a.75.75 0 0 0 .61-.443c.108-.2.1-.405.091-.515a4.7 4.7 0 0 0-.055-.38l-.48-2.799 2.035-1.982a4.7 4.7 0 0 0 .268-.275c.071-.083.198-.244.228-.47a.75.75 0 0 0-.232-.717c-.157-.165-.354-.221-.461-.247a4.7 4.7 0 0 0-.378-.065l-2.813-.411-1.257-2.548a4.7 4.7 0 0 0-.18-.34.75.75 0 0 0-.377-.362Z";
-
 const RATING_COLORS: Record<number, string> = {
   5: "#23BA21",
   4: "#9FF11A",
@@ -116,6 +111,12 @@ const RATING_COLORS: Record<number, string> = {
   2: "#FFB257",
   1: "#FF6847",
 };
+
+const STAR_BG =
+  "M15.9988 0H4C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0Z";
+const STAR_SHAPE =
+  "M10.38 4.035a.75.75 0 0 0-.753 0c-.206.098-.32.269-.377.362a4.7 4.7 0 0 0-.18.34L7.814 7.285l-2.813.411a4.7 4.7 0 0 0-.378.065c-.107.026-.304.081-.46.247a.75.75 0 0 0-.233.716c.03.226.157.387.228.47.074.087.172.182.268.276l2.034 1.981-.48 2.8a4.7 4.7 0 0 0-.055.38c-.009.11-.017.314.092.515a.75.75 0 0 0 .61.443c.224.041.416-.03.517-.072a4.7 4.7 0 0 0 .345-.17l2.514-1.322 2.515 1.322c.118.063.24.127.344.17.102.042.294.113.518.072a.75.75 0 0 0 .61-.443c.108-.2.1-.405.091-.515a4.7 4.7 0 0 0-.055-.38l-.48-2.799 2.035-1.982a4.7 4.7 0 0 0 .268-.275c.071-.083.198-.244.228-.47a.75.75 0 0 0-.232-.717c-.157-.165-.354-.221-.461-.247a4.7 4.7 0 0 0-.378-.065l-2.813-.411-1.257-2.548a4.7 4.7 0 0 0-.18-.34.75.75 0 0 0-.377-.362Z";
+
 
 function PlayerRatingIcon({ size = 30 }: { size?: number }) {
   return (
@@ -217,20 +218,13 @@ function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
               data-name="player-score-row"
               className="flex items-center gap-1.5"
             >
-              {(() => {
-                const starColor = RATING_COLORS[Math.min(5, Math.max(1, Math.round(review.playerRating)))] ?? RATING_COLORS[3];
-                return (
-                  <>
-                    <span className="text-[23px] font-medium leading-none" style={{ color: starColor }}>
-                      {review.playerRating.toFixed(1)}
-                    </span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="size-5 shrink-0">
-                      <path d={STAR_BG} fill={starColor} />
-                      <path d={STAR_SHAPE} fill="white" />
-                    </svg>
-                  </>
-                );
-              })()}
+              <span className="text-[23px] font-medium leading-none text-[#060d17]">
+                {review.playerRating.toFixed(1)}
+              </span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="size-5 shrink-0">
+                <path d={STAR_BG} fill={RATING_COLORS[Math.min(5, Math.max(1, Math.round(review.playerRating)))] ?? RATING_COLORS[3]} />
+                <path d={STAR_SHAPE} fill="white" />
+              </svg>
             </div>
             <p className="text-sm font-medium text-[#060d17]">Player Rating</p>
             <p className="text-sm font-medium text-[#2563eb]">
