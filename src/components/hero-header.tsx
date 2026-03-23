@@ -18,13 +18,11 @@ const cryptoIcons = [
 export function HeroHeader() {
   return (
     <section className="relative overflow-hidden bg-[#020202]">
-      {/* Animated aurora gradient background */}
-      <div className="absolute inset-0">
-        <div className="absolute bottom-0 left-0 h-[60%] w-[40%] animate-aurora-1 rounded-full bg-[#0d6e5b]/50 blur-[100px]" />
-        <div className="absolute bottom-0 left-[30%] h-[50%] w-[35%] animate-aurora-2 rounded-full bg-[#0a8a4a]/40 blur-[120px]" />
-        <div className="absolute bottom-0 right-[10%] h-[55%] w-[30%] animate-aurora-3 rounded-full bg-[#15803d]/50 blur-[100px]" />
-        <div className="absolute bottom-0 right-0 h-[45%] w-[25%] animate-aurora-1 rounded-full bg-[#0d9488]/40 blur-[110px]" />
-      </div>
+      {/* Background gradient SVG */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/hero/background.svg')" }}
+      />
 
       <div className="relative mx-auto max-w-[1600px] px-10 lg:px-36 py-16 lg:py-20">
         <div className="flex items-center justify-between gap-10">
