@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import type Flickity from "flickity";
 
 const SHIELD_BG =
   "M15.9988 0H4C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0Z";
@@ -116,6 +117,48 @@ function ExpertRatingBadge({ rating }: { rating: number }) {
   );
 }
 
+function MobileCarousel({ casinos }: { casinos: Casino[] }) {
+  const flickityRef = useRef<HTMLDivElement>(null);
+  const flktyInstance = useRef<Flickity | null>(null);
+
+  useEffect(() => {
+    if (!flickityRef.current) return;
+
+    let destroyed = false;
+
+    import("flickity").then((mod) => {
+      if (destroyed || !flickityRef.current) return;
+      const Flkty = mod.default;
+      flktyInstance.current = new Flkty(flickityRef.current, {
+        cellAlign: "left",
+        contain: true,
+        prevNextButtons: false,
+        pageDots: false,
+        freeScroll: true,
+        wrapAround: true,
+      });
+    });
+
+    return () => {
+      destroyed = true;
+      if (flktyInstance.current) {
+        flktyInstance.current.destroy();
+        flktyInstance.current = null;
+      }
+    };
+  }, [casinos]);
+
+  return (
+    <div ref={flickityRef} data-name="categories-carousel">
+      {casinos.map((casino, i) => (
+        <div key={i} className="w-[75vw] mr-3">
+          <CasinoCategoryCard casino={casino} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function CasinoCategoryCard({ casino }: { casino: Casino }) {
   return (
     <div
@@ -181,7 +224,15 @@ function CasinoCategoryCard({ casino }: { casino: Casino }) {
 
 export function CasinoCategories() {
   const [activeTab, setActiveTab] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const activeCasinos = casinosByTab[tabs[activeTab]] ?? [];
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <section data-section="casino-categories" className="site-container py-12">
@@ -194,7 +245,7 @@ export function CasinoCategories() {
           data-name="heading-tabs"
           className="flex flex-col items-center gap-6 w-full max-w-[415px]"
         >
-          <h2 className="font-heading text-[35px] font-black text-[#060D17] text-center tracking-[-0.35px] leading-[1.2]">
+          <h2 className="font-heading text-2xl sm:text-[30px] lg:text-[35px] font-black text-[#060D17] text-center tracking-[-0.35px] leading-[1.2]">
             Casino Categories
           </h2>
 
@@ -206,7 +257,7 @@ export function CasinoCategories() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(i)}
-                className={`flex-1 px-2.5 py-1.5 text-base font-semibold rounded-[10px] transition-all whitespace-nowrap ${
+                className={`flex-1 px-2 sm:px-2.5 py-1.5 text-sm sm:text-base font-semibold rounded-[10px] transition-all whitespace-nowrap ${
                   activeTab === i
                     ? "bg-white shadow-sm text-[#060D17]"
                     : "text-[#060D17]/70"
@@ -218,15 +269,19 @@ export function CasinoCategories() {
           </div>
         </div>
 
-        {/* Cards grid */}
-        <div
-          data-name="cards-grid"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full"
-        >
-          {activeCasinos.map((casino, i) => (
-            <CasinoCategoryCard key={i} casino={casino} />
-          ))}
-        </div>
+        {/* Cards */}
+        {isMobile ? (
+          <MobileCarousel casinos={activeCasinos} />
+        ) : (
+          <div
+            data-name="cards-grid"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full"
+          >
+            {activeCasinos.map((casino, i) => (
+              <CasinoCategoryCard key={i} casino={casino} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

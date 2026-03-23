@@ -88,10 +88,10 @@ function AnimatedCounts() {
 
 function SafetyIndexCard() {
   return (
-    <div data-name="safety-card-wrapper" className="relative w-[303px] mx-auto">
+    <div data-name="safety-card-wrapper" className="relative w-full max-w-[303px] mx-auto">
       {/* Stacked card decoration */}
-      <div className="absolute -top-[15px] left-[24px] w-[256px] h-[278px] bg-[#4b4b4b] rounded-sm" />
-      <div className="absolute -top-[7px] left-[12px] w-[275px] h-[278px] bg-[#323232] rounded-sm" />
+      <div className="absolute -top-[15px] inset-x-3 h-[278px] bg-[#4b4b4b] rounded-sm" />
+      <div className="absolute -top-[7px] inset-x-1.5 h-[278px] bg-[#323232] rounded-sm" />
 
       {/* Main card */}
       <div
@@ -192,14 +192,14 @@ export function CryptoCasinoBanner() {
       >
         <div
           data-name="banner-layout"
-          className="grid grid-cols-1 lg:grid-cols-[1fr_auto_auto_auto] items-center gap-15 px-8 lg:px-12 py-12"
+          className="grid grid-cols-1 lg:grid-cols-[1fr_auto_auto_auto] items-center gap-8 lg:gap-15 px-5 sm:px-8 lg:px-12 py-8 lg:py-12"
         >
           {/* Left: Title + Description */}
           <div
             data-name="banner-text"
             className="flex flex-col gap-6 max-w-[434px]"
           >
-            <h2 className="text-[35px] font-black text-white tracking-tight leading-[1.2]">
+            <h2 className="text-2xl sm:text-[30px] lg:text-[35px] font-black text-white tracking-tight leading-[1.2]">
               Crypto Casinos
             </h2>
             <p className="text-base leading-relaxed text-[#f8f8f8]/70">
@@ -216,7 +216,7 @@ export function CryptoCasinoBanner() {
           {/* Center: Safety Index Card */}
           <div
             data-name="banner-card-center"
-            className="flex items-center justify-center py-4"
+            className="flex items-center justify-center pt-8 pb-4"
           >
             <SafetyIndexCard />
           </div>
@@ -231,7 +231,7 @@ export function CryptoCasinoBanner() {
           >
             <div data-name="feature-header" className="flex flex-col gap-2.5">
               <TrustShieldIcon />
-              <h3 className="text-[26px] font-semibold text-white tracking-tight leading-[1.2]">
+              <h3 className="text-xl sm:text-[26px] font-semibold text-white tracking-tight leading-[1.2]">
                 Built on Trust, Not Payouts
               </h3>
               <p className="text-base text-[#f8f8f8] leading-relaxed">

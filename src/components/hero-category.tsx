@@ -73,7 +73,7 @@ export function HeroCategory() {
   return (
     <section
       data-section="hero-category"
-      className="relative z-10 -mt-8 sm:-mt-10 lg:-mt-20 site-container pb-8"
+      className="relative z-10 -mt-14 sm:-mt-16 lg:-mt-20 site-container pb-8"
     >
       <h2 className="text-base font-bold text-white mb-3">Categories</h2>
 

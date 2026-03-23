@@ -183,7 +183,7 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
   const isPositive = casino.trafficChange >= 0;
 
   return (
-    <div data-name="casino-row" className="grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 bg-[#121212] rounded-md px-5 py-3.5">
+    <div data-name="casino-row" className="grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 bg-[#121212] rounded-md px-5 py-3.5 whitespace-nowrap">
       {/* Rank */}
       <span className="text-sm font-semibold text-[#a7a7a7] text-center">
         #{casino.rank}
@@ -266,59 +266,64 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
 
 export function CasinoIndex() {
   return (
-    <section data-section="casino-index" className="site-container py-8">
-      <div data-name="index-card" className="relative overflow-hidden rounded-lg bg-[#020202] border border-neutral-200 shadow-sm">
+    <section data-section="casino-index" className="bg-[#020202] py-8">
+      <div data-name="index-card" className="relative overflow-hidden site-container">
         {/* Header */}
-        <div data-name="index-header" className="flex flex-col items-center gap-4 pt-16 pb-10 px-5">
-          <div data-name="index-title" className="flex items-center gap-2.5">
-            <h2 className="text-[45px] font-black text-white tracking-tight">
+        <div data-name="index-header" className="flex flex-col items-center gap-4 pt-10 sm:pt-16 pb-6 sm:pb-10 px-5">
+          <div data-name="index-title" className="flex items-center gap-2.5 flex-wrap justify-center">
+            <h2 className="text-2xl sm:text-[35px] lg:text-[45px] font-black text-white tracking-tight text-center">
               CoinBets Casino Index
             </h2>
             <span className="rounded-lg bg-[#e6b830] px-2 py-0.5 text-xs font-semibold text-[#101010]">
               Beta
             </span>
           </div>
-          <p className="text-base text-white/70 text-center max-w-[545px] pb-15">
+          <p className="text-sm sm:text-base text-white/70 text-center max-w-[545px] pb-8 sm:pb-15">
             Ranked by real player reviews and verified signals. No casino
             influence. No affiliate revenue. Just data.
           </p>
         </div>
 
-        {/* Table header */}
-        <div data-name="table-header" className="grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 px-20 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase">
-          <div className="flex items-center justify-center gap-2">
-            Rank
-            <SortIcon />
-          </div>
-          <div>Casino Name</div>
-          <div className="flex items-center gap-2">
-            User Score
-            <SortIcon />
-          </div>
-          <div className="flex items-center gap-2">
-            In Last 6M
-            <SortIcon />
-          </div>
-          <div className="flex items-center gap-2">
-            Expert Score
-            <SortIcon />
-          </div>
-          <div className="flex items-center gap-2">
-            30D Traffic
-            <SortIcon />
-          </div>
-          <div className="flex items-center gap-2">
-            Safety
-            <SortIcon />
-          </div>
-          <div>View</div>
-        </div>
+        {/* Scrollable table wrapper */}
+        <div className="overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+          <div className="min-w-[900px]">
+            {/* Table header */}
+            <div data-name="table-header" className="grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4 px-5 sm:px-10 lg:px-20 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase">
+              <div className="flex items-center justify-center gap-2">
+                Rank
+                <SortIcon />
+              </div>
+              <div>Casino Name</div>
+              <div className="flex items-center gap-2">
+                User Score
+                <SortIcon />
+              </div>
+              <div className="flex items-center gap-2">
+                In Last 6M
+                <SortIcon />
+              </div>
+              <div className="flex items-center gap-2">
+                Expert Score
+                <SortIcon />
+              </div>
+              <div className="flex items-center gap-2">
+                30D Traffic
+                <SortIcon />
+              </div>
+              <div className="flex items-center gap-2">
+                Safety
+                <SortIcon />
+              </div>
+              <div>View</div>
+            </div>
 
-        {/* Casino rows */}
-        <div data-name="casino-rows" className="flex flex-col gap-1.5 px-15 pb-8">
-          {casinos.map((casino) => (
-            <CasinoRow key={casino.rank} casino={casino} />
-          ))}
+            {/* Casino rows */}
+            <div data-name="casino-rows" className="flex flex-col gap-1.5 px-4 sm:px-8 lg:px-15 pb-8">
+              {casinos.map((casino) => (
+                <CasinoRow key={casino.rank} casino={casino} />
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Gradient fade + View Full Index */}

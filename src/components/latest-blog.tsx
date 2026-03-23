@@ -1,6 +1,10 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, Eye } from "lucide-react";
+import type Flickity from "flickity";
 
 const blogPosts = [
   {
@@ -103,25 +107,76 @@ function BlogCard({
   );
 }
 
+function MobileCarousel() {
+  const flickityRef = useRef<HTMLDivElement>(null);
+  const flktyInstance = useRef<Flickity | null>(null);
+
+  useEffect(() => {
+    if (!flickityRef.current) return;
+
+    let destroyed = false;
+
+    import("flickity").then((mod) => {
+      if (destroyed || !flickityRef.current) return;
+      const Flkty = mod.default;
+      flktyInstance.current = new Flkty(flickityRef.current, {
+        cellAlign: "left",
+        contain: true,
+        prevNextButtons: false,
+        pageDots: false,
+        freeScroll: true,
+        wrapAround: true,
+      });
+    });
+
+    return () => {
+      destroyed = true;
+      if (flktyInstance.current) {
+        flktyInstance.current.destroy();
+        flktyInstance.current = null;
+      }
+    };
+  }, []);
+
+  return (
+    <div ref={flickityRef} data-name="blog-carousel">
+      {blogPosts.map((post, i) => (
+        <div key={i} className="w-[75vw] mr-3">
+          <BlogCard {...post} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function LatestBlog() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <section data-section="latest-blog" className="site-container py-8">
       {/* Dark banner */}
       <div
-        className="flex rounded-lg border border-neutral-200 bg-[#020202] p-12 pb-52 shadow-sm"
+        className="flex flex-col lg:flex-row rounded-lg border border-neutral-200 bg-[#020202] p-5 sm:p-8 lg:p-12 pb-40 sm:pb-44 lg:pb-52 shadow-sm"
         data-name="blog-banner"
       >
         {/* Left content */}
         <div
-          className="flex flex-col gap-6 flex-1"
+          className="flex flex-col gap-4 sm:gap-6 flex-1"
           data-name="blog-banner-text"
         >
           <p className="text-base font-bold text-[#f8f8f8]">
             Top Expert and User Rated
           </p>
-          <h2 className="text-[35px] font-black leading-[1.2] tracking-tight text-white">
-            Expert Reviews &<br />
-            Comprehensive Guides
+          <h2 className="text-2xl sm:text-[30px] lg:text-[35px] font-black leading-[1.2] tracking-tight text-white">
+            Expert Reviews &<br className="hidden sm:block" />
+            {" "}Comprehensive Guides
           </h2>
           <Link
             href="/blog"
@@ -133,11 +188,11 @@ export function LatestBlog() {
         </div>
 
         {/* Divider */}
-        <div className="mx-15 w-px self-stretch bg-white/20" />
+        <div className="hidden lg:block mx-15 w-px self-stretch bg-white/20" />
 
         {/* Right features */}
         <div
-          className="flex flex-col gap-6 flex-1 max-w-[364px]"
+          className="hidden lg:flex flex-col gap-6 flex-1 max-w-[364px]"
           data-name="blog-features"
         >
           {features.map((feature) => (
@@ -174,14 +229,20 @@ export function LatestBlog() {
       </div>
 
       {/* Blog cards */}
-      <div
-        className="-mt-24 relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-8"
-        data-name="blog-grid"
-      >
-        {blogPosts.map((post, i) => (
-          <BlogCard key={i} {...post} />
-        ))}
-      </div>
+      {isMobile ? (
+        <div className="-mt-20 relative z-10">
+          <MobileCarousel />
+        </div>
+      ) : (
+        <div
+          className="-mt-24 relative z-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 px-0 sm:px-4 lg:px-8"
+          data-name="blog-grid"
+        >
+          {blogPosts.map((post, i) => (
+            <BlogCard key={i} {...post} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

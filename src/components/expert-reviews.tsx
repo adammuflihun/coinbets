@@ -431,20 +431,20 @@ export function ExpertReviews() {
         {/* Header */}
         <div
           data-name="expert-header"
-          className="flex items-end justify-between mb-6"
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6"
         >
           <div data-name="expert-header-text" className="flex flex-col gap-3">
             <p className="text-base font-bold text-[#060d17]">
               Recent Guides and Expert Reviews
             </p>
-            <h2 className="text-[35px] font-black text-[#060d17] leading-[1.2] tracking-tight">
-              Expert Reviews &<br />
-              Comprehensive Guides
+            <h2 className="text-2xl sm:text-[30px] lg:text-[35px] font-black text-[#060d17] leading-[1.2] tracking-tight">
+              Expert Reviews &<br className="hidden sm:block" />
+              {" "}Comprehensive Guides
             </h2>
           </div>
           <Link
             href="/expert-reviews"
-            className="group flex items-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors shrink-0"
+            className="group flex items-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors shrink-0 w-fit"
           >
             Read all Expert reviews
             <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -460,7 +460,7 @@ export function ExpertReviews() {
         style={{ scrollbarWidth: "none" }}
       >
         {loopedReviews.map((review, i) => (
-          <div key={i} className="w-[400px] shrink-0">
+          <div key={i} className="w-[85vw] sm:w-[340px] lg:w-[400px] shrink-0">
             <ReviewCard review={review} />
           </div>
         ))}

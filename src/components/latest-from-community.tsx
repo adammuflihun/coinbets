@@ -200,7 +200,7 @@ export function LatestFromCommunity() {
   return (
     <section
       data-section="latest-from-community"
-      className="mx-auto max-w-[1100px] px-4 py-8 mb-40"
+      className="mx-auto max-w-[1100px] px-5 sm:px-10 py-8 mb-16 sm:mb-24 lg:mb-40"
     >
       <div
         data-name="community-layout"
@@ -220,10 +220,10 @@ export function LatestFromCommunity() {
               <p className="text-base font-bold text-[#060D17]">
                 Most helpful from The Community
               </p>
-              <h2 className="text-[35px] font-black text-[#060D17] leading-[1.2] tracking-tight">
+              <h2 className="text-2xl sm:text-[30px] lg:text-[35px] font-black text-[#060D17] leading-[1.2] tracking-tight">
                 Helpful User Reviews
-                <br />
-                from our community
+                <br className="hidden sm:block" />
+                {" "}from our community
               </h2>
             </div>
           </div>

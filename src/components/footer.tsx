@@ -275,13 +275,13 @@ export function Footer() {
             <p className="font-heading font-bold text-xs uppercase tracking-wide">
               Subscribe to our newsletter
             </p>
-            <div className="flex gap-2.5" data-name="newsletter-input-row">
+            <div className="flex flex-col sm:flex-row gap-2.5" data-name="newsletter-input-row">
               <input
                 type="email"
                 placeholder="Enter your e-mail address"
-                className="h-[46px] w-[284px] max-w-full rounded-lg border border-neutral-300 bg-white px-3 text-sm text-neutral-500 shadow-sm outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500"
+                className="h-[46px] w-full sm:w-[284px] max-w-full rounded-lg border border-neutral-300 bg-white px-3 text-sm text-neutral-500 shadow-sm outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500"
               />
-              <button className="flex h-[46px] items-center justify-between gap-2 rounded-lg bg-[#eab914] px-6 font-heading font-semibold text-sm text-[#171717] hover:bg-[#d4a812] transition-colors">
+              <button className="flex h-[46px] items-center justify-center sm:justify-between gap-2 rounded-lg bg-[#eab914] px-6 font-heading font-semibold text-sm text-[#171717] hover:bg-[#d4a812] transition-colors shrink-0">
                 Subscribe
                 <ArrowRight className="size-4" />
               </button>

@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const reviews = [
   {
@@ -105,7 +108,7 @@ function ReviewCard({
   return (
     <div
       data-name="review-card"
-      className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm min-w-[240px]"
+      className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full"
     >
       {/* Casino logo */}
       <div data-name="review-casino" className="flex flex-col gap-1.5">
@@ -160,7 +163,58 @@ function ReviewCard({
   );
 }
 
+function MobileCarousel() {
+  const flickityRef = useRef<HTMLDivElement>(null);
+  const flktyInstance = useRef<Flickity | null>(null);
+
+  useEffect(() => {
+    if (!flickityRef.current) return;
+
+    let flkty: Flickity | null = null;
+
+    import("flickity").then((mod) => {
+      const Flickity = mod.default;
+      if (!flickityRef.current) return;
+      flkty = new Flickity(flickityRef.current, {
+        cellAlign: "left",
+        contain: true,
+        prevNextButtons: false,
+        pageDots: false,
+        freeScroll: true,
+        wrapAround: true,
+      });
+      flktyInstance.current = flkty;
+    });
+
+    return () => {
+      if (flktyInstance.current) {
+        flktyInstance.current.destroy();
+        flktyInstance.current = null;
+      }
+    };
+  }, []);
+
+  return (
+    <div ref={flickityRef} data-name="reviews-carousel">
+      {reviews.map((review, i) => (
+        <div key={i} className="w-[75vw] mr-3">
+          <ReviewCard {...review} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function LatestReviews() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <section data-section="latest-reviews" className="site-container py-8">
       {/* Header */}
@@ -180,15 +234,20 @@ export function LatestReviews() {
         </Link>
       </div>
 
-      {/* Review cards */}
-      <div
-        data-name="reviews-grid"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4"
-      >
-        {reviews.map((review, i) => (
-          <ReviewCard key={i} {...review} />
-        ))}
-      </div>
+      {/* Mobile: Flickity carousel */}
+      {isMobile && <MobileCarousel />}
+
+      {/* Desktop: Grid */}
+      {!isMobile && (
+        <div
+          data-name="reviews-grid"
+          className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4"
+        >
+          {reviews.map((review, i) => (
+            <ReviewCard key={i} {...review} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
