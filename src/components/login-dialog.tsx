@@ -128,7 +128,7 @@ export function LoginDialog() {
             </div>
 
             {/* Log in Button */}
-            <Button className="w-full h-12 rounded-lg text-sm font-semibold mt-1">
+            <Button className="w-full h-12 rounded-lg text-sm font-semibold mt-1 bg-[#003EB6] hover:bg-[#003EB6]/90 text-white">
               Log in
             </Button>
 
