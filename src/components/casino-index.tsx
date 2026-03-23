@@ -179,20 +179,27 @@ function SortIcon() {
   );
 }
 
-const TABLE_GRID = "grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4";
+const TABLE_GRID =
+  "grid grid-cols-[2fr_5fr_7fr_4fr_7fr_5fr_4fr_3fr] items-center gap-4";
 
 function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
   const isPositive = casino.trafficChange >= 0;
 
   return (
-    <div data-name="casino-row" className={`${TABLE_GRID} bg-[#121212] rounded-md pl-5 pr-8 py-3.5 whitespace-nowrap`}>
+    <div
+      data-name="casino-row"
+      className={`${TABLE_GRID} bg-[#121212] rounded-md pl-5 pr-8 py-3.5 whitespace-nowrap`}
+    >
       {/* Rank */}
       <span className="text-sm font-semibold text-[#a7a7a7] text-center">
         #{casino.rank}
       </span>
 
       {/* Casino name + logo */}
-      <div data-name="casino-name-logo" className="sticky left-0 z-10 flex items-center gap-3 self-stretch bg-[#121212] pr-3 shadow-[8px_0_12px_#121212] sm:static sm:self-auto sm:shadow-none sm:pr-0">
+      <div
+        data-name="casino-name-logo"
+        className="sticky left-0 z-10 flex items-center gap-3 self-stretch bg-[#121212] pr-3 shadow-[8px_0_12px_#121212] sm:static sm:self-auto sm:shadow-none sm:pr-0"
+      >
         <div
           data-name="row-logo"
           className="w-[61px] h-[43px] rounded-lg overflow-hidden flex items-center justify-center shrink-0"
@@ -271,11 +278,33 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
 
 export function CasinoIndex() {
   return (
-    <section data-section="casino-index" className="bg-[#020202] py-8">
-      <div data-name="index-card" className="relative overflow-hidden site-container">
+    <section
+      data-section="casino-index"
+      className="relative bg-[#020202] py-8 overflow-hidden"
+    >
+      {/* Static grid lines */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        // style={{
+        //   backgroundImage:
+        //     "linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)",
+        //   backgroundSize: "60px 60px",
+        // }}
+      />
+
+      <div
+        data-name="index-card"
+        className="relative z-10 overflow-hidden site-container"
+      >
         {/* Header */}
-        <div data-name="index-header" className="flex flex-col items-center gap-4 pt-10 sm:pt-16 pb-6 sm:pb-10 px-5">
-          <div data-name="index-title" className="flex items-center gap-2.5 flex-wrap justify-center">
+        <div
+          data-name="index-header"
+          className="flex flex-col items-center gap-4 pt-10 sm:pt-16 pb-6 sm:pb-10 px-5"
+        >
+          <div
+            data-name="index-title"
+            className="flex items-center gap-2.5 flex-wrap justify-center"
+          >
             <h2 className="text-2xl sm:text-[35px] lg:text-[45px] font-black text-white tracking-tight text-center">
               CoinBets Casino Index
             </h2>
@@ -283,7 +312,7 @@ export function CasinoIndex() {
               Beta
             </span>
           </div>
-          <p className="text-sm sm:text-base text-white/70 text-center max-w-[545px] pb-8 sm:pb-15">
+          <p className="text-sm sm:text-base text-white/70 text-center max-w-[545px] pb-5 sm:pb-10">
             Ranked by real player reviews and verified signals. No casino
             influence. No affiliate revenue. Just data.
           </p>
@@ -294,7 +323,10 @@ export function CasinoIndex() {
           <div className="min-w-[1200px]">
             {/* Table header + rows share the same padding context */}
             <div className="px-4 sm:px-8 lg:px-15">
-              <div data-name="table-header" className={`${TABLE_GRID} pl-5 pr-8 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase whitespace-nowrap`}>
+              <div
+                data-name="table-header"
+                className={`${TABLE_GRID} pl-5 pr-8 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase whitespace-nowrap`}
+              >
                 <div className="flex items-center justify-center gap-2">
                   Rank
                   <SortIcon />
@@ -324,17 +356,23 @@ export function CasinoIndex() {
               </div>
 
               {/* Casino rows */}
-              <div data-name="casino-rows" className="flex flex-col gap-1.5 pb-8">
-              {casinos.map((casino) => (
-                <CasinoRow key={casino.rank} casino={casino} />
-              ))}
+              <div
+                data-name="casino-rows"
+                className="flex flex-col gap-1.5 pb-8"
+              >
+                {casinos.map((casino) => (
+                  <CasinoRow key={casino.rank} casino={casino} />
+                ))}
               </div>
             </div>
           </div>
         </div>
 
         {/* Gradient fade + View Full Index */}
-        <div data-name="index-gradient" className="absolute bottom-0 left-0 right-0 z-20 h-[250px] bg-linear-to-b from-transparent to-[#020202] flex items-center justify-center pb-10 pointer-events-none">
+        <div
+          data-name="index-gradient"
+          className="absolute bottom-0 left-0 right-0 z-20 h-[250px] bg-linear-to-b from-transparent to-[#020202] flex items-center justify-center pb-10 pointer-events-none"
+        >
           <Link
             href="/casino-index"
             className="group pointer-events-auto inline-flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-2.5 text-sm font-bold text-[#171717] hover:bg-white transition-colors"

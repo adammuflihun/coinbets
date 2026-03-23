@@ -247,3 +247,19 @@
 @utility animate-vote-red {
   animation: vote-red 3s ease-in-out infinite;
 }
+
+/* Grid shimmer — light running along grid lines */
+@keyframes grid-shimmer {
+  0% {
+    mask-position: 400% 0;
+    -webkit-mask-position: 400% 0;
+  }
+  100% {
+    mask-position: -100% 0;
+    -webkit-mask-position: -100% 0;
+  }
+}
+
+@utility animate-grid-shimmer {
+  animation: grid-shimmer 5s ease-in-out infinite;
+}

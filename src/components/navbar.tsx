@@ -25,7 +25,6 @@ const navCategories = [
 
 const navLinks = [
   { label: "Expert Reviews", href: "/expert-reviews" },
-  { label: "Bonuses", href: "/bonuses" },
   { label: "Guides", href: "/guides" },
   { label: "About", href: "/about" },
 ];
