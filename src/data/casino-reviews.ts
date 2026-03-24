@@ -7,6 +7,8 @@ export interface CasinoReview {
   expertScore: number;
   views: string;
   safetyIndex: "High" | "Normal";
+  safetyScore: number;
+  safetyFactors: string[];
   reviewTitle: string;
   reviewText: string;
   whatWeLiked: string[];
@@ -26,6 +28,13 @@ export const casinoReviews: CasinoReview[] = [
     expertScore: 2.9,
     views: "20K+",
     safetyIndex: "Normal",
+    safetyScore: 6.5,
+    safetyFactors: [
+      "Licensed in Curaçao, stricter KYC now enforced",
+      "Very established brand with doxxed owners",
+      "Solid provably fair games",
+      "Partnered with many reputable high-profile sports teams",
+    ],
     reviewTitle: "Stake Review",
     reviewText:
       "Stake launched in 2017 as one of the first crypto-native casinos, quickly becoming a leader in the space. With thousands of games from 70+ providers, it supports provably fair gaming and offers a seamless crypto experience. Plenty of crypto options — BTC, ETH, SOL, DOGE, and more — but don't expect fiat. While Stake boasts a strong VIP program and fast payouts, its unlicensed status and geo-restrictions raise eyebrows. Can you trust the biggest name in crypto gambling?",
@@ -68,6 +77,13 @@ export const casinoReviews: CasinoReview[] = [
     expertScore: 4.1,
     views: "12K+",
     safetyIndex: "High",
+    safetyScore: 8.5,
+    safetyFactors: [
+      "Fully licensed with transparent operations",
+      "Doxxed team with public track record",
+      "Near-instant withdrawals with no friction",
+      "Strong community trust and player satisfaction",
+    ],
     reviewTitle: "Menace Review",
     reviewText:
       "Menace has quickly risen through the ranks as a crypto casino that puts player experience first. With a sleek, modern interface and a curated selection of high-quality games, Menace appeals to both newcomers and seasoned gamblers. The platform supports a wide range of cryptocurrencies and offers near-instant withdrawals. Their generous welcome bonus and active community set them apart, though the relatively small game library may leave variety-seekers wanting more.",
@@ -106,6 +122,13 @@ export const casinoReviews: CasinoReview[] = [
     expertScore: 4.0,
     views: "18K+",
     safetyIndex: "High",
+    safetyScore: 8.0,
+    safetyFactors: [
+      "Strong licensing and regulatory compliance",
+      "Transparent reward system with real value",
+      "Lightning-fast verified payouts",
+      "Player-first approach with clear terms",
+    ],
     reviewTitle: "Shuffle Review",
     reviewText:
       "Shuffle has made waves in the crypto gambling space with its transparent approach and player-first mentality. Backed by a strong team and solid licensing, Shuffle offers thousands of slots, table games, and live dealer options. The platform's unique reward system lets players earn as they play, and its lightning-fast payouts have earned rave reviews. However, some regions remain restricted, and the sportsbook offering is still catching up to competitors.",
@@ -147,6 +170,13 @@ export const casinoReviews: CasinoReview[] = [
     expertScore: 3.5,
     views: "10K+",
     safetyIndex: "Normal",
+    safetyScore: 6.0,
+    safetyFactors: [
+      "Operating since 2015 with consistent track record",
+      "Provably fair in-house games verified on-chain",
+      "Supports 20+ cryptocurrencies",
+      "Dated UI but reliable platform infrastructure",
+    ],
     reviewTitle: "Bitsler Review",
     reviewText:
       "Bitsler has been a staple in the crypto gambling scene since 2015, offering a mix of in-house provably fair games and third-party slots. The platform supports over 20 cryptocurrencies and features a unique social experience with built-in chat and community events. Bitsler's dice and crash games are fan favorites, and the faucet system lets new players try games risk-free. While the UI feels dated compared to newer platforms, the reliability and game fairness keep players coming back.",
@@ -187,6 +217,13 @@ export const casinoReviews: CasinoReview[] = [
     expertScore: 4.3,
     views: "8K+",
     safetyIndex: "High",
+    safetyScore: 9.0,
+    safetyFactors: [
+      "Strong focus on responsible gambling tools",
+      "Transparent operations with clear terms",
+      "Fast and frictionless withdrawals",
+      "High-quality curated game library from top providers",
+    ],
     reviewTitle: "Thrill Review",
     reviewText:
       "Thrill is a newer entrant to the crypto casino market that has quickly gained a reputation for its polished experience and generous promotions. The platform features a carefully curated game library with titles from top providers, along with exclusive Thrill originals. Fast deposits and withdrawals, combined with a rewarding VIP tier system, make it a strong choice for crypto gamblers. The platform's focus on responsible gambling and transparent operations earns it high marks from our review team.",
@@ -226,6 +263,13 @@ export const casinoReviews: CasinoReview[] = [
     expertScore: 3.8,
     views: "15K+",
     safetyIndex: "High",
+    safetyScore: 8.0,
+    safetyFactors: [
+      "Licensed in Curaçao with proper compliance",
+      "Provably fair games with verifiable outcomes",
+      "Dedicated VIP support team",
+      "Clean track record with no major incidents",
+    ],
     reviewTitle: "Roobet Review",
     reviewText:
       "Roobet has carved out a solid reputation as a crypto-first casino with instant deposits and low minimums. Known for its provably fair games and sleek interface, Roobet appeals to players who value transparency. The VIP program offers dedicated support and exclusive bonuses, though country availability remains limited. With a growing game library and responsive customer support, Roobet continues to attract crypto gambling enthusiasts worldwide.",
@@ -268,6 +312,13 @@ export const casinoReviews: CasinoReview[] = [
     expertScore: 3.6,
     views: "22K+",
     safetyIndex: "Normal",
+    safetyScore: 6.5,
+    safetyFactors: [
+      "Operating since 2016 with established reputation",
+      "Provably fair crash game with transparent mechanics",
+      "Active community moderation and oversight",
+      "Complex bonus terms may confuse new users",
+    ],
     reviewTitle: "Gamdom Review",
     reviewText:
       "Gamdom has been a prominent name in crypto gambling since 2016, known for its provably fair crash game and extensive esports betting options. The platform offers a solid mix of casino games and sports betting, with a particularly strong CS2 skin gambling section. Gamdom's Rain feature and active chat community create an engaging social atmosphere. While the platform has matured significantly over the years, some users report inconsistent customer support and complex bonus terms.",

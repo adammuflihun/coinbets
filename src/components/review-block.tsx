@@ -14,10 +14,17 @@ import {
   ThumbsDown,
   Plus,
   Minus,
+  Info,
+  Pencil,
 } from "lucide-react";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { AnimatePresence, motion } from "motion/react";
 import "flag-icons/css/flag-icons.min.css";
@@ -272,7 +279,6 @@ export function ReviewBlock({ slug }: { slug: string }) {
   const [sortOpen, setSortOpen] = useState(false);
   const [sortBy, setSortBy] = useState("Most Helpful");
   const tabSentinelRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const el = tabSentinelRef.current;
     if (!el) return;
@@ -286,7 +292,9 @@ export function ReviewBlock({ slug }: { slug: string }) {
 
   // Auto-update active tab based on scroll position
   useEffect(() => {
-    const sectionIds = TABS.map((tab) => tab.toLowerCase().replace(/\s+/g, "-"));
+    const sectionIds = TABS.map((tab) =>
+      tab.toLowerCase().replace(/\s+/g, "-"),
+    );
     const handleScroll = () => {
       const offset = 120; // account for sticky tab bar
       for (let i = sectionIds.length - 1; i >= 0; i--) {
@@ -526,7 +534,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     if (el) {
                       const y =
                         el.getBoundingClientRect().top + window.scrollY - 80;
-                      window.scrollTo({ top: y, behavior: "smooth" });
+                      window.scrollTo({ top: y, behavior: "instant" });
                     }
                   }}
                   className={`flex-1 px-2 sm:px-2.5 py-1.5 text-sm sm:text-base font-semibold rounded-[10px] transition-all whitespace-nowrap ${
@@ -815,8 +823,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     data-name="distribution-row"
                     className="flex items-center gap-3"
                   >
-                    <Checkbox
-                    />
+                    <Checkbox />
                     <span
                       data-name="star-label"
                       className="text-sm font-semibold text-[#060D17] w-12"
@@ -830,7 +837,10 @@ export function ReviewBlock({ slug }: { slug: string }) {
                       <div
                         data-name="bar-fill"
                         className="h-full rounded-full"
-                        style={{ width: `${row.percent}%`, backgroundColor: RATING_COLORS[row.stars] }}
+                        style={{
+                          width: `${row.percent}%`,
+                          backgroundColor: RATING_COLORS[row.stars],
+                        }}
                       />
                     </div>
                     <span
@@ -865,8 +875,17 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     <ChevronDown className="size-4 text-neutral-500" />
                   </div>
                 </PopoverTrigger>
-                <PopoverContent data-name="sort-dropdown" align="end" className="w-[180px] p-1">
-                  {["Most Helpful", "Most Recent", "Highest Rated", "Lowest Rated"].map((option) => (
+                <PopoverContent
+                  data-name="sort-dropdown"
+                  align="end"
+                  className="w-[180px] p-1"
+                >
+                  {[
+                    "Most Helpful",
+                    "Most Recent",
+                    "Highest Rated",
+                    "Lowest Rated",
+                  ].map((option) => (
                     <button
                       key={option}
                       onClick={() => {
@@ -1189,10 +1208,144 @@ export function ReviewBlock({ slug }: { slug: string }) {
               data-name="see-all-reviews"
               className="mx-auto flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-6 py-3 text-sm font-semibold text-[#060D17] hover:bg-neutral-50 transition-colors shadow-sm"
             >
-              See all users review
+              See more reviews
               <span className="text-neutral-400">+3</span>
               <ChevronRight className="size-4 text-neutral-400" />
             </button>
+
+            {/* ---- Safety Index Section ---- */}
+            <div
+              id="safety-index"
+              data-name="safety-index-section"
+              className="rounded-lg border border-neutral-200 bg-white p-6 sm:p-8 shadow-sm flex flex-col gap-6"
+            >
+              <div data-name="safety-header" className="flex flex-col gap-3">
+                <h2
+                  data-name="safety-title"
+                  className="text-xl font-bold text-[#060D17]"
+                >
+                  CoinBets Safety Index Explained: {casino.name}
+                </h2>
+                <p
+                  data-name="safety-description"
+                  className="text-base leading-relaxed text-neutral-600"
+                >
+                  Curious how {casino.name} performs on trust and fairness?
+                  Below is a breakdown of the unique factors we considered when
+                  calculating its CoinBets Safety Index. This rating is based on
+                  objective criteria including licensing, player reports, game
+                  fairness, and operational transparency. Our goal is to inform
+                  players with verified data, not to promote or recommend any
+                  casino.
+                </p>
+              </div>
+
+              <div
+                data-name="safety-body"
+                className="flex flex-col sm:flex-row gap-6"
+              >
+                {/* Score card */}
+                <div
+                  data-name="safety-score-card"
+                  className="flex flex-col items-start justify-center rounded-xl p-6 sm:p-8 min-w-[180px]"
+                  style={{
+                    backgroundColor:
+                      RATING_COLORS[
+                        casino.safetyScore >= 7.5
+                          ? 5
+                          : casino.safetyScore >= 5.5
+                            ? 4
+                            : casino.safetyScore >= 3.5
+                              ? 3
+                              : casino.safetyScore >= 1.5
+                                ? 2
+                                : 1
+                      ],
+                  }}
+                >
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-5xl font-bold text-white">
+                      {casino.safetyScore.toFixed(1)}
+                    </span>
+                    <span className="text-lg font-medium text-white/70">
+                      / 10
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="text-sm font-medium text-white/80">
+                      Safety Index:
+                    </span>
+                    <span className="rounded-md bg-white/20 px-2 py-0.5 text-xs font-bold text-white">
+                      {casino.safetyIndex}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Factors list */}
+                <TooltipProvider>
+                  <div
+                    data-name="safety-factors"
+                    className="flex flex-1 flex-col gap-3"
+                  >
+                    {casino.safetyFactors.map((factor, i) => (
+                      <div
+                        key={i}
+                        data-name="safety-factor-row"
+                        className="flex items-center justify-between gap-4 rounded-lg border border-neutral-200 bg-neutral-50 px-5 py-3.5"
+                      >
+                        <span className="text-sm sm:text-base text-neutral-700">
+                          {factor}
+                        </span>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Info className="size-5 shrink-0 text-neutral-300 hover:text-neutral-500 transition-colors cursor-pointer" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            {factor}
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+                    ))}
+                  </div>
+                </TooltipProvider>
+              </div>
+
+              {/* Disclaimer */}
+              <div
+                data-name="safety-disclaimer"
+                className="border-t border-neutral-200 pt-5"
+              >
+                <p className="text-sm leading-relaxed text-neutral-500">
+                  Disclaimer: This Safety Index reflects CoinBets&apos;
+                  independent research and is not an endorsement of the casino.{" "}
+                  <span className="text-[#003EB6] cursor-pointer hover:underline">
+                    Learn how we rate casinos.
+                  </span>
+                </p>
+              </div>
+
+              {/* Complaint CTA */}
+              <div
+                data-name="safety-complaint"
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+              >
+                <span className="text-base font-bold text-[#060D17]">
+                  Has this casino done something unfair to you?
+                </span>
+                <button className="flex items-center gap-2 rounded-lg bg-[#7a1a1a] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#5c1414] transition-colors">
+                  Submit a complaint
+                  <Pencil className="size-4" />
+                </button>
+              </div>
+
+              {/* Complaints count */}
+              <p
+                data-name="complaints-count"
+                className="text-center text-sm font-bold text-[#060D17]"
+              >
+                Complaints about {casino.name} (0)
+              </p>
+            </div>
           </div>
 
           {/* ---- Sidebar ---- */}
