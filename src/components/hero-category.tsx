@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const categories = [
   {
@@ -6,36 +7,42 @@ const categories = [
     title: "Crypto Casinos",
     badge: 27,
     description: "Top-Rated Crypto Casinos Reviewed",
+    href: "#",
   },
   {
     icon: "/categories/icon-sports-betting-orig.svg",
     title: "Sports Betting",
     badge: 78,
     description: "Best Crypto Sportsbooks Ranked",
+    href: "#",
   },
   {
     icon: "/categories/icon-crypto-esport-orig.svg",
     title: "Crypto Esport",
     badge: 78,
     description: "Leading Crypto Esports Platforms",
+    href: "#",
   },
   {
     icon: "/categories/icon-user-reviews-orig.svg",
     title: "User Reviews",
     badge: 78,
     description: "Reviews You Can Trust",
+    href: "#",
   },
   {
     icon: "/categories/icon-expert-reviews-orig.svg",
     title: "Expert Reviews",
     badge: 27,
     description: "Expert Reviews You Can Count On",
+    href: "/expert-reviews",
   },
   {
     icon: "/categories/icon-casino-index.svg",
     title: "Casino Index 52",
     badge: 52,
     description: "Crypto Casinos Ranked by Players",
+    href: "/coinbet-index",
   },
 ];
 
@@ -44,9 +51,10 @@ function CategoryCard({
   title,
   badge,
   description,
+  href,
 }: (typeof categories)[number]) {
   return (
-    <div data-name="category-card" className="flex gap-2 items-start rounded-lg border border-neutral-200 bg-white p-2.5 shadow-sm">
+    <Link href={href} data-name="category-card" className="flex gap-2 items-start rounded-lg border border-neutral-200 bg-white p-2.5 shadow-sm hover:border-neutral-300 transition-colors">
       <Image
         src={icon}
         alt=""
@@ -65,7 +73,7 @@ function CategoryCard({
         </div>
         <p className="text-sm text-neutral-600 leading-[18px]">{description}</p>
       </div>
-    </div>
+    </Link>
   );
 }
 

@@ -89,7 +89,7 @@ const casinos = [
   },
 ];
 
-function UserStarIcon({ color }: { color: string }) {
+function UserStarIcon({ color, inactive }: { color: string; inactive?: boolean }) {
   return (
     <svg
       width="20"
@@ -99,7 +99,7 @@ function UserStarIcon({ color }: { color: string }) {
       className="shrink-0"
     >
       <path d={STAR_BG} fill={color} />
-      <path d={STAR_SHAPE} fill="white" />
+      <path d={STAR_SHAPE} fill="white" opacity={inactive ? 0.5 : 1} />
     </svg>
   );
 }
@@ -121,7 +121,8 @@ function UserStarRating({ rating }: { rating: number }) {
           {Array.from({ length: 5 }, (_, i) => (
             <UserStarIcon
               key={i}
-              color={i < filled ? activeColor : "#DDDDDD"}
+              color={i < filled ? activeColor : "#4F4F4F"}
+              inactive={i >= filled}
             />
           ))}
         </div>
@@ -140,8 +141,8 @@ function ExpertShieldIcon({ filled }: { filled: boolean }) {
       fill="none"
       className="shrink-0"
     >
-      <path d={SHIELD_BG} fill={filled ? "#003EB6" : "#DDDDDD"} />
-      <path d={SHIELD_SHAPE} fill="white" />
+      <path d={SHIELD_BG} fill={filled ? "#003EB6" : "#4F4F4F"} />
+      <path d={SHIELD_SHAPE} fill="white" opacity={filled ? 1 : 0.5} />
     </svg>
   );
 }
@@ -374,7 +375,7 @@ export function CasinoIndex() {
           className="absolute bottom-0 left-0 right-0 z-20 h-[250px] bg-linear-to-b from-transparent to-[#020202] flex items-center justify-center pb-10 pointer-events-none"
         >
           <Link
-            href="/casino-index"
+            href="/coinbet-index"
             className="group pointer-events-auto inline-flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-2.5 text-sm font-bold text-[#171717] hover:bg-white transition-colors"
           >
             View Full Index
