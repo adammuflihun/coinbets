@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, Search } from "lucide-react";
 import { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 const STAR_BG =
   "M15.9988 0H4C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0Z";
@@ -249,12 +250,14 @@ function ExpertRating({ rating }: { rating: number }) {
 
 function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
   return (
-    <svg
+    <motion.svg
       width="10"
       height="14"
       viewBox="0 0 10 14"
       fill="none"
       className="shrink-0"
+      animate={active ? { scale: [1, 1.25, 1] } : { scale: 1 }}
+      transition={{ duration: 0.25 }}
     >
       <path
         d="M5 0L9.33 5H0.67L5 0Z"
@@ -266,7 +269,7 @@ function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
         fill={active && dir === "desc" ? "#e6b830" : "#f8f8f8"}
         opacity={active && dir === "desc" ? 1 : 0.4}
       />
-    </svg>
+    </motion.svg>
   );
 }
 
@@ -277,8 +280,17 @@ function CasinoRow({ casino }: { casino: Casino }) {
   const isPositive = casino.trafficChange >= 0;
 
   return (
-    <div
+    <motion.div
       data-name="casino-row"
+      layout
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.97 }}
+      transition={{
+        layout: { type: "spring", stiffness: 500, damping: 35 },
+        opacity: { duration: 0.2 },
+        y: { duration: 0.25 },
+      }}
       className={`${TABLE_GRID} bg-[#121212] rounded-md pl-5 pr-8 py-3.5 whitespace-nowrap`}
     >
       <span className="text-sm font-semibold text-[#a7a7a7] text-center">
@@ -351,7 +363,7 @@ function CasinoRow({ casino }: { casino: Casino }) {
         View
         <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
       </Link>
-    </div>
+    </motion.div>
   );
 }
 
@@ -472,16 +484,22 @@ export function CoinbetIndexTable() {
               <div className="text-center">View</div>
             </div>
 
-            <div data-name="casino-rows" className="flex flex-col gap-1.5">
-              {filtered.map((casino, i) => (
-                <CasinoRow key={i} casino={casino} />
-              ))}
-              {filtered.length === 0 && (
-                <p className="text-sm text-white/40 text-center py-8">
-                  No casinos found matching &quot;{search}&quot;
-                </p>
-              )}
-            </div>
+            <AnimatePresence mode="popLayout" initial={false}>
+              <div data-name="casino-rows" className="flex flex-col gap-1.5">
+                {filtered.map((casino) => (
+                  <CasinoRow key={casino.name} casino={casino} />
+                ))}
+                {filtered.length === 0 && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-sm text-white/40 text-center py-8"
+                  >
+                    No casinos found matching &quot;{search}&quot;
+                  </motion.p>
+                )}
+              </div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
