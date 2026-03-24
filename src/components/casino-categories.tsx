@@ -25,7 +25,7 @@ interface Casino {
 const casinosByTab: Record<string, Casino[]> = {
   "Expert Reviews": [
     {
-      logo: "/casino-index/logo-menace.svg",
+      logo: "/casino-index/Logo-stake.svg",
       name: "Stake",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -34,7 +34,7 @@ const casinosByTab: Record<string, Casino[]> = {
     },
     {
       logo: "/casino-index/logo-gamedom.svg",
-      name: "Gamdom",
+      name: "BC.Game",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
       rating: 4.0,
@@ -75,7 +75,7 @@ const casinosByTab: Record<string, Casino[]> = {
   ],
   "Newest Casinos": [
     {
-      logo: "/casino-index/logo-menace.svg",
+      logo: "/casino-index/Logo-stake.svg",
       name: "Stake",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -84,7 +84,7 @@ const casinosByTab: Record<string, Casino[]> = {
     },
     {
       logo: "/casino-index/logo-gamedom.svg",
-      name: "Gamdom",
+      name: "BC.Game",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
       rating: 4.0,
@@ -125,7 +125,7 @@ const casinosByTab: Record<string, Casino[]> = {
   ],
   "Provably Fair": [
     {
-      logo: "/casino-index/logo-menace.svg",
+      logo: "/casino-index/Logo-stake.svg",
       name: "Stake",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -134,7 +134,7 @@ const casinosByTab: Record<string, Casino[]> = {
     },
     {
       logo: "/casino-index/logo-gamedom.svg",
-      name: "Gamdom",
+      name: "BC.Game",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
       rating: 4.0,

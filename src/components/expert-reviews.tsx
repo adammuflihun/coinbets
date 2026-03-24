@@ -8,7 +8,8 @@ import { useEffect, useRef } from "react";
 const reviews = [
   {
     name: "Stake",
-    logo: "/casino-index/logo-menace.svg",
+    slug: "stake",
+    logo: "/casino-index/Logo-stake.svg",
     safetyIndex: "High",
     playerRating: 3.0,
     playerReviews: 374,
@@ -23,6 +24,7 @@ const reviews = [
   },
   {
     name: "Roobet",
+    slug: "roobet",
     logo: "/casino-index/logo-roobet.svg",
     safetyIndex: "Normal",
     playerRating: 4.2,
@@ -38,6 +40,7 @@ const reviews = [
   },
   {
     name: "Bitsler",
+    slug: "bitsler",
     logo: "/casino-index/logo-bitsler.svg",
     safetyIndex: "High",
     playerRating: 2.9,
@@ -53,6 +56,7 @@ const reviews = [
   },
   {
     name: "Shuffle",
+    slug: "shuffle",
     logo: "/casino-index/logo-shuffle.svg",
     safetyIndex: "Normal",
     playerRating: 3.4,
@@ -68,6 +72,7 @@ const reviews = [
   },
   {
     name: "Gamdom",
+    slug: "gamdom",
     logo: "/casino-index/logo-gamedom.svg",
     safetyIndex: "Normal",
     playerRating: 3.7,
@@ -84,6 +89,7 @@ const reviews = [
   },
   {
     name: "Thrill",
+    slug: "thrill",
     logo: "/casino-index/logo-thrill.svg",
     safetyIndex: "High",
     playerRating: 4.1,
@@ -395,7 +401,7 @@ function ReviewCard({ review }: { review: (typeof reviews)[number] }) {
         </div>
 
         <Link
-          href="#"
+          href={`/casino/review/${review.slug}`}
           className="group flex items-center justify-between rounded-lg bg-[#eab914] px-6 py-2.5 text-sm font-semibold text-[#171717] hover:bg-[#d4a812] transition-colors"
         >
           Read Review

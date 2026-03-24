@@ -13,6 +13,7 @@ import {
   Eye,
 } from "lucide-react";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { AnimatePresence, motion } from "motion/react";
 
 /* ------------------------------------------------------------------ */
@@ -369,9 +370,13 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 <h2 className="text-xl font-bold text-[#060D17]">
                   {casino.reviewTitle}
                 </h2>
-                <Link
-                  href="#"
-                  className="group flex items-center justify-center gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors shrink-0"
+                <ShimmerButton
+                  shimmerColor="#e6b830"
+                  shimmerSize="0.05em"
+                  shimmerDuration="3s"
+                  borderRadius="8px"
+                  background="rgba(23, 23, 23, 1)"
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium shrink-0"
                 >
                   <svg width="20" height="20" viewBox="0 0 31 31" fill="none" className="size-5 shrink-0">
                     <path d="M30.0039 8.18734C29.6411 6.15767 28.6312 4.34371 27.18 3.0004C25.8857 1.79436 24.2483 0.951107 22.4343 0.627535C20.1203 0.215717 17.7474 0 15.3157 0C12.884 0 10.5112 0.215717 8.19715 0.627535C6.27533 0.970717 4.54961 1.8924 3.22591 3.21611C1.90221 4.53981 0.970714 6.26553 0.627532 8.19715C0.215714 10.5112 0 12.884 0 15.3157C0 17.7474 0.215714 20.1203 0.627532 22.4343C0.970714 24.3561 1.8924 26.072 3.2063 27.3957C4.53 28.7292 6.25572 29.6607 8.18734 30.0039C10.5014 30.4157 12.8742 30.6314 15.3059 30.6314C17.7376 30.6314 20.1105 30.4157 22.4245 30.0039C24.5522 29.6215 26.4348 28.5233 27.8076 26.9643C28.9155 25.7092 29.6902 24.1502 29.9941 22.4343C30.4059 20.1203 30.6216 17.7474 30.6216 15.3157C30.6216 12.884 30.4059 10.5112 29.9941 8.19715L30.0039 8.18734Z" fill="#003EB6"/>
@@ -383,7 +388,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   </svg>
                   Full CoinBets Review
                   <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
+                </ShimmerButton>
               </div>
 
               {/* Review text */}

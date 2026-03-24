@@ -374,13 +374,22 @@ export function CasinoIndex() {
           data-name="index-gradient"
           className="absolute bottom-0 left-0 right-0 z-20 h-[250px] bg-linear-to-b from-transparent to-[#020202] flex items-center justify-center pb-10 pointer-events-none"
         >
-          <Link
-            href="/coinbet-index"
-            className="group pointer-events-auto inline-flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-2.5 text-sm font-bold text-[#171717] hover:bg-white transition-colors"
-          >
-            View Full Index
-            <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-          </Link>
+          <div className="flex items-center gap-3 pointer-events-auto">
+            <Link
+              href="/coinbet-index"
+              className="group inline-flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-2.5 text-sm font-bold text-[#171717] hover:bg-white transition-colors"
+            >
+              View Casino Index
+              <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+            <Link
+              href="/casino-originals"
+              className="group inline-flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-2.5 text-sm font-bold text-[#171717] hover:bg-white transition-colors"
+            >
+              View Casino Originals
+              <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>
