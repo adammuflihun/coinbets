@@ -25,7 +25,7 @@ interface Casino {
 const casinosByTab: Record<string, Casino[]> = {
   "Expert Reviews": [
     {
-      logo: "/casino-index/Logo-stake.svg",
+      logo: "/casino-index/logo-stake.svg",
       name: "Stake",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -75,7 +75,7 @@ const casinosByTab: Record<string, Casino[]> = {
   ],
   "Newest Casinos": [
     {
-      logo: "/casino-index/Logo-stake.svg",
+      logo: "/casino-index/logo-stake.svg",
       name: "Stake",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -125,7 +125,7 @@ const casinosByTab: Record<string, Casino[]> = {
   ],
   "Provably Fair": [
     {
-      logo: "/casino-index/Logo-stake.svg",
+      logo: "/casino-index/logo-stake.svg",
       name: "Stake",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",

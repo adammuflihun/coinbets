@@ -9,7 +9,7 @@ const reviews = [
   {
     name: "Stake",
     slug: "stake",
-    logo: "/casino-index/Logo-stake.svg",
+    logo: "/casino-index/logo-stake.svg",
     safetyIndex: "High",
     playerRating: 3.0,
     playerReviews: 374,

@@ -40,7 +40,7 @@ const casinos: Casino[] = [
   {
     rank: 1,
     name: "Stake",
-    logo: "/casino-index/Logo-stake.svg",
+    logo: "/casino-index/logo-stake.svg",
     userScore: 3.8,
     reviews: 63,
     expertScore: 3.7,

@@ -20,7 +20,7 @@ export const casinoReviews: CasinoReview[] = [
   {
     slug: "stake",
     name: "Stake",
-    logo: "/casino-index/Logo-stake.svg",
+    logo: "/casino-index/logo-stake.svg",
     playerRating: 3.0,
     playerReviews: 374,
     expertScore: 2.9,

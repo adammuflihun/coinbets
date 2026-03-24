@@ -47,7 +47,7 @@ const games: Game[] = [
       {
         rank: 1,
         name: "Stake",
-        logo: "/casino-index/Logo-stake.svg",
+        logo: "/casino-index/logo-stake.svg",
         rtp: "88%",
         provablyFair: "Full",
         provider: "In-house",
@@ -110,7 +110,7 @@ const games: Game[] = [
       {
         rank: 2,
         name: "Stake",
-        logo: "/casino-index/Logo-stake.svg",
+        logo: "/casino-index/logo-stake.svg",
         rtp: "88%",
         provablyFair: "Full",
         provider: "In-house",
@@ -164,7 +164,7 @@ const games: Game[] = [
       {
         rank: 2,
         name: "Stake",
-        logo: "/casino-index/Logo-stake.svg",
+        logo: "/casino-index/logo-stake.svg",
         rtp: "46%",
         provablyFair: "Full",
         provider: "In-house",
@@ -209,7 +209,7 @@ const games: Game[] = [
       {
         rank: 1,
         name: "Stake",
-        logo: "/casino-index/Logo-stake.svg",
+        logo: "/casino-index/logo-stake.svg",
         rtp: "67%",
         provablyFair: "Full",
         provider: "In-house",
@@ -272,7 +272,7 @@ const games: Game[] = [
       {
         rank: 2,
         name: "Stake",
-        logo: "/casino-index/Logo-stake.svg",
+        logo: "/casino-index/logo-stake.svg",
         rtp: "57%",
         provablyFair: "Full",
         provider: "In-house",
@@ -326,7 +326,7 @@ const games: Game[] = [
       {
         rank: 2,
         name: "Stake",
-        logo: "/casino-index/Logo-stake.svg",
+        logo: "/casino-index/logo-stake.svg",
         rtp: "92%",
         provablyFair: "Full",
         provider: "In-house",
@@ -371,7 +371,7 @@ const games: Game[] = [
       {
         rank: 1,
         name: "Stake",
-        logo: "/casino-index/Logo-stake.svg",
+        logo: "/casino-index/logo-stake.svg",
         rtp: "99%",
         provablyFair: "Full",
         provider: "In-house",
@@ -443,7 +443,7 @@ const games: Game[] = [
       {
         rank: 3,
         name: "Stake",
-        logo: "/casino-index/Logo-stake.svg",
+        logo: "/casino-index/logo-stake.svg",
         rtp: "72%",
         provablyFair: "Partial",
         provider: "3rd party",
@@ -479,7 +479,7 @@ const games: Game[] = [
       {
         rank: 1,
         name: "Stake",
-        logo: "/casino-index/Logo-stake.svg",
+        logo: "/casino-index/logo-stake.svg",
         rtp: "69%",
         provablyFair: "Full",
         provider: "In-house",
@@ -542,7 +542,7 @@ const games: Game[] = [
       {
         rank: 2,
         name: "Stake",
-        logo: "/casino-index/Logo-stake.svg",
+        logo: "/casino-index/logo-stake.svg",
         rtp: "94%",
         provablyFair: "Full",
         provider: "In-house",
