@@ -14,7 +14,7 @@ function UnicornBackground() {
     if (u && u.init) {
       u.init();
     } else {
-      window.UnicornStudio = { isInitialized: false, init: () => {} };
+      window.UnicornStudio = { isInitialized: false };
       const existing = document.querySelector(
         'script[src*="unicornStudio"]',
       ) as HTMLScriptElement | null;
@@ -23,11 +23,11 @@ function UnicornBackground() {
         script.src =
           "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.1.5/dist/unicornStudio.umd.js";
         script.onload = () => {
-          window.UnicornStudio?.init();
+          window.UnicornStudio?.init?.();
         };
         (document.head || document.body).appendChild(script);
       } else {
-        setTimeout(() => window.UnicornStudio?.init(), 100);
+        setTimeout(() => window.UnicornStudio?.init?.(), 100);
       }
     }
   }, []);
@@ -53,25 +53,25 @@ export function CoinbetIndexHeader() {
     >
       <UnicornBackground />
 
-      <div className="relative z-10 flex flex-col items-center gap-10 px-5 py-16 sm:py-20 lg:py-24 pointer-events-none">
+      <div data-name="header-content" className="relative z-10 flex flex-col items-center gap-10 px-5 py-16 sm:py-20 lg:py-24 pointer-events-none">
         {/* Heading + subtitle */}
-        <div className="flex flex-col items-center gap-5">
-          <div className="flex items-center gap-2.5">
+        <div data-name="header-text" className="flex flex-col items-center gap-5">
+          <div data-name="header-title" className="flex items-center gap-2.5">
             <h1 className="text-3xl sm:text-[40px] lg:text-[45px] font-black text-white text-center leading-none tracking-tight">
               CoinBets Casino Index
             </h1>
-            <span className="shrink-0 rounded-lg bg-[#e6b830] px-2 py-0.5 text-xs font-semibold text-[#101010]">
+            <span data-name="beta-badge" className="shrink-0 rounded-lg bg-[#e6b830] px-2 py-0.5 text-xs font-semibold text-[#101010]">
               Beta
             </span>
           </div>
-          <p className="max-w-[545px] text-base text-white text-center leading-[26px]">
+          <p data-name="header-subtitle" className="max-w-[545px] text-base text-white text-center leading-[26px]">
             A data-driven index based on real player reviews and verified
             signals. No casino influence.
           </p>
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-5 pointer-events-auto">
+        <div data-name="header-buttons" className="flex flex-wrap items-center justify-center gap-5 pointer-events-auto">
           <Link
             href="/reviews"
             className="flex items-center justify-center gap-2 rounded-lg bg-[#e6b830] px-6 py-2.5 min-h-[40px] text-sm font-bold text-[#101010] hover:bg-[#d4a82a] transition-colors"
