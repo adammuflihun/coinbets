@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Check, ChevronDown, ChevronRight, Search } from "lucide-react";
+import { Check, ChevronDown, ChevronRight, RotateCcw, Search, SlidersHorizontal } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { Slider } from "@/components/ui/slider";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -764,11 +766,6 @@ function RtpRangeSlider({
   onMinChange: (v: number) => void;
   onMaxChange: (v: number) => void;
 }) {
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  const leftPercent = min;
-  const rightPercent = max;
-
   return (
     <div className="flex flex-col gap-3 shrink-0 min-w-[180px]">
       <span className="text-sm font-bold text-[#f8f8f8]/60 uppercase">
@@ -778,39 +775,19 @@ function RtpRangeSlider({
         <span className="text-sm font-semibold text-white">
           {min}% — {max}%
         </span>
-        <div ref={trackRef} className="relative h-5 flex items-center">
-          {/* Track bg */}
-          <div className="absolute inset-x-0 h-1.5 rounded-full bg-[#2a2a2a]" />
-          {/* Active range */}
-          <div
-            className="absolute h-1.5 rounded-full bg-[#e6b830]"
-            style={{ left: `${leftPercent}%`, right: `${100 - rightPercent}%` }}
-          />
-          {/* Min thumb */}
-          <input
-            type="range"
-            min={0}
-            max={99}
-            value={min}
-            onChange={(e) => {
-              const v = Math.min(Number(e.target.value), max - 1);
-              onMinChange(v);
-            }}
-            className="absolute inset-x-0 w-full appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#e6b830] [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#020202] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:relative [&::-webkit-slider-thumb]:z-10"
-          />
-          {/* Max thumb */}
-          <input
-            type="range"
-            min={0}
-            max={99}
-            value={max}
-            onChange={(e) => {
-              const v = Math.max(Number(e.target.value), min + 1);
-              onMaxChange(v);
-            }}
-            className="absolute inset-x-0 w-full appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#e6b830] [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#020202] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:relative [&::-webkit-slider-thumb]:z-10"
-          />
-        </div>
+        <Slider
+          value={[min, max]}
+          onValueChange={(values) => {
+            if (Array.isArray(values)) {
+              onMinChange(values[0]);
+              onMaxChange(values[1]);
+            }
+          }}
+          min={0}
+          max={99}
+          step={1}
+          className="[&_[data-slot=slider-track]]:bg-[#2a2a2a] [&_[data-slot=slider-range]]:bg-[#e6b830] [&_[data-slot=slider-thumb]]:bg-[#e6b830] [&_[data-slot=slider-thumb]]:border-[#020202] [&_[data-slot=slider-thumb]]:border-2 [&_[data-slot=slider-thumb]]:size-4 [&_[data-slot=slider-thumb]]:ring-[#e6b830]/30"
+        />
       </div>
     </div>
   );
@@ -841,13 +818,27 @@ function GameFilters({
     thirdParty: false,
   });
 
+  function handleReset() {
+    onGameTypeChange("All Games");
+    onRtpMinChange(0);
+    onRtpMaxChange(99);
+    setProvablyFair({ full: true, partial: false, none: false });
+    setProvider({ inHouse: true, thirdParty: false });
+  }
+
   return (
-    <div
-      data-name="game-filters"
-      className="bg-[#020202] border border-[#181818] rounded-xl p-5 mb-6"
-    >
-      <p className="text-base font-bold text-white mb-5">Game Filters</p>
-      <div className="flex items-start gap-9 flex-wrap">
+    <div data-name="game-filters">
+      <div className="flex items-center justify-between mb-5">
+        <p className="text-base font-bold text-white">Game Filters</p>
+        <button
+          onClick={handleReset}
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-white/50 hover:text-white transition-colors cursor-pointer"
+        >
+          <RotateCcw className="size-3.5" />
+          Reset
+        </button>
+      </div>
+      <div className="flex flex-col gap-5">
         <GameTypeDropdown value={gameType} onChange={onGameTypeChange} />
 
         <div className="flex flex-col gap-3 shrink-0">
@@ -1272,16 +1263,7 @@ export function CasinoOriginalsTable() {
       className="bg-[#020202] pb-62"
     >
       <div className="site-container">
-        <GameFilters
-          gameType={gameType}
-          onGameTypeChange={setGameType}
-          rtpMin={rtpMin}
-          rtpMax={rtpMax}
-          onRtpMinChange={setRtpMin}
-          onRtpMaxChange={setRtpMax}
-        />
-
-        {/* Search bar + Latest update */}
+        {/* Search bar + Game Filter + Latest update */}
         <div
           data-name="table-toolbar"
           className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6"
@@ -1296,9 +1278,31 @@ export function CasinoOriginalsTable() {
               className="w-full rounded-lg bg-[#121212] border border-white/10 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/25 transition-colors"
             />
           </div>
-          <p className="text-sm text-white/50 whitespace-nowrap shrink-0">
-            Latest update 23 March 2026
-          </p>
+          <div className="flex items-center gap-4">
+            <p className="text-sm text-white/50 whitespace-nowrap shrink-0">
+              Latest update 23 March 2026
+            </p>
+            <Popover>
+              <PopoverTrigger className="inline-flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-4 py-2 text-sm font-semibold text-[#020202] hover:bg-white transition-colors shrink-0 cursor-pointer">
+                <SlidersHorizontal className="size-4" />
+                Game Filter
+              </PopoverTrigger>
+              <PopoverContent
+                align="end"
+                sideOffset={8}
+                className="w-auto max-w-[520px] bg-[#0a0a0a] border border-[#181818] p-5 rounded-xl"
+              >
+                <GameFilters
+                  gameType={gameType}
+                  onGameTypeChange={setGameType}
+                  rtpMin={rtpMin}
+                  rtpMax={rtpMax}
+                  onRtpMinChange={setRtpMin}
+                  onRtpMaxChange={setRtpMax}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
         </div>
 
         {/* Scrollable table wrapper */}
