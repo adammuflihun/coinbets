@@ -23,7 +23,7 @@ function DecorativeImage({
       <img
         src={image}
         alt=""
-        className="w-[380px] h-auto object-contain"
+        className="w-[280px] h-auto object-contain"
       />
     </div>
   );
