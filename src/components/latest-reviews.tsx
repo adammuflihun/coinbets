@@ -87,7 +87,9 @@ function StarRating({ rating }: { rating: number }) {
           <StarIcon key={i} color={i < filled ? activeColor : "#DDDDDD"} />
         ))}
       </div>
-      <span className="text-sm font-medium text-[#060D17]">{rating}</span>
+      <span className="hidden text-sm font-medium text-[#060D17]">
+        {rating}
+      </span>
     </div>
   );
 }
@@ -106,25 +108,27 @@ function ReviewCard({
       data-name="review-card"
       className="group flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full"
     >
+      <StarRating rating={rating} />
+
       {/* Review text */}
       <div
         data-name="review-text"
-        className="bg-[#000000] rounded-md p-7 flex flex-1 flex-col gap-2.5"
+        className="bg-[white] rounded-md p-0 flex flex-1 flex-col gap-2.5"
       >
         <svg
           width="25"
           height="20"
           viewBox="0 0 25 20"
           fill="none"
-          className="shrink-0"
+          className="shrink-0 hidden"
         >
           <path
             opacity="0.2"
             d="M10.6553 2.78711C8.03247 4.42643 5.40981 7.70546 5 10.4922C5.16393 10.4102 5.81974 10.3281 6.31152 10.3281C8.77044 10.3281 10.6553 12.2952 10.6553 15C10.6552 17.7046 8.52474 19.9997 5.65625 20C2.62368 20 0.000190601 17.4591 0 13.1152C0 7.78755 2.95068 2.95072 7.13086 0L10.6553 2.78711ZM24.7539 2.78711C22.131 4.42639 19.5895 7.7054 19.1797 10.4922C19.3436 10.4102 19.9174 10.3281 20.4092 10.3281C22.8681 10.3281 24.835 12.2952 24.835 15C24.8349 17.7047 22.6225 19.9998 19.8359 20C16.8034 20 14.1799 17.4591 14.1797 13.1152C14.1797 7.78759 17.1303 2.95072 21.2285 0L24.7539 2.78711Z"
-            fill="white"
+            fill="#343434"
           />
         </svg>
-        <div className="tracking-[.5px] font-serif text-[22px] leading-[1.3] bg-linear-to-b from-white to-[#cbcbcb] bg-clip-text text-transparent group-hover:bg-[linear-gradient(120deg,#cbcbcb_30%,#ffffff_45%,#ffffff_55%,#cbcbcb_70%)] group-hover:bg-size-[200%_100%] group-hover:animate-[shine_6s_ease-in-out_infinite]">
+        <div className="py-4 tracking-[.5px] font-regular text-[18px] leading-[1.3] bg-linear-to-b from-[#343434] to-[#202020] bg-clip-text text-transparent">
           {review.split("\n\n").map((paragraph, i) => (
             <p key={i} className={i > 0 ? "mt-3.5" : ""}>
               {paragraph}
@@ -146,7 +150,6 @@ function ReviewCard({
           <span className="size-[3px] rounded-full bg-neutral-400 shrink-0" />
           <span className="text-xs text-[#1c1c1c]/50">{timeAgo}</span>
         </div>
-        <StarRating rating={rating} />
       </div>
 
       {/* Divider */}

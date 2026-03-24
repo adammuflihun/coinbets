@@ -88,7 +88,9 @@ function StarRating({ rating }: { rating: number }) {
           <StarIcon key={i} color={i < filled ? activeColor : "#DDDDDD"} />
         ))}
       </div>
-      <span className="text-sm font-medium text-[#060D17]">{rating}</span>
+      <span className="hidden text-sm font-medium text-[#060D17]">
+        {rating}
+      </span>
     </div>
   );
 }
@@ -107,17 +109,19 @@ function CommunityReviewCard({
       data-name="community-card"
       className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
     >
+      <StarRating rating={rating} />
+
       {/* Review text */}
       <div
         data-name="community-review-text"
-        className="bg-[#f6f6f6] rounded-md p-7 flex flex-col gap-2.5"
+        className="bg-[white] rounded-md py-4 flex flex-col gap-2.5"
       >
         <svg
           width="25"
           height="20"
           viewBox="0 0 25 20"
           fill="none"
-          className="shrink-0"
+          className="shrink-0 hidden"
         >
           <path
             opacity="0.2"
@@ -125,7 +129,7 @@ function CommunityReviewCard({
             fill="#060D17"
           />
         </svg>
-        <p className="tracking-[.5px] font-serif  text-[22px] leading-[1.3] text-[#060D17]">
+        <p className="tracking-[.5px] font-regular  text-[18px] leading-[1.5] text-[#060D17]">
           {review}
         </p>
       </div>
@@ -146,7 +150,6 @@ function CommunityReviewCard({
           <span className="size-[3px] rounded-full bg-neutral-400 shrink-0" />
           <span className="text-xs text-[#1c1c1c]/50">{rank}</span>
         </div>
-        <StarRating rating={rating} />
       </div>
 
       {/* Divider */}

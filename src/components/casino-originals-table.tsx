@@ -1103,11 +1103,11 @@ function GameRow({
         {/* Open/Close toggle */}
         <button
           onClick={onToggle}
-          className={`inline-flex items-center justify-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors w-fit ml-auto ${
+          className={`inline-flex items-center justify-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors w-fit ${
             isOpen
               ? "bg-white border-white text-[#0a0a0a]"
               : "border-[#d4d4d4] text-[#f5f5f5] hover:bg-white/5"
-          }`}
+          } mx-auto`}
         >
           {isOpen ? "Closed" : "Open"}
           <ChevronDown
@@ -1289,7 +1289,7 @@ export function CasinoOriginalsTable() {
               <button className="flex items-center gap-4 cursor-pointer" onClick={() => handleOuterSort("provider")}>
                 Provider <SortIcon dir={outerSortField === "provider" ? outerSortDir : null} />
               </button>
-              <div className="text-right">View</div>
+              <div className="text-center">View</div>
             </div>
 
             {/* Game rows */}
