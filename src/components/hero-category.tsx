@@ -38,7 +38,7 @@ const categories = [
     href: "/expert-reviews",
   },
   {
-    icon: "/categories/icon-casino-index.svg",
+    icon: "/icons/casino-index.svg",
     title: "Casino Index 52",
     badge: 52,
     description: "Crypto Casinos Ranked by Players",

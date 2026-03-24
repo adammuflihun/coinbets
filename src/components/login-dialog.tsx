@@ -31,7 +31,7 @@ export function LoginDialog() {
       >
         <span>Login</span>
         <Image
-          src="/icon-login.svg"
+          src="/icons/login.svg"
           alt=""
           width={16}
           height={16}

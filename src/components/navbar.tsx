@@ -17,10 +17,10 @@ function BonusesIcon({ className }: { className?: string }) {
 }
 
 const navCategories = [
-  { label: "Crypto Casinos", icon: "/icon-casino.svg", hasDropdown: true },
-  { label: "Sports Betting", icon: "/icon-sports.svg" },
-  { label: "User Reviews", icon: "/icon-reviews.svg" },
-  { label: "Bonuses", icon: "/icon-bonuses.svg", customIcon: true },
+  { label: "Crypto Casinos", icon: "/icons/casino.svg", hasDropdown: true },
+  { label: "Sports Betting", icon: "/icons/sports.svg" },
+  { label: "User Reviews", icon: "/icons/reviews.svg" },
+  { label: "Bonuses", icon: "/icons/bonuses.svg", customIcon: true },
 ];
 
 const navLinks = [
@@ -70,7 +70,7 @@ export function Navbar() {
         {/* Center: Logo */}
         <Link href="/" className="absolute left-1/2 -translate-x-1/2">
           <Image
-            src="/logo.svg"
+            src="/icons/logo.svg"
             alt="CoinBets"
             width={135}
             height={32}

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type Flickity from "flickity";
 
 const tabs = ["Expert Reviews", "Newest Casinos", "Provably Fair"];
@@ -273,9 +274,10 @@ function CasinoCategoryCard({
   badge: string;
 }) {
   return (
-    <div
+    <Link
+      href={`/casino/review/${casino.name.toLowerCase()}`}
       data-name="casino-card"
-      className="relative flex flex-col sm:flex-row gap-4 rounded-lg border border-neutral-200 bg-white p-4 shadow-sm overflow-hidden"
+      className="relative flex flex-col sm:flex-row gap-4 rounded-lg border border-neutral-200 bg-white p-4 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
     >
       {/* Logo */}
       <div
@@ -327,7 +329,7 @@ function CasinoCategoryCard({
       <div className="absolute -top-[5px] -right-[5px] w-[100px] h-[100px]">
         <Image src={badge} alt="" width={100} height={100} />
       </div>
-    </div>
+    </Link>
   );
 }
 

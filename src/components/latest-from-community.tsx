@@ -15,7 +15,7 @@ const reviews = [
     rating: 1.7,
   },
   {
-    logo: "/casino-index/logo-stake.svg",
+    logo: "/casino-index/logo-Yeet.svg",
     name: "Yeet",
     safetyIndex: "Normal",
     reviewCount: 6,

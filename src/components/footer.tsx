@@ -51,7 +51,7 @@ const coinbetsLinks = [
     href: "/esports",
     icon: "/categories/icon-crypto-esport.svg",
   },
-  { label: "Bonuses", href: "/bonuses", icon: "/icon-bonuses.svg" },
+  { label: "Bonuses", href: "/bonuses", icon: "/icons/bonuses.svg" },
   {
     label: "Expert Reviews",
     href: "/expert-reviews",
@@ -448,7 +448,7 @@ export function Footer() {
             </p>
             <button className="flex items-center gap-1.5 rounded-lg bg-neutral-100 px-3 py-1.5 text-sm font-medium text-[#171717]">
               <Image
-                src="/flag-en.svg"
+                src="/icons/flag-en.svg"
                 alt=""
                 width={16}
                 height={16}

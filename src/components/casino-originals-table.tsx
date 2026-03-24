@@ -47,7 +47,7 @@ const games: Game[] = [
       {
         rank: 1,
         name: "Stake",
-        logo: "/casino-index/logo-stake.svg",
+        logo: "/casino-index/Logo-stake.svg",
         rtp: "88%",
         provablyFair: "Full",
         provider: "In-house",
@@ -110,7 +110,7 @@ const games: Game[] = [
       {
         rank: 2,
         name: "Stake",
-        logo: "/casino-index/logo-stake.svg",
+        logo: "/casino-index/Logo-stake.svg",
         rtp: "88%",
         provablyFair: "Full",
         provider: "In-house",
@@ -164,7 +164,7 @@ const games: Game[] = [
       {
         rank: 2,
         name: "Stake",
-        logo: "/casino-index/logo-stake.svg",
+        logo: "/casino-index/Logo-stake.svg",
         rtp: "46%",
         provablyFair: "Full",
         provider: "In-house",
@@ -209,7 +209,7 @@ const games: Game[] = [
       {
         rank: 1,
         name: "Stake",
-        logo: "/casino-index/logo-stake.svg",
+        logo: "/casino-index/Logo-stake.svg",
         rtp: "67%",
         provablyFair: "Full",
         provider: "In-house",
@@ -272,7 +272,7 @@ const games: Game[] = [
       {
         rank: 2,
         name: "Stake",
-        logo: "/casino-index/logo-stake.svg",
+        logo: "/casino-index/Logo-stake.svg",
         rtp: "57%",
         provablyFair: "Full",
         provider: "In-house",
@@ -326,7 +326,7 @@ const games: Game[] = [
       {
         rank: 2,
         name: "Stake",
-        logo: "/casino-index/logo-stake.svg",
+        logo: "/casino-index/Logo-stake.svg",
         rtp: "92%",
         provablyFair: "Full",
         provider: "In-house",
@@ -371,7 +371,7 @@ const games: Game[] = [
       {
         rank: 1,
         name: "Stake",
-        logo: "/casino-index/logo-stake.svg",
+        logo: "/casino-index/Logo-stake.svg",
         rtp: "99%",
         provablyFair: "Full",
         provider: "In-house",
@@ -443,7 +443,7 @@ const games: Game[] = [
       {
         rank: 3,
         name: "Stake",
-        logo: "/casino-index/logo-stake.svg",
+        logo: "/casino-index/Logo-stake.svg",
         rtp: "72%",
         provablyFair: "Partial",
         provider: "3rd party",
@@ -479,7 +479,7 @@ const games: Game[] = [
       {
         rank: 1,
         name: "Stake",
-        logo: "/casino-index/logo-stake.svg",
+        logo: "/casino-index/Logo-stake.svg",
         rtp: "69%",
         provablyFair: "Full",
         provider: "In-house",
@@ -542,7 +542,7 @@ const games: Game[] = [
       {
         rank: 2,
         name: "Stake",
-        logo: "/casino-index/logo-stake.svg",
+        logo: "/casino-index/Logo-stake.svg",
         rtp: "94%",
         provablyFair: "Full",
         provider: "In-house",
@@ -977,8 +977,6 @@ function CasinoSubRow({
 /*  Game row (outer)                                                   */
 /* ------------------------------------------------------------------ */
 
-const OUTER_GRID = "grid grid-cols-[3fr_2fr_5fr_4fr_2fr] items-center gap-4";
-
 type SortField = "rank" | "rtp" | "provablyFair" | "provider" | "maxWin";
 
 function sortCasinos(casinos: CasinoEntry[], field: SortField, dir: SortDir): CasinoEntry[] {
@@ -1039,81 +1037,113 @@ function GameRow({
       data-name="game-row-wrapper"
       className={`flex flex-col gap-2 rounded-md ${
         isOpen
-          ? "bg-[#020202] border border-[#363636] p-5"
-          : "bg-[#121212] px-5 py-3.5"
+          ? "bg-[#020202] border border-[#363636] p-4 md:p-5"
+          : "bg-[#121212] px-4 md:px-5 py-3 md:py-3.5"
       }`}
     >
       {/* Game summary row */}
-      <div
-        data-name="game-summary"
-        className={`${OUTER_GRID} whitespace-nowrap ${isOpen ? "" : ""}`}
-      >
-        {/* Game icon + name */}
-        <div className="flex items-center gap-4">
-          <Image
-            src={game.icon}
-            alt={game.name}
-            width={51}
-            height={46}
-            className="rounded-lg shrink-0"
-          />
-          <span className="text-sm font-semibold text-[#f8f8f8]">
-            {game.name}
+      <div data-name="game-summary">
+        {/* Mobile card layout */}
+        <div className="flex flex-col gap-5 md:hidden">
+          {/* Icon + Name + Open */}
+          <div className="flex items-center gap-3">
+            <Image
+              src={game.icon}
+              alt={game.name}
+              width={51}
+              height={46}
+              className="rounded-lg shrink-0"
+            />
+            <span className="text-base font-semibold text-[#f8f8f8] flex-1 min-w-0">
+              {game.name}
+            </span>
+            <button
+              onClick={onToggle}
+              className={`inline-flex items-center justify-center gap-1.5 rounded-lg border px-4 py-2 text-sm font-medium transition-colors w-fit shrink-0 ${
+                isOpen
+                  ? "bg-white border-white text-[#0a0a0a]"
+                  : "border-[#d4d4d4] text-[#f5f5f5] hover:bg-white/5"
+              }`}
+            >
+              {isOpen ? "Closed" : "Open"}
+              <ChevronDown
+                className={`size-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+          </div>
+
+          {/* RTP */}
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-bold text-[#f8f8f8]/60 uppercase">RTP</span>
+            <span className={`text-xl font-semibold ${rtpColor(game.rtp)}`}>
+              {game.rtp}
+            </span>
+          </div>
+
+          {/* Provably Fair */}
+          <div className="flex items-start justify-between">
+            <span className="text-sm font-bold text-[#f8f8f8]/60 uppercase pt-0.5">Provably Fair</span>
+            <div className="flex flex-col items-end gap-1.5">
+              <CountBadge count={game.provablyFair.full} label="Full" color="bg-green-500" />
+              <CountBadge count={game.provablyFair.partial} label="Partial" color="bg-yellow-300" />
+              <CountBadge count={game.provablyFair.none} label="None" color="bg-gray-200" />
+            </div>
+          </div>
+
+          {/* Provider */}
+          <div className="flex items-start justify-between">
+            <span className="text-sm font-bold text-[#f8f8f8]/60 uppercase pt-0.5">Provider</span>
+            <div className="flex flex-col items-end gap-1.5">
+              <CountBadge count={game.providerStats.inHouse} label="In house" color="bg-gray-200" />
+              <CountBadge count={game.providerStats.thirdParty} label="3rd party" color="bg-gray-200" />
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop grid layout */}
+        <div className="hidden md:grid grid-cols-[3fr_2fr_5fr_4fr_2fr] items-center gap-4 whitespace-nowrap">
+          <div className="flex items-center gap-4">
+            <Image
+              src={game.icon}
+              alt={game.name}
+              width={51}
+              height={46}
+              className="rounded-lg shrink-0"
+            />
+            <span className="text-sm font-semibold text-[#f8f8f8]">
+              {game.name}
+            </span>
+          </div>
+
+          <span className={`text-[19px] font-semibold ${rtpColor(game.rtp)}`}>
+            {game.rtp}
           </span>
+
+          <div className="flex items-center gap-3.5">
+            <CountBadge count={game.provablyFair.full} label="Full" color="bg-green-500" />
+            <CountBadge count={game.provablyFair.partial} label="Partial" color="bg-yellow-300" />
+            <CountBadge count={game.provablyFair.none} label="None" color="bg-gray-200" />
+          </div>
+
+          <div className="flex items-center gap-3.5">
+            <CountBadge count={game.providerStats.inHouse} label="In house" color="bg-gray-200" />
+            <CountBadge count={game.providerStats.thirdParty} label="3rd party" color="bg-gray-200" />
+          </div>
+
+          <button
+            onClick={onToggle}
+            className={`inline-flex items-center justify-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors w-fit ${
+              isOpen
+                ? "bg-white border-white text-[#0a0a0a]"
+                : "border-[#d4d4d4] text-[#f5f5f5] hover:bg-white/5"
+            } mx-auto`}
+          >
+            {isOpen ? "Closed" : "Open"}
+            <ChevronDown
+              className={`size-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+            />
+          </button>
         </div>
-
-        {/* RTP */}
-        <span className={`text-[19px] font-semibold ${rtpColor(game.rtp)}`}>
-          {game.rtp}
-        </span>
-
-        {/* Provably Fair counts */}
-        <div className="flex items-center gap-3.5">
-          <CountBadge
-            count={game.provablyFair.full}
-            label="Full"
-            color="bg-green-500"
-          />
-          <CountBadge
-            count={game.provablyFair.partial}
-            label="Partial"
-            color="bg-yellow-300"
-          />
-          <CountBadge
-            count={game.provablyFair.none}
-            label="None"
-            color="bg-gray-200"
-          />
-        </div>
-
-        {/* Provider counts */}
-        <div className="flex items-center gap-3.5">
-          <CountBadge
-            count={game.providerStats.inHouse}
-            label="In house"
-            color="bg-gray-200"
-          />
-          <CountBadge
-            count={game.providerStats.thirdParty}
-            label="3rd party"
-            color="bg-gray-200"
-          />
-        </div>
-
-        {/* Open/Close toggle */}
-        <button
-          onClick={onToggle}
-          className={`inline-flex items-center justify-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors w-fit ${
-            isOpen
-              ? "bg-white border-white text-[#0a0a0a]"
-              : "border-[#d4d4d4] text-[#f5f5f5] hover:bg-white/5"
-          } mx-auto`}
-        >
-          {isOpen ? "Closed" : "Open"}
-          <ChevronDown
-            className={`size-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
-          />
-        </button>
       </div>
 
       {/* Expanded sub-table */}
@@ -1121,14 +1151,15 @@ function GameRow({
         {isOpen && (
           <motion.div
             data-name="game-expanded"
-            className="flex flex-col gap-1.5"
+            className="overflow-y-hidden overflow-x-auto"
+            style={{ scrollbarWidth: "none" }}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            style={{ overflow: "hidden" }}
           >
-            {/* Sub-table header */}
+            <div className="flex flex-col gap-1.5 min-w-[900px] md:min-w-0">
+              {/* Sub-table header */}
             <div
               data-name="sub-table-header"
               className={`${INNER_GRID} bg-[#121212] rounded-md px-5 py-2.5 text-sm font-bold text-white/67 uppercase whitespace-nowrap`}
@@ -1156,6 +1187,7 @@ function GameRow({
             {sortedCasinos.map((casino, i) => (
               <CasinoSubRow key={casino.rank} casino={casino} index={i} />
             ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -1252,7 +1284,7 @@ export function CasinoOriginalsTable() {
         {/* Search bar + Latest update */}
         <div
           data-name="table-toolbar"
-          className="flex items-center justify-between gap-4 mb-6"
+          className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6"
         >
           <div className="relative w-full max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-white/40" />
@@ -1271,11 +1303,11 @@ export function CasinoOriginalsTable() {
 
         {/* Scrollable table wrapper */}
         <div className="overflow-x-auto" style={{ scrollbarWidth: "none" }}>
-          <div className="min-w-[1200px]">
+          <div className="md:min-w-[1200px]">
             {/* Outer table header */}
             <div
               data-name="table-header"
-              className={`${OUTER_GRID} bg-[#020202] rounded-md px-5 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase whitespace-nowrap`}
+              className="hidden md:grid grid-cols-[3fr_2fr_5fr_4fr_2fr] items-center gap-4 bg-[#020202] rounded-md px-5 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase whitespace-nowrap"
             >
               <button className="flex items-center gap-4 cursor-pointer" onClick={() => handleOuterSort("name")}>
                 Game Name <SortIcon dir={outerSortField === "name" ? outerSortDir : null} />

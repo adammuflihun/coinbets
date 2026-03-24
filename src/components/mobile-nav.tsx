@@ -13,10 +13,10 @@ import {
 import { CountrySelector } from "@/components/country-selector";
 
 const navCategories = [
-  { label: "Crypto Casinos", icon: "/icon-casino.svg", hasDropdown: true },
-  { label: "Sports Betting", icon: "/icon-sports.svg" },
-  { label: "User Reviews", icon: "/icon-reviews.svg" },
-  { label: "Bonuses", icon: "/icon-bonuses.svg", customIcon: true },
+  { label: "Crypto Casinos", icon: "/icons/casino.svg", hasDropdown: true },
+  { label: "Sports Betting", icon: "/icons/sports.svg" },
+  { label: "User Reviews", icon: "/icons/reviews.svg" },
+  { label: "Bonuses", icon: "/icons/bonuses.svg", customIcon: true },
 ];
 
 function BonusesIcon() {
@@ -58,7 +58,7 @@ export function MobileNav() {
         >
           <SheetHeader className="border-b border-neutral-100 p-4">
             <SheetTitle>
-              <Image src="/logo.svg" alt="CoinBets" width={120} height={28} />
+              <Image src="/icons/logo.svg" alt="CoinBets" width={120} height={28} />
             </SheetTitle>
           </SheetHeader>
 
