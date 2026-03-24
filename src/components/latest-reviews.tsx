@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 const reviews = [
   {
-    logo: "/casino-index/base-6.svg",
+    logo: "/casino-index/logo-bitsler.svg",
     name: "Bitsler",
     review:
       "I have played on Fortunejack for about a year during 2023-2024\n\nTheir giveaways on site and discord are really good, maybe the best in industry.",
@@ -17,7 +17,7 @@ const reviews = [
     safetyIndex: "Normal",
   },
   {
-    logo: "/casino-index/base-7.svg",
+    logo: "/casino-index/logo-thrill.svg",
     name: "Thrill",
     review:
       "A delightful surprise that left me amazed. The platform runs smoothly and payouts are fast.",
@@ -27,7 +27,7 @@ const reviews = [
     safetyIndex: "Normal",
   },
   {
-    logo: "/casino-index/base-2.svg",
+    logo: "/casino-index/logo-gamedom.svg",
     name: "BC Game",
     review:
       "I've been meaning to check out BC Game for a while now. The variety of games is impressive.",
@@ -37,7 +37,7 @@ const reviews = [
     safetyIndex: "Normal",
   },
   {
-    logo: "/casino-index/base-8.svg",
+    logo: "/casino-index/logo-roobet.svg",
     name: "Roobet",
     review:
       "I originally did a VIP transfer and the experience has been great so far. Support is responsive.",

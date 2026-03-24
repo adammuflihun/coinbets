@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 const reviews = [
   {
     name: "Stake",
-    logo: "/casino-index/base-5.svg",
+    logo: "/casino-index/logo-menace.svg",
     safetyIndex: "High",
     playerRating: 3.0,
     playerReviews: 374,
@@ -23,7 +23,7 @@ const reviews = [
   },
   {
     name: "Roobet",
-    logo: "/casino-index/base-8.svg",
+    logo: "/casino-index/logo-roobet.svg",
     safetyIndex: "Normal",
     playerRating: 4.2,
     playerReviews: 512,
@@ -38,7 +38,7 @@ const reviews = [
   },
   {
     name: "Bitsler",
-    logo: "/casino-index/base-6.svg",
+    logo: "/casino-index/logo-bitsler.svg",
     safetyIndex: "High",
     playerRating: 2.9,
     playerReviews: 198,
@@ -53,7 +53,7 @@ const reviews = [
   },
   {
     name: "Shuffle",
-    logo: "/casino-index/base-3.svg",
+    logo: "/casino-index/logo-shuffle.svg",
     safetyIndex: "Normal",
     playerRating: 3.4,
     playerReviews: 287,
@@ -68,7 +68,7 @@ const reviews = [
   },
   {
     name: "Gamdom",
-    logo: "/casino-index/base-2.svg",
+    logo: "/casino-index/logo-gamedom.svg",
     safetyIndex: "Normal",
     playerRating: 3.7,
     playerReviews: 431,
@@ -84,7 +84,7 @@ const reviews = [
   },
   {
     name: "Thrill",
-    logo: "/casino-index/base-7.svg",
+    logo: "/casino-index/logo-thrill.svg",
     safetyIndex: "High",
     playerRating: 4.1,
     playerReviews: 356,

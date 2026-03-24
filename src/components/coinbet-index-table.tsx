@@ -36,19 +36,125 @@ type Casino = {
 };
 
 const casinos: Casino[] = [
-  { rank: 1, name: "Stake", logo: "/casino-index/base-1.svg", userScore: 3.8, reviews: 63, expertScore: 3.7, traffic: "78.7M", trafficChange: 0.1, safetyIndex: "Normal" },
-  { rank: 2, name: "Roobet", logo: "/casino-index/base-8.svg", userScore: 3.8, reviews: 63, expertScore: 4.2, traffic: "78.7M", trafficChange: 0.1, safetyIndex: "Normal" },
-  { rank: 3, name: "Bitsler", logo: "/casino-index/base-6.svg", userScore: 3.8, reviews: 63, expertScore: 3.8, traffic: "78.7M", trafficChange: -13.3, safetyIndex: "Normal" },
-  { rank: 4, name: "Shuffle", logo: "/casino-index/base-3.svg", userScore: 3.8, reviews: 63, expertScore: 3.2, traffic: "78.7M", trafficChange: 0.1, safetyIndex: "Normal" },
-  { rank: 4, name: "Thrill", logo: "/casino-index/base-7.svg", userScore: 3.8, reviews: 63, expertScore: 3.5, traffic: "78.7M", trafficChange: -13.3, safetyIndex: "Normal" },
-  { rank: 6, name: "Gamedom", logo: "/casino-index/base-2.svg", userScore: 3.8, reviews: 63, expertScore: 2.6, traffic: "78.7M", trafficChange: 0.1, safetyIndex: "Normal" },
-  { rank: 7, name: "Menace", logo: "/casino-index/base-5.svg", userScore: 4.5, reviews: 63, expertScore: 3.7, traffic: "78.7M", trafficChange: 0.1, safetyIndex: "Normal" },
-  { rank: 8, name: "BC Game", logo: "/casino-index/base-2.svg", userScore: 4.8, reviews: 63, expertScore: 2.6, traffic: "78.7M", trafficChange: 0.1, safetyIndex: "Normal" },
-  { rank: 9, name: "Rollbit", logo: "/casino-index/base-4.svg", userScore: 2.9, reviews: 63, expertScore: 3.8, traffic: "78.7M", trafficChange: -13.3, safetyIndex: "Normal" },
-  { rank: 10, name: "Yeet", logo: "/casino-index/base-1.svg", userScore: 1.6, reviews: 63, expertScore: 3.5, traffic: "78.7M", trafficChange: 0.1, safetyIndex: "Normal" },
+  {
+    rank: 1,
+    name: "Stake",
+    logo: "/casino-index/logo-stake.svg",
+    userScore: 3.8,
+    reviews: 63,
+    expertScore: 3.7,
+    traffic: "78.7M",
+    trafficChange: 0.1,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 2,
+    name: "Roobet",
+    logo: "/casino-index/logo-roobet.svg",
+    userScore: 3.8,
+    reviews: 63,
+    expertScore: 4.2,
+    traffic: "78.7M",
+    trafficChange: 0.1,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 3,
+    name: "Bitsler",
+    logo: "/casino-index/logo-bitsler.svg",
+    userScore: 3.8,
+    reviews: 63,
+    expertScore: 3.8,
+    traffic: "78.7M",
+    trafficChange: -13.3,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 4,
+    name: "Shuffle",
+    logo: "/casino-index/logo-shuffle.svg",
+    userScore: 3.8,
+    reviews: 63,
+    expertScore: 3.2,
+    traffic: "78.7M",
+    trafficChange: 0.1,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 4,
+    name: "Thrill",
+    logo: "/casino-index/logo-thrill.svg",
+    userScore: 3.8,
+    reviews: 63,
+    expertScore: 3.5,
+    traffic: "78.7M",
+    trafficChange: -13.3,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 6,
+    name: "Gamedom",
+    logo: "/casino-index/logo-gamedom.svg",
+    userScore: 3.8,
+    reviews: 63,
+    expertScore: 2.6,
+    traffic: "78.7M",
+    trafficChange: 0.1,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 7,
+    name: "Menace",
+    logo: "/casino-index/logo-menace.svg",
+    userScore: 4.5,
+    reviews: 63,
+    expertScore: 3.7,
+    traffic: "78.7M",
+    trafficChange: 0.1,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 8,
+    name: "BC Game",
+    logo: "/casino-index/logo-gamedom.svg",
+    userScore: 4.8,
+    reviews: 63,
+    expertScore: 2.6,
+    traffic: "78.7M",
+    trafficChange: 0.1,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 9,
+    name: "Rollbit",
+    logo: "/casino-index/logo-rollbit.svg",
+    userScore: 2.9,
+    reviews: 63,
+    expertScore: 3.8,
+    traffic: "78.7M",
+    trafficChange: -13.3,
+    safetyIndex: "Normal",
+  },
+  {
+    rank: 10,
+    name: "Yeet",
+    logo: "/casino-index/logo-stake.svg",
+    userScore: 1.6,
+    reviews: 63,
+    expertScore: 3.5,
+    traffic: "78.7M",
+    trafficChange: 0.1,
+    safetyIndex: "Normal",
+  },
 ];
 
-type SortKey = "rank" | "userScore" | "reviews" | "expertScore" | "traffic" | "safetyIndex";
+type SortKey =
+  | "rank"
+  | "userScore"
+  | "reviews"
+  | "expertScore"
+  | "traffic"
+  | "safetyIndex";
 type SortDir = "asc" | "desc";
 
 function parseTraffic(t: string): number {
@@ -59,9 +165,21 @@ function parseTraffic(t: string): number {
   return num;
 }
 
-function UserStarIcon({ color, inactive }: { color: string; inactive?: boolean }) {
+function UserStarIcon({
+  color,
+  inactive,
+}: {
+  color: string;
+  inactive?: boolean;
+}) {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      className="shrink-0"
+    >
       <path d={STAR_BG} fill={color} />
       <path d={STAR_SHAPE} fill="white" opacity={inactive ? 0.5 : 1} />
     </svg>
@@ -75,12 +193,19 @@ function UserStarRating({ rating }: { rating: number }) {
   return (
     <div data-name="user-star-rating" className="flex flex-col gap-2">
       <div data-name="user-rating-row" className="flex items-center gap-2">
-        <span className="text-[19px] font-semibold" style={{ color: activeColor }}>
+        <span
+          className="text-[19px] font-semibold"
+          style={{ color: activeColor }}
+        >
           {rating}
         </span>
         <div data-name="user-stars" className="flex items-center gap-0.5">
           {Array.from({ length: 5 }, (_, i) => (
-            <UserStarIcon key={i} color={i < filled ? activeColor : "#4F4F4F"} inactive={i >= filled} />
+            <UserStarIcon
+              key={i}
+              color={i < filled ? activeColor : "#4F4F4F"}
+              inactive={i >= filled}
+            />
           ))}
         </div>
       </div>
@@ -91,7 +216,13 @@ function UserStarRating({ rating }: { rating: number }) {
 
 function ExpertShieldIcon({ filled }: { filled: boolean }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      className="shrink-0"
+    >
       <path d={SHIELD_BG} fill={filled ? "#003EB6" : "#4F4F4F"} />
       <path d={SHIELD_SHAPE} fill="white" opacity={filled ? 1 : 0.5} />
     </svg>
@@ -118,9 +249,23 @@ function ExpertRating({ rating }: { rating: number }) {
 
 function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
   return (
-    <svg width="10" height="14" viewBox="0 0 10 14" fill="none" className="shrink-0">
-      <path d="M5 0L9.33 5H0.67L5 0Z" fill={active && dir === "asc" ? "#e6b830" : "#f8f8f8"} opacity={active && dir === "asc" ? 1 : 0.4} />
-      <path d="M5 14L0.67 9H9.33L5 14Z" fill={active && dir === "desc" ? "#e6b830" : "#f8f8f8"} opacity={active && dir === "desc" ? 1 : 0.4} />
+    <svg
+      width="10"
+      height="14"
+      viewBox="0 0 10 14"
+      fill="none"
+      className="shrink-0"
+    >
+      <path
+        d="M5 0L9.33 5H0.67L5 0Z"
+        fill={active && dir === "asc" ? "#e6b830" : "#f8f8f8"}
+        opacity={active && dir === "asc" ? 1 : 0.4}
+      />
+      <path
+        d="M5 14L0.67 9H9.33L5 14Z"
+        fill={active && dir === "desc" ? "#e6b830" : "#f8f8f8"}
+        opacity={active && dir === "desc" ? 1 : 0.4}
+      />
     </svg>
   );
 }
@@ -140,9 +285,18 @@ function CasinoRow({ casino }: { casino: Casino }) {
         #{casino.rank}
       </span>
 
-      <div data-name="casino-name-logo" className="flex items-center gap-3">
+      <div
+        data-name="casino-name-logo"
+        className="sticky left-0 z-10 flex items-center gap-3 self-stretch bg-[#121212] pr-3 shadow-[8px_0_12px_#121212] sm:static sm:self-auto sm:shadow-none sm:pr-0"
+      >
         <div className="w-[61px] h-[43px] rounded-lg overflow-hidden flex items-center justify-center shrink-0 bg-[#020202]">
-          <Image src={casino.logo} alt={casino.name} width={45} height={29} className="object-contain" />
+          <Image
+            src={casino.logo}
+            alt={casino.name}
+            width={45}
+            height={29}
+            className="object-contain"
+          />
         </div>
         <span className="text-sm font-semibold text-white">{casino.name}</span>
       </div>
@@ -151,7 +305,9 @@ function CasinoRow({ casino }: { casino: Casino }) {
 
       <div data-name="reviews-count" className="flex flex-col gap-2">
         <div className="flex items-center gap-1">
-          <span className="text-[19px] font-semibold text-white">{casino.reviews}</span>
+          <span className="text-[19px] font-semibold text-white">
+            {casino.reviews}
+          </span>
           <span className="text-xs text-white/50">Reviews</span>
         </div>
         <span className="text-xs text-white/50">In Last 6 Months</span>
@@ -160,11 +316,26 @@ function CasinoRow({ casino }: { casino: Casino }) {
       <ExpertRating rating={casino.expertScore} />
 
       <div data-name="traffic-info" className="flex items-center gap-1">
-        <span className="text-sm font-semibold text-white">{casino.traffic}</span>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className={`shrink-0 ${isPositive ? "" : "rotate-180"}`}>
-          <path fillRule="evenodd" clipRule="evenodd" d="M6.5872 1.33736C6.81499 1.10955 7.18436 1.10955 7.41215 1.33736L11.4955 5.42069C11.6623 5.58752 11.7122 5.83842 11.6219 6.05641C11.5316 6.2744 11.319 6.4165 11.083 6.4165H9.33301V11.7966C9.33307 11.8661 9.33307 11.9491 9.32712 12.0222C9.32017 12.1069 9.30244 12.2283 9.23763 12.3554C9.15375 12.52 9.01993 12.6539 8.85526 12.7378C8.72815 12.8026 8.60682 12.8203 8.52212 12.8273C8.44897 12.8332 8.36602 12.8332 8.29654 12.8332C7.43198 12.8328 6.56742 12.8328 5.70285 12.8332C5.63337 12.8332 5.55039 12.8332 5.47729 12.8273C5.39258 12.8203 5.27125 12.8026 5.14411 12.7378C4.97947 12.6539 4.84562 12.52 4.76173 12.3554C4.69695 12.2283 4.67919 12.1069 4.67227 12.0222C4.6663 11.9491 4.66633 11.8662 4.66635 11.7966L4.66636 6.4165H2.91636C2.68042 6.4165 2.46772 6.2744 2.37743 6.05641C2.28714 5.83842 2.33704 5.58752 2.50388 5.42069L6.5872 1.33736Z" fill={isPositive ? "#22C55E" : "#EF4444"} />
+        <span className="text-sm font-semibold text-white">
+          {casino.traffic}
+        </span>
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          className={`shrink-0 ${isPositive ? "" : "rotate-180"}`}
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M6.5872 1.33736C6.81499 1.10955 7.18436 1.10955 7.41215 1.33736L11.4955 5.42069C11.6623 5.58752 11.7122 5.83842 11.6219 6.05641C11.5316 6.2744 11.319 6.4165 11.083 6.4165H9.33301V11.7966C9.33307 11.8661 9.33307 11.9491 9.32712 12.0222C9.32017 12.1069 9.30244 12.2283 9.23763 12.3554C9.15375 12.52 9.01993 12.6539 8.85526 12.7378C8.72815 12.8026 8.60682 12.8203 8.52212 12.8273C8.44897 12.8332 8.36602 12.8332 8.29654 12.8332C7.43198 12.8328 6.56742 12.8328 5.70285 12.8332C5.63337 12.8332 5.55039 12.8332 5.47729 12.8273C5.39258 12.8203 5.27125 12.8026 5.14411 12.7378C4.97947 12.6539 4.84562 12.52 4.76173 12.3554C4.69695 12.2283 4.67919 12.1069 4.67227 12.0222C4.6663 11.9491 4.66633 11.8662 4.66635 11.7966L4.66636 6.4165H2.91636C2.68042 6.4165 2.46772 6.2744 2.37743 6.05641C2.28714 5.83842 2.33704 5.58752 2.50388 5.42069L6.5872 1.33736Z"
+            fill={isPositive ? "#22C55E" : "#EF4444"}
+          />
         </svg>
-        <span className={`text-sm font-semibold ${isPositive ? "text-green-500" : "text-red-500"}`}>
+        <span
+          className={`text-sm font-semibold ${isPositive ? "text-green-500" : "text-red-500"}`}
+        >
           {Math.abs(casino.trafficChange)}%
         </span>
       </div>
@@ -173,7 +344,10 @@ function CasinoRow({ casino }: { casino: Casino }) {
         {casino.safetyIndex}
       </span>
 
-      <Link href="#" className="group inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#d4d4d4] px-3 py-1.5 text-sm font-medium text-[#f5f5f5] hover:bg-white/5 transition-colors">
+      <Link
+        href="#"
+        className="group inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#d4d4d4] px-3 py-1.5 text-sm font-medium text-[#f5f5f5] hover:bg-white/5 transition-colors"
+      >
         View
         <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
       </Link>
@@ -206,13 +380,33 @@ export function CoinbetIndexTable() {
     const sorted = [...list].sort((a, b) => {
       let aVal: number, bVal: number;
       switch (sortKey) {
-        case "rank": aVal = a.rank; bVal = b.rank; break;
-        case "userScore": aVal = a.userScore; bVal = b.userScore; break;
-        case "reviews": aVal = a.reviews; bVal = b.reviews; break;
-        case "expertScore": aVal = a.expertScore; bVal = b.expertScore; break;
-        case "traffic": aVal = parseTraffic(a.traffic); bVal = parseTraffic(b.traffic); break;
-        case "safetyIndex": aVal = a.safetyIndex.localeCompare(b.safetyIndex); bVal = 0; break;
-        default: aVal = a.rank; bVal = b.rank;
+        case "rank":
+          aVal = a.rank;
+          bVal = b.rank;
+          break;
+        case "userScore":
+          aVal = a.userScore;
+          bVal = b.userScore;
+          break;
+        case "reviews":
+          aVal = a.reviews;
+          bVal = b.reviews;
+          break;
+        case "expertScore":
+          aVal = a.expertScore;
+          bVal = b.expertScore;
+          break;
+        case "traffic":
+          aVal = parseTraffic(a.traffic);
+          bVal = parseTraffic(b.traffic);
+          break;
+        case "safetyIndex":
+          aVal = a.safetyIndex.localeCompare(b.safetyIndex);
+          bVal = 0;
+          break;
+        default:
+          aVal = a.rank;
+          bVal = b.rank;
       }
       return sortDir === "asc" ? aVal - bVal : bVal - aVal;
     });
@@ -220,7 +414,13 @@ export function CoinbetIndexTable() {
     return sorted;
   }, [search, sortKey, sortDir]);
 
-  function HeaderCol({ label, sortField }: { label: string; sortField: SortKey }) {
+  function HeaderCol({
+    label,
+    sortField,
+  }: {
+    label: string;
+    sortField: SortKey;
+  }) {
     return (
       <button
         onClick={() => handleSort(sortField)}
@@ -233,23 +433,26 @@ export function CoinbetIndexTable() {
   }
 
   return (
-    <section data-section="coinbet-index-table" className="bg-[#020202] pb-12">
+    <section data-section="coinbet-index-table" className="bg-[#020202] pb-62">
       <div className="site-container">
-        {/* Latest update — centered */}
-        <p className="text-sm text-white/50 text-center pb-6">
-          Latest update 23 March 2026
-        </p>
-
-        {/* Search bar */}
-        <div className="relative mb-6 max-w-md mx-auto">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-white/40" />
-          <input
-            type="text"
-            placeholder="Search casinos..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg bg-[#121212] border border-white/10 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/25 transition-colors"
-          />
+        {/* Search bar + Latest update */}
+        <div
+          data-name="table-toolbar"
+          className="flex items-center justify-between gap-4 mb-6"
+        >
+          <div className="relative w-full max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-white/40" />
+            <input
+              type="text"
+              placeholder="Search casinos..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full rounded-lg bg-[#121212] border border-white/10 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/25 transition-colors"
+            />
+          </div>
+          <p className="text-sm text-white/50 whitespace-nowrap shrink-0">
+            Latest update 23 March 2026
+          </p>
         </div>
 
         {/* Scrollable table wrapper */}

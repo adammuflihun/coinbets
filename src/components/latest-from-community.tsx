@@ -4,7 +4,7 @@ import { ChevronRight } from "lucide-react";
 
 const reviews = [
   {
-    logo: "/casino-index/base-6.svg",
+    logo: "/casino-index/logo-bitsler.svg",
     name: "Bitsler",
     safetyIndex: "Normal",
     reviewCount: 6,
@@ -15,7 +15,7 @@ const reviews = [
     rating: 1.7,
   },
   {
-    logo: "/casino-index/base-1.svg",
+    logo: "/casino-index/logo-stake.svg",
     name: "Yeet",
     safetyIndex: "Normal",
     reviewCount: 6,
@@ -26,7 +26,7 @@ const reviews = [
     rating: 1.7,
   },
   {
-    logo: "/casino-index/base-2.svg",
+    logo: "/casino-index/logo-gamedom.svg",
     name: "BC Game",
     safetyIndex: "Normal",
     reviewCount: 6,
@@ -37,7 +37,7 @@ const reviews = [
     rating: 1.7,
   },
   {
-    logo: "/casino-index/base-4.svg",
+    logo: "/casino-index/logo-rollbit.svg",
     name: "Rollbit",
     safetyIndex: "Normal",
     reviewCount: 6,

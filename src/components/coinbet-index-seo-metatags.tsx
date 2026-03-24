@@ -56,6 +56,7 @@ function AccordionItem({
 }) {
   return (
     <div
+      data-name="faq-item"
       className={`bg-white border border-b-0 last:border-b border-neutral-200 ${isFirst ? "rounded-t-2xl" : ""} ${isLast ? "rounded-b-2xl border-b" : ""}`}
     >
       <button
@@ -82,10 +83,10 @@ export function CoinbetIndexSeoMetatags() {
   const [openFaq, setOpenFaq] = useState<number>(0);
 
   return (
-    <section className="bg-neutral-100 px-5 py-16 sm:py-20 lg:py-24">
-      <div className="mx-auto max-w-[900px] flex flex-col gap-8">
+    <section data-section="coinbet-index-seo-metatags" className="bg-neutral-100 px-5 pt-[160px] pb-16 sm:pb-20 lg:pb-24">
+      <div data-name="seo-container" className="mx-auto max-w-[900px] flex flex-col gap-8">
         {/* How the Index Works */}
-        <div className="bg-white rounded-lg border border-neutral-200 shadow-sm p-8 sm:p-12 flex flex-col gap-3.5">
+        <div data-name="how-it-works" className="bg-white rounded-lg border border-neutral-200 shadow-sm p-8 sm:p-12 flex flex-col gap-3.5">
           <h2 className="text-[26px] font-bold tracking-tight text-[#020202]">
             How the CoinBets Casino Index Works
           </h2>
@@ -109,7 +110,7 @@ export function CoinbetIndexSeoMetatags() {
         </div>
 
         {/* Player Reviews */}
-        <div className="bg-white rounded-lg border border-neutral-200 shadow-sm p-8 sm:p-12 flex flex-col gap-3.5">
+        <div data-name="player-reviews" className="bg-white rounded-lg border border-neutral-200 shadow-sm p-8 sm:p-12 flex flex-col gap-3.5">
           <h2 className="text-[26px] font-bold tracking-tight text-[#020202]">
             Player Reviews — 50%
           </h2>
@@ -135,7 +136,7 @@ export function CoinbetIndexSeoMetatags() {
         </div>
 
         {/* Expert Score */}
-        <div className="bg-white rounded-lg border border-neutral-200 shadow-sm p-8 sm:p-12 flex flex-col gap-3.5">
+        <div data-name="expert-score" className="bg-white rounded-lg border border-neutral-200 shadow-sm p-8 sm:p-12 flex flex-col gap-3.5">
           <h2 className="text-[26px] font-bold tracking-tight text-[#020202]">
             Expert Score — 20%
           </h2>
@@ -166,14 +167,14 @@ export function CoinbetIndexSeoMetatags() {
         </div>
 
         {/* FAQ */}
-        <div className="flex flex-col gap-2.5">
+        <div data-name="faq-header" className="flex flex-col gap-2.5">
           <span className="text-base font-bold text-[#060d17]">FAQ</span>
           <h2 className="text-[26px] font-bold tracking-tight text-[#020202]">
             Frequently asked questions
           </h2>
         </div>
 
-        <div className="flex flex-col">
+        <div data-name="faq-list" className="flex flex-col">
           {faqItems.map((item, i) => (
             <AccordionItem
               key={i}

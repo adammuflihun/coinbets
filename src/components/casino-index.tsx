@@ -24,7 +24,7 @@ const casinos = [
   {
     rank: 1,
     name: "Menace",
-    logo: "/casino-index/base-5.svg",
+    logo: "/casino-index/logo-menace.svg",
     userScore: 4.5,
     reviews: 63,
     expertScore: 3.7,
@@ -35,7 +35,7 @@ const casinos = [
   {
     rank: 2,
     name: "Roobet",
-    logo: "/casino-index/base-8.svg",
+    logo: "/casino-index/logo-roobet.svg",
     userScore: 4.2,
     reviews: 63,
     expertScore: 4.2,
@@ -46,7 +46,7 @@ const casinos = [
   {
     rank: 3,
     name: "Bitsler",
-    logo: "/casino-index/base-6.svg",
+    logo: "/casino-index/logo-bitsler.svg",
     userScore: 2.9,
     reviews: 63,
     expertScore: 3.8,
@@ -57,7 +57,7 @@ const casinos = [
   {
     rank: 4,
     name: "Shuffle",
-    logo: "/casino-index/base-3.svg",
+    logo: "/casino-index/logo-shuffle.svg",
     userScore: 3.4,
     reviews: 63,
     expertScore: 3.2,
@@ -68,7 +68,7 @@ const casinos = [
   {
     rank: 5,
     name: "Thrill",
-    logo: "/casino-index/base-7.svg",
+    logo: "/casino-index/logo-thrill.svg",
     userScore: 1.6,
     reviews: 63,
     expertScore: 3.5,
@@ -79,7 +79,7 @@ const casinos = [
   {
     rank: 6,
     name: "BC Game",
-    logo: "/casino-index/base-2.svg",
+    logo: "/casino-index/logo-gamedom.svg",
     userScore: 4.8,
     reviews: 63,
     expertScore: 2.6,

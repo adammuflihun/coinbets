@@ -40,7 +40,7 @@ export function CountrySelector() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
-        <div className="flex items-center gap-1.5 bg-neutral-100 rounded-lg px-3 py-1.5 hover:bg-neutral-200 transition-colors cursor-pointer">
+        <div data-name="country-trigger" className="flex items-center gap-1.5 bg-neutral-100 rounded-lg px-3 py-1.5 hover:bg-neutral-200 transition-colors cursor-pointer">
           <span className="text-base leading-none">{selected.flag}</span>
           <span className="text-sm font-medium text-neutral-900">
             {selected.name}
@@ -48,7 +48,7 @@ export function CountrySelector() {
           <ChevronDown className="size-4 text-neutral-500" />
         </div>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-[240px] p-0">
+      <PopoverContent data-name="country-dropdown" align="end" className="w-[240px] p-0">
         <div data-name="country-search" className="p-2 border-b border-neutral-100">
           <p className="text-xs font-medium text-neutral-500 px-2 pb-2">
             Your Country of Residence

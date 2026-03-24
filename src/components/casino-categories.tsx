@@ -24,7 +24,7 @@ interface Casino {
 const casinosByTab: Record<string, Casino[]> = {
   "Expert Reviews": [
     {
-      logo: "/casino-index/base-5.svg",
+      logo: "/casino-index/logo-menace.svg",
       name: "Stake",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -32,7 +32,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-2.svg",
+      logo: "/casino-index/logo-gamedom.svg",
       name: "Gamdom",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -40,7 +40,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-8.svg",
+      logo: "/casino-index/logo-roobet.svg",
       name: "Roobet",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -48,7 +48,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-3.svg",
+      logo: "/casino-index/logo-shuffle.svg",
       name: "Shuffle",
       safetyLevel: "High",
       safetyColor: "#00DE00",
@@ -56,7 +56,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-6.svg",
+      logo: "/casino-index/logo-bitsler.svg",
       name: "Bitsler",
       safetyLevel: "High",
       safetyColor: "#00DE00",
@@ -64,7 +64,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-7.svg",
+      logo: "/casino-index/logo-thrill.svg",
       name: "Thrill",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -74,7 +74,7 @@ const casinosByTab: Record<string, Casino[]> = {
   ],
   "Newest Casinos": [
     {
-      logo: "/casino-index/base-5.svg",
+      logo: "/casino-index/logo-menace.svg",
       name: "Stake",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -82,7 +82,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-2.svg",
+      logo: "/casino-index/logo-gamedom.svg",
       name: "Gamdom",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -90,7 +90,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-8.svg",
+      logo: "/casino-index/logo-roobet.svg",
       name: "Roobet",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -98,7 +98,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-3.svg",
+      logo: "/casino-index/logo-shuffle.svg",
       name: "Shuffle",
       safetyLevel: "High",
       safetyColor: "#00DE00",
@@ -106,7 +106,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-6.svg",
+      logo: "/casino-index/logo-bitsler.svg",
       name: "Bitsler",
       safetyLevel: "High",
       safetyColor: "#00DE00",
@@ -114,7 +114,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-7.svg",
+      logo: "/casino-index/logo-thrill.svg",
       name: "Thrill",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -124,7 +124,7 @@ const casinosByTab: Record<string, Casino[]> = {
   ],
   "Provably Fair": [
     {
-      logo: "/casino-index/base-5.svg",
+      logo: "/casino-index/logo-menace.svg",
       name: "Stake",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -132,7 +132,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-2.svg",
+      logo: "/casino-index/logo-gamedom.svg",
       name: "Gamdom",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -140,7 +140,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-8.svg",
+      logo: "/casino-index/logo-roobet.svg",
       name: "Roobet",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
@@ -148,7 +148,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-3.svg",
+      logo: "/casino-index/logo-shuffle.svg",
       name: "Shuffle",
       safetyLevel: "High",
       safetyColor: "#00DE00",
@@ -156,7 +156,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-6.svg",
+      logo: "/casino-index/logo-bitsler.svg",
       name: "Bitsler",
       safetyLevel: "High",
       safetyColor: "#00DE00",
@@ -164,7 +164,7 @@ const casinosByTab: Record<string, Casino[]> = {
       ratingLabel: "Excellent",
     },
     {
-      logo: "/casino-index/base-7.svg",
+      logo: "/casino-index/logo-thrill.svg",
       name: "Thrill",
       safetyLevel: "Normal",
       safetyColor: "#EAEE45",
