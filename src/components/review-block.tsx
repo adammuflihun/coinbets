@@ -152,7 +152,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
       >
         <nav
           data-name="breadcrumb"
-          className="mx-auto max-w-[1180px] px-5 sm:px-10 flex items-center gap-2 py-4 text-sm text-white/60"
+          className="mx-auto max-w-[1280px] px-5 sm:px-10 flex items-center gap-2 py-4 text-sm text-white/60"
         >
           <Link href="/" className="hover:text-white transition-colors">
             Home

@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 const reviews = [
   {
+    slug: "bitsler",
     logo: "/casino-index/logo-bitsler.svg",
     name: "Bitsler",
     review:
@@ -17,6 +18,7 @@ const reviews = [
     safetyIndex: "Normal",
   },
   {
+    slug: "thrill",
     logo: "/casino-index/logo-thrill.svg",
     name: "Thrill",
     review:
@@ -27,6 +29,7 @@ const reviews = [
     safetyIndex: "Normal",
   },
   {
+    slug: "bc-game",
     logo: "/casino-index/logo-gamedom.svg",
     name: "BC Game",
     review:
@@ -37,6 +40,7 @@ const reviews = [
     safetyIndex: "Normal",
   },
   {
+    slug: "roobet",
     logo: "/casino-index/logo-roobet.svg",
     name: "Roobet",
     review:
@@ -95,6 +99,7 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 function ReviewCard({
+  slug,
   logo,
   name,
   review,
@@ -158,7 +163,7 @@ function ReviewCard({
       </div>
 
       {/* Product info */}
-      <div data-name="review-product" className="flex items-start gap-3.5">
+      <Link href={`/casino/review/${slug}`} data-name="review-product" className="flex items-start gap-3.5 hover:opacity-80 transition-opacity">
         <div className="bg-[#060d17] rounded-sm px-1.5 py-2 shrink-0 flex items-center justify-center">
           <Image
             src={logo}
@@ -181,7 +186,7 @@ function ReviewCard({
             </span>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }
