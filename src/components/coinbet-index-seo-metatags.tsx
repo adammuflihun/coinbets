@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown, CircleCheck } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 
 const expertChecklist = [
   "Game quality and RTP transparency",
@@ -70,11 +71,21 @@ function AccordionItem({
           className={`size-4 shrink-0 text-neutral-500 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
-      {isOpen && (
-        <div className="px-4 pb-4 text-base text-[#020202]/70 leading-relaxed">
-          {answer}
-        </div>
-      )}
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="overflow-hidden"
+          >
+            <div className="px-4 pb-4 text-base text-[#020202]/70 leading-relaxed">
+              {answer}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

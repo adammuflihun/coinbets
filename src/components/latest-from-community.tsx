@@ -4,6 +4,7 @@ import { ChevronRight } from "lucide-react";
 
 const reviews = [
   {
+    slug: "bitsler",
     logo: "/casino-index/logo-bitsler.svg",
     name: "Bitsler",
     safetyIndex: "Normal",
@@ -15,6 +16,7 @@ const reviews = [
     rating: 1.7,
   },
   {
+    slug: "yeet",
     logo: "/casino-index/logo-Yeet.svg",
     name: "Yeet",
     safetyIndex: "Normal",
@@ -26,6 +28,7 @@ const reviews = [
     rating: 1.7,
   },
   {
+    slug: "bc-game",
     logo: "/casino-index/logo-gamedom.svg",
     name: "BC Game",
     safetyIndex: "Normal",
@@ -37,6 +40,7 @@ const reviews = [
     rating: 1.7,
   },
   {
+    slug: "rollbit",
     logo: "/casino-index/logo-rollbit.svg",
     name: "Rollbit",
     safetyIndex: "Normal",
@@ -96,6 +100,7 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 function CommunityReviewCard({
+  slug,
   logo,
   name,
   safetyIndex,
@@ -158,7 +163,7 @@ function CommunityReviewCard({
       </div>
 
       {/* Product info */}
-      <div data-name="community-product" className="flex items-start gap-3.5">
+      <Link href={`/casino/review/${slug}`} data-name="community-product" className="flex items-start gap-3.5 hover:opacity-80 transition-opacity">
         <div className="bg-[#060d17] rounded-sm px-1.5 py-2 shrink-0 flex items-center justify-center">
           <Image
             src={logo}
@@ -181,7 +186,7 @@ function CommunityReviewCard({
             </span>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }

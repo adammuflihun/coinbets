@@ -357,7 +357,7 @@ function CasinoRow({ casino }: { casino: Casino }) {
       </span>
 
       <Link
-        href="#"
+        href={`/casino/review/${casino.name.toLowerCase().replace(/\s+/g, "-")}`}
         className="group inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#d4d4d4] px-3 py-1.5 text-sm font-medium text-[#f5f5f5] hover:bg-white/5 transition-colors"
       >
         View

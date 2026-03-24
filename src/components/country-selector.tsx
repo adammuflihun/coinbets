@@ -8,24 +8,25 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
+import "flag-icons/css/flag-icons.min.css";
 
 const countries = [
-  { code: "US", name: "English", flag: "🇺🇸" },
-  { code: "ID", name: "Indonesia", flag: "🇮🇩" },
-  { code: "BR", name: "Português", flag: "🇧🇷" },
-  { code: "ES", name: "Español", flag: "🇪🇸" },
-  { code: "DE", name: "Deutsch", flag: "🇩🇪" },
-  { code: "FR", name: "Français", flag: "🇫🇷" },
-  { code: "JP", name: "日本語", flag: "🇯🇵" },
-  { code: "KR", name: "한국어", flag: "🇰🇷" },
-  { code: "CN", name: "中文", flag: "🇨🇳" },
-  { code: "IN", name: "India", flag: "🇮🇳" },
-  { code: "RU", name: "Русский", flag: "🇷🇺" },
-  { code: "TR", name: "Türkçe", flag: "🇹🇷" },
-  { code: "HK", name: "Hong Kong", flag: "🇭🇰" },
-  { code: "HU", name: "Hungary", flag: "🇭🇺" },
-  { code: "IS", name: "Iceland", flag: "🇮🇸" },
-  { code: "HN", name: "Honduras", flag: "🇭🇳" },
+  { code: "us", name: "English" },
+  { code: "id", name: "Indonesia" },
+  { code: "br", name: "Português" },
+  { code: "es", name: "Español" },
+  { code: "de", name: "Deutsch" },
+  { code: "fr", name: "Français" },
+  { code: "jp", name: "日本語" },
+  { code: "kr", name: "한국어" },
+  { code: "cn", name: "中文" },
+  { code: "in", name: "India" },
+  { code: "ru", name: "Русский" },
+  { code: "tr", name: "Türkçe" },
+  { code: "hk", name: "Hong Kong" },
+  { code: "hu", name: "Hungary" },
+  { code: "is", name: "Iceland" },
+  { code: "hn", name: "Honduras" },
 ];
 
 export function CountrySelector() {
@@ -41,7 +42,7 @@ export function CountrySelector() {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
         <div data-name="country-trigger" className="flex items-center gap-1.5 bg-neutral-100 rounded-lg px-3 py-1.5 hover:bg-neutral-200 transition-colors cursor-pointer">
-          <span className="text-base leading-none">{selected.flag}</span>
+          <span className={`fi fi-${selected.code} fis rounded-full overflow-hidden`} style={{ width: 18, height: 18 }} />
           <span className="text-sm font-medium text-neutral-900">
             {selected.name}
           </span>
@@ -71,7 +72,7 @@ export function CountrySelector() {
               }}
               className="flex w-full items-center gap-3 rounded-md px-2 py-2 text-sm hover:bg-neutral-100 transition-colors"
             >
-              <span className="text-lg leading-none">{country.flag}</span>
+              <span className={`fi fi-${country.code} fis rounded-full overflow-hidden`} style={{ width: 20, height: 20 }} />
               <span className="flex-1 text-left font-medium text-neutral-900">
                 {country.name}
               </span>

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ChevronRight,
   ChevronLeft,
@@ -11,10 +11,16 @@ import {
   Flag,
   Shield,
   Eye,
+  ThumbsDown,
+  Plus,
+  Minus,
 } from "lucide-react";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { AnimatePresence, motion } from "motion/react";
+import "flag-icons/css/flag-icons.min.css";
 
 /* ------------------------------------------------------------------ */
 /*  Types & Data                                                       */
@@ -123,7 +129,134 @@ const TABS = [
   "Bonuses",
   "User Reviews",
   "Safety Index",
-  "Discussion",
+  "Expert Review",
+];
+
+type UserReview = {
+  name: string;
+  avatar: string;
+  country: string;
+  points: number;
+  rating: number;
+  date: string;
+  title: string;
+  body: string;
+  liked: string[];
+  disliked: string[];
+  upVotes: number;
+  downVotes: number;
+  hasVerifiedReview: boolean;
+  hasXVerified: boolean;
+};
+
+const USER_REVIEWS: UserReview[] = [
+  {
+    name: "MrRobot",
+    avatar: "/hero/casino-1.png",
+    country: "es",
+    points: 8,
+    rating: 2,
+    date: "4 months ago",
+    title: "Slow 3 withdrawal not acceptable",
+    body: "Joined Yeet about a month ago after seeing rektmando the owner on Twitter. The site looks good and has plenty of games and deposits in crypto were super quick. so at first I was happy. The problem came when I tried to withdraw. I made a withdrawal of 800 usdt (around 650 euro at the time), and it went into \u201cmanual review.\u201d After 24 hours, still nothing. Support told me it usually takes \u201ca few hours\u201d but couldn\u2019t give me an actual timeframe. It eventually went through after three full days, but only after I sent them multiple screenshots of my wallet and transaction history even though I\u2019d already completed KYC two weeks earlier. Everything else works fine on the site, but the withdrawal process really killed the trust for me. For a crypto casino, three days is way too long.",
+    liked: [
+      "Nice site and smooth gameplay",
+      "The casino own made games are pretty decent",
+      "Good crypto deposit variety",
+    ],
+    disliked: [
+      "Withdrawal took 3 days and required extra verification",
+      "Support was slow and vague about what was happening",
+    ],
+    upVotes: 2,
+    downVotes: 0,
+    hasVerifiedReview: true,
+    hasXVerified: true,
+  },
+  {
+    name: "CryptoKing99",
+    avatar: "/hero/casino-2.png",
+    country: "gb",
+    points: 12,
+    rating: 4,
+    date: "2 weeks ago",
+    title: "Great selection of games and fast payouts",
+    body: "Been using this casino for about 3 months now and overall very happy with the experience. They have a huge selection of slots and table games from top providers. Deposits are instant and withdrawals usually process within a few hours. The VIP program is decent too, got some nice bonuses after my first month. Only downside is the live chat can be slow during peak hours.",
+    liked: [
+      "Huge game selection from top providers",
+      "Fast withdrawal processing",
+      "Good VIP rewards program",
+    ],
+    disliked: ["Live chat slow during peak hours"],
+    upVotes: 5,
+    downVotes: 1,
+    hasVerifiedReview: true,
+    hasXVerified: false,
+  },
+  {
+    name: "LuckyDegen",
+    avatar: "/hero/casino-3.png",
+    country: "de",
+    points: 5,
+    rating: 3,
+    date: "1 month ago",
+    title: "Decent casino but bonuses could be better",
+    body: "The casino itself is solid with good games and a clean interface. My issue is mainly with the bonus terms. The wagering requirements are quite high (45x) compared to other crypto casinos I\u2019ve used. Also had an issue where a bonus was applied incorrectly and it took support 2 days to fix it. Once that was sorted though, everything worked fine. Would recommend for the game variety but look elsewhere if you\u2019re bonus hunting.",
+    liked: [
+      "Clean and modern interface",
+      "Wide variety of games",
+      "Crypto deposits are instant",
+    ],
+    disliked: [
+      "High wagering requirements on bonuses",
+      "Bonus was applied incorrectly, took 2 days to fix",
+    ],
+    upVotes: 3,
+    downVotes: 2,
+    hasVerifiedReview: true,
+    hasXVerified: true,
+  },
+  {
+    name: "SatoshiBets",
+    avatar: "/hero/casino-1.png",
+    country: "jp",
+    points: 15,
+    rating: 5,
+    date: "3 days ago",
+    title: "Best crypto casino I've used so far",
+    body: "I\u2019ve tried probably 10+ crypto casinos over the past year and this is easily the best one. The provably fair system is transparent, withdrawals are lightning fast (usually under 30 minutes), and the original games are actually fun and well-designed. Customer support has been helpful every time I\u2019ve reached out. The referral program is also generous. Honestly can\u2019t think of any major complaints.",
+    liked: [
+      "Provably fair and transparent",
+      "Withdrawals under 30 minutes",
+      "Great original games",
+      "Helpful customer support",
+    ],
+    disliked: ["Mobile app could use some polish"],
+    upVotes: 8,
+    downVotes: 0,
+    hasVerifiedReview: true,
+    hasXVerified: true,
+  },
+  {
+    name: "NightOwl42",
+    avatar: "/hero/casino-2.png",
+    country: "br",
+    points: 3,
+    rating: 1,
+    date: "2 months ago",
+    title: "Avoid - account locked with funds inside",
+    body: "Had my account locked after winning about 2000 USDT. They said it was for \u201csecurity verification\u201d but after submitting all the documents they asked for, I heard nothing for over a week. When I finally got a response, they said my account was under review and couldn\u2019t give a timeline. It\u2019s been 3 weeks now and I still can\u2019t access my funds. Terrible experience.",
+    liked: ["Games were fun while I could play"],
+    disliked: [
+      "Account locked after winning",
+      "No timeline given for resolution",
+      "Support is unresponsive",
+    ],
+    upVotes: 12,
+    downVotes: 1,
+    hasVerifiedReview: true,
+    hasXVerified: false,
+  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -135,6 +268,42 @@ export function ReviewBlock({ slug }: { slug: string }) {
   const [activeTab, setActiveTab] = useState(0);
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
   const [cryptoOpen, setCryptoOpen] = useState(false);
+  const [isTabSticky, setIsTabSticky] = useState(false);
+  const [sortOpen, setSortOpen] = useState(false);
+  const [sortBy, setSortBy] = useState("Most Helpful");
+  const tabSentinelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = tabSentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsTabSticky(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-update active tab based on scroll position
+  useEffect(() => {
+    const sectionIds = TABS.map((tab) => tab.toLowerCase().replace(/\s+/g, "-"));
+    const handleScroll = () => {
+      const offset = 120; // account for sticky tab bar
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionIds[i]);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= offset) {
+            setActiveTab(i);
+            return;
+          }
+        }
+      }
+      setActiveTab(0);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const ratingColor =
     RATING_COLORS[Math.min(5, Math.max(1, Math.round(casino.playerRating)))] ??
@@ -149,11 +318,11 @@ export function ReviewBlock({ slug }: { slug: string }) {
       {/* ---- Breadcrumb (dark strip) ---- */}
       <div
         data-name="dark-header"
-        className="bg-[#060D17] bg-[url('/hero/background-expert-review.svg')] bg-cover bg-center pb-28"
+        className="bg-[#060D17] bg-[url('/hero/background-expert-review.svg')] bg-cover bg-center pb-28 flex items-center"
       >
         <nav
           data-name="breadcrumb"
-          className="mx-auto max-w-[1280px] px-5 sm:px-10 flex items-center gap-2 py-4 text-sm text-white/60"
+          className="mx-auto max-w-[1280px] pt-10 w-full px-5 sm:px-10 flex items-center gap-2 text-sm text-white/60"
         >
           <Link href="/" className="hover:text-white transition-colors">
             Home
@@ -219,7 +388,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     </h1>
                     <Link
                       href="#"
-                      className="group inline-flex items-center gap-1.5 rounded-lg border border-[#060D17] px-5 py-2.5 text-sm font-semibold text-[#060D17] hover:bg-neutral-100 transition-colors w-fit"
+                      className="group inline-flex items-center gap-1.5 rounded-lg border border-[#060D17] px-3.5 py-1.5 text-sm font-semibold text-[#060D17] hover:bg-neutral-100 transition-colors w-fit"
                     >
                       Official Site Info
                       <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -339,15 +508,27 @@ export function ReviewBlock({ slug }: { slug: string }) {
               </div>
             </div>
             {/* ---- Tab Bar ---- */}
+            <div ref={tabSentinelRef} className="h-0" />
             <div
               data-name="tab-bar"
-              className="flex items-center bg-[#EBEBEB] p-1 rounded-xl overflow-x-auto"
+              className={`sticky z-30 flex items-center bg-[#EBEBEB] p-1 rounded-xl overflow-x-auto transition-[width,margin,top] duration-300 ease-out ${
+                isTabSticky ? "top-[1ch] w-[95%] mx-auto" : "top-0 w-full"
+              }`}
               style={{ scrollbarWidth: "none" }}
             >
               {TABS.map((tab, i) => (
                 <button
                   key={tab}
-                  onClick={() => setActiveTab(i)}
+                  onClick={() => {
+                    setActiveTab(i);
+                    const sectionId = tab.toLowerCase().replace(/\s+/g, "-");
+                    const el = document.getElementById(sectionId);
+                    if (el) {
+                      const y =
+                        el.getBoundingClientRect().top + window.scrollY - 80;
+                      window.scrollTo({ top: y, behavior: "smooth" });
+                    }
+                  }}
                   className={`flex-1 px-2 sm:px-2.5 py-1.5 text-sm sm:text-base font-semibold rounded-[10px] transition-all whitespace-nowrap ${
                     activeTab === i
                       ? "bg-white shadow-sm text-[#060D17]"
@@ -359,6 +540,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
               ))}
             </div>
             <div
+              id="overview"
               data-name="main-content"
               className="flex flex-col gap-6 rounded-lg border border-neutral-200 bg-white p-8 shadow-sm"
             >
@@ -378,13 +560,37 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   background="rgba(23, 23, 23, 1)"
                   className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium shrink-0"
                 >
-                  <svg width="20" height="20" viewBox="0 0 31 31" fill="none" className="size-5 shrink-0">
-                    <path d="M30.0039 8.18734C29.6411 6.15767 28.6312 4.34371 27.18 3.0004C25.8857 1.79436 24.2483 0.951107 22.4343 0.627535C20.1203 0.215717 17.7474 0 15.3157 0C12.884 0 10.5112 0.215717 8.19715 0.627535C6.27533 0.970717 4.54961 1.8924 3.22591 3.21611C1.90221 4.53981 0.970714 6.26553 0.627532 8.19715C0.215714 10.5112 0 12.884 0 15.3157C0 17.7474 0.215714 20.1203 0.627532 22.4343C0.970714 24.3561 1.8924 26.072 3.2063 27.3957C4.53 28.7292 6.25572 29.6607 8.18734 30.0039C10.5014 30.4157 12.8742 30.6314 15.3059 30.6314C17.7376 30.6314 20.1105 30.4157 22.4245 30.0039C24.5522 29.6215 26.4348 28.5233 27.8076 26.9643C28.9155 25.7092 29.6902 24.1502 29.9941 22.4343C30.4059 20.1203 30.6216 17.7474 30.6216 15.3157C30.6216 12.884 30.4059 10.5112 29.9941 8.19715L30.0039 8.18734Z" fill="#003EB6"/>
-                    <path d="M9.2462 20.5125C8.46178 21.091 7.79503 21.7969 7.28516 22.6304C8.59905 24.7679 10.9425 26.121 13.4526 26.1897C13.8644 25.4249 14.139 24.611 14.2665 23.758C14.5116 22.1499 14.2272 20.4928 13.4526 19.0613C11.9328 19.1005 10.4718 19.6006 9.23639 20.5027L9.2462 20.5125Z" fill="white"/>
-                    <path d="M17.8064 4.40259C17.2181 5.49097 16.9043 6.72642 16.9043 7.96188C16.9043 9.19733 17.2181 10.4328 17.8064 11.5212C19.4242 11.4721 21.0127 10.8936 22.2776 9.88369C22.9541 9.34441 23.5228 8.69727 23.9739 7.96188C22.66 5.82434 20.3165 4.47122 17.8064 4.40259Z" fill="white"/>
-                    <path d="M8.21543 18.0611C9.4803 17.4434 10.5393 16.4825 11.2845 15.2862C10.5491 14.0802 9.49991 13.1193 8.23504 12.4819C7.27413 12.0015 6.20536 11.7269 5.12679 11.6975C3.92075 13.9037 3.91094 16.6099 5.09737 18.8259C6.17595 18.7965 7.24471 18.5415 8.21543 18.0709V18.0611Z" fill="white"/>
-                    <path d="M21.7578 20.3261C20.5812 19.5417 19.2182 19.1103 17.8161 19.071C17.1493 20.3065 16.8356 21.7086 16.9336 23.1206C17.0023 24.1894 17.3062 25.2581 17.8161 26.1994C20.3262 26.1308 22.6697 24.7777 23.9836 22.6401C23.4149 21.7184 22.6501 20.9242 21.7578 20.3359V20.3261Z" fill="white"/>
-                    <path d="M7.28516 7.97168C7.92249 9.00122 8.80496 9.87389 9.84431 10.4916C10.9327 11.1388 12.178 11.5016 13.4526 11.531C14.0606 10.4132 14.3645 9.15811 14.3547 7.88343C14.3449 6.66759 14.0311 5.47135 13.4526 4.40259C10.9425 4.47122 8.59905 5.82434 7.28516 7.96188V7.97168Z" fill="white"/>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 31 31"
+                    fill="none"
+                    className="size-5 shrink-0"
+                  >
+                    <path
+                      d="M30.0039 8.18734C29.6411 6.15767 28.6312 4.34371 27.18 3.0004C25.8857 1.79436 24.2483 0.951107 22.4343 0.627535C20.1203 0.215717 17.7474 0 15.3157 0C12.884 0 10.5112 0.215717 8.19715 0.627535C6.27533 0.970717 4.54961 1.8924 3.22591 3.21611C1.90221 4.53981 0.970714 6.26553 0.627532 8.19715C0.215714 10.5112 0 12.884 0 15.3157C0 17.7474 0.215714 20.1203 0.627532 22.4343C0.970714 24.3561 1.8924 26.072 3.2063 27.3957C4.53 28.7292 6.25572 29.6607 8.18734 30.0039C10.5014 30.4157 12.8742 30.6314 15.3059 30.6314C17.7376 30.6314 20.1105 30.4157 22.4245 30.0039C24.5522 29.6215 26.4348 28.5233 27.8076 26.9643C28.9155 25.7092 29.6902 24.1502 29.9941 22.4343C30.4059 20.1203 30.6216 17.7474 30.6216 15.3157C30.6216 12.884 30.4059 10.5112 29.9941 8.19715L30.0039 8.18734Z"
+                      fill="#003EB6"
+                    />
+                    <path
+                      d="M9.2462 20.5125C8.46178 21.091 7.79503 21.7969 7.28516 22.6304C8.59905 24.7679 10.9425 26.121 13.4526 26.1897C13.8644 25.4249 14.139 24.611 14.2665 23.758C14.5116 22.1499 14.2272 20.4928 13.4526 19.0613C11.9328 19.1005 10.4718 19.6006 9.23639 20.5027L9.2462 20.5125Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M17.8064 4.40259C17.2181 5.49097 16.9043 6.72642 16.9043 7.96188C16.9043 9.19733 17.2181 10.4328 17.8064 11.5212C19.4242 11.4721 21.0127 10.8936 22.2776 9.88369C22.9541 9.34441 23.5228 8.69727 23.9739 7.96188C22.66 5.82434 20.3165 4.47122 17.8064 4.40259Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M8.21543 18.0611C9.4803 17.4434 10.5393 16.4825 11.2845 15.2862C10.5491 14.0802 9.49991 13.1193 8.23504 12.4819C7.27413 12.0015 6.20536 11.7269 5.12679 11.6975C3.92075 13.9037 3.91094 16.6099 5.09737 18.8259C6.17595 18.7965 7.24471 18.5415 8.21543 18.0709V18.0611Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M21.7578 20.3261C20.5812 19.5417 19.2182 19.1103 17.8161 19.071C17.1493 20.3065 16.8356 21.7086 16.9336 23.1206C17.0023 24.1894 17.3062 25.2581 17.8161 26.1994C20.3262 26.1308 22.6697 24.7777 23.9836 22.6401C23.4149 21.7184 22.6501 20.9242 21.7578 20.3359V20.3261Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M7.28516 7.97168C7.92249 9.00122 8.80496 9.87389 9.84431 10.4916C10.9327 11.1388 12.178 11.5016 13.4526 11.531C14.0606 10.4132 14.3645 9.15811 14.3547 7.88343C14.3449 6.66759 14.0311 5.47135 13.4526 4.40259C10.9425 4.47122 8.59905 5.82434 7.28516 7.96188V7.97168Z"
+                      fill="white"
+                    />
                   </svg>
                   Full CoinBets Review
                   <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -445,6 +651,548 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 </div>
               </div>
             </div>
+
+            {/* ---- Bonuses Section ---- */}
+            <div
+              id="bonuses"
+              data-name="bonuses-section"
+              className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm flex flex-col gap-5"
+            >
+              <h2
+                data-name="bonuses-title"
+                className="text-xl font-bold text-[#060D17]"
+              >
+                {casino.name} Bonuses
+              </h2>
+              <p
+                data-name="bonuses-text"
+                className="text-base leading-relaxed text-neutral-600"
+              >
+                {casino.name} skips the usual welcome bonus, instead focusing on
+                crypto-only wager races, leaderboards, and VIP rewards.
+                It&apos;s a different approach for a crypto casino, but at least
+                it&apos;s transparent. Explore all {casino.name} casino bonuses
+                and promotions below (availability may vary)
+              </p>
+              <div
+                data-name="bonuses-disclaimer"
+                className="rounded-xl bg-[#efefef] p-5"
+              >
+                <p className="text-base leading-relaxed text-neutral-700">
+                  <span className="font-bold text-[#003EB6]">Disclaimer:</span>{" "}
+                  CoinBets is fully independent, with no affiliate links or
+                  financial incentives. Our bonus breakdowns are unbiased, but
+                  always verify terms with the casino, as they may change.
+                </p>
+              </div>
+            </div>
+
+            {/* ---- User Feedback Summary ---- */}
+            <div
+              id="user-reviews"
+              data-name="user-feedback-summary"
+              className="rounded-lg border border-neutral-200 bg-white p-6 sm:p-8 shadow-sm flex flex-col gap-6"
+            >
+              {/* Top row: question + write review */}
+              <div
+                data-name="feedback-top"
+                className="flex items-center justify-between gap-4"
+              >
+                <p
+                  data-name="feedback-question"
+                  className="text-xl font-bold text-[#060D17]"
+                >
+                  Do you have any experience with {casino.name}?
+                </p>
+                <button
+                  data-name="write-review-btn"
+                  className="shrink-0 flex items-center gap-2 rounded-lg bg-[#003EB6] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#002d8a] transition-colors"
+                >
+                  Write a Review
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    className="size-4"
+                  >
+                    <path
+                      d="M11.333 2.00004C11.5081 1.82494 11.716 1.68605 11.9447 1.59129C12.1735 1.49653 12.4187 1.44775 12.6663 1.44775C12.914 1.44775 13.1592 1.49653 13.388 1.59129C13.6167 1.68605 13.8246 1.82494 13.9997 2.00004C14.1748 2.17513 14.3137 2.38308 14.4084 2.61182C14.5032 2.84057 14.552 3.08575 14.552 3.33337C14.552 3.581 14.5032 3.82618 14.4084 4.05493C14.3137 4.28367 14.1748 4.49162 13.9997 4.66671L4.99967 13.6667L1.33301 14.6667L2.33301 11L11.333 2.00004Z"
+                      stroke="white"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Feedback stats + rating scale */}
+              <div
+                data-name="feedback-stats"
+                className="flex flex-col sm:flex-row gap-6 sm:gap-10"
+              >
+                {/* Left: score */}
+                <div data-name="feedback-score" className="flex flex-col gap-1">
+                  <span
+                    data-name="feedback-label"
+                    className="text-xs font-bold text-neutral-500 uppercase tracking-wide"
+                  >
+                    User Feedback:
+                  </span>
+                  <span
+                    data-name="feedback-value"
+                    className="text-2xl font-bold text-[#060D17]"
+                  >
+                    {casino.playerRating} –{" "}
+                    <span style={{ color: ratingColor }}>
+                      {casino.playerRating >= 4.5
+                        ? "EXCELLENT"
+                        : casino.playerRating >= 3.5
+                          ? "GOOD"
+                          : casino.playerRating >= 2.5
+                            ? "OK"
+                            : casino.playerRating >= 1.5
+                              ? "BAD"
+                              : "TERRIBLE"}
+                    </span>
+                  </span>
+                  <span
+                    data-name="feedback-total"
+                    className="text-sm text-neutral-500"
+                  >
+                    63 total
+                  </span>
+                </div>
+
+                {/* Right: rating scale bars */}
+                <div
+                  data-name="feedback-scale"
+                  className="flex flex-1 items-end gap-0"
+                >
+                  {[
+                    { score: 5, label: "EXCELLENT", color: "#23BA21" },
+                    { score: 4, label: "GOOD", color: "#9FF11A" },
+                    { score: 3, label: "OK", color: "#D8DC00" },
+                    { score: 2, label: "BAD", color: "#FFB257" },
+                    { score: 1, label: "TERRIBLE", color: "#FF6847" },
+                  ].map((item, i) => (
+                    <div
+                      key={item.score}
+                      data-name="scale-item"
+                      className="flex flex-1 flex-col items-center gap-1.5"
+                    >
+                      <span className="text-lg font-bold text-[#060D17]">
+                        {item.score}
+                      </span>
+                      <div
+                        data-name="scale-bar"
+                        className={`w-full h-2.5 ${i === 0 ? "rounded-l-full" : ""} ${i === 4 ? "rounded-r-full" : ""}`}
+                        style={{ backgroundColor: item.color }}
+                      />
+                      <span className="text-[9px] font-bold text-neutral-400 uppercase tracking-wide">
+                        {item.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Star distribution bars */}
+              <div
+                data-name="feedback-distribution"
+                className="flex flex-col gap-3"
+              >
+                {[
+                  { stars: 5, percent: 27 },
+                  { stars: 4, percent: 41 },
+                  { stars: 3, percent: 24 },
+                  { stars: 2, percent: 3 },
+                  { stars: 1, percent: 5 },
+                ].map((row) => (
+                  <div
+                    key={row.stars}
+                    data-name="distribution-row"
+                    className="flex items-center gap-3"
+                  >
+                    <Checkbox
+                    />
+                    <span
+                      data-name="star-label"
+                      className="text-sm font-semibold text-[#060D17] w-12"
+                    >
+                      {row.stars}-star
+                    </span>
+                    <div
+                      data-name="bar-track"
+                      className="flex-1 h-3 bg-neutral-200 rounded-full overflow-hidden"
+                    >
+                      <div
+                        data-name="bar-fill"
+                        className="h-full rounded-full"
+                        style={{ width: `${row.percent}%`, backgroundColor: RATING_COLORS[row.stars] }}
+                      />
+                    </div>
+                    <span
+                      data-name="bar-percent"
+                      className="text-sm font-semibold text-[#060D17] w-10 text-right"
+                    >
+                      {row.percent}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* User Reviews heading + sort */}
+            <div
+              data-name="user-reviews-header"
+              className="flex items-center justify-between"
+            >
+              <h2
+                data-name="user-reviews-title"
+                className="text-xl font-bold text-[#060D17]"
+              >
+                User Reviews
+              </h2>
+              <Popover open={sortOpen} onOpenChange={setSortOpen}>
+                <PopoverTrigger>
+                  <div
+                    data-name="user-reviews-sort"
+                    className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-4 py-2 text-sm font-semibold text-[#060D17] hover:bg-neutral-50 transition-colors cursor-pointer"
+                  >
+                    {sortBy}
+                    <ChevronDown className="size-4 text-neutral-500" />
+                  </div>
+                </PopoverTrigger>
+                <PopoverContent data-name="sort-dropdown" align="end" className="w-[180px] p-1">
+                  {["Most Helpful", "Most Recent", "Highest Rated", "Lowest Rated"].map((option) => (
+                    <button
+                      key={option}
+                      onClick={() => {
+                        setSortBy(option);
+                        setSortOpen(false);
+                      }}
+                      className={`flex w-full items-center rounded-md px-3 py-2 text-sm transition-colors ${
+                        sortBy === option
+                          ? "bg-neutral-100 font-semibold text-[#060D17]"
+                          : "text-neutral-600 hover:bg-neutral-50"
+                      }`}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </PopoverContent>
+              </Popover>
+            </div>
+
+            {/* ---- User Review Cards ---- */}
+            {USER_REVIEWS.map((review, idx) => {
+              const reviewRatingColor =
+                RATING_COLORS[
+                  Math.min(5, Math.max(1, Math.round(review.rating)))
+                ] ?? RATING_COLORS[3];
+              return (
+                <div
+                  key={idx}
+                  data-name="user-review-card"
+                  className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm"
+                >
+                  {/* Reviewer header */}
+                  <div
+                    data-name="reviewer-header"
+                    className="flex items-start gap-4"
+                  >
+                    <div
+                      data-name="reviewer-avatar"
+                      className="relative shrink-0"
+                    >
+                      <div
+                        data-name="avatar-image"
+                        className="size-16 rounded-full bg-neutral-200 overflow-hidden"
+                      >
+                        <Image
+                          src={review.avatar}
+                          alt={review.name}
+                          width={64}
+                          height={64}
+                          className="size-full object-cover"
+                        />
+                      </div>
+                      <span
+                        data-name="reviewer-points"
+                        className="absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-[#167715] px-2 py-0.5 text-[10px] font-bold text-white whitespace-nowrap"
+                      >
+                        {review.points} pts
+                      </span>
+                    </div>
+                    <div
+                      data-name="reviewer-info"
+                      className="flex flex-col gap-1.5"
+                    >
+                      <span
+                        data-name="reviewer-name"
+                        className="flex items-center gap-1.5 text-base font-bold text-[#060D17]"
+                      >
+                        {review.name}
+                        <span
+                          data-name="country-flag"
+                          className={`fi fi-${review.country} fis rounded-full overflow-hidden`}
+                          style={{ width: 16, height: 16 }}
+                        />
+                      </span>
+                      <div
+                        data-name="reviewer-badges"
+                        className="flex flex-wrap items-center gap-1"
+                      >
+                        {review.hasVerifiedReview && (
+                          <span
+                            data-name="badge-verified-review"
+                            className="inline-flex items-center gap-[5px] rounded-[4px] bg-[#003EB6] px-2 py-[4px] text-xs text-white"
+                          >
+                            <svg
+                              width="14"
+                              height="14"
+                              viewBox="0 0 14 14"
+                              fill="none"
+                              className="size-3.5 shrink-0"
+                            >
+                              <path
+                                d="M13.4154 7L11.992 5.3725L12.1904 3.22L10.0845 2.74167L8.98203 0.875L6.9987 1.72667L5.01537 0.875L3.91287 2.73583L1.80703 3.20833L2.00536 5.36667L0.582031 7L2.00536 8.6275L1.80703 10.7858L3.91287 11.2642L5.01537 13.125L6.9987 12.2675L8.98203 13.1192L10.0845 11.2583L12.1904 10.78L11.992 8.6275L13.4154 7ZM5.88453 9.75333L3.66787 7.53083L4.5312 6.6675L5.88453 8.02667L9.29703 4.6025L10.1604 5.46583L5.88453 9.75333Z"
+                                fill="white"
+                              />
+                            </svg>
+                            Verified Review
+                          </span>
+                        )}
+                        {review.hasXVerified && (
+                          <span
+                            data-name="badge-x-verified"
+                            className="inline-flex items-center gap-[5px] rounded-[4px] bg-black px-2 py-[4px] text-xs text-white"
+                          >
+                            <svg
+                              width="14"
+                              height="14"
+                              viewBox="0 0 14 14"
+                              fill="none"
+                              className="size-3.5 shrink-0"
+                            >
+                              <path
+                                d="M8.32 5.93L13.49 0H12.27L7.78 5.15L4.2 0H0L5.42 7.78L0 14H1.22L5.96 8.56L9.74 14H13.94L8.32 5.93ZM6.58 7.85L6.03 7.08L1.66 0.91H3.61L7.07 5.89L7.62 6.66L12.27 13.13H10.32L6.58 7.85Z"
+                                fill="white"
+                              />
+                            </svg>
+                            Verified Account
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Rating */}
+                  <div
+                    data-name="reviewer-rating"
+                    className="mt-5 rounded-lg bg-neutral-50 p-4"
+                  >
+                    <div
+                      data-name="rating-score"
+                      className="flex items-center gap-2"
+                    >
+                      <span
+                        data-name="rating-number"
+                        className="text-3xl font-bold"
+                        style={{ color: reviewRatingColor }}
+                      >
+                        {review.rating}
+                      </span>
+                      <span
+                        data-name="rating-max"
+                        className="text-sm text-neutral-500"
+                      >
+                        / 5
+                      </span>
+                      <div
+                        data-name="rating-stars"
+                        className="flex items-center gap-0.5 ml-2"
+                      >
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <svg
+                            key={star}
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            className="size-5"
+                          >
+                            <path
+                              d={STAR_BG}
+                              fill={
+                                star <= review.rating
+                                  ? reviewRatingColor
+                                  : "#E5E7EB"
+                              }
+                            />
+                            <path d={STAR_SHAPE} fill="white" />
+                          </svg>
+                        ))}
+                      </div>
+                    </div>
+                    <p
+                      data-name="rating-date"
+                      className="text-sm text-neutral-500 mt-1"
+                    >
+                      Reviewed{" "}
+                      <span className="text-neutral-600">{review.date}</span>
+                    </p>
+                  </div>
+
+                  <div
+                    data-name="divider"
+                    className="border-t border-neutral-100 my-5"
+                  />
+
+                  {/* Review content */}
+                  <div
+                    data-name="review-content"
+                    className="flex flex-col gap-3"
+                  >
+                    <h3
+                      data-name="review-title"
+                      className="text-xl font-bold text-[#060D17]"
+                    >
+                      {review.title}
+                    </h3>
+                    <p
+                      data-name="review-text"
+                      className="text-base leading-relaxed text-neutral-600"
+                    >
+                      {review.body}
+                    </p>
+                  </div>
+
+                  {/* What I Liked / What I Didn't Like */}
+                  <div
+                    data-name="review-pros-cons"
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5"
+                  >
+                    <div
+                      data-name="review-what-i-liked"
+                      className="rounded-lg border border-green-100 bg-[#dcfce7] p-4"
+                    >
+                      <h4
+                        data-name="liked-heading"
+                        className="text-xs font-bold text-[#104d0f] uppercase mb-3"
+                      >
+                        What I Liked
+                      </h4>
+                      <div
+                        data-name="liked-list"
+                        className="flex flex-col gap-2.5"
+                      >
+                        {review.liked.map((item, i) => (
+                          <div
+                            key={i}
+                            data-name="liked-item"
+                            className="flex items-start gap-2"
+                          >
+                            <div
+                              data-name="liked-icon"
+                              className="size-5 rounded-full bg-[#167715] flex items-center justify-center shrink-0 mt-0.5"
+                            >
+                              <Plus className="size-3 text-white" />
+                            </div>
+                            <p className="text-sm text-[#14532D]">{item}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div
+                      data-name="review-what-i-disliked"
+                      className="rounded-lg border border-red-100 bg-red-50 p-4"
+                    >
+                      <h4
+                        data-name="disliked-heading"
+                        className="text-xs font-bold text-[#7a301f] uppercase mb-3"
+                      >
+                        What I Didn&apos;t Like
+                      </h4>
+                      <div
+                        data-name="disliked-list"
+                        className="flex flex-col gap-2.5"
+                      >
+                        {review.disliked.map((item, i) => (
+                          <div
+                            key={i}
+                            data-name="disliked-item"
+                            className="flex items-start gap-2"
+                          >
+                            <div
+                              data-name="disliked-icon"
+                              className="size-5 rounded-full bg-[#da3131] flex items-center justify-center shrink-0 mt-0.5"
+                            >
+                              <Minus className="size-3 text-white" />
+                            </div>
+                            <p className="text-sm text-[#7f1d1d]">{item}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Helpful footer */}
+                  <div
+                    data-name="review-footer"
+                    className="flex items-center justify-between mt-5 pt-4 border-t border-neutral-100"
+                  >
+                    <span
+                      data-name="helpful-label"
+                      className="text-sm text-neutral-500"
+                    >
+                      Is this helpful?
+                    </span>
+                    <div
+                      data-name="helpful-actions"
+                      className="flex items-center gap-3"
+                    >
+                      <button
+                        data-name="vote-up"
+                        className="size-8 rounded-full border border-neutral-200 hover:bg-neutral-50 flex items-center justify-center transition-colors"
+                      >
+                        <ThumbsUp className="size-4 text-neutral-500" />
+                      </button>
+                      <span
+                        data-name="vote-up-count"
+                        className="text-sm text-neutral-500"
+                      >
+                        ({review.upVotes})
+                      </span>
+                      <button
+                        data-name="vote-down"
+                        className="size-8 rounded-full border border-neutral-200 hover:bg-neutral-50 flex items-center justify-center transition-colors"
+                      >
+                        <ThumbsDown className="size-4 text-neutral-500" />
+                      </button>
+                      <span
+                        data-name="vote-down-count"
+                        className="text-sm text-neutral-500"
+                      >
+                        ({review.downVotes})
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* See all reviews */}
+            <button
+              data-name="see-all-reviews"
+              className="mx-auto flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-6 py-3 text-sm font-semibold text-[#060D17] hover:bg-neutral-50 transition-colors shadow-sm"
+            >
+              See all users review
+              <span className="text-neutral-400">+3</span>
+              <ChevronRight className="size-4 text-neutral-400" />
+            </button>
           </div>
 
           {/* ---- Sidebar ---- */}
@@ -609,6 +1357,52 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   height={220}
                   className="w-full h-[200px] object-cover rounded-lg"
                 />
+              </div>
+            </div>
+
+            {/* Accepting players from */}
+            <div
+              data-name="accepting-players"
+              className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
+            >
+              <h3
+                data-name="accepting-players-title"
+                className="text-base font-bold text-[#060D17] mb-3"
+              >
+                Accepting players from
+              </h3>
+              <div
+                data-name="accepting-players-country"
+                className="flex items-center gap-2.5"
+              >
+                <span
+                  data-name="accepting-players-flag"
+                  className="fi fi-am fis rounded-full overflow-hidden"
+                  style={{ width: 24, height: 24 }}
+                />
+                <span
+                  data-name="accepting-players-name"
+                  className="text-sm font-medium text-[#060D17]"
+                >
+                  Armenia
+                </span>
+                <svg
+                  data-name="accepting-players-check"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  className="size-[18px] shrink-0"
+                >
+                  <circle cx="9" cy="9" r="9" fill="#167715" />
+                  <path
+                    d="M5.5 9L8 11.5L12.5 7"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
             </div>
           </div>
