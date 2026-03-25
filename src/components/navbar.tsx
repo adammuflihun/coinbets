@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Search } from "lucide-react";
@@ -12,6 +13,31 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+
+function useScrollDirection() {
+  const [visible, setVisible] = useState(true);
+  const [atTop, setAtTop] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      setAtTop(y < 10);
+      if (y < 10) {
+        setVisible(true);
+      } else if (y < lastScrollY.current) {
+        setVisible(true);
+      } else if (y > lastScrollY.current + 5) {
+        setVisible(false);
+      }
+      lastScrollY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return { visible, atTop };
+}
 
 function CasinoIndexIcon({ className }: { className?: string }) {
   return (
@@ -50,10 +76,14 @@ const navLinks = [
 ];
 
 export function Navbar() {
+  const { visible, atTop } = useScrollDirection();
+
   return (
     <header
       data-section="navbar"
-      className="bg-white border-b border-neutral-100"
+      className={`sticky top-0 z-40 bg-white border-b border-neutral-100 transition-transform duration-300 ${
+        visible ? "translate-y-0" : "-translate-y-full"
+      } ${!atTop && visible ? "shadow-sm" : ""}`}
     >
       <nav
         data-name="nav-bar"

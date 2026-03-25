@@ -9,26 +9,26 @@ import type Flickity from "flickity";
 const videos = [
   {
     title: "The Truth Behind Luck.io",
-    author: "CoinBets Team",
-    timeAgo: "1 day ago",
+    author: "CoinBets",
+    timeAgo: "2 weeks ago",
     youtubeId: "P0-ObzHrKPw",
   },
   {
     title: "The Slot RTP Switch Is Costing Players Millions",
-    author: "CoinBets Team",
-    timeAgo: "1 day ago",
+    author: "CoinBets",
+    timeAgo: "1 month ago",
     youtubeId: "gDZXMS-x-rI",
   },
   {
     title: "The Dark Side of Online Casinos [Vol. 2]",
-    author: "CoinBets Team",
-    timeAgo: "1 day ago",
+    author: "CoinBets",
+    timeAgo: "2 months ago",
     youtubeId: "UHr5MIrQaKI",
   },
   {
     title: "Why Casino Founders Suddenly Want To Be Famous…",
-    author: "CoinBets Team",
-    timeAgo: "1 day ago",
+    author: "CoinBets",
+    timeAgo: "3 months ago",
     youtubeId: "tjxDVcHv1Fw",
   },
 ];

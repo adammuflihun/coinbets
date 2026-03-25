@@ -89,7 +89,13 @@ const casinos = [
   },
 ];
 
-function UserStarIcon({ color, inactive }: { color: string; inactive?: boolean }) {
+function UserStarIcon({
+  color,
+  inactive,
+}: {
+  color: string;
+  inactive?: boolean;
+}) {
   return (
     <svg
       width="20"
@@ -321,7 +327,11 @@ export function CasinoIndex() {
         </div>
 
         {/* Scrollable table wrapper */}
-        <div data-name="table-scroll-wrapper" className="overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+        <div
+          data-name="table-scroll-wrapper"
+          className="overflow-x-auto"
+          style={{ scrollbarWidth: "none" }}
+        >
           <div data-name="table-min-width" className="min-w-[1200px]">
             {/* Table header + rows share the same padding context */}
             <div data-name="table-padding" className="px-4 sm:px-8 lg:px-15">
@@ -369,7 +379,6 @@ export function CasinoIndex() {
             </div>
           </div>
         </div>
-
       </div>
 
       {/* Gradient fade + View Full Index */}
@@ -377,7 +386,10 @@ export function CasinoIndex() {
         data-name="index-gradient"
         className="absolute bottom-0 left-0 right-0 z-20 h-[250px] bg-linear-to-b from-transparent to-[#020202] flex items-end justify-center pb-10 pointer-events-none"
       >
-        <div data-name="index-cta-buttons" className="flex flex-col sm:flex-row gap-3 px-5 pointer-events-auto">
+        <div
+          data-name="index-cta-buttons"
+          className="flex flex-col sm:flex-row gap-5 px-5 pointer-events-auto pb-25"
+        >
           <Link
             href="/coinbet-index"
             className="group flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-3 text-sm font-bold text-[#171717] hover:bg-white transition-colors"

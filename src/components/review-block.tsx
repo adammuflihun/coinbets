@@ -307,6 +307,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
   const [cryptoOpen, setCryptoOpen] = useState(false);
   const [isTabSticky, setIsTabSticky] = useState(false);
+  const [navbarVisible, setNavbarVisible] = useState(true);
   const [sortOpen, setSortOpen] = useState(false);
   const [sortBy, setSortBy] = useState("Most Helpful");
   const [websiteLangOpen, setWebsiteLangOpen] = useState(false);
@@ -315,6 +316,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
   const [videoOpen, setVideoOpen] = useState(false);
   const [providersOpen, setProvidersOpen] = useState(false);
   const tabSentinelRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
   useEffect(() => {
     const el = tabSentinelRef.current;
     if (!el) return;
@@ -324,6 +326,23 @@ export function ReviewBlock({ slug }: { slug: string }) {
     );
     observer.observe(el);
     return () => observer.disconnect();
+  }, []);
+
+  // Track navbar visibility (same logic as navbar)
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < 10) {
+        setNavbarVisible(true);
+      } else if (y < lastScrollY.current) {
+        setNavbarVisible(true);
+      } else if (y > lastScrollY.current + 5) {
+        setNavbarVisible(false);
+      }
+      lastScrollY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // Auto-update active tab based on scroll position
@@ -556,7 +575,11 @@ export function ReviewBlock({ slug }: { slug: string }) {
             <div
               data-name="tab-bar"
               className={`sticky z-30 flex items-center bg-[#EBEBEB] p-1 rounded-xl overflow-x-auto transition-[width,margin,top] duration-300 ease-out ${
-                isTabSticky ? "top-[1ch] w-[95%] mx-auto" : "top-0 w-full"
+                isTabSticky
+                  ? navbarVisible
+                    ? "top-[4.25rem] w-[95%] mx-auto"
+                    : "top-[1ch] w-[95%] mx-auto"
+                  : "top-0 w-full"
               }`}
               style={{ scrollbarWidth: "none" }}
             >
@@ -1546,24 +1569,31 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 <h3 className="text-sm font-bold text-[#060D17]">
                   Casino Screenshots
                 </h3>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 relative z-10">
                   <button
-                    onClick={() =>
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
                       setCurrentScreenshot((p) =>
                         p === 0 ? casino.screenshots.length - 1 : p - 1,
-                      )
-                    }
-                    className="size-7 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-100 transition-colors"
+                      );
+                    }}
+                    className="size-7 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-100 transition-colors cursor-pointer"
                   >
                     <ChevronLeft className="size-4 text-neutral-600" />
                   </button>
+                  <span className="text-xs text-neutral-500 tabular-nums">
+                    {currentScreenshot + 1} / {casino.screenshots.length}
+                  </span>
                   <button
-                    onClick={() =>
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
                       setCurrentScreenshot((p) =>
                         p === casino.screenshots.length - 1 ? 0 : p + 1,
-                      )
-                    }
-                    className="size-7 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-100 transition-colors"
+                      );
+                    }}
+                    className="size-7 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-100 transition-colors cursor-pointer"
                   >
                     <ChevronRight className="size-4 text-neutral-600" />
                   </button>
@@ -1574,8 +1604,9 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 className="overflow-hidden rounded-lg"
               >
                 <Image
+                  key={currentScreenshot}
                   src={casino.screenshots[currentScreenshot]}
-                  alt={`${casino.name} screenshot`}
+                  alt={`${casino.name} screenshot ${currentScreenshot + 1}`}
                   width={380}
                   height={220}
                   className="w-full h-[200px] object-cover rounded-lg"

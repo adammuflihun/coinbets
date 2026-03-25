@@ -28,159 +28,12 @@ import {
   Star,
 } from "lucide-react";
 import type { CasinoReview } from "@/data/casino-reviews";
-
-const RATING_COLORS: Record<number, string> = {
-  5: "#23BA21",
-  4: "#9FF11A",
-  3: "#D8DC00",
-  2: "#FFB257",
-  1: "#FF6847",
-};
+import ExpertRatingCard from "@/components/expert-rating-card";
 
 const SAFETY_COLORS: Record<string, string> = {
   High: "#00de00",
   Normal: "#eaee45",
 };
-
-function ShieldIcon({ filled }: { filled: boolean }) {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      className="shrink-0"
-    >
-      <path
-        d="M19.9988 0H0V19.9988H19.9988V0Z"
-        fill={filled ? "#003EB6" : "#DDDDDD"}
-      />
-      <g clipPath="url(#shield-clip)">
-        <path
-          d="M4.27582 6.51908C4.3323 8.53258 4.89562 10.53 5.90134 12.2719C6.90706 14.0139 8.35519 15.5004 10.0707 16.5561C12.3119 15.1699 14.0807 13.0612 15.042 10.6075C15.5569 9.29641 15.8319 7.92101 15.8692 6.51696C12.2766 4.57266 7.87091 4.57249 4.27582 6.51908Z"
-          fill="white"
-        />
-      </g>
-      <defs>
-        <clipPath id="shield-clip">
-          <rect
-            width="14"
-            height="14"
-            fill="white"
-            transform="translate(3 3)"
-          />
-        </clipPath>
-      </defs>
-    </svg>
-  );
-}
-
-function ExpertScoreLabel({ score }: { score: number }) {
-  const label =
-    score >= 5
-      ? "Excellent"
-      : score >= 4
-        ? "Good"
-        : score >= 3
-          ? "OK"
-          : score >= 2
-            ? "Bad"
-            : "Terrible";
-
-  return (
-    <span className="text-xs font-bold uppercase text-[#404040]">
-      Stars - {label}
-    </span>
-  );
-}
-
-function ExpertRatingCard({ casino }: { casino: CasinoReview }) {
-  const filled = Math.min(5, Math.max(1, Math.round(casino.expertScore)));
-  const bucket =
-    casino.expertScore >= 4
-      ? 5
-      : casino.expertScore >= 3
-        ? 4
-        : casino.expertScore >= 2
-          ? 3
-          : casino.expertScore >= 1
-            ? 2
-            : 1;
-  const shieldColor = RATING_COLORS[bucket];
-  return (
-    <div
-      data-name="expert-rating-card"
-      className="bg-white border border-[#003EB6] rounded-md overflow-hidden w-[276px]"
-    >
-      <div
-        data-name="expert-rating-content"
-        className="flex items-center gap-2 px-3 py-3"
-      >
-        {/* Shield icon */}
-        <svg
-          width="31"
-          height="31"
-          viewBox="0 0 31 31"
-          fill="none"
-          className="size-[44px] shrink-0"
-        >
-          <path
-            d="M30.0039 8.18734C29.6411 6.15767 28.6312 4.34371 27.18 3.0004C25.8857 1.79436 24.2483 0.951107 22.4343 0.627535C20.1203 0.215717 17.7474 0 15.3157 0C12.884 0 10.5112 0.215717 8.19715 0.627535C6.27533 0.970717 4.54961 1.8924 3.22591 3.21611C1.90221 4.53981 0.970714 6.26553 0.627532 8.19715C0.215714 10.5112 0 12.884 0 15.3157C0 17.7474 0.215714 20.1203 0.627532 22.4343C0.970714 24.3561 1.8924 26.072 3.2063 27.3957C4.53 28.7292 6.25572 29.6607 8.18734 30.0039C10.5014 30.4157 12.8742 30.6314 15.3059 30.6314C17.7376 30.6314 20.1105 30.4157 22.4245 30.0039C24.5522 29.6215 26.4348 28.5233 27.8076 26.9643C28.9155 25.7092 29.6902 24.1502 29.9941 22.4343C30.4059 20.1203 30.6216 17.7474 30.6216 15.3157C30.6216 12.884 30.4059 10.5112 29.9941 8.19715L30.0039 8.18734Z"
-            fill="#E6B830"
-          />
-          <path
-            d="M9.2462 20.5125C8.46178 21.091 7.79503 21.7969 7.28516 22.6304C8.59905 24.7679 10.9425 26.121 13.4526 26.1897C13.8644 25.4249 14.139 24.611 14.2665 23.758C14.5116 22.1499 14.2272 20.4928 13.4526 19.0613C11.9328 19.1005 10.4718 19.6006 9.23639 20.5027L9.2462 20.5125Z"
-            fill="white"
-          />
-          <path
-            d="M17.8064 4.40259C17.2181 5.49097 16.9043 6.72642 16.9043 7.96188C16.9043 9.19733 17.2181 10.4328 17.8064 11.5212C19.4242 11.4721 21.0127 10.8936 22.2776 9.88369C22.9541 9.34441 23.5228 8.69727 23.9739 7.96188C22.66 5.82434 20.3165 4.47122 17.8064 4.40259Z"
-            fill="white"
-          />
-          <path
-            d="M8.2164 18.0611C9.48127 17.4434 10.5402 16.4825 11.2854 15.2862C10.55 14.0802 9.50089 13.1193 8.23601 12.4819C7.2751 12.0015 6.20634 11.7269 5.12776 11.6975C3.92172 13.9037 3.91192 16.6099 5.09835 18.8259C6.17692 18.7965 7.24569 18.5415 8.2164 18.0709V18.0611Z"
-            fill="white"
-          />
-          <path
-            d="M21.7578 20.3261C20.5812 19.5417 19.2182 19.1103 17.8161 19.071C17.1493 20.3065 16.8356 21.7086 16.9336 23.1206C17.0023 24.1894 17.3062 25.2581 17.8161 26.1994C20.3262 26.1308 22.6697 24.7777 23.9836 22.6401C23.4149 21.7184 22.6501 20.9242 21.7578 20.3359V20.3261Z"
-            fill="white"
-          />
-          <path
-            d="M7.28516 7.97168C7.92249 9.00122 8.80496 9.87389 9.84431 10.4916C10.9327 11.1388 12.178 11.5016 13.4526 11.531C14.0606 10.4132 14.3645 9.15811 14.3547 7.88343C14.3449 6.66759 14.0311 5.47135 13.4526 4.40259C10.9425 4.47122 8.59905 5.82434 7.28516 7.96188V7.97168Z"
-            fill="white"
-          />
-        </svg>
-        {/* Score + Stars */}
-        <div data-name="expert-score-wrapper" className="flex flex-col gap-1">
-          <div data-name="expert-score-row" className="flex items-center gap-2">
-            <span className="text-[42px] font-bold leading-none text-[#1c1c1c]">
-              {casino.expertScore.toFixed(1)}
-            </span>
-            <div
-              data-name="expert-shields-label"
-              className="flex flex-col gap-1"
-            >
-              <div
-                data-name="expert-shields"
-                className="flex items-center gap-0.5"
-              >
-                {Array.from({ length: 5 }, (_, i) => (
-                  <ShieldIcon key={i} filled={i < filled} />
-                ))}
-              </div>
-              <ExpertScoreLabel score={casino.expertScore} />
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* Blue bottom bar */}
-      <div data-name="expert-rating-bar" className="bg-[#003EB6] py-1">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.3px] text-white text-center">
-          Coinbets Expert Review
-        </p>
-      </div>
-    </div>
-  );
-}
 
 function ExpertHero({ casino }: { casino: CasinoReview }) {
   return (
@@ -651,13 +504,13 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
             </p>
           </div>
 
-          {casino.screenshots.length > 0 && (
+          {casino.screenshots.length > 3 && (
             <div
               data-name="section-screenshot"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[0]}
+                src={casino.screenshots[3]}
                 alt={`${casino.name} screenshot`}
                 fill
                 className="object-cover"
@@ -730,13 +583,13 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
             ))}
           </div>
 
-          {casino.screenshots.length > 0 && (
+          {casino.screenshots.length > 12 && (
             <div
               data-name="account-screenshot-1"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[0]}
+                src={casino.screenshots[12]}
                 alt={`${casino.name} sign up screenshot`}
                 fill
                 className="object-cover"
@@ -764,13 +617,13 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
             </div>
           </div>
 
-          {casino.screenshots.length > 1 && (
+          {casino.screenshots.length > 11 && (
             <div
               data-name="account-screenshot-2"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[1]}
+                src={casino.screenshots[11]}
                 alt={`${casino.name} account screenshot`}
                 fill
                 className="object-cover"
@@ -848,13 +701,13 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
         )}
       </div>
 
-      {casino.screenshots.length > 0 && (
+      {casino.screenshots.length > 11 && (
         <div
           data-name="payment-screenshot-1"
           className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
         >
           <Image
-            src={casino.screenshots[0]}
+            src={casino.screenshots[11]}
             alt={`${casino.name} deposit screenshot`}
             fill
             className="object-cover"
@@ -957,13 +810,13 @@ function BuyingCryptoSection({ casino }: { casino: CasinoReview }) {
         to do it, simply tap &quot;Deposit&quot; then &quot;Buy Crypto&quot;,
         and follow the prompts.
       </p>
-      {casino.screenshots.length > 0 && (
+      {casino.screenshots.length > 11 && (
         <div
           data-name="buying-crypto-screenshot"
           className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
         >
           <Image
-            src={casino.screenshots[0]}
+            src={casino.screenshots[11]}
             alt={`${casino.name} buy crypto screenshot`}
             fill
             className="object-cover"
@@ -1093,6 +946,9 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
           data-name="game-slots-content"
           className="flex flex-col gap-[15px]"
         >
+          <h4 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+            Slots
+          </h4>
           <div className="text-[17px] leading-[28.8px] text-black">
             <p className="mb-4">
               Despite styling itself as the ultimate Web3 Solana-based crypto
@@ -1145,13 +1001,13 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
               <h4 className="text-[27px] font-medium leading-[40.5px] text-[#060d17]">
                 Kingdom of Asgard (Pragmatic Play)
               </h4>
-              {casino.screenshots.length > 0 && (
+              {casino.screenshots.length > 1 && (
                 <div
                   data-name="game-review-1-screenshot"
                   className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
                 >
                   <Image
-                    src={casino.screenshots[0]}
+                    src={casino.screenshots[1]}
                     alt="Kingdom of Asgard gameplay"
                     fill
                     className="object-cover"
@@ -1186,13 +1042,13 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
               <h4 className="text-[27px] font-medium leading-[40.5px] text-[#060d17]">
                 King of Sweets (Play&apos;n GO)
               </h4>
-              {casino.screenshots.length > 1 && (
+              {casino.screenshots.length > 2 && (
                 <div
                   data-name="game-review-2-screenshot"
                   className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
                 >
                   <Image
-                    src={casino.screenshots[1]}
+                    src={casino.screenshots[2]}
                     alt="King of Sweets gameplay"
                     fill
                     className="object-cover"
@@ -1252,13 +1108,13 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
               this size.
             </p>
           </div>
-          {casino.screenshots.length > 0 && (
+          {casino.screenshots.length > 3 && (
             <div
               data-name="game-crash-screenshot"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[0]}
+                src={casino.screenshots[3]}
                 alt={`${casino.name} crash games screenshot`}
                 fill
                 className="object-cover"
@@ -1288,13 +1144,13 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
               However, there is a dedicated category for the live poker rooms.
             </p>
           </div>
-          {casino.screenshots.length > 0 && (
+          {casino.screenshots.length > 4 && (
             <div
               data-name="game-live-screenshot-1"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[0]}
+                src={casino.screenshots[4]}
                 alt={`${casino.name} live casino screenshot`}
                 fill
                 className="object-cover"
@@ -1308,13 +1164,13 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
             Crazy Time, Stock Market, Monopoly Live, XXXtreme Lightning
             Roulette, and Sweet Bonanza Candyland.
           </p>
-          {casino.screenshots.length > 1 && (
+          {casino.screenshots.length > 6 && (
             <div
               data-name="game-live-screenshot-2"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[1]}
+                src={casino.screenshots[6]}
                 alt={`${casino.name} live game shows screenshot`}
                 fill
                 className="object-cover"
@@ -1364,13 +1220,13 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
             safe to say this isn&apos;t a casino for hardcore bingo and keno
             fans.
           </p>
-          {casino.screenshots.length > 0 && (
+          {casino.screenshots.length > 5 && (
             <div
               data-name="game-bingo-screenshot"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[0]}
+                src={casino.screenshots[5]}
                 alt={`${casino.name} bingo and keno screenshot`}
                 fill
                 className="object-cover"
@@ -1498,13 +1354,13 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
             </p>
           </div>
 
-          {casino.screenshots.length > 0 && (
+          {casino.screenshots.length > 9 && (
             <div
               data-name="provably-fair-screenshot"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[0]}
+                src={casino.screenshots[9]}
                 alt={`${casino.name} provably fair games screenshot`}
                 fill
                 className="object-cover"
@@ -1524,13 +1380,13 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
             prize is shared equally.
           </p>
 
-          {casino.screenshots.length > 1 && (
+          {casino.screenshots.length > 5 && (
             <div
               data-name="lottery-screenshot"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[1]}
+                src={casino.screenshots[5]}
                 alt={`${casino.name} lottery screenshot`}
                 fill
                 className="object-cover"
@@ -1552,13 +1408,13 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
             line.
           </p>
 
-          {casino.screenshots.length > 2 && (
+          {casino.screenshots.length > 8 && (
             <div
               data-name="crypto-trading-screenshot"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[2]}
+                src={casino.screenshots[8]}
                 alt={`${casino.name} crypto trading screenshot`}
                 fill
                 className="object-cover"
@@ -1577,13 +1433,13 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
             ranged from US $2.61 to $277.67.
           </p>
 
-          {casino.screenshots.length > 0 && (
+          {casino.screenshots.length > 7 && (
             <div
               data-name="lootboxes-screenshot"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[0]}
+                src={casino.screenshots[7]}
                 alt={`${casino.name} lootboxes screenshot`}
                 fill
                 className="object-cover"
@@ -1624,13 +1480,13 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
             </p>
           </div>
 
-          {casino.screenshots.length > 0 && (
+          {casino.screenshots.length > 6 && (
             <div
               data-name="challenge-medium-screenshot"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[0]}
+                src={casino.screenshots[6]}
                 alt={`${casino.name} wheel medium risk screenshot`}
                 fill
                 className="object-cover"
@@ -1643,13 +1499,13 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
             of 58.00 USDT - that&apos;s a very respectable RTP of 235.2%.
           </p>
 
-          {casino.screenshots.length > 1 && (
+          {casino.screenshots.length > 7 && (
             <div
               data-name="challenge-high-screenshot"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[1]}
+                src={casino.screenshots[7]}
                 alt={`${casino.name} wheel high risk screenshot`}
                 fill
                 className="object-cover"
@@ -1712,13 +1568,13 @@ function SportsSection({ casino }: { casino: CasinoReview }) {
         Force 1 Racing, Greyhound Racing, and Penalty Shootout.
       </p>
 
-      {casino.screenshots.length > 0 && (
+      {casino.screenshots.length > 10 && (
         <div
           data-name="virtual-sport-screenshot"
           className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
         >
           <Image
-            src={casino.screenshots[0]}
+            src={casino.screenshots[10]}
             alt={`${casino.name} virtual sports screenshot`}
             fill
             className="object-cover"
@@ -1752,13 +1608,13 @@ function SportsSection({ casino }: { casino: CasinoReview }) {
         like Counter-Strike, Dota 2, and Valorant.
       </p>
 
-      {casino.screenshots.length > 1 && (
+      {casino.screenshots.length > 10 && (
         <div
           data-name="sportsbook-screenshot"
           className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
         >
           <Image
-            src={casino.screenshots[1]}
+            src={casino.screenshots[10]}
             alt={`${casino.name} sportsbook screenshot`}
             fill
             className="object-cover"
@@ -1878,13 +1734,13 @@ function PromotionsSection({ casino }: { casino: CasinoReview }) {
             ))}
           </div>
 
-          {casino.screenshots.length > 0 && (
+          {casino.screenshots.length > 8 && (
             <div
               data-name="promo-screenshot"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[0]}
+                src={casino.screenshots[8]}
                 alt={`${casino.name} promotions screenshot`}
                 fill
                 className="object-cover"
@@ -1913,13 +1769,13 @@ function PromotionsSection({ casino }: { casino: CasinoReview }) {
             </p>
           </div>
 
-          {casino.screenshots.length > 1 && (
+          {casino.screenshots.length > 8 && (
             <div
               data-name="vip-screenshot"
               className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
             >
               <Image
-                src={casino.screenshots[1]}
+                src={casino.screenshots[8]}
                 alt={`${casino.name} VIP program screenshot`}
                 fill
                 className="object-cover"
@@ -2044,13 +1900,13 @@ function SupportDesignSection({ casino }: { casino: CasinoReview }) {
               </p>
             </div>
 
-            {casino.screenshots.length > 0 && (
+            {casino.screenshots.length > 12 && (
               <div
                 data-name="support-screenshot"
                 className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
               >
                 <Image
-                  src={casino.screenshots[0]}
+                  src={casino.screenshots[12]}
                   alt={`${casino.name} player support screenshot`}
                   fill
                   className="object-cover"
@@ -2188,13 +2044,13 @@ function CryptoTokenSection({ casino }: { casino: CasinoReview }) {
         </p>
       </div>
 
-      {casino.screenshots.length > 0 && (
+      {casino.screenshots.length > 11 && (
         <div
           data-name="crypto-token-screenshot-1"
           className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
         >
           <Image
-            src={casino.screenshots[0]}
+            src={casino.screenshots[11]}
             alt={`${casino.name} crypto token screenshot`}
             fill
             className="object-cover"
@@ -2217,13 +2073,13 @@ function CryptoTokenSection({ casino }: { casino: CasinoReview }) {
         </p>
       </div>
 
-      {casino.screenshots.length > 1 && (
+      {casino.screenshots.length > 11 && (
         <div
           data-name="crypto-token-screenshot-2"
           className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
         >
           <Image
-            src={casino.screenshots[1]}
+            src={casino.screenshots[11]}
             alt={`${casino.name} tokenomics screenshot`}
             fill
             className="object-cover"
@@ -2263,13 +2119,13 @@ function InterestingFactsSection({ casino }: { casino: CasinoReview }) {
         {casino.name} review, the platform was at number 4.
       </p>
 
-      {casino.screenshots.length > 0 && (
+      {casino.screenshots.length > 12 && (
         <div
           data-name="interesting-facts-screenshot"
           className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
         >
           <Image
-            src={casino.screenshots[0]}
+            src={casino.screenshots[12]}
             alt={`${casino.name} DappRadar screenshot`}
             fill
             className="object-cover"
@@ -2459,13 +2315,13 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
         {casino.name} - not the similarly named Sol Casino.
       </p>
 
-      {casino.screenshots.length > 0 && (
+      {casino.screenshots.length > 4 && (
         <div
           data-name="reputation-screenshot-1"
           className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
         >
           <Image
-            src={casino.screenshots[0]}
+            src={casino.screenshots[4]}
             alt={`${casino.name} reputation screenshot`}
             fill
             className="object-cover"
