@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import {
   RefreshCw,
@@ -479,7 +479,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div data-name="expert-sections" className="flex flex-col gap-[25px] pt-5">
+    <div id="toc-license" data-name="expert-sections" className="flex flex-col gap-[25px] pt-5">
       <SectionNav activeIndex={activeTab} onTabClick={setActiveTab} />
 
       {/* License and Security */}
@@ -787,7 +787,7 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
   const [showAllCrypto, setShowAllCrypto] = useState(false);
 
   return (
-    <div data-name="section-payments" className="flex flex-col gap-[25px]">
+    <div id="toc-payments" data-name="section-payments" className="flex flex-col gap-[25px]">
       <div
         data-name="section-payments-header"
         className="flex flex-col gap-[5px]"
@@ -1071,6 +1071,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
 
   return (
     <div
+      id="toc-games"
       data-name="section-game-selection"
       className="flex flex-col gap-[20px]"
     >
@@ -1843,7 +1844,7 @@ function PromotionsSection({ casino }: { casino: CasinoReview }) {
   ];
 
   return (
-    <div data-name="promotions-section" className="flex flex-col gap-[15px]">
+    <div id="toc-promotions" data-name="promotions-section" className="flex flex-col gap-[15px]">
       <PromoTabNav activeIndex={activeTab} onTabClick={setActiveTab} />
 
       {activeTab === 0 && (
@@ -2016,7 +2017,7 @@ function SupportDesignSection({ casino }: { casino: CasinoReview }) {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div data-name="support-design-section" className="flex flex-col gap-[15px]">
+    <div id="toc-support" data-name="support-design-section" className="flex flex-col gap-[15px]">
       <SupportTabNav activeIndex={activeTab} onTabClick={setActiveTab} />
 
       {activeTab === 0 && (
@@ -2101,7 +2102,7 @@ function SupportDesignSection({ casino }: { casino: CasinoReview }) {
             {/* Languages Table */}
             <div
               data-name="languages-table"
-              className="border border-[#dedede] overflow-hidden"
+              className="border border-[#dedede] overflow-x-auto"
             >
               <div
                 data-name="languages-header"
@@ -2115,7 +2116,7 @@ function SupportDesignSection({ casino }: { casino: CasinoReview }) {
                 <div
                   key={ri}
                   data-name="languages-row"
-                  className="flex h-[51px] border-t border-[#e4e8ec]"
+                  className="flex h-[51px] border-t border-[#e4e8ec] min-w-[500px]"
                 >
                   {row.map((lang) => (
                     <div
@@ -2235,7 +2236,7 @@ function CryptoTokenSection({ casino }: { casino: CasinoReview }) {
 
 function InterestingFactsSection({ casino }: { casino: CasinoReview }) {
   return (
-    <div data-name="interesting-facts-section" className="flex flex-col gap-[15px]">
+    <div id="toc-facts" data-name="interesting-facts-section" className="flex flex-col gap-[15px]">
       <div data-name="interesting-facts-header" className="border border-[#dedede]">
         <div
           data-name="interesting-facts-title"
@@ -2328,8 +2329,8 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
       </div>
 
       {/* Reputation Ratings Table */}
-      <div data-name="reputation-table" className="border border-[#dedede] overflow-hidden">
-        <div data-name="reputation-table-header" className="flex bg-[#f8f8f8]">
+      <div data-name="reputation-table" className="border border-[#dedede] overflow-x-auto">
+        <div data-name="reputation-table-header" className="flex bg-[#f8f8f8] min-w-[600px]">
           <div className="w-[194px] shrink-0 px-3 py-2 h-[40px] flex items-center">
             <span className="text-[14px] font-medium text-[#060d17]">Platform</span>
           </div>
@@ -2344,7 +2345,7 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
           <div
             key={i}
             data-name={`reputation-row-${i}`}
-            className="flex h-[71px] border-t border-[#e4e8ec]"
+            className="flex h-[71px] border-t border-[#e4e8ec] min-w-[600px]"
           >
             <div className="w-[194px] shrink-0 flex items-center px-3 bg-white border-l border-[#e4e8ec]">
               {i === 0 ? (
@@ -2475,6 +2476,216 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
   );
 }
 
+const SCORING_TABLE = [
+  { category: "Overall Reputation", score: 2.5, weight: "15%", weighted: 0.375 },
+  { category: "Size and Revenue", score: 3.0, weight: "10%", weighted: 0.3 },
+  { category: "Deposits & Withdrawals", score: 3.0, weight: "15%", weighted: 0.45 },
+  { category: "Bonuses & VIP Program", score: 2.5, weight: "15%", weighted: 0.375 },
+  { category: "Fairness of Terms", score: 2.5, weight: "15%", weighted: 0.375 },
+  { category: "User Experience", score: 3.0, weight: "15%", weighted: 0.45 },
+  { category: "Crypto-Specific Features", score: 4.5, weight: "15%", weighted: 0.675 },
+  { category: "Final Score", score: 0, weight: "", weighted: 3 },
+];
+
+const SCORING_ICONS = [
+  // Overall Reputation
+  <svg key="rep" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="1" y="0.5" width="22" height="22" rx="6" fill="#0D337D"/><g clipPath="url(#cr0)"><path d="M18.8 4.79805H16.8V4.39805C16.8 4.15805 16.64 3.99805 16.4 3.99805H7.6C7.36 3.99805 7.2 4.15805 7.2 4.39805V4.79805H5.2C4.56 4.79805 4 5.35805 4 5.99805V7.67805C4 9.51805 5.44 11.198 7.68 11.198C8.24 12.398 9.2 13.278 10.4 13.678V15.998H8.08C7.92 15.998 7.76 16.078 7.68 16.238L6.4 19.438C6.32 19.678 6.48 19.998 6.8 19.998H17.2C17.52 19.998 17.68 19.678 17.6 19.438L16.32 16.238C16.24 16.078 16.08 15.998 15.92 15.998H13.6V13.678C14.8 13.278 15.84 12.318 16.32 11.198C18.56 11.198 20 9.51805 20 7.67805V5.99805C20 5.35805 19.44 4.79805 18.8 4.79805ZM5.6 7.67805V6.39805H7.2V9.59805C6.32 9.43805 5.6 8.63805 5.6 7.67805ZM18.4 7.67805C18.4 8.63805 17.68 9.43805 16.8 9.59805V6.39805H18.4V7.67805Z" fill="white"/></g><defs><clipPath id="cr0"><rect width="16" height="16" fill="white" transform="translate(4 3.99805)"/></clipPath></defs></svg>,
+  // Size and Revenue
+  <svg key="rev" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="1" y="1.5" width="22" height="22" rx="6" fill="#0D337D"/><g clipPath="url(#cr1)"><path d="M9.67475 7.89126H14.3254L15.7983 5.17201C15.8457 5.08453 15.864 4.98424 15.8507 4.88565C15.8373 4.78707 15.7928 4.6953 15.7238 4.62363C15.6548 4.55196 15.5648 4.50411 15.4668 4.487C15.3688 4.46989 15.2679 4.48441 15.1787 4.52845C14.1246 5.04889 13.2028 4.8268 12.1356 4.56976C11.0801 4.31555 9.88403 4.02742 8.464 4.50439C8.39919 4.52616 8.33993 4.56185 8.29037 4.60895C8.24081 4.65604 8.20216 4.71341 8.17711 4.77703C8.15207 4.84065 8.14124 4.90897 8.1454 4.97722C8.14955 5.04546 8.16858 5.11197 8.20116 5.17208L9.67475 7.89126Z" fill="white"/><path d="M14.8148 9.01875C14.7539 8.95565 14.6925 8.8921 14.6308 8.82812H9.36748C9.30584 8.89202 9.24449 8.95556 9.18345 9.01875C8.23311 10.002 7.33542 10.9308 6.6672 11.9704C5.89889 13.1659 5.54102 14.3377 5.54102 15.6586C5.54102 17.1911 6.3673 18.3611 7.93045 19.0421C9.26742 19.6245 10.8808 19.7467 11.9988 19.7467C13.1249 19.7467 14.7472 19.6244 16.0803 19.0418C17.6354 18.3622 18.4574 17.1922 18.4574 15.6586C18.4574 14.3378 18.0995 13.1658 17.3312 11.9704C16.663 10.9308 15.7653 10.002 14.8148 9.01875ZM12.0951 13.3605C12.4309 13.4311 12.778 13.5042 13.0757 13.7004C13.4626 13.9555 13.6588 14.3496 13.6588 14.872C13.6588 15.5615 13.1552 16.1451 12.4674 16.3309V16.5727C12.4674 16.697 12.418 16.8163 12.3301 16.9042C12.2422 16.9921 12.123 17.0415 11.9986 17.0415C11.8743 17.0415 11.7551 16.9921 11.6672 16.9042C11.5793 16.8163 11.5299 16.697 11.5299 16.5727V16.3309C10.8421 16.1451 10.3385 15.5615 10.3385 14.872C10.3385 14.7476 10.3879 14.6284 10.4758 14.5405C10.5637 14.4526 10.6829 14.4032 10.8072 14.4032C10.9316 14.4032 11.0508 14.4526 11.1387 14.5405C11.2266 14.6284 11.276 14.7476 11.276 14.872C11.276 15.1938 11.6002 15.4556 11.9986 15.4556C12.3971 15.4556 12.7213 15.1937 12.7213 14.872C12.7213 14.5095 12.6065 14.4261 11.9021 14.2779C11.5664 14.2073 11.2193 14.1341 10.9215 13.9379C10.5346 13.6829 10.3385 13.2887 10.3385 12.7664C10.3385 12.0764 10.8421 11.4925 11.5299 11.3066V11.0656C11.5299 10.9413 11.5793 10.8221 11.6672 10.7342C11.7551 10.6463 11.8743 10.5969 11.9986 10.5969C12.123 10.5969 12.2422 10.6463 12.3301 10.7342C12.418 10.8221 12.4674 10.9413 12.4674 11.0656V11.3065C13.1552 11.4924 13.6588 12.0763 13.6588 12.7663C13.6588 12.8906 13.6094 13.0098 13.5215 13.0977C13.4336 13.1856 13.3144 13.235 13.19 13.235C13.0657 13.235 12.9465 13.1856 12.8586 13.0977C12.7707 13.0098 12.7213 12.8906 12.7213 12.7663C12.7213 12.444 12.3971 12.1819 11.9986 12.1819C11.6002 12.1819 11.276 12.4441 11.276 12.7663C11.2761 13.129 11.391 13.2123 12.0953 13.3605H12.0951Z" fill="white"/></g><defs><clipPath id="cr1"><rect width="16" height="16" fill="white" transform="translate(4 3.99805)"/></clipPath></defs></svg>,
+  // Deposits & Withdrawals
+  <svg key="dep" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="1" y="0.5" width="22" height="22" rx="6" fill="#0D337D"/><path fillRule="evenodd" clipRule="evenodd" d="M16.798 4.79883H7.19805C5.43805 4.79883 3.99805 6.23883 3.99805 7.99883C3.99805 9.35883 4.79805 10.4788 5.99805 10.9588V7.99883C5.99805 7.67883 6.15805 7.35883 6.31805 7.11883C6.47805 6.87883 6.87805 6.79883 7.19805 6.79883H16.798C17.118 6.79883 17.438 6.95883 17.678 7.11883C17.918 7.27883 17.998 7.67883 17.998 7.99883V10.9588C19.198 10.4788 19.998 9.35883 19.998 7.99883C19.998 6.23883 18.558 4.79883 16.798 4.79883ZM16.798 17.5988V7.99883H7.19805V17.5988C7.19805 18.4788 7.91805 19.1988 8.79805 19.1988H15.198C16.078 19.1988 16.798 18.4788 16.798 17.5988ZM11.358 12.3188L10.798 12.8788C10.558 13.1188 10.158 13.1188 9.91805 12.8788C9.67805 12.6388 9.67805 12.2388 9.91805 11.9988L10.958 10.9588C11.518 10.3988 12.398 10.3988 12.958 10.9588L13.998 11.9988C14.238 12.2388 14.238 12.6388 13.998 12.8788C13.758 13.1188 13.358 13.1188 13.118 12.8788L12.558 12.3188V15.6788C12.558 15.9988 12.318 16.3188 11.918 16.3188C11.518 16.3188 11.278 16.0788 11.278 15.6788V12.3188H11.358Z" fill="white"/></svg>,
+  // Bonuses & VIP Program
+  <svg key="bon" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="1" y="1.25" width="22" height="22" rx="6" fill="#0D337D"/><path fillRule="evenodd" clipRule="evenodd" d="M4.91774 14.0334L4.01209 8.37399C3.95255 8.00265 4.11627 7.63056 4.43031 7.42368C4.74435 7.2168 5.14992 7.21308 5.46768 7.41326L8.3052 9.20522L11.2789 5.79693C11.4605 5.58856 11.7239 5.46875 12 5.46875C12.2761 5.46875 12.5395 5.58856 12.7211 5.79693L15.6948 9.20522L18.5323 7.41326C18.8501 7.21308 19.2557 7.2168 19.5697 7.42368C19.8837 7.63056 20.0474 8.00265 19.9879 8.37399L19.0823 14.0334H4.91774ZM18.9037 15.1496L18.6395 16.7995C18.5346 17.4573 17.9668 17.941 17.3015 17.941H6.69854C6.03325 17.941 5.46545 17.4573 5.36052 16.7995L5.09634 15.1496H18.9037Z" fill="white"/></svg>,
+  // Fairness of Terms
+  <svg key="fair" width="22" height="22" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="6" fill="#0D337D"/><path d="M8.91507 11.3848C8.93931 11.3848 8.93931 11.4091 8.93931 11.4091L11.5575 8.79087L11.5333 8.76663L8.52719 5.76057C8.50295 5.76057 8.50295 5.73633 8.50295 5.73633L5.88477 8.35451L5.90901 8.37875L8.91507 11.3848Z" fill="white"/><path d="M6.8545 13.4449C7.12117 13.7115 7.58177 13.7115 7.87268 13.4449C7.96965 13.2509 9.30298 12.4509 8.57571 11.7236L5.56965 8.71758C5.27874 8.45091 4.84238 8.45091 4.55147 8.71758L3.84844 9.42061C3.58177 9.68727 3.58177 10.1479 3.84844 10.4388L6.8545 13.4449Z" fill="white"/><path d="M11.8721 8.42727C12.1387 8.69394 12.5993 8.69394 12.8903 8.42727L13.5933 7.72424C13.8842 7.43333 13.86 6.99697 13.5933 6.70606L10.5872 3.7C10.3206 3.43333 9.85995 3.43333 9.56905 3.7L8.86602 4.42727C8.59935 4.69394 8.59935 5.15455 8.86602 5.44545L11.8721 8.42727Z" fill="white"/><path d="M17.6916 15.628L11.3401 9.71289L9.86133 11.1917L15.7765 17.5674C16.2856 18.125 17.1825 18.1735 17.7401 17.5917C18.2977 17.0341 18.2734 16.1614 17.6916 15.628Z" fill="white"/><path d="M11.5091 17.0326C11.6061 16.8871 11.6545 16.7174 11.6545 16.5477C11.6545 16.0871 11.2909 15.6992 10.8545 15.6992H4.84242C4.40606 15.6992 4.04242 16.0629 4.04242 16.5477C4.04242 16.7416 4.09091 16.9113 4.18788 17.0326C3.48485 17.2992 3 17.978 3 18.778C3 18.8992 3.09697 19.0204 3.24242 19.0204H12.4788C12.6 19.0204 12.7212 18.8992 12.7212 18.778C12.697 17.978 12.2121 17.2992 11.5091 17.0326Z" fill="white"/></svg>,
+  // User Experience
+  <svg key="ux" width="22" height="22" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="6" fill="#0D337D"/><path d="M3 8.21875H5.875V9.15625H3V8.21875Z" fill="white"/><path d="M5.875 5.40625H3.46875C3.20984 5.40625 3 5.61609 3 5.875V7.28125H5.875V5.40625Z" fill="white"/><path d="M5.875 12.9062V10.0938H3V16.1875C3 16.4464 3.20984 16.6562 3.46875 16.6562H8.15625C8.41516 16.6562 8.625 16.4464 8.625 16.1875V14.7812H7.75C6.71606 14.7812 5.875 13.9402 5.875 12.9062ZM5.8125 15.7189C5.55359 15.7189 5.34375 15.5089 5.34375 15.2501C5.34375 14.9912 5.55359 14.7814 5.8125 14.7814C6.07141 14.7814 6.28125 14.9912 6.28125 15.2501C6.28125 15.5089 6.07141 15.7189 5.8125 15.7189Z" fill="white"/><path d="M18.0625 4.46875H7.75C7.23303 4.46875 6.8125 4.88928 6.8125 5.40625V12.9062C6.8125 13.4232 7.23303 13.8438 7.75 13.8438H11.0312V15.7188H10.0938C9.83484 15.7188 9.625 15.9286 9.625 16.1875C9.625 16.4464 9.83484 16.6562 10.0938 16.6562H15.7188C15.9777 16.6562 16.1875 16.4464 16.1875 16.1875C16.1875 15.9286 15.9777 15.7188 15.7188 15.7188H14.7812V13.8438H18.0625C18.5795 13.8438 19 13.4232 19 12.9062V5.40625C19 4.88928 18.5795 4.46875 18.0625 4.46875Z" fill="white"/></svg>,
+  // Crypto-Specific Features
+  <svg key="crypto" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="1" y="1.5" width="22" height="22" rx="6" fill="#0D337D"/><path d="M11.9928 11.9269H11.3009V10.29H12.0656C12.4456 10.29 12.7291 10.3575 12.9156 10.4922C13.1022 10.6269 13.1956 10.8422 13.1956 11.1378C13.1956 11.4075 13.0956 11.6062 12.8959 11.7347C12.6963 11.8631 12.395 11.9272 11.9922 11.9272L11.9928 11.9269ZM13.045 13.1569C12.9088 13.0903 12.73 13.0569 12.5091 13.0569H11.3009V14.7766H12.4263C12.7641 14.7766 13.0181 14.71 13.1888 14.5769C13.3594 14.4437 13.4444 14.2406 13.4444 13.9678C13.4444 13.7631 13.4119 13.5934 13.3469 13.4587C13.2819 13.3241 13.1812 13.2234 13.0447 13.1566L13.045 13.1569ZM20 12.4688C20 16.8872 16.4184 20.4688 12 20.4688C7.58156 20.4688 4 16.8872 4 12.4688C4 8.05031 7.58156 4.46875 12 4.46875C16.4181 4.46875 20 8.05031 20 12.4688ZM15.1447 13.9728C15.1447 13.7294 15.1025 13.5028 15.0181 13.2931C14.9337 13.0838 14.8022 12.905 14.6234 12.7572C14.4447 12.6094 14.2144 12.5047 13.9316 12.4431C14.2628 12.3069 14.5081 12.1062 14.6672 11.8416C14.8263 11.5769 14.9059 11.2772 14.9059 10.9428C14.9059 10.2934 14.6559 9.80469 14.1556 9.47656C13.8397 9.26937 13.4456 9.12781 12.9731 9.05156H13.0238V7.78125H12.2425V8.98688C12.1844 8.98531 12.1256 8.98469 12.0659 8.98469H11.6384V7.78156H10.8572V8.98469H8.85563V9.98812L9.59125 10.1441V14.9231L8.85563 15.0791V16.0778H10.8572V17.1566H11.6384V16.0778H12.2425V17.1566H13.0238V16.0472C13.6197 15.9828 14.0947 15.8162 14.4481 15.5469C14.9125 15.1928 15.1447 14.6684 15.1447 13.9734V13.9728Z" fill="white"/></svg>,
+  // Final Score
+  <svg key="final" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="1" y="0.5" width="22" height="22" rx="6" fill="#0D337D"/><path d="M17.9805 4.72654C14.4634 2.19139 10.947 7.12179 7.43001 5.40708V5.04232C7.43001 4.58931 7.06248 4.22178 6.60951 4.22178C6.15653 4.22178 5.78906 4.58931 5.78906 5.04232V19.1659C5.78906 19.6188 6.15653 19.9863 6.60951 19.9863C7.06248 19.9863 7.43001 19.6188 7.43001 19.1659V13.1825C10.7728 14.8118 14.1157 10.4385 17.4592 12.1788C17.6135 12.2595 17.7989 12.2542 17.9479 12.1633C18.0969 12.0731 18.1878 11.9117 18.1878 11.737C18.1878 9.53525 18.1878 7.33334 18.1878 5.13093C18.1877 4.97127 18.1102 4.82 17.9805 4.72654Z" fill="white"/></svg>,
+];
+
+function VerdictSection({ casino }: { casino: CasinoReview }) {
+  return (
+    <div id="toc-verdict" data-name="verdict-section" className="flex flex-col gap-[20px]">
+      {/* Review Summary Card */}
+      <div data-name="review-summary-card" className="bg-[#f8f8f8] border border-[#dedede] p-[10px]">
+        <div data-name="review-card-inner" className="bg-[#f8f8f8] p-[25px]">
+          <div data-name="review-card-content" className="flex gap-[10px]">
+            <div data-name="review-card-left" className="flex flex-col gap-[15px] flex-1">
+              {/* Casino Logo */}
+              <div data-name="review-logo" className="w-[99px] h-[89px] rounded-[12px] bg-[#060d17] border border-slate-200 overflow-hidden relative">
+                <div className="absolute inset-0 bg-white">
+                  <Image
+                    src={casino.logo}
+                    alt={casino.name}
+                    fill
+                    className="object-contain p-1"
+                  />
+                </div>
+              </div>
+
+              {/* Rating Badge */}
+              <ExpertRatingCard casino={casino} />
+
+              {/* Casino Name & Summary */}
+              <span className="text-[22px] font-bold text-[#060d17]">{casino.name}</span>
+              <p className="text-[17px] leading-[28.8px] text-black">
+                Okay, so what&apos;s my final take on {casino.name}? Well, to put it
+                bluntly, this casino is atrocious.
+              </p>
+            </div>
+
+            {/* Screenshot */}
+            {casino.screenshots.length > 0 && (
+              <div data-name="review-card-screenshot" className="flex-1 h-[391px] bg-[#11181f] overflow-hidden relative">
+                <Image
+                  src={casino.screenshots[0]}
+                  alt={`${casino.name} review screenshot`}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Verdict Text */}
+      <div data-name="verdict-text" className="bg-white p-[25px] flex flex-col gap-[25px]">
+        <span className="text-[26.875px] font-medium text-[#060d17] leading-[40.5px]">Verdict</span>
+        <div className="text-[17px] leading-[28.8px] text-black">
+          <p className="mb-0">
+            Okay, so what&apos;s my final take on {casino.name}? Well, to put it
+            bluntly, this casino is atrocious.
+          </p>
+          <p className="mb-0">&nbsp;</p>
+          <p className="mb-0">
+            Sure it looks okay on the surface, but there&apos;s no getting around the
+            fact that it&apos;s completely unlicensed and based in Costa Rica. It also
+            makes highly misleading claims regarding the rakeback, provably fair
+            games, and its Trustpilot rating. Plus, the casino&apos;s general terms and
+            conditions are vague and questionable, particularly when it comes to
+            prohibited jurisdictions and VPN use.
+          </p>
+          <p className="mb-0">&nbsp;</p>
+          <p className="mb-0">
+            Beyond that, while there are plenty of games, browning and searching is
+            clunky and frustrating, the welcome bonus isn&apos;t great, the promos
+            lineup is anemic, and the loyalty/VIP program isn&apos;t exactly fantastic.
+            And then there&apos;s the fact that this most definitely isn&apos;t a Web3
+            casino, and has no real crypto features beyond payments. The icing on the
+            cake is the alarming number of terrible ratings on Trustpilot (in
+            isolation, I&apos;d take these with a pinch of salt, but from what I&apos;ve
+            seen of this casino, I&apos;m leaning towards believing them).
+          </p>
+          <p className="mb-0">&nbsp;</p>
+          <p className="mb-0">
+            Quite simply, I can&apos;t think of any reason to use this casino when
+            there are so many better alternatives. But if you do feel compelled to
+            try it, I highly recommend keeping your balance low and making frequent
+            withdrawals.
+          </p>
+          <p className="mb-0">&nbsp;</p>
+          <p className="mb-0">
+            But, that&apos;s just what I think. How about you? Have you played at{" "}
+            {casino.name}? If so, why not write a CoinBets review and share your
+            thoughts with the player community?
+          </p>
+          <p className="mb-0">&nbsp;</p>
+          <p className="mb-0">
+            Thanks for reading, and until next time, stay safe and have fun!
+          </p>
+        </div>
+      </div>
+
+      {/* Scoring Breakdown Table */}
+      <div data-name="scoring-table" className="border border-[#e4e8ec] overflow-auto">
+        <table className="w-full border-collapse min-w-[600px]">
+          <thead>
+            <tr className="bg-[#0d337d]">
+              <th className="w-[233px] px-3 py-2 h-[40px] text-left text-[14px] font-medium text-white">Category</th>
+              <th className="px-3 py-2 h-[40px] text-left text-[14px] font-medium text-white">Score (1-5)</th>
+              <th className="px-3 py-2 h-[40px] text-left text-[14px] font-medium text-white">Weight</th>
+              <th className="px-3 py-2 h-[40px] text-left text-[14px] font-medium text-white">Weighted Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {SCORING_TABLE.map((row, i) => (
+              <tr key={i} data-name={`scoring-row-${i}`} className="border-t border-[#e4e8ec] h-[51px]">
+                <td className="w-[233px] px-3 bg-white border-l border-[#e4e8ec]">
+                  <div className="flex items-center gap-[10px]">
+                    <div className="shrink-0">{SCORING_ICONS[i]}</div>
+                    <span className="text-[14px] font-medium text-slate-900">{row.category}</span>
+                  </div>
+                </td>
+                <td className="px-3 bg-white border-l border-[#e4e8ec]">
+                  {row.score > 0 ? (
+                    <div className="flex items-center gap-1.5">
+                      <div className="flex gap-0.5">
+                        {[0, 1, 2, 3, 4].map((s) => {
+                          const fill = s < Math.floor(row.score) ? 1 : s < row.score ? (row.score - s) : 0;
+                          return (
+                            <div key={s} className="relative size-[16px]">
+                              <svg width="16" height="15" viewBox="0 0 16 15" fill="none" className="absolute inset-0">
+                                <path d="M3.61065 14.9435C3.22465 15.1415 2.78665 14.7945 2.86465 14.3515L3.69465 9.6215L0.171653 6.2655C-0.157347 5.9515 0.0136534 5.3775 0.454653 5.3155L5.35265 4.6195L7.53665 0.2925C7.73365 -0.0975 8.26665 -0.0975 8.46365 0.2925L10.6477 4.6195L15.5457 5.3155C15.9867 5.3775 16.1577 5.9515 15.8277 6.2655L12.3057 9.6215L13.1357 14.3515C13.2137 14.7945 12.7757 15.1415 12.3897 14.9435L7.99865 12.6875L3.61065 14.9435Z" fill="#dcdce6"/>
+                              </svg>
+                              {fill > 0 && (
+                                <div className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+                                  <svg width="16" height="15" viewBox="0 0 16 15" fill="none">
+                                    <path d="M3.61065 14.9435C3.22465 15.1415 2.78665 14.7945 2.86465 14.3515L3.69465 9.6215L0.171653 6.2655C-0.157347 5.9515 0.0136534 5.3775 0.454653 5.3155L5.35265 4.6195L7.53665 0.2925C7.73365 -0.0975 8.26665 -0.0975 8.46365 0.2925L10.6477 4.6195L15.5457 5.3155C15.9867 5.3775 16.1577 5.9515 15.8277 6.2655L12.3057 9.6215L13.1357 14.3515C13.2137 14.7945 12.7757 15.1415 12.3897 14.9435L7.99865 12.6875L3.61065 14.9435Z" fill="#003eb6"/>
+                                  </svg>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <span className="text-[14px] font-medium text-slate-900">{row.score.toFixed(1)}</span>
+                    </div>
+                  ) : null}
+                </td>
+                <td className="px-3 bg-white border-l border-[#e4e8ec]">
+                  <span className="text-[14px] font-medium text-slate-900">{row.weight}</span>
+                </td>
+                <td className="px-3 bg-white border-l border-[#e4e8ec]">
+                  {i === SCORING_TABLE.length - 1 ? (
+                    <div className="flex items-center gap-1.5">
+                      <div className="flex gap-0.5">
+                        {[0, 1, 2, 3, 4].map((s) => {
+                          const fill = s < Math.floor(row.weighted) ? 1 : s < row.weighted ? (row.weighted - s) : 0;
+                          return (
+                            <div key={s} className="relative size-[16px]">
+                              <svg width="16" height="15" viewBox="0 0 16 15" fill="none" className="absolute inset-0">
+                                <path d="M3.61065 14.9435C3.22465 15.1415 2.78665 14.7945 2.86465 14.3515L3.69465 9.6215L0.171653 6.2655C-0.157347 5.9515 0.0136534 5.3775 0.454653 5.3155L5.35265 4.6195L7.53665 0.2925C7.73365 -0.0975 8.26665 -0.0975 8.46365 0.2925L10.6477 4.6195L15.5457 5.3155C15.9867 5.3775 16.1577 5.9515 15.8277 6.2655L12.3057 9.6215L13.1357 14.3515C13.2137 14.7945 12.7757 15.1415 12.3897 14.9435L7.99865 12.6875L3.61065 14.9435Z" fill="#dcdce6"/>
+                              </svg>
+                              {fill > 0 && (
+                                <div className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+                                  <svg width="16" height="15" viewBox="0 0 16 15" fill="none">
+                                    <path d="M3.61065 14.9435C3.22465 15.1415 2.78665 14.7945 2.86465 14.3515L3.69465 9.6215L0.171653 6.2655C-0.157347 5.9515 0.0136534 5.3775 0.454653 5.3155L5.35265 4.6195L7.53665 0.2925C7.73365 -0.0975 8.26665 -0.0975 8.46365 0.2925L10.6477 4.6195L15.5457 5.3155C15.9867 5.3775 16.1577 5.9515 15.8277 6.2655L12.3057 9.6215L13.1357 14.3515C13.2137 14.7945 12.7757 15.1415 12.3897 14.9435L7.99865 12.6875L3.61065 14.9435Z" fill="#003eb6"/>
+                                  </svg>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <span className="text-[14px] font-bold text-slate-900">{row.weighted} / 5</span>
+                    </div>
+                  ) : (
+                    <span className="text-[14px] font-medium text-slate-900">{row.weighted}</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 function ExpertContent({ casino }: { casino: CasinoReview }) {
   return (
     <div
@@ -2532,6 +2743,7 @@ function ExpertContent({ casino }: { casino: CasinoReview }) {
 
       {/* Intro Text */}
       <div
+        id="toc-intro"
         data-name="expert-intro"
         className="text-[17px] leading-[28.8px] text-black"
       >
@@ -2570,17 +2782,82 @@ function ExpertContent({ casino }: { casino: CasinoReview }) {
 
       {/* Overall Reputation */}
       <OverallReputationSection casino={casino} />
+
+      {/* Verdict & Scoring */}
+      <VerdictSection casino={casino} />
     </div>
   );
 }
 
+function useHeadingToc(containerRef: React.RefObject<HTMLDivElement | null>) {
+  const [items, setItems] = useState<{ label: string; id: string }[]>([]);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const headings = el.querySelectorAll("h3");
+    const tocItems: { label: string; id: string }[] = [];
+    headings.forEach((h) => {
+      const text = h.textContent?.trim() ?? "";
+      if (!text) return;
+      const id = h.id || "toc-" + text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/-+$/, "");
+      if (!h.id) h.id = id;
+      tocItems.push({ label: text, id });
+    });
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setItems(tocItems);
+  }, [containerRef]);
+
+  return items;
+}
+
+function TableOfContents({ items }: { items: { label: string; id: string }[] }) {
+  if (items.length === 0) return null;
+
+  return (
+    <nav
+      data-name="table-of-contents"
+      className="sticky top-[140px] hidden xl:block w-[200px]"
+    >
+      <div className="border border-[#e4e8ec] rounded-lg bg-white overflow-hidden shadow-sm">
+        <div className="bg-[#0d337d] px-4 py-3">
+          <span className="text-[13px] font-semibold text-white uppercase tracking-wide">
+            Table of Contents
+          </span>
+        </div>
+        <ul className="flex flex-col py-2">
+          {items.map((item) => (
+            <li key={item.id}>
+              <a
+                href={`#${item.id}`}
+                className="block px-4 py-[7px] text-[13px] text-slate-700 hover:text-[#003eb6] hover:bg-[#f0f4ff] transition-colors"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  );
+}
+
 export function ExpertReviewBlock({ casino }: { casino: CasinoReview }) {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const tocItems = useHeadingToc(contentRef);
+
   return (
     <div
       id="expert-review"
       data-name="expert-review-section"
-      className="flex flex-col gap-6"
+      className="relative flex flex-col gap-6"
+      ref={contentRef}
     >
+      {/* TOC floats outside the container on the right, h-full lets sticky work */}
+      <div className="absolute top-0 bottom-0 left-full ml-6 hidden xl:block">
+        <TableOfContents items={tocItems} />
+      </div>
+
       {/* Hero */}
       <ExpertHero casino={casino} />
 

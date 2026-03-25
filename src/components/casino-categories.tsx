@@ -237,8 +237,8 @@ function MobileCarousel({
       if (destroyed || !flickityRef.current) return;
       const Flkty = mod.default;
       flktyInstance.current = new Flkty(flickityRef.current, {
-        cellAlign: "left",
-        contain: true,
+        cellAlign: "center",
+        contain: false,
         prevNextButtons: false,
         pageDots: false,
         freeScroll: true,
@@ -258,7 +258,7 @@ function MobileCarousel({
   return (
     <div ref={flickityRef} data-name="cards-grid" className="w-full">
       {casinos.map((casino, i) => (
-        <div key={i} className="w-[75vw] mr-3">
+        <div key={i} data-name="carousel-cell" className="w-[calc(100vw-2.5rem)] mr-3">
           <CasinoCategoryCard casino={casino} badge={badge} />
         </div>
       ))}
@@ -327,7 +327,7 @@ export function CasinoCategoryCard({
 
       {/* Badge overlay */}
       {badge && (
-        <div className="absolute -top-[5px] -right-[5px] w-[100px] h-[100px]">
+        <div data-name="card-badge-overlay" className="absolute -top-[5px] -right-[5px] w-[100px] h-[100px]">
           <Image src={badge} alt="" width={100} height={100} />
         </div>
       )}
@@ -386,11 +386,13 @@ export function CasinoCategories() {
 
         {/* Cards */}
         {isMobile ? (
-          <MobileCarousel
-            key={activeTab}
-            casinos={activeCasinos}
-            badge={activeBadge}
-          />
+          <div data-name="carousel-breakout" className="-mx-5 w-screen">
+            <MobileCarousel
+              key={activeTab}
+              casinos={activeCasinos}
+              badge={activeBadge}
+            />
+          </div>
         ) : (
           <div
             data-name="cards-grid"

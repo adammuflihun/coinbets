@@ -202,7 +202,7 @@ function SafetyIndexCard() {
           >
             <div data-name="safety-label" className="flex flex-col gap-1">
               <div className="h-2 w-[79px] rounded-full bg-[#323232]" />
-              <div className="flex items-center gap-1">
+              <div data-name="safety-index-row" className="flex items-center gap-1">
                 <span className="text-xs font-bold uppercase text-[#f8f8f8]">
                   Safety Index
                 </span>
@@ -318,7 +318,7 @@ export function CryptoCasinoBanner() {
           </div>
 
           {/* Vertical Divider */}
-          <div className="hidden lg:block w-px h-[355px] bg-white/20" />
+          <div data-name="banner-divider" className="hidden lg:block w-px h-[355px] bg-white/20" />
 
           {/* Right: Feature Highlight */}
           <div

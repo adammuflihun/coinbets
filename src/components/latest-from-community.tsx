@@ -158,13 +158,13 @@ function CommunityReviewCard({
       </div>
 
       {/* Divider */}
-      <div className="py-[15px]">
+      <div data-name="community-divider" className="py-[15px]">
         <div className="h-px w-full bg-[#d9d9d9]" />
       </div>
 
       {/* Product info */}
       <Link href={`/casino/review/${slug}`} data-name="community-product" className="flex items-start gap-3.5 hover:opacity-80 transition-opacity">
-        <div className="bg-[#060d17] rounded-sm px-1.5 py-2 shrink-0 flex items-center justify-center">
+        <div data-name="community-product-logo" className="bg-[#060d17] rounded-sm px-1.5 py-2 shrink-0 flex items-center justify-center">
           <Image
             src={logo}
             alt={name}
@@ -173,11 +173,11 @@ function CommunityReviewCard({
             className="object-contain"
           />
         </div>
-        <div className="flex flex-col gap-[3px]">
+        <div data-name="community-product-info" className="flex flex-col gap-[3px]">
           <p className="text-base font-semibold text-[#060D17] leading-[1.4]">
             {name}
           </p>
-          <div className="flex items-center gap-2">
+          <div data-name="community-safety-index" className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase text-[#404040]">
               Safety Index
             </span>

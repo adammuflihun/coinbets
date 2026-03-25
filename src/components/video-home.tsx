@@ -1,30 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { ChevronRight, X } from "lucide-react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import type Flickity from "flickity";
 
 const videos = [
   {
+    title: "The Truth Behind Luck.io",
+    author: "CoinBets Team",
+    timeAgo: "1 day ago",
+    youtubeId: "P0-ObzHrKPw",
+  },
+  {
     title: "The Slot RTP Switch Is Costing Players Millions",
     author: "CoinBets Team",
     timeAgo: "1 day ago",
+    youtubeId: "gDZXMS-x-rI",
   },
   {
-    title: "The Dark Side of Online Casinos",
+    title: "The Dark Side of Online Casinos [Vol. 2]",
     author: "CoinBets Team",
     timeAgo: "1 day ago",
+    youtubeId: "UHr5MIrQaKI",
   },
   {
-    title: "BC.Game Review, Is it a scam?",
+    title: "Why Casino Founders Suddenly Want To Be Famous…",
     author: "CoinBets Team",
     timeAgo: "1 day ago",
-  },
-  {
-    title: "BC.Game Review, Is it a scam?",
-    author: "CoinBets Team",
-    timeAgo: "1 day ago",
+    youtubeId: "tjxDVcHv1Fw",
   },
 ];
 
@@ -40,13 +45,80 @@ function PlayButton() {
   );
 }
 
-function VideoCard({ title, author, timeAgo }: (typeof videos)[number]) {
+function VideoModal({
+  youtubeId,
+  onClose,
+}: {
+  youtubeId: string;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleEsc);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      data-name="video-modal-overlay"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 sm:p-6"
+      onClick={onClose}
+    >
+      <button
+        data-name="video-modal-close"
+        onClick={onClose}
+        className="absolute top-4 right-4 z-10 flex items-center justify-center size-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors cursor-pointer"
+      >
+        <X className="size-6 text-white" />
+      </button>
+      <div
+        data-name="video-modal-content"
+        className="relative w-full max-w-[1200px] aspect-video rounded-xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`}
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full"
+        />
+      </div>
+    </div>
+  );
+}
+
+function VideoCard({
+  title,
+  author,
+  timeAgo,
+  youtubeId,
+  onPlay,
+}: (typeof videos)[number] & { onPlay: (youtubeId: string) => void }) {
   return (
     <div data-name="video-card" className="flex flex-col gap-3.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full">
       {/* Video thumbnail */}
-      <div data-name="video-thumbnail" className="flex h-[181px] items-center justify-center rounded-xl bg-[#1f1c1e]">
-        <PlayButton />
-      </div>
+      <button
+        data-name="video-thumbnail"
+        onClick={() => onPlay(youtubeId)}
+        className="relative flex h-[181px] items-center justify-center rounded-xl bg-[#1f1c1e] overflow-hidden cursor-pointer group"
+      >
+        <Image
+          src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
+          alt={title}
+          fill
+          className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+        />
+        <div className="relative z-10 group-hover:scale-110 transition-transform">
+          <PlayButton />
+        </div>
+      </button>
 
       {/* Title */}
       <p className="text-base font-semibold leading-[1.4] text-[#060D17] flex-1">
@@ -66,7 +138,7 @@ function VideoCard({ title, author, timeAgo }: (typeof videos)[number]) {
   );
 }
 
-function MobileCarousel() {
+function MobileCarousel({ onPlay }: { onPlay: (youtubeId: string) => void }) {
   const flickityRef = useRef<HTMLDivElement>(null);
   const flktyInstance = useRef<Flickity | null>(null);
 
@@ -79,8 +151,8 @@ function MobileCarousel() {
       if (destroyed || !flickityRef.current) return;
       const Flkty = mod.default;
       flktyInstance.current = new Flkty(flickityRef.current, {
-        cellAlign: "left",
-        contain: true,
+        cellAlign: "center",
+        contain: false,
         prevNextButtons: false,
         pageDots: false,
         freeScroll: true,
@@ -100,8 +172,8 @@ function MobileCarousel() {
   return (
     <div ref={flickityRef} data-name="video-carousel">
       {videos.map((video, i) => (
-        <div key={i} className="w-[75vw] mr-3">
-          <VideoCard {...video} />
+        <div key={i} data-name="carousel-cell" className="w-[calc(100vw-2.5rem)] mr-3">
+          <VideoCard {...video} onPlay={onPlay} />
         </div>
       ))}
     </div>
@@ -110,12 +182,21 @@ function MobileCarousel() {
 
 export function VideoHome() {
   const [isMobile, setIsMobile] = useState(false);
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 640);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const handlePlay = useCallback((youtubeId: string) => {
+    setActiveVideo(youtubeId);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setActiveVideo(null);
   }, []);
 
   return (
@@ -142,15 +223,24 @@ export function VideoHome() {
       </div>
 
       {/* Mobile: Flickity carousel */}
-      {isMobile && <MobileCarousel />}
+      {isMobile && (
+        <div data-name="carousel-breakout" className="-mx-5">
+          <MobileCarousel onPlay={handlePlay} />
+        </div>
+      )}
 
       {/* Desktop: Grid */}
       {!isMobile && (
         <div data-name="video-grid" className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {videos.map((video, i) => (
-            <VideoCard key={i} {...video} />
+            <VideoCard key={i} {...video} onPlay={handlePlay} />
           ))}
         </div>
+      )}
+
+      {/* Video Modal */}
+      {activeVideo && (
+        <VideoModal youtubeId={activeVideo} onClose={handleClose} />
       )}
     </section>
   );

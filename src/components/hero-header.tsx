@@ -89,7 +89,7 @@ export function HeroHeader() {
               {/* Crypto Icons Row */}
               <div
                 data-section="hero-crypto-icons"
-                className="flex items-center gap-1 flex-wrap"
+                className="flex items-center gap-1"
               >
                 {cryptoIcons.map((coin) => (
                   <Image
@@ -98,7 +98,7 @@ export function HeroHeader() {
                     alt={coin.alt}
                     width={51}
                     height={52}
-                    className="size-9 sm:size-[51px] object-cover"
+                    className="size-[calc((100vw-80px)/10)] sm:size-[51px] object-cover"
                   />
                 ))}
               </div>

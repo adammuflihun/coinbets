@@ -35,8 +35,8 @@ function MobileCarousel() {
       if (destroyed || !flickityRef.current) return;
       const Flkty = mod.default;
       flktyInstance.current = new Flkty(flickityRef.current, {
-        cellAlign: "left",
-        contain: true,
+        cellAlign: "center",
+        contain: false,
         prevNextButtons: false,
         pageDots: false,
         freeScroll: true,
@@ -56,7 +56,7 @@ function MobileCarousel() {
   return (
     <div ref={flickityRef} data-name="blog-carousel">
       {blogPosts.slice(0, 4).map((post, i) => (
-        <div key={i} className="w-[calc(100vw-3rem)] mr-3">
+        <div key={i} data-name="carousel-cell" className="w-[calc(100vw-2.5rem)] mr-3">
           <BlogCard {...post} />
         </div>
       ))}
@@ -103,7 +103,7 @@ export function LatestBlog() {
         </div>
 
         {/* Divider */}
-        <div className="hidden lg:block mx-15 w-px self-stretch bg-white/20" />
+        <div data-name="blog-divider" className="hidden lg:block mx-15 w-px self-stretch bg-white/20" />
 
         {/* Right features */}
         <div
@@ -145,7 +145,7 @@ export function LatestBlog() {
 
       {/* Blog cards */}
       {isMobile ? (
-        <div className="-mt-20 -mx-5 relative z-10">
+        <div data-name="blog-mobile-wrapper" className="-mt-20 -mx-5 relative z-10">
           <MobileCarousel />
         </div>
       ) : (

@@ -174,7 +174,7 @@ export function ExpertReviews() {
 
   return (
     <section data-section="expert-reviews" className="overflow-hidden py-8">
-      <div className="site-container">
+      <div data-name="expert-container" className="site-container">
         {/* Header */}
         <div
           data-name="expert-header"
@@ -208,7 +208,7 @@ export function ExpertReviews() {
         style={{ scrollbarWidth: "none" }}
       >
         {loopedReviews.map((review, i) => (
-          <div key={i} className="w-[85vw] sm:w-[340px] lg:w-[400px] shrink-0">
+          <div key={i} data-name="carousel-cell" className="w-[85vw] sm:w-[340px] lg:w-[400px] shrink-0">
             <ReviewCard review={review} />
           </div>
         ))}
