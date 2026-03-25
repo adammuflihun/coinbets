@@ -1,41 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Calendar, Eye } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type Flickity from "flickity";
-
-const blogPosts = [
-  {
-    image: "/blog-images/prediction-markets.webp",
-    badge: "Guide",
-    title: "Easy Guide to Blockchain Prediction Markets 2026",
-    date: "January 07, 2026",
-    views: 64,
-  },
-  {
-    image: "/blog-images/understanding-rtp.webp",
-    badge: "Guide",
-    title: "Understanding RTP and House Edge in Crypto Casinos",
-    date: "January 12, 2026",
-    views: 112,
-  },
-  {
-    image: "/blog-images/crypto-esports-betting.webp",
-    badge: "Article",
-    title: "Crypto Esports Betting: CS:GO, LoL & PUBG Mobile",
-    date: "February 03, 2026",
-    views: 89,
-  },
-  {
-    image: "/blog-images/how-to-write-casino-review.webp",
-    badge: "Guide",
-    title: "How to Write a Helpful Casino Review as a Player",
-    date: "February 18, 2026",
-    views: 47,
-  },
-];
+import { BlogCard } from "@/components/blog-card";
+import { blogPosts } from "@/data/blog-posts";
 
 const features = [
   {
@@ -51,61 +21,6 @@ const features = [
     description: "We go deeper. Casinos wish we wouldn't.",
   },
 ];
-
-function BlogCard({
-  image,
-  badge,
-  title,
-  date,
-  views,
-}: (typeof blogPosts)[number]) {
-  return (
-    <Link
-      href="#"
-      className="group flex flex-col gap-3.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
-    >
-      <div
-        className="h-[201px] w-full rounded-xl bg-[#1f1c1e] overflow-hidden"
-        data-name="blog-thumbnail"
-      >
-        {image && (
-          <Image
-            src={image}
-            alt={title}
-            width={280}
-            height={201}
-            className="size-full object-cover"
-          />
-        )}
-      </div>
-
-      <span className="self-start rounded-lg bg-neutral-100 px-2 py-1 text-sm font-semibold text-neutral-800">
-        {badge}
-      </span>
-
-      <p className="text-base font-semibold leading-[1.4] text-[#060D17]">
-        {title}
-      </p>
-
-      <div className="flex items-center justify-between" data-name="blog-meta">
-        <div
-          className="flex items-center gap-1.5 text-sm font-medium text-[#060D17]"
-          data-name="blog-date"
-        >
-          <Calendar className="size-[18px] text-neutral-500" />
-          {date}
-        </div>
-        <div
-          className="flex items-center gap-1.5 text-sm font-medium text-[#060D17]"
-          data-name="blog-views"
-        >
-          <Eye className="size-[18px] text-neutral-500" />
-          {views} Views
-        </div>
-      </div>
-    </Link>
-  );
-}
 
 function MobileCarousel() {
   const flickityRef = useRef<HTMLDivElement>(null);

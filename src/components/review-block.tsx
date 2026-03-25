@@ -24,10 +24,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Badge } from "@/components/ui/badge";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { AnimatePresence, motion } from "motion/react";
 import "flag-icons/css/flag-icons.min.css";
+import { GAME_ICONS } from "@/components/game-icons";
 
 /* ------------------------------------------------------------------ */
 /*  Types & Data                                                       */
@@ -52,6 +55,32 @@ const RATING_COLORS: Record<number, string> = {
   3: "#D8DC00",
   2: "#FFB257",
   1: "#FF6847",
+};
+
+const LANG_FLAGS: Record<string, string> = {
+  English: "gb",
+  Spanish: "es",
+  Portuguese: "pt",
+  German: "de",
+  French: "fr",
+  Japanese: "jp",
+  Korean: "kr",
+  Chinese: "cn",
+  Russian: "ru",
+  Turkish: "tr",
+  Arabic: "sa",
+  Hindi: "in",
+  Indonesian: "id",
+  Vietnamese: "vn",
+  Thai: "th",
+  Polish: "pl",
+  Italian: "it",
+  Finnish: "fi",
+  Norwegian: "no",
+  Swedish: "se",
+  Danish: "dk",
+  Czech: "cz",
+  Hungarian: "hu",
 };
 
 const STAR_BG =
@@ -278,6 +307,11 @@ export function ReviewBlock({ slug }: { slug: string }) {
   const [isTabSticky, setIsTabSticky] = useState(false);
   const [sortOpen, setSortOpen] = useState(false);
   const [sortBy, setSortBy] = useState("Most Helpful");
+  const [websiteLangOpen, setWebsiteLangOpen] = useState(false);
+  const [supportLangOpen, setSupportLangOpen] = useState(false);
+  const [gamesShowAll, setGamesShowAll] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [providersOpen, setProvidersOpen] = useState(false);
   const tabSentinelRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = tabSentinelRef.current;
@@ -1282,32 +1316,30 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 </div>
 
                 {/* Factors list */}
-                <TooltipProvider>
-                  <div
-                    data-name="safety-factors"
-                    className="flex flex-1 flex-col gap-3"
-                  >
-                    {casino.safetyFactors.map((factor, i) => (
-                      <div
-                        key={i}
-                        data-name="safety-factor-row"
-                        className="flex items-center justify-between gap-4 rounded-lg border border-neutral-200 bg-neutral-50 px-5 py-3.5"
-                      >
-                        <span className="text-sm sm:text-base text-neutral-700">
+                <div
+                  data-name="safety-factors"
+                  className="flex flex-1 flex-col gap-3"
+                >
+                  {casino.safetyFactors.map((factor, i) => (
+                    <div
+                      key={i}
+                      data-name="safety-factor-row"
+                      className="flex items-center justify-between gap-4 rounded-lg border border-neutral-200 bg-neutral-50 px-5 py-3.5"
+                    >
+                      <span className="text-sm sm:text-base text-neutral-700">
+                        {factor}
+                      </span>
+                      <Popover>
+                        <PopoverTrigger>
+                          <Info className="size-5 shrink-0 text-neutral-300 hover:text-neutral-500 transition-colors cursor-pointer" />
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto max-w-xs text-xs px-3 py-1.5">
                           {factor}
-                        </span>
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <Info className="size-5 shrink-0 text-neutral-300 hover:text-neutral-500 transition-colors cursor-pointer" />
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            {factor}
-                          </TooltipContent>
-                        </Tooltip>
-                      </div>
-                    ))}
-                  </div>
-                </TooltipProvider>
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Disclaimer */}
@@ -1435,34 +1467,67 @@ export function ReviewBlock({ slug }: { slug: string }) {
               data-name="video-review"
               className="rounded-lg border border-neutral-200 bg-white shadow-sm overflow-hidden"
             >
-              <div
+              <button
                 data-name="video-thumbnail"
-                className="relative flex h-[200px] items-center justify-center bg-[#060D17]"
+                className="relative flex w-full h-[200px] items-center justify-center bg-[#060D17] cursor-pointer overflow-hidden"
+                onClick={() => setVideoOpen(true)}
               >
-                <button className="flex items-center justify-center size-14 rounded-full bg-[#eab914] hover:bg-[#d4a812] transition-colors">
+                {casino.videoUrl && (
+                  <Image
+                    src={`https://img.youtube.com/vi/${casino.videoUrl.split("/embed/")[1]?.split("?")[0]}/maxresdefault.jpg`}
+                    alt={`${casino.name} video review`}
+                    fill
+                    className="object-cover"
+                  />
+                )}
+                <span className="relative flex items-center justify-center size-14 rounded-full bg-[#eab914] hover:bg-[#d4a812] transition-colors">
                   <svg width="18" height="20" viewBox="0 0 18 20" fill="none">
                     <path
                       d="M17 8.268a2 2 0 0 1 0 3.464L3.5 19.124A2 2 0 0 1 .5 17.392V2.608A2 2 0 0 1 3.5.876L17 8.268Z"
                       fill="white"
                     />
                   </svg>
-                </button>
-              </div>
+                </span>
+              </button>
               <div data-name="video-label" className="bg-[#003EB6] px-4 py-2">
                 <p className="text-xs font-bold text-white uppercase tracking-wider text-center">
                   Coinbet Expert Review
                 </p>
               </div>
               <div data-name="video-cta" className="p-3">
-                <Link
-                  href="#"
-                  className="group flex items-center justify-between rounded-lg bg-[#eab914] px-4 py-2.5 text-sm font-semibold text-[#171717] hover:bg-[#d4a812] transition-colors"
+                <button
+                  onClick={() => setVideoOpen(true)}
+                  className="group flex w-full items-center justify-between rounded-lg bg-[#eab914] px-4 py-2.5 text-sm font-semibold text-[#171717] hover:bg-[#d4a812] transition-colors cursor-pointer"
                 >
                   Watch Review
                   <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
+                </button>
               </div>
             </div>
+
+            {/* Video Modal */}
+            <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
+              <DialogContent
+                className="sm:max-w-7xl p-0 overflow-hidden bg-black border-none"
+                showCloseButton
+              >
+                <div className="relative w-full aspect-video">
+                  {videoOpen && (
+                    <iframe
+                      src={
+                        casino.videoUrl
+                          ? `${casino.videoUrl}${casino.videoUrl.includes("?") ? "&" : "?"}autoplay=1`
+                          : "about:blank"
+                      }
+                      title={`${casino.name} Video Review`}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0 w-full h-full"
+                    />
+                  )}
+                </div>
+              </DialogContent>
+            </Dialog>
 
             {/* Casino Screenshots */}
             <div
@@ -1558,6 +1623,268 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 </svg>
               </div>
             </div>
+
+            {/* Languages */}
+            <div
+              data-name="languages-section"
+              className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm flex flex-col gap-4"
+            >
+              {/* Website languages */}
+              <Field>
+                <FieldLabel className="text-base font-bold text-[#060D17]">
+                  Website languages
+                </FieldLabel>
+                <Collapsible
+                  open={websiteLangOpen}
+                  onOpenChange={setWebsiteLangOpen}
+                >
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-lg border border-neutral-200 px-4 py-3 text-sm font-medium text-[#060D17] hover:bg-neutral-50 transition-colors">
+                    All Languages ({casino.websiteLanguages.length})
+                    <ChevronDown className="size-4 text-neutral-400 transition-transform [&[data-state=open]]:rotate-180" />
+                  </CollapsibleTrigger>
+                  <AnimatePresence initial={false}>
+                    {websiteLangOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
+                        style={{ overflow: "hidden" }}
+                      >
+                        <div className="mt-2 flex flex-wrap gap-1.5">
+                          {casino.websiteLanguages.map((lang) => (
+                            <Badge
+                              key={lang}
+                              variant="secondary"
+                              className="gap-1.5 px-2.5 py-1 h-auto"
+                            >
+                              <span
+                                className={`fi fi-${LANG_FLAGS[lang] ?? "xx"} fis rounded-full overflow-hidden shrink-0`}
+                                style={{ width: 14, height: 14 }}
+                              />
+                              {lang}
+                            </Badge>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </Collapsible>
+              </Field>
+
+              {/* Support languages */}
+              <Field>
+                <FieldLabel className="text-base font-bold text-[#060D17]">
+                  Customer support
+                </FieldLabel>
+                <Collapsible
+                  open={supportLangOpen}
+                  onOpenChange={setSupportLangOpen}
+                >
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-lg border border-neutral-200 px-4 py-3 text-sm font-medium text-[#060D17] hover:bg-neutral-50 transition-colors">
+                    Available ({casino.supportLanguages.length})
+                    <ChevronDown className="size-4 text-neutral-400 transition-transform [&[data-state=open]]:rotate-180" />
+                  </CollapsibleTrigger>
+                  <AnimatePresence initial={false}>
+                    {supportLangOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
+                        style={{ overflow: "hidden" }}
+                      >
+                        <div className="mt-2 flex flex-wrap gap-1.5">
+                          {casino.supportLanguages.map((lang) => (
+                            <Badge
+                              key={lang}
+                              variant="secondary"
+                              className="gap-1.5 px-2.5 py-1 h-auto"
+                            >
+                              <span
+                                className={`fi fi-${LANG_FLAGS[lang] ?? "xx"} fis rounded-full overflow-hidden shrink-0`}
+                                style={{ width: 14, height: 14 }}
+                              />
+                              {lang}
+                            </Badge>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </Collapsible>
+              </Field>
+            </div>
+
+            {/* Games */}
+            <Collapsible
+              open={gamesShowAll}
+              onOpenChange={setGamesShowAll}
+              data-name="games-section"
+              className="rounded-lg border border-neutral-200 bg-white shadow-sm"
+            >
+              <div className="p-5">
+                <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-4">
+                  Games
+                </h3>
+                <div className="flex flex-wrap items-center gap-2">
+                  {casino.games.filter((g) => g in GAME_ICONS).slice(0, 5).map((game) => (
+                    <span key={game} className="shrink-0 flex items-center justify-center size-10 rounded-full bg-neutral-100">
+                      {GAME_ICONS[game]}
+                    </span>
+                  ))}
+                </div>
+                <AnimatePresence initial={false}>
+                  {gamesShowAll && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
+                      style={{ overflow: "hidden" }}
+                    >
+                      <div className="flex flex-col mt-4 border-t border-neutral-100">
+                        {casino.games.filter((g) => g in GAME_ICONS).map((game) => (
+                          <div
+                            key={game}
+                            className="flex items-center gap-3 py-3 border-b border-neutral-100 last:border-b-0"
+                          >
+                            <span className="shrink-0 flex items-center justify-center size-10 rounded-full bg-neutral-100">
+                              {GAME_ICONS[game]}
+                            </span>
+                            <span className="text-sm font-medium text-[#060D17]">
+                              {game}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              <CollapsibleTrigger className="flex items-center justify-center gap-1 w-full border-t border-neutral-100 py-3 text-sm font-medium text-[#003EB6] hover:bg-neutral-50 transition-colors [&[data-state=open]>svg]:rotate-180">
+                See more
+                <ChevronDown className="size-4 transition-transform" />
+              </CollapsibleTrigger>
+            </Collapsible>
+
+            {/* Information */}
+            <div
+              data-name="casino-information"
+              className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
+            >
+              <h3 className="text-lg font-bold text-[#060D17] mb-4">
+                Information
+              </h3>
+              <div className="flex flex-col divide-y divide-neutral-100">
+                <div className="pb-3">
+                  <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">
+                    Owner
+                  </p>
+                  <p className="text-base font-semibold text-[#060D17]">
+                    {casino.owner}
+                  </p>
+                </div>
+                <div className="py-3">
+                  <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">
+                    Established
+                  </p>
+                  <p className="text-base font-semibold text-[#060D17]">
+                    {casino.established}
+                  </p>
+                </div>
+                <div className="py-3">
+                  <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">
+                    Estimated Annual Revenues
+                  </p>
+                  <p className="text-base font-semibold text-[#060D17]">
+                    {casino.estimatedRevenue}
+                  </p>
+                </div>
+                <div className="pt-3">
+                  <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">
+                    Licensing Authorities
+                  </p>
+                  <div className="flex flex-col gap-2 mt-2">
+                    {casino.licensingAuthorities.map((auth, i) => (
+                      <div key={i} className="flex items-center gap-2">
+                        <span
+                          className={`fi fi-${auth.flag} fis rounded-full overflow-hidden shrink-0`}
+                          style={{ width: 20, height: 20 }}
+                        />
+                        <span className="text-base font-semibold text-[#060D17]">
+                          {auth.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Game Providers */}
+            <Collapsible
+              open={providersOpen}
+              onOpenChange={setProvidersOpen}
+              data-name="game-providers"
+              className="rounded-lg border border-neutral-200 bg-white shadow-sm"
+            >
+              <div className="p-5">
+                <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-4">
+                  Game Providers
+                </h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {casino.gameProviders.slice(0, 4).map((provider) => (
+                    <div
+                      key={provider.name}
+                      className="flex items-center justify-center rounded-lg bg-neutral-50 border border-neutral-100 p-3 h-14"
+                    >
+                      <Image
+                        src={provider.image}
+                        alt={provider.name}
+                        width={120}
+                        height={40}
+                        className="object-contain max-h-8"
+                      />
+                    </div>
+                  ))}
+                </div>
+                <AnimatePresence initial={false}>
+                  {providersOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
+                      style={{ overflow: "hidden" }}
+                    >
+                      <div className="grid grid-cols-2 gap-2 mt-2">
+                        {casino.gameProviders.slice(4).map((provider) => (
+                          <div
+                            key={provider.name}
+                            className="flex items-center justify-center rounded-lg bg-neutral-50 border border-neutral-100 p-3 h-14"
+                          >
+                            <Image
+                              src={provider.image}
+                              alt={provider.name}
+                              width={120}
+                              height={40}
+                              className="object-contain max-h-8"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              {casino.gameProviders.length > 4 && (
+                <CollapsibleTrigger className="flex items-center justify-center gap-1 w-full border-t border-neutral-100 py-3 text-sm font-medium text-[#003EB6] hover:bg-neutral-50 transition-colors [&[data-state=open]>svg]:rotate-180">
+                  See more
+                  <ChevronDown className="size-4 transition-transform" />
+                </CollapsibleTrigger>
+              )}
+            </Collapsible>
           </div>
         </div>
       </div>

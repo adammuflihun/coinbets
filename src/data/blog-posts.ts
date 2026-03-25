@@ -1,0 +1,68 @@
+import type { BlogPost } from "@/components/blog-card";
+
+export const blogPosts: BlogPost[] = [
+  {
+    image: "/blog-images/prediction-markets.webp",
+    badge: "Guide",
+    title: "Easy Guide to Blockchain Prediction Markets 2026",
+    date: "January 07, 2026",
+    views: 64,
+    slug: "blockchain-prediction-markets",
+  },
+  {
+    image: "/blog-images/understanding-rtp.webp",
+    badge: "Guide",
+    title: "Understanding RTP and House Edge in Crypto Casinos",
+    date: "January 12, 2026",
+    views: 112,
+    slug: "understanding-rtp-house-edge",
+  },
+  {
+    image: "/blog-images/crypto-esports-betting.webp",
+    badge: "Article",
+    title: "Crypto Esports Betting: CS:GO, LoL & PUBG Mobile",
+    date: "February 03, 2026",
+    views: 89,
+    slug: "crypto-esports-betting",
+  },
+  {
+    image: "/blog-images/how-to-write-casino-review.webp",
+    badge: "Guide",
+    title: "How to Write a Helpful Casino Review as a Player",
+    date: "February 18, 2026",
+    views: 47,
+    slug: "how-to-write-casino-review",
+  },
+  {
+    image: "/blog-images/prediction-markets.webp",
+    badge: "Article",
+    title: "Bitcoin vs Ethereum: Which Is Better for Gambling?",
+    date: "February 25, 2026",
+    views: 203,
+    slug: "bitcoin-vs-ethereum-gambling",
+  },
+  {
+    image: "/blog-images/understanding-rtp.webp",
+    badge: "Guide",
+    title: "How to Stay Safe Playing at Crypto Casinos",
+    date: "March 02, 2026",
+    views: 156,
+    slug: "stay-safe-crypto-casinos",
+  },
+  {
+    image: "/blog-images/crypto-esports-betting.webp",
+    badge: "Article",
+    title: "The Rise of Provably Fair Games in 2026",
+    date: "March 10, 2026",
+    views: 78,
+    slug: "provably-fair-games-2026",
+  },
+  {
+    image: "/blog-images/how-to-write-casino-review.webp",
+    badge: "Guide",
+    title: "Beginner's Guide to Crypto Sports Betting",
+    date: "March 18, 2026",
+    views: 134,
+    slug: "beginners-guide-crypto-sports-betting",
+  },
+];

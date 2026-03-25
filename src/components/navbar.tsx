@@ -1,17 +1,38 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Search } from "lucide-react";
 import { CountrySelector } from "@/components/country-selector";
 import { LoginDialog } from "@/components/login-dialog";
 import { MobileNav } from "@/components/mobile-nav";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
-function BonusesIcon({ className }: { className?: string }) {
+function CasinoIndexIcon({ className }: { className?: string }) {
   return (
-    <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-      <path d="M18.6167 5.34571C18.3916 4.02049 17.765 2.83611 16.8646 1.95903C16.0615 1.17158 15.0455 0.621 13.9199 0.409733C12.4842 0.140847 11.0118 0 9.50304 0C7.99424 0 6.52193 0.140847 5.08613 0.409733C3.89369 0.633804 2.82293 1.23559 2.0016 2.09987C1.18028 2.96415 0.602305 4.09091 0.389369 5.35212C0.133845 6.863 0 8.41229 0 10C0 11.5877 0.133845 13.137 0.389369 14.6479C0.602305 15.9027 1.17419 17.023 1.98943 17.8873C2.81076 18.758 3.88152 19.3662 5.08005 19.5903C6.51585 19.8592 7.98815 20 9.49696 20C11.0058 20 12.4781 19.8592 13.9139 19.5903C15.2341 19.3406 16.4022 18.6236 17.2539 17.6056C17.9414 16.7862 18.422 15.7682 18.6106 14.6479C18.8662 13.137 19 11.5877 19 10C19 8.41229 18.8662 6.863 18.6106 5.35212L18.6167 5.34571Z" fill="black"/>
-      <path d="M4.5 11.7612H9.125V16.5112H5.375C4.895 16.5112 4.5 16.1162 4.5 15.6362V11.7612ZM14.5 11.7612V15.6362C14.5 16.1162 14.105 16.5112 13.625 16.5112H9.875V11.7612H14.5ZM3.5 8.88623V10.1362C3.5 10.6162 3.895 11.0112 4.375 11.0112H9.125V8.01123H4.375C3.895 8.01123 3.5 8.40623 3.5 8.88623ZM14.625 8.01123H9.875V11.0112H14.625C15.105 11.0112 15.5 10.6162 15.5 10.1362V8.88623C15.5 8.40623 15.105 8.01123 14.625 8.01123Z" fill="white"/>
-      <path d="M9.4999 8.53327C9.44605 8.53311 9.39286 8.52139 9.34394 8.4989C9.29501 8.4764 9.25149 8.44366 9.21632 8.40289C9.18114 8.36212 9.15513 8.31427 9.14005 8.26258C9.12497 8.21089 9.12116 8.15656 9.1289 8.10327C9.3139 6.85327 10.2904 4.48877 12.6644 4.48877C14.0194 4.48927 14.4999 5.22127 14.4999 5.84827C14.4999 6.96277 12.9484 8.53327 9.4999 8.53327ZM12.6644 5.23927C10.8734 5.23927 10.1934 6.94177 9.9679 7.77227C11.3809 7.70627 12.2719 7.34877 12.7849 7.04427C13.4964 6.62177 13.7499 6.14927 13.7499 5.84777C13.7499 5.39877 13.1894 5.23927 12.6644 5.23927Z" fill="white"/>
-      <path d="M9.5 8.53326C6.0515 8.53326 4.5 6.96276 4.5 5.84826C4.5 5.22126 4.981 4.48926 6.336 4.48926C8.7095 4.48926 9.686 6.85376 9.871 8.10376C9.87866 8.15701 9.87479 8.21128 9.85968 8.26292C9.84456 8.31455 9.81854 8.36233 9.78337 8.40305C9.7482 8.44376 9.70471 8.47645 9.65582 8.49892C9.60694 8.52138 9.5538 8.53309 9.5 8.53326ZM6.336 5.23926C5.811 5.23926 5.25 5.39926 5.25 5.84826C5.25 6.48676 6.3665 7.65026 9.0315 7.77276C8.8065 6.94176 8.1265 5.23926 6.336 5.23926Z" fill="white"/>
+    <svg
+      width="19"
+      height="20"
+      viewBox="0 0 19 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M18.6167 5.34571C18.3916 4.02049 17.765 2.83611 16.8646 1.95903C16.0615 1.17158 15.0455 0.621 13.9199 0.409733C12.4842 0.140847 11.0118 0 9.50304 0C7.99424 0 6.52193 0.140847 5.08613 0.409733C3.89369 0.633804 2.82293 1.23559 2.0016 2.09987C1.18028 2.96415 0.602305 4.09091 0.389369 5.35212C0.133845 6.863 0 8.41229 0 10C0 11.5877 0.133845 13.137 0.389369 14.6479C0.602305 15.9027 1.17419 17.023 1.98943 17.8873C2.81076 18.758 3.88152 19.3662 5.08005 19.5903C6.51585 19.8592 7.98815 20 9.49696 20C11.0058 20 12.4781 19.8592 13.9139 19.5903C15.2341 19.3406 16.4022 18.6236 17.2539 17.6056C17.9414 16.7862 18.422 15.7682 18.6106 14.6479C18.8662 13.137 19 11.5877 19 10C19 8.41229 18.8662 6.863 18.6106 5.35212L18.6167 5.34571Z"
+        fill="black"
+      />
+      <path
+        d="M12.8447 3.75684C12.9577 3.75633 13.0706 3.77409 13.1768 3.81152C13.2846 3.84959 13.385 3.90627 13.4707 3.98047C13.5565 4.05478 13.6267 4.14576 13.6748 4.24805C13.7229 4.35043 13.7476 4.46207 13.7461 4.5752V4.57715C13.7444 4.65256 13.7358 4.7277 13.7207 4.80176L13.7188 4.80957L13.1816 7.06055H14.21C14.5144 7.06058 14.7745 7.12374 14.9629 7.27246C15.1603 7.42834 15.2441 7.65029 15.2441 7.88477C15.2441 8.12052 15.1623 8.34695 14.9678 8.50879C14.7797 8.66519 14.5181 8.73531 14.21 8.73535H12.7852L12.2412 11.041H13.1914C13.497 11.041 13.7574 11.1077 13.9453 11.2588C14.1411 11.4163 14.2256 11.6393 14.2256 11.873C14.2255 12.109 14.1371 12.3328 13.9443 12.4932C13.7567 12.6492 13.4968 12.7227 13.1914 12.7227H11.8457L11.1816 15.5283C11.0707 15.9935 10.6685 16.244 10.2344 16.2441C10.0006 16.2441 9.78042 16.1734 9.61523 16.0303C9.44715 15.8845 9.3506 15.6758 9.35059 15.4375V15.4336C9.35194 15.3539 9.35918 15.2739 9.37305 15.1953L9.37402 15.1885L9.37598 15.1816L9.96387 12.7227H7.59961L6.93457 15.5283C6.82483 15.9943 6.42059 16.2441 5.98828 16.2441C5.75448 16.2441 5.5343 16.1735 5.36914 16.0303C5.20114 15.8845 5.10451 15.6757 5.10449 15.4375C5.10449 15.3644 5.11427 15.2502 5.12988 15.1826L5.13086 15.1816L5.71777 12.7227H4.78027C4.47444 12.7227 4.21524 12.6498 4.0293 12.4922C3.83844 12.3304 3.75594 12.1058 3.75586 11.873C3.75586 11.6395 3.83965 11.4175 4.0332 11.2598C4.21951 11.1079 4.47677 11.0401 4.77832 11.04H6.11426L6.65723 8.73535H5.80859C5.50037 8.73535 5.23925 8.66538 5.05176 8.51074C4.8577 8.35063 4.77441 8.12637 4.77441 7.89355C4.77447 7.66039 4.85839 7.4375 5.05371 7.2793C5.24148 7.12733 5.50209 7.06055 5.80859 7.06055H7.04199L7.66895 4.41992C7.71629 4.22136 7.8398 4.05044 8.00781 3.93262C8.17372 3.81639 8.37614 3.75696 8.58105 3.75684V3.75586C8.58233 3.75584 8.58369 3.75685 8.58496 3.75684L8.58691 3.75586L8.58594 3.75684C8.69984 3.75526 8.81362 3.77171 8.9209 3.80859C9.02985 3.84612 9.13192 3.90335 9.21875 3.97754C9.30555 4.05175 9.37679 4.14251 9.42578 4.24512C9.47446 4.34716 9.49968 4.45825 9.49902 4.57129L9.49219 4.69043C9.4877 4.73314 9.48115 4.77607 9.47363 4.80859L9.47266 4.80957L8.93555 7.06055H11.2891L11.9141 4.41992V4.41895C11.9622 4.21855 12.0883 4.0475 12.2588 3.92969C12.4271 3.8134 12.632 3.75473 12.8389 3.75684V3.75586L12.8418 3.75684C12.843 3.75685 12.8445 3.75584 12.8457 3.75586L12.8447 3.75684ZM7.96582 11.0664H10.3799L10.9248 8.71777H8.52832L7.96582 11.0664Z"
+        fill="white"
+        stroke="white"
+        strokeWidth="0.488909"
+      />
     </svg>
   );
 }
@@ -20,7 +41,6 @@ const navCategories = [
   { label: "Crypto Casinos", icon: "/icons/casino.svg", hasDropdown: true },
   { label: "Sports Betting", icon: "/icons/sports.svg" },
   { label: "User Reviews", icon: "/icons/reviews.svg" },
-  { label: "Bonuses", icon: "/icons/bonuses.svg", customIcon: true },
 ];
 
 const navLinks = [
@@ -31,8 +51,14 @@ const navLinks = [
 
 export function Navbar() {
   return (
-    <header data-section="navbar" className="bg-white border-b border-neutral-100">
-      <nav data-name="nav-bar" className="flex items-center justify-between h-14 px-4 lg:px-10">
+    <header
+      data-section="navbar"
+      className="bg-white border-b border-neutral-100"
+    >
+      <nav
+        data-name="nav-bar"
+        className="flex items-center justify-between h-14 px-4 lg:px-10"
+      >
         {/* Mobile: Hamburger */}
         <div data-name="nav-mobile-trigger" className="lg:hidden">
           <MobileNav />
@@ -48,23 +74,46 @@ export function Navbar() {
               key={item.label}
               className="flex items-center gap-1.5 text-sm font-medium text-neutral-900 hover:bg-neutral-100 transition-colors rounded-lg px-3 py-1.5"
             >
-              {item.customIcon ? (
-                <BonusesIcon className="shrink-0" />
-              ) : (
-                <Image
-                  src={item.icon}
-                  alt=""
-                  width={19}
-                  height={20}
-                  className="shrink-0"
-                />
-              )}
+              <Image
+                src={item.icon}
+                alt=""
+                width={19}
+                height={20}
+                className="shrink-0"
+              />
               <span>{item.label}</span>
               {item.hasDropdown && (
                 <ChevronDown className="size-4 text-neutral-500" />
               )}
             </button>
           ))}
+
+          {/* Casino Index Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger openOnHover className="flex items-center gap-1.5 text-sm font-medium text-neutral-900 hover:bg-neutral-100 transition-colors rounded-lg px-3 py-1.5 outline-none cursor-pointer">
+              <CasinoIndexIcon className="shrink-0" />
+              <span>Casino Index</span>
+              <ChevronDown className="size-4 text-neutral-500" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="start"
+              sideOffset={8}
+              className="min-w-[180px]"
+            >
+              <DropdownMenuItem
+                className="cursor-pointer px-3 py-2"
+                render={<Link href="/coinbet-index" />}
+              >
+                52 Index
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="cursor-pointer px-3 py-2"
+                render={<Link href="/casino-originals" />}
+              >
+                Casino Original
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {/* Center: Logo */}
@@ -82,7 +131,10 @@ export function Navbar() {
         {/* Right: Links & Actions */}
         <div data-section="nav-actions" className="flex items-center gap-5">
           {/* Desktop only links */}
-          <div data-name="nav-links" className="hidden lg:flex items-center gap-1">
+          <div
+            data-name="nav-links"
+            className="hidden lg:flex items-center gap-1"
+          >
             {navLinks.map((link) => (
               <Link
                 key={link.label}
@@ -94,7 +146,10 @@ export function Navbar() {
             ))}
           </div>
 
-          <div data-name="nav-right-actions" className="flex items-center gap-2.5">
+          <div
+            data-name="nav-right-actions"
+            className="flex items-center gap-2.5"
+          >
             {/* Search - desktop only */}
             <button
               data-section="nav-search"
