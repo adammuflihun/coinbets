@@ -149,7 +149,7 @@ function CommunityReviewCard({
             data-name="community-username"
             className="flex items-center gap-1"
           >
-            <div className="size-[17px] rounded-full bg-red-400 shrink-0" />
+            <div data-name="community-avatar" className="size-[17px] rounded-full bg-red-400 shrink-0" />
             <span className="text-[#404040] text-sm">{userName}</span>
           </div>
           <span className="size-[3px] rounded-full bg-neutral-400 shrink-0" />
@@ -159,7 +159,7 @@ function CommunityReviewCard({
 
       {/* Divider */}
       <div data-name="community-divider" className="py-[15px]">
-        <div className="h-px w-full bg-[#d9d9d9]" />
+        <div data-name="community-divider-line" className="h-px w-full bg-[#d9d9d9]" />
       </div>
 
       {/* Product info */}

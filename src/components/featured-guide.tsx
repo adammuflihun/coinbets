@@ -36,7 +36,7 @@ export function FeaturedGuide() {
         </div>
 
         {/* Content */}
-        <div className="flex flex-col justify-center gap-4 flex-1 py-1 lg:py-4">
+        <div data-name="featured-content" className="flex flex-col justify-center gap-4 flex-1 py-1 lg:py-4">
           <span className="self-start rounded-lg bg-neutral-100 px-2.5 py-1 text-sm font-semibold text-neutral-800">
             {guide.badge}
           </span>
@@ -53,11 +53,11 @@ export function FeaturedGuide() {
             className="flex items-center gap-5 mt-auto"
             data-name="featured-meta"
           >
-            <div className="flex items-center gap-1.5 text-sm font-medium text-[#060D17]">
+            <div data-name="featured-date" className="flex items-center gap-1.5 text-sm font-medium text-[#060D17]">
               <Calendar className="size-[18px] text-neutral-500" />
               {guide.date}
             </div>
-            <div className="flex items-center gap-1.5 text-sm font-medium text-[#060D17]">
+            <div data-name="featured-views" className="flex items-center gap-1.5 text-sm font-medium text-[#060D17]">
               <Eye className="size-[18px] text-neutral-500" />
               {guide.views} Views
             </div>

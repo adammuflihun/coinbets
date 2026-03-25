@@ -319,7 +319,7 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-[#d9d9d9] opacity-20 my-14" />
+        <div data-name="footer-divider-top" className="h-px bg-[#d9d9d9] opacity-20 my-14" />
 
         {/* Middle Section: Link Columns */}
         <div
@@ -423,7 +423,7 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-[#d9d9d9] opacity-20 my-14" />
+        <div data-name="footer-divider-bottom" className="h-px bg-[#d9d9d9] opacity-20 my-14" />
 
         {/* Bottom Section: Disclaimer + Language */}
         <div

@@ -76,17 +76,17 @@ export function SearchboxIndex() {
           >
             {/* Shimmer border layer */}
             <div data-name="shimmer-border" className="absolute inset-0 overflow-visible blur-[2px] @container-[size]">
-              <div className="absolute inset-0 h-[100cqh] animate-shimmer-slide aspect-[1] rounded-none [mask:none]">
-                <div className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
+              <div data-name="shimmer-slide" className="absolute inset-0 h-[100cqh] animate-shimmer-slide aspect-[1] rounded-none [mask:none]">
+                <div data-name="shimmer-gradient" className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
               </div>
             </div>
 
             {/* Inner background fill */}
-            <div className="absolute rounded-[8px] bg-[#020202] ring-1 ring-inset ring-[#e6b830] inset-(--cut)" />
+            <div data-name="shimmer-inner-bg" className="absolute rounded-[8px] bg-[#020202] ring-1 ring-inset ring-[#e6b830] inset-(--cut)" />
 
             {/* Input content */}
-            <div className="relative">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
+            <div data-name="search-input-content" className="relative">
+              <div data-name="search-icon-wrapper" className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
                 <Search className="size-6 text-white" />
               </div>
               <input

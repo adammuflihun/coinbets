@@ -189,7 +189,7 @@ export function Navbar() {
             </button>
 
             {/* Language Selector - desktop only */}
-            <div className="hidden lg:block">
+            <div data-name="nav-language" className="hidden lg:block">
               <CountrySelector />
             </div>
 

@@ -616,7 +616,7 @@ function CountBadge({
   color: string;
 }) {
   return (
-    <div className="flex items-center gap-[3px]">
+    <div data-name="count-badge" className="flex items-center gap-[3px]">
       <span className="text-md font-semibold text-gray-200 mr-1">{count}</span>
       <Badge label={label} color={color} />
     </div>
@@ -674,6 +674,7 @@ function Checkbox({
       className="flex items-center gap-1.5 h-6 cursor-pointer"
     >
       <div
+        data-name="checkbox-indicator"
         className={`size-4 rounded shrink-0 flex items-center justify-center ${
           checked
             ? "bg-[#e6b830] border border-[#e6b830]"
@@ -710,7 +711,7 @@ function GameTypeDropdown({
   const options = ["All Games", ...games.map((g) => g.name)];
 
   return (
-    <div className="flex flex-col gap-3 shrink-0 relative" ref={ref}>
+    <div data-name="game-type-dropdown" className="flex flex-col gap-3 shrink-0 relative" ref={ref}>
       <span className="text-sm font-bold text-[#f8f8f8]/60 uppercase">
         Game Type
       </span>
@@ -726,6 +727,7 @@ function GameTypeDropdown({
       <AnimatePresence>
         {open && (
           <motion.div
+            data-name="game-type-options"
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
@@ -767,11 +769,11 @@ function RtpRangeSlider({
   onMaxChange: (v: number) => void;
 }) {
   return (
-    <div className="flex flex-col gap-3 shrink-0 min-w-[180px]">
+    <div data-name="rtp-range-slider" className="flex flex-col gap-3 shrink-0 min-w-[180px]">
       <span className="text-sm font-bold text-[#f8f8f8]/60 uppercase">
         RTP Range
       </span>
-      <div className="flex flex-col gap-2">
+      <div data-name="rtp-slider-values" className="flex flex-col gap-2">
         <span className="text-sm font-semibold text-white">
           {min}% — {max}%
         </span>
@@ -828,7 +830,7 @@ function GameFilters({
 
   return (
     <div data-name="game-filters">
-      <div className="flex items-center justify-between mb-5">
+      <div data-name="filter-header" className="flex items-center justify-between mb-5">
         <p className="text-base font-bold text-white">Game Filters</p>
         <button
           onClick={handleReset}
@@ -838,14 +840,14 @@ function GameFilters({
           Reset
         </button>
       </div>
-      <div className="flex flex-col gap-5">
+      <div data-name="filter-controls" className="flex flex-col gap-5">
         <GameTypeDropdown value={gameType} onChange={onGameTypeChange} />
 
-        <div className="flex flex-col gap-3 shrink-0">
+        <div data-name="provably-fair-filter" className="flex flex-col gap-3 shrink-0">
           <span className="text-sm font-bold text-[#f8f8f8]/60 uppercase">
             Provably Fair
           </span>
-          <div className="flex items-center gap-4">
+          <div data-name="provably-fair-options" className="flex items-center gap-4">
             <Checkbox
               checked={provablyFair.full}
               label="Full"
@@ -873,11 +875,11 @@ function GameFilters({
           onMaxChange={onRtpMaxChange}
         />
 
-        <div className="flex flex-col gap-3 shrink-0">
+        <div data-name="provider-filter" className="flex flex-col gap-3 shrink-0">
           <span className="text-sm font-bold text-[#f8f8f8]/60 uppercase">
             Provider
           </span>
-          <div className="flex items-center gap-4">
+          <div data-name="provider-options" className="flex items-center gap-4">
             <Checkbox
               checked={provider.inHouse}
               label="In-house"
@@ -923,8 +925,8 @@ function CasinoSubRow({
     >
       <span className="text-sm font-semibold text-white">#{casino.rank}</span>
 
-      <div className="flex items-center gap-3">
-        <div className="w-[61px] h-[43px] rounded-lg overflow-hidden flex items-center justify-center shrink-0 bg-[#020202]">
+      <div data-name="casino-name-cell" className="flex items-center gap-3">
+        <div data-name="casino-logo-wrapper" className="w-[61px] h-[43px] rounded-lg overflow-hidden flex items-center justify-center shrink-0 bg-[#020202]">
           <Image
             src={casino.logo}
             alt={casino.name}
@@ -1035,9 +1037,9 @@ function GameRow({
       {/* Game summary row */}
       <div data-name="game-summary">
         {/* Mobile card layout */}
-        <div className="flex flex-col gap-5 md:hidden">
+        <div data-name="mobile-game-card" className="flex flex-col gap-5 md:hidden">
           {/* Icon + Name + Open */}
-          <div className="flex items-center gap-3">
+          <div data-name="mobile-game-header" className="flex items-center gap-3">
             <Image
               src={game.icon}
               alt={game.name}
@@ -1064,7 +1066,7 @@ function GameRow({
           </div>
 
           {/* RTP */}
-          <div className="flex items-center justify-between">
+          <div data-name="mobile-rtp-row" className="flex items-center justify-between">
             <span className="text-sm font-bold text-[#f8f8f8]/60 uppercase">RTP</span>
             <span className={`text-xl font-semibold ${rtpColor(game.rtp)}`}>
               {game.rtp}
@@ -1072,9 +1074,9 @@ function GameRow({
           </div>
 
           {/* Provably Fair */}
-          <div className="flex items-start justify-between">
+          <div data-name="mobile-provably-fair-row" className="flex items-start justify-between">
             <span className="text-sm font-bold text-[#f8f8f8]/60 uppercase pt-0.5">Provably Fair</span>
-            <div className="flex flex-col items-end gap-1.5">
+            <div data-name="mobile-provably-fair-badges" className="flex flex-col items-end gap-1.5">
               <CountBadge count={game.provablyFair.full} label="Full" color="bg-green-500" />
               <CountBadge count={game.provablyFair.partial} label="Partial" color="bg-yellow-300" />
               <CountBadge count={game.provablyFair.none} label="None" color="bg-gray-200" />
@@ -1082,9 +1084,9 @@ function GameRow({
           </div>
 
           {/* Provider */}
-          <div className="flex items-start justify-between">
+          <div data-name="mobile-provider-row" className="flex items-start justify-between">
             <span className="text-sm font-bold text-[#f8f8f8]/60 uppercase pt-0.5">Provider</span>
-            <div className="flex flex-col items-end gap-1.5">
+            <div data-name="mobile-provider-badges" className="flex flex-col items-end gap-1.5">
               <CountBadge count={game.providerStats.inHouse} label="In house" color="bg-gray-200" />
               <CountBadge count={game.providerStats.thirdParty} label="3rd party" color="bg-gray-200" />
             </div>
@@ -1092,8 +1094,8 @@ function GameRow({
         </div>
 
         {/* Desktop grid layout */}
-        <div className="hidden md:grid grid-cols-[3fr_2fr_5fr_4fr_auto] items-center gap-4 whitespace-nowrap">
-          <div className="flex items-center gap-4">
+        <div data-name="desktop-game-summary" className="hidden md:grid grid-cols-[3fr_2fr_5fr_4fr_auto] items-center gap-4 whitespace-nowrap">
+          <div data-name="desktop-game-name-cell" className="flex items-center gap-4">
             <Image
               src={game.icon}
               alt={game.name}
@@ -1110,13 +1112,13 @@ function GameRow({
             {game.rtp}
           </span>
 
-          <div className="flex items-center gap-3.5">
+          <div data-name="desktop-provably-fair-badges" className="flex items-center gap-3.5">
             <CountBadge count={game.provablyFair.full} label="Full" color="bg-green-500" />
             <CountBadge count={game.provablyFair.partial} label="Partial" color="bg-yellow-300" />
             <CountBadge count={game.provablyFair.none} label="None" color="bg-gray-200" />
           </div>
 
-          <div className="flex items-center gap-3.5">
+          <div data-name="desktop-provider-badges" className="flex items-center gap-3.5">
             <CountBadge count={game.providerStats.inHouse} label="In house" color="bg-gray-200" />
             <CountBadge count={game.providerStats.thirdParty} label="3rd party" color="bg-gray-200" />
           </div>
@@ -1149,7 +1151,7 @@ function GameRow({
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
           >
-            <div className="flex flex-col gap-1.5 min-w-[900px] md:min-w-0">
+            <div data-name="sub-table-content" className="flex flex-col gap-1.5 min-w-[900px] md:min-w-0">
               {/* Sub-table header */}
             <div
               data-name="sub-table-header"
@@ -1158,7 +1160,7 @@ function GameRow({
               <button className="flex items-center gap-4 cursor-pointer" onClick={() => handleSort("rank")}>
                 Rank <SortIcon dir={sortField === "rank" ? sortDir : null} />
               </button>
-              <div>Casino Name</div>
+              <div data-name="casino-name-header">Casino Name</div>
               <button className="flex items-center gap-4 cursor-pointer" onClick={() => handleSort("rtp")}>
                 RTP <SortIcon dir={sortField === "rtp" ? sortDir : null} />
               </button>
@@ -1171,7 +1173,7 @@ function GameRow({
               <button className="flex items-center gap-4 cursor-pointer" onClick={() => handleSort("maxWin")}>
                 Max Win <SortIcon dir={sortField === "maxWin" ? sortDir : null} />
               </button>
-              <div>Visit</div>
+              <div data-name="visit-header">Visit</div>
             </div>
 
             {/* Sub-table rows */}
@@ -1262,13 +1264,13 @@ export function CasinoOriginalsTable() {
       data-section="casino-originals-table"
       className="bg-[#020202] pb-62"
     >
-      <div className="site-container">
+      <div data-name="originals-table-container" className="site-container">
         {/* Search bar + Game Filter + Latest update */}
         <div
           data-name="table-toolbar"
           className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6"
         >
-          <div className="relative w-full max-w-md">
+          <div data-name="search-input-wrapper" className="relative w-full max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-white/40" />
             <input
               type="text"
@@ -1278,7 +1280,7 @@ export function CasinoOriginalsTable() {
               className="w-full rounded-lg bg-[#121212] border border-white/10 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/25 transition-colors"
             />
           </div>
-          <div className="flex items-center gap-4">
+          <div data-name="toolbar-actions" className="flex items-center gap-4">
             <p className="text-sm text-white/50 whitespace-nowrap shrink-0">
               Latest update 23 March 2026
             </p>
@@ -1306,8 +1308,8 @@ export function CasinoOriginalsTable() {
         </div>
 
         {/* Scrollable table wrapper */}
-        <div className="overflow-x-auto" style={{ scrollbarWidth: "none" }}>
-          <div className="md:min-w-[1200px]">
+        <div data-name="table-scroll-wrapper" className="overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+          <div data-name="table-inner-wrapper" className="md:min-w-[1200px]">
             {/* Outer table header */}
             <div
               data-name="table-header"
@@ -1325,7 +1327,7 @@ export function CasinoOriginalsTable() {
               <button className="flex items-center gap-4 cursor-pointer" onClick={() => handleOuterSort("provider")}>
                 Provider <SortIcon dir={outerSortField === "provider" ? outerSortDir : null} />
               </button>
-              <div className="text-center">View</div>
+              <div data-name="view-header" className="text-center">View</div>
             </div>
 
             {/* Game rows */}

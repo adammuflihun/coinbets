@@ -458,7 +458,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
               },
             ].map((item, i) => (
               <div key={i} data-name="bonus-item" className="pl-2.5">
-                <div className="bg-[#f8f8f8] border-l-4 border-[#003EB6] px-[15px] py-2.5">
+                <div data-name="bonus-item-content" className="bg-[#f8f8f8] border-l-4 border-[#003EB6] px-[15px] py-2.5">
                   <p className="text-[17px] leading-[1.7] text-[#0d0f12]">
                     <strong>{item.label}</strong> {item.detail}
                   </p>
@@ -574,7 +574,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
               },
             ].map((item, i) => (
               <div key={i} data-name="account-option-item" className="pl-2.5">
-                <div className="bg-[#f8f8f8] border-l-4 border-[#003EB6] px-[15px] py-2.5">
+                <div data-name="account-option-content" className="bg-[#f8f8f8] border-l-4 border-[#003EB6] px-[15px] py-2.5">
                   <p className="text-[17px] leading-[1.7] text-[#0d0f12]">
                     {item.text}
                   </p>
@@ -601,7 +601,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
             <p className="text-lg font-bold leading-[28.8px] text-black">
               Important
             </p>
-            <div className="text-[17px] leading-[28.8px] text-black">
+            <div data-name="account-important-text" className="text-[17px] leading-[28.8px] text-black">
               <p className="mb-4">
                 {casino.name} operates under a Tobique gaming license. This
                 means that, while KYC is not required at sign-up, the casino
@@ -949,7 +949,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
           <h4 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
             Slots
           </h4>
-          <div className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="game-slots-text" className="text-[17px] leading-[28.8px] text-black">
             <p className="mb-4">
               Despite styling itself as the ultimate Web3 Solana-based crypto
               casino, in truth, the vast majority of games at {casino.name} are
@@ -1014,7 +1014,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
                   />
                 </div>
               )}
-              <div className="text-[17px] leading-[28.8px] text-black">
+              <div data-name="game-review-1-text" className="text-[17px] leading-[28.8px] text-black">
                 <p className="mb-4">
                   I&apos;d been watching a YouTube video about Vikings at
                   lunchtime, so they must have been on my mind when I chose to
@@ -1055,7 +1055,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
                   />
                 </div>
               )}
-              <div className="text-[17px] leading-[28.8px] text-black">
+              <div data-name="game-review-2-text" className="text-[17px] leading-[28.8px] text-black">
                 <p className="mb-4">
                   To cheer things up, I decided to play something distinctly
                   more upbeat next. Specifically, King of Sweets from
@@ -1092,7 +1092,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
           <h4 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
             Crash &amp; Instant Wins
           </h4>
-          <div className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="game-crash-text" className="text-[17px] leading-[28.8px] text-black">
             <p className="mb-4">
               Interestingly, at {casino.name}, games usually referred to as
               &quot;instant wins&quot; or &quot;casual&quot; are in a category
@@ -1130,7 +1130,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
           <h4 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
             Live Casino
           </h4>
-          <div className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="game-live-text" className="text-[17px] leading-[28.8px] text-black">
             <p className="mb-4">
               The {casino.name} live casino features several hundred live dealer
               games. No surprises, most are from Evolution and Pragmatic Play,
@@ -1295,7 +1295,7 @@ function FairTabNav({
                   <path d="M14.709 14.8188C15.2085 15.6257 15.9001 16.3097 16.7147 16.7938C17.5678 17.301 18.5438 17.5854 19.5428 17.6084C20.0193 16.7323 20.2575 15.7487 20.2498 14.7496C20.2421 13.7967 19.9962 12.8591 19.5428 12.0215C17.5755 12.0753 15.7388 13.1358 14.709 14.8111V14.8188Z" fill="#E6B830" />
                 </svg>
               ) : (
-                <div className={`size-[42px] rounded flex items-center justify-center ${isActive ? "bg-[#0d337d]" : ""}`}>
+                <div data-name="fair-tab-icon-inner" className={`size-[42px] rounded flex items-center justify-center ${isActive ? "bg-[#0d337d]" : ""}`}>
                   <Icon className={`size-5 ${isActive ? "text-white" : "text-[#060d17]"}`} />
                 </div>
               )}
@@ -1337,7 +1337,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
             Provably Fair Games
           </h3>
-          <div className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="provably-fair-text" className="text-[17px] leading-[28.8px] text-black">
             <p className="mb-4">
               Like most large crypto casinos, {casino.name} offers a modest
               range of provably fair &quot;in-house original&quot; games. Yep,
@@ -1458,7 +1458,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
             CoinBets Challenge: Medium vs High Risk Wheel
           </h3>
-          <div className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="coinbets-challenge-text" className="text-[17px] leading-[28.8px] text-black">
             <p className="mb-4">
               For today&apos;s CoinBets Challenge, I decided to play on one of
               the {casino.name} provably fair originals - specifically, Wheel.
@@ -1513,7 +1513,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
             </div>
           )}
 
-          <div className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="challenge-verification-text" className="text-[17px] leading-[28.8px] text-black">
             <p className="mb-4">Challenge smashed.</p>
             <p>
               Oh, and the provably fair verification system is nice and
@@ -1883,7 +1883,7 @@ function SupportDesignSection({ casino }: { casino: CasinoReview }) {
           </h3>
 
           <div data-name="support-content" className="flex flex-col gap-[25px]">
-            <div className="text-[17px] leading-[28.8px] text-black">
+            <div data-name="support-text" className="text-[17px] leading-[28.8px] text-black">
               <p className="mb-0">
                 Like most online casinos, {casino.name} provides 24/7 player
                 support via live chat - with the typical response time being
@@ -1924,7 +1924,7 @@ function SupportDesignSection({ casino }: { casino: CasinoReview }) {
           </h2>
 
           <div data-name="ux-content" className="flex flex-col gap-[25px]">
-            <div className="text-[17px] leading-[28.8px] text-black">
+            <div data-name="ux-text" className="text-[17px] leading-[28.8px] text-black">
               <p className="mb-0">
                 There&apos;s no getting away from it, {casino.name} looks like a
                 thousand other online casinos. Really, I&apos;d go as far as
@@ -2030,7 +2030,7 @@ function CryptoTokenSection({ casino }: { casino: CasinoReview }) {
         </div>
       </div>
 
-      <div className="text-[17px] leading-[28.8px] text-black">
+      <div data-name="crypto-token-description" className="text-[17px] leading-[28.8px] text-black">
         <p className="mb-0">
           Solcasino Token (SCS) is the creatively named native token of{" "}
           {casino.name}.
@@ -2058,7 +2058,7 @@ function CryptoTokenSection({ casino }: { casino: CasinoReview }) {
         </div>
       )}
 
-      <div className="text-[17px] leading-[28.8px] text-black">
+      <div data-name="crypto-token-staking-text" className="text-[17px] leading-[28.8px] text-black">
         <p className="mb-0">
           In terms of utility, using SCS to wager at {casino.name} earns players
           rewards, while staking SCS in the casino&apos;s liquidity pool can
@@ -2162,7 +2162,7 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
         </div>
       </div>
 
-      <div className="text-[17px] leading-[28.8px] text-black">
+      <div data-name="reputation-intro-text" className="text-[17px] leading-[28.8px] text-black">
         <p className="mb-0">
           Okay, we&apos;ve seen what {casino.name} offers, but what are people
           saying about it?
@@ -2187,13 +2187,13 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
       {/* Reputation Ratings Table */}
       <div data-name="reputation-table" className="border border-[#dedede] overflow-x-auto">
         <div data-name="reputation-table-header" className="flex bg-[#f8f8f8] min-w-[600px]">
-          <div className="w-[194px] shrink-0 px-3 py-2 h-[40px] flex items-center">
+          <div data-name="reputation-header-platform" className="w-[194px] shrink-0 px-3 py-2 h-[40px] flex items-center">
             <span className="text-[14px] font-medium text-[#060d17]">Platform</span>
           </div>
-          <div className="flex-1 px-3 py-2 h-[40px] flex items-center">
+          <div data-name="reputation-header-rating" className="flex-1 px-3 py-2 h-[40px] flex items-center">
             <span className="text-[14px] font-medium text-[#060d17]">Overall Rating</span>
           </div>
-          <div className="flex-1 px-3 py-2 h-[40px] flex items-center">
+          <div data-name="reputation-header-notes" className="flex-1 px-3 py-2 h-[40px] flex items-center">
             <span className="text-[14px] font-medium text-[#060d17]">Notes</span>
           </div>
         </div>
@@ -2203,7 +2203,7 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
             data-name={`reputation-row-${i}`}
             className="flex h-[71px] border-t border-[#e4e8ec] min-w-[600px]"
           >
-            <div className="w-[194px] shrink-0 flex items-center px-3 bg-white border-l border-[#e4e8ec]">
+            <div data-name="reputation-row-platform" className="w-[194px] shrink-0 flex items-center px-3 bg-white border-l border-[#e4e8ec]">
               {i === 0 ? (
                 <svg width="101" height="37" viewBox="0 0 1133 279" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
                   <path d="M297.7 98.5996H412.4V120H367.3V240.3H342.5V120H297.6V98.5996H297.7ZM407.5 137.7H428.7V157.5H429.1C429.8 154.7 431.1 152 433 149.4C434.9 146.8 437.2 144.3 439.9 142.2C442.6 140 445.6 138.3 448.9 136.9C452.2 135.6 455.6 134.9 459 134.9C461.6 134.9 463.5 135 464.5 135.1C465.5 135.2 466.5 135.4 467.6 135.5V157.3C466 157 464.4 156.8 462.7 156.6C461 156.4 459.4 156.3 457.8 156.3C454 156.3 450.4 157.1 447 158.6C443.6 160.1 440.7 162.4 438.2 165.3C435.7 168.3 433.7 171.9 432.2 176.3C430.7 180.7 430 185.7 430 191.4V240.2H407.4V137.7H407.5ZM571.5 240.3H549.3V226H548.9C546.1 231.2 542 235.3 536.5 238.4C531 241.5 525.4 243.1 519.7 243.1C506.2 243.1 496.4 239.8 490.4 233.1C484.4 226.4 481.4 216.3 481.4 202.8V137.7H504V200.6C504 209.6 505.7 216 509.2 219.7C512.6 223.4 517.5 225.3 523.7 225.3C528.5 225.3 532.4 224.6 535.6 223.1C538.8 221.6 541.4 219.7 543.3 217.2C545.3 214.8 546.7 211.8 547.6 208.4C548.5 205 548.9 201.3 548.9 197.3V137.8H571.5V240.3ZM610 207.4C610.7 214 613.2 218.6 617.5 221.3C621.9 223.9 627.1 225.3 633.2 225.3C635.3 225.3 637.7 225.1 640.4 224.8C643.1 224.5 645.7 223.8 648 222.9C650.4 222 652.3 220.6 653.9 218.8C655.4 217 656.1 214.7 656 211.8C655.9 208.9 654.8 206.5 652.8 204.7C650.8 202.8 648.3 201.4 645.2 200.2C642.1 199.1 638.6 198.1 634.6 197.3C630.6 196.5 626.6 195.6 622.5 194.7C618.3 193.8 614.2 192.6 610.3 191.3C606.4 190 602.9 188.2 599.8 185.9C596.7 183.7 594.2 180.8 592.4 177.3C590.5 173.8 589.6 169.5 589.6 164.3C589.6 158.7 591 154.1 593.7 150.3C596.4 146.5 599.9 143.5 604 141.2C608.2 138.9 612.8 137.3 617.9 136.3C623 135.4 627.9 134.9 632.5 134.9C637.8 134.9 642.9 135.5 647.7 136.6C652.5 137.7 656.9 139.5 660.8 142.1C664.7 144.6 667.9 147.9 670.5 151.9C673.1 155.9 674.7 160.8 675.4 166.5H651.8C650.7 161.1 648.3 157.4 644.4 155.6C640.5 153.7 636 152.8 631 152.8C629.4 152.8 627.5 152.9 625.3 153.2C623.1 153.5 621.1 154 619.1 154.7C617.2 155.4 615.6 156.5 614.2 157.9C612.9 159.3 612.2 161.1 612.2 163.4C612.2 166.2 613.2 168.4 615.1 170.1C617 171.8 619.5 173.2 622.6 174.4C625.7 175.5 629.2 176.5 633.2 177.3C637.2 178.1 641.3 179 645.5 179.9C649.6 180.8 653.6 182 657.6 183.3C661.6 184.6 665.1 186.4 668.2 188.7C671.3 191 673.8 193.8 675.7 197.2C677.6 200.6 678.6 204.9 678.6 209.9C678.6 216 677.2 221.1 674.4 225.4C671.6 229.6 668 233.1 663.6 235.7C659.2 238.3 654.2 240.3 648.8 241.5C643.4 242.7 638 243.3 632.7 243.3C626.2 243.3 620.2 242.6 614.7 241.1C609.2 239.6 604.4 237.4 600.4 234.5C596.4 231.5 593.2 227.8 590.9 223.4C588.6 219 587.4 213.7 587.2 207.6H610V207.4ZM684.6 137.7H701.7V106.9H724.3V137.7H744.7V154.6H724.3V209.4C724.3 211.8 724.4 213.8 724.6 215.6C724.8 217.3 725.3 218.8 726 220C726.7 221.2 727.8 222.1 729.3 222.7C730.8 223.3 732.7 223.6 735.3 223.6C736.9 223.6 738.5 223.6 740.1 223.5C741.7 223.4 743.3 223.2 744.9 222.8V240.3C742.4 240.6 739.9 240.8 737.6 241.1C735.2 241.4 732.8 241.5 730.3 241.5C724.3 241.5 719.5 240.9 715.9 239.8C712.3 238.7 709.4 237 707.4 234.8C705.3 232.6 704 229.9 703.2 226.6C702.5 223.3 702 219.5 701.9 215.3V154.8H684.8V137.7H684.6ZM760.7 137.7H782.1V151.6H782.5C785.7 145.6 790.1 141.4 795.8 138.8C801.5 136.2 807.6 134.9 814.3 134.9C822.4 134.9 829.4 136.3 835.4 139.2C841.4 142 846.4 145.9 850.4 150.9C854.4 155.9 857.3 161.7 859.3 168.3C861.3 174.9 862.3 182 862.3 189.5C862.3 196.4 861.4 203.1 859.6 209.5C857.8 216 855.1 221.7 851.5 226.7C847.9 231.7 843.3 235.6 837.7 238.6C832.1 241.6 825.6 243.1 818 243.1C814.7 243.1 811.4 242.8 808.1 242.2C804.8 241.6 801.6 240.6 798.6 239.3C795.6 238 792.7 236.3 790.2 234.2C787.6 232.1 785.5 229.7 783.7 227H783.3V278.2H760.7V137.7ZM839.7 189.1C839.7 184.5 839.1 180 837.9 175.6C836.7 171.2 834.9 167.4 832.5 164C830.1 160.6 827.1 157.9 823.6 155.9C820 153.9 815.9 152.8 811.3 152.8C801.8 152.8 794.6 156.1 789.8 162.7C785 169.3 782.6 178.1 782.6 189.1C782.6 194.3 783.2 199.1 784.5 203.5C785.8 207.9 787.6 211.7 790.2 214.9C792.7 218.1 795.7 220.6 799.2 222.4C802.7 224.3 806.8 225.2 811.4 225.2C816.6 225.2 820.9 224.1 824.5 222C828.1 219.9 831 217.1 833.3 213.8C835.6 210.4 837.3 206.6 838.3 202.3C839.2 198 839.7 193.6 839.7 189.1ZM879.6 98.5996H902.2V120H879.6V98.5996ZM879.6 137.7H902.2V240.3H879.6V137.7ZM922.4 98.5996H945V240.3H922.4V98.5996ZM1014.3 243.1C1006.1 243.1 998.8 241.7 992.4 239C986 236.3 980.6 232.5 976.1 227.8C971.7 223 968.3 217.3 966 210.7C963.7 204.1 962.5 196.8 962.5 188.9C962.5 181.1 963.7 173.9 966 167.3C968.3 160.7 971.7 155 976.1 150.2C980.5 145.4 986 141.7 992.4 139C998.8 136.3 1006.1 134.9 1014.3 134.9C1022.5 134.9 1029.8 136.3 1036.2 139C1042.6 141.7 1048 145.5 1052.5 150.2C1056.9 155 1060.3 160.7 1062.6 167.3C1064.9 173.9 1066.1 181.1 1066.1 188.9C1066.1 196.8 1064.9 204.1 1062.6 210.7C1060.3 217.3 1056.9 223 1052.5 227.8C1048.1 232.6 1042.6 236.3 1036.2 239C1029.8 241.7 1022.5 243.1 1014.3 243.1ZM1014.3 225.2C1019.3 225.2 1023.7 224.1 1027.4 222C1031.1 219.9 1034.1 217.1 1036.5 213.7C1038.9 210.3 1040.6 206.4 1041.8 202.1C1042.9 197.8 1043.5 193.4 1043.5 188.9C1043.5 184.5 1042.9 180.2 1041.8 175.8C1040.7 171.4 1038.9 167.6 1036.5 164.2C1034.1 160.8 1031.1 158.1 1027.4 156C1023.7 153.9 1019.3 152.8 1014.3 152.8C1009.3 152.8 1004.9 153.9 1001.2 156C997.5 158.1 994.5 160.9 992.1 164.2C989.7 167.6 988 171.4 986.8 175.8C985.7 180.2 985.1 184.5 985.1 188.9C985.1 193.4 985.7 197.8 986.8 202.1C987.9 206.4 989.7 210.3 992.1 213.7C994.5 217.1 997.5 219.9 1001.2 222C1004.9 224.2 1009.3 225.2 1014.3 225.2ZM1072.7 137.7H1089.8V106.9H1112.4V137.7H1132.8V154.6H1112.4V209.4C1112.4 211.8 1112.5 213.8 1112.7 215.6C1112.9 217.3 1113.4 218.8 1114.1 220C1114.8 221.2 1115.9 222.1 1117.4 222.7C1118.9 223.3 1120.8 223.6 1123.4 223.6C1125 223.6 1126.6 223.6 1128.2 223.5C1129.8 223.4 1131.4 223.2 1133 222.8V240.3C1130.5 240.6 1128 240.8 1125.7 241.1C1123.3 241.4 1120.9 241.5 1118.4 241.5C1112.4 241.5 1107.6 240.9 1104 239.8C1100.4 238.7 1097.5 237 1095.5 234.8C1093.4 232.6 1092.1 229.9 1091.3 226.6C1090.6 223.3 1090.1 219.5 1090 215.3V154.8H1072.9V137.7H1072.7Z" fill="#191919"/>
@@ -2243,19 +2243,19 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
                 </span>
               )}
             </div>
-            <div className="flex-1 flex items-center px-3 bg-white border-l border-[#e4e8ec]">
+            <div data-name="reputation-row-rating" className="flex-1 flex items-center px-3 bg-white border-l border-[#e4e8ec]">
               {i === 0 ? (
-                <div className="flex items-center gap-1.5">
-                  <div className="flex gap-0.5">
+                <div data-name="trustpilot-rating" className="flex items-center gap-1.5">
+                  <div data-name="trustpilot-stars" className="flex gap-0.5">
                     {[0, 1, 2, 3, 4].map((star) => {
                       const fill = star < 1 ? 1 : star < 2 ? 0.8 : 0;
                       return (
-                        <div key={star} className="relative size-[18px]">
+                        <div key={star} data-name="trustpilot-star-item" className="relative size-[18px]">
                           <svg width="18" height="17" viewBox="0 0 112 107" fill="none" className="absolute inset-0">
                             <path d="M111.585 40.5539H68.9746L55.8131 0L42.6104 40.5539L0 40.5128L34.5079 65.602L21.3052 106.115L55.8131 81.0668L90.2798 106.115L77.1183 65.602L111.585 40.5539Z" fill="#dcdce6"/>
                           </svg>
                           {fill > 0 && (
-                            <div className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+                            <div data-name="trustpilot-star-fill" className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
                               <svg width="18" height="17" viewBox="0 0 112 107" fill="none">
                                 <path d="M111.585 40.5539H68.9746L55.8131 0L42.6104 40.5539L0 40.5128L34.5079 65.602L21.3052 106.115L55.8131 81.0668L90.2798 106.115L77.1183 65.602L111.585 40.5539Z" fill="#00B67A"/>
                                 <path d="M80.0791 74.7735L77.1177 65.6016L55.8125 81.0664L80.0791 74.7735Z" fill="#005128"/>
@@ -2269,22 +2269,22 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
                   <span className="text-[14px] font-medium text-slate-900">1.8 Poor</span>
                 </div>
               ) : i === 1 ? (
-                <div className="flex items-center gap-1.5">
+                <div data-name="casino-guru-rating" className="flex items-center gap-1.5">
                   <span className="text-[14px] font-medium text-slate-900">Safety Index:</span>
                   <span className="px-2 py-0.5 rounded-full text-[13px] font-semibold bg-blue-100 text-blue-700">B+</span>
                 </div>
               ) : i === 2 ? (
-                <div className="flex items-center gap-1.5">
-                  <div className="flex gap-0.5">
+                <div data-name="bitcointalk-rating" className="flex items-center gap-1.5">
+                  <div data-name="bitcointalk-stars" className="flex gap-0.5">
                     {[0, 1, 2, 3, 4].map((star) => {
                       const fill = star < 4 ? 1 : star < 5 ? 0.5 : 0;
                       return (
-                        <div key={star} className="relative size-[16px]">
+                        <div key={star} data-name="bitcointalk-star-item" className="relative size-[16px]">
                           <svg width="16" height="15" viewBox="0 0 16 15" fill="none" className="absolute inset-0">
                             <path d="M3.61065 14.9435C3.22465 15.1415 2.78665 14.7945 2.86465 14.3515L3.69465 9.6215L0.171653 6.2655C-0.157347 5.9515 0.0136534 5.3775 0.454653 5.3155L5.35265 4.6195L7.53665 0.2925C7.73365 -0.0975 8.26665 -0.0975 8.46365 0.2925L10.6477 4.6195L15.5457 5.3155C15.9867 5.3775 16.1577 5.9515 15.8277 6.2655L12.3057 9.6215L13.1357 14.3515C13.2137 14.7945 12.7757 15.1415 12.3897 14.9435L7.99865 12.6875L3.61065 14.9435Z" fill="#dcdce6"/>
                           </svg>
                           {fill > 0 && (
-                            <div className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+                            <div data-name="bitcointalk-star-fill" className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
                               <svg width="16" height="15" viewBox="0 0 16 15" fill="none">
                                 <path d="M3.61065 14.9435C3.22465 15.1415 2.78665 14.7945 2.86465 14.3515L3.69465 9.6215L0.171653 6.2655C-0.157347 5.9515 0.0136534 5.3775 0.454653 5.3155L5.35265 4.6195L7.53665 0.2925C7.73365 -0.0975 8.26665 -0.0975 8.46365 0.2925L10.6477 4.6195L15.5457 5.3155C15.9867 5.3775 16.1577 5.9515 15.8277 6.2655L12.3057 9.6215L13.1357 14.3515C13.2137 14.7945 12.7757 15.1415 12.3897 14.9435L7.99865 12.6875L3.61065 14.9435Z" fill="black"/>
                               </svg>
@@ -2300,7 +2300,7 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
                 <span className="text-[14px] font-medium text-slate-900">{row.rating}</span>
               )}
             </div>
-            <div className="flex-1 flex items-center px-3 bg-white border-l border-[#e4e8ec]">
+            <div data-name="reputation-row-notes" className="flex-1 flex items-center px-3 bg-white border-l border-[#e4e8ec]">
               <span className="text-[14px] font-medium text-slate-900">
                 {row.notes}
               </span>
@@ -2372,7 +2372,7 @@ function VerdictSection({ casino }: { casino: CasinoReview }) {
             <div data-name="review-card-left" className="flex flex-col gap-[15px] flex-1">
               {/* Casino Logo */}
               <div data-name="review-logo" className="w-[99px] h-[89px] rounded-[12px] bg-[#060d17] border border-slate-200 overflow-hidden relative">
-                <div className="absolute inset-0 bg-white">
+                <div data-name="review-logo-inner" className="absolute inset-0 bg-white">
                   <Image
                     src={casino.logo}
                     alt={casino.name}
@@ -2411,7 +2411,7 @@ function VerdictSection({ casino }: { casino: CasinoReview }) {
       {/* Verdict Text */}
       <div data-name="verdict-text" className="bg-white p-[25px] flex flex-col gap-[25px]">
         <h3 className="text-[26.875px] font-medium text-[#060d17] leading-[40.5px]">Verdict</h3>
-        <div className="text-[17px] leading-[28.8px] text-black">
+        <div data-name="verdict-text-body" className="text-[17px] leading-[28.8px] text-black">
           <p className="mb-0">
             Okay, so what&apos;s my final take on {casino.name}? Well, to put it
             bluntly, this casino is atrocious.
@@ -2471,24 +2471,24 @@ function VerdictSection({ casino }: { casino: CasinoReview }) {
             {SCORING_TABLE.map((row, i) => (
               <tr key={i} data-name={`scoring-row-${i}`} className="border-t border-[#e4e8ec] h-[51px]">
                 <td className="w-[233px] px-3 bg-white border-l border-[#e4e8ec]">
-                  <div className="flex items-center gap-[10px]">
-                    <div className="shrink-0">{SCORING_ICONS[i]}</div>
+                  <div data-name="scoring-category-content" className="flex items-center gap-[10px]">
+                    <div data-name="scoring-category-icon" className="shrink-0">{SCORING_ICONS[i]}</div>
                     <span className="text-[14px] font-medium text-slate-900">{row.category}</span>
                   </div>
                 </td>
                 <td className="px-3 bg-white border-l border-[#e4e8ec]">
                   {row.score > 0 ? (
-                    <div className="flex items-center gap-1.5">
-                      <div className="flex gap-0.5">
+                    <div data-name="scoring-score-rating" className="flex items-center gap-1.5">
+                      <div data-name="scoring-score-stars" className="flex gap-0.5">
                         {[0, 1, 2, 3, 4].map((s) => {
                           const fill = s < Math.floor(row.score) ? 1 : s < row.score ? (row.score - s) : 0;
                           return (
-                            <div key={s} className="relative size-[16px]">
+                            <div key={s} data-name="scoring-star-item" className="relative size-[16px]">
                               <svg width="16" height="15" viewBox="0 0 16 15" fill="none" className="absolute inset-0">
                                 <path d="M3.61065 14.9435C3.22465 15.1415 2.78665 14.7945 2.86465 14.3515L3.69465 9.6215L0.171653 6.2655C-0.157347 5.9515 0.0136534 5.3775 0.454653 5.3155L5.35265 4.6195L7.53665 0.2925C7.73365 -0.0975 8.26665 -0.0975 8.46365 0.2925L10.6477 4.6195L15.5457 5.3155C15.9867 5.3775 16.1577 5.9515 15.8277 6.2655L12.3057 9.6215L13.1357 14.3515C13.2137 14.7945 12.7757 15.1415 12.3897 14.9435L7.99865 12.6875L3.61065 14.9435Z" fill="#dcdce6"/>
                               </svg>
                               {fill > 0 && (
-                                <div className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+                                <div data-name="scoring-star-fill" className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
                                   <svg width="16" height="15" viewBox="0 0 16 15" fill="none">
                                     <path d="M3.61065 14.9435C3.22465 15.1415 2.78665 14.7945 2.86465 14.3515L3.69465 9.6215L0.171653 6.2655C-0.157347 5.9515 0.0136534 5.3775 0.454653 5.3155L5.35265 4.6195L7.53665 0.2925C7.73365 -0.0975 8.26665 -0.0975 8.46365 0.2925L10.6477 4.6195L15.5457 5.3155C15.9867 5.3775 16.1577 5.9515 15.8277 6.2655L12.3057 9.6215L13.1357 14.3515C13.2137 14.7945 12.7757 15.1415 12.3897 14.9435L7.99865 12.6875L3.61065 14.9435Z" fill="#003eb6"/>
                                   </svg>
@@ -2507,17 +2507,17 @@ function VerdictSection({ casino }: { casino: CasinoReview }) {
                 </td>
                 <td className="px-3 bg-white border-l border-[#e4e8ec]">
                   {i === SCORING_TABLE.length - 1 ? (
-                    <div className="flex items-center gap-1.5">
-                      <div className="flex gap-0.5">
+                    <div data-name="scoring-final-rating" className="flex items-center gap-1.5">
+                      <div data-name="scoring-final-stars" className="flex gap-0.5">
                         {[0, 1, 2, 3, 4].map((s) => {
                           const fill = s < Math.floor(row.weighted) ? 1 : s < row.weighted ? (row.weighted - s) : 0;
                           return (
-                            <div key={s} className="relative size-[16px]">
+                            <div key={s} data-name="scoring-final-star-item" className="relative size-[16px]">
                               <svg width="16" height="15" viewBox="0 0 16 15" fill="none" className="absolute inset-0">
                                 <path d="M3.61065 14.9435C3.22465 15.1415 2.78665 14.7945 2.86465 14.3515L3.69465 9.6215L0.171653 6.2655C-0.157347 5.9515 0.0136534 5.3775 0.454653 5.3155L5.35265 4.6195L7.53665 0.2925C7.73365 -0.0975 8.26665 -0.0975 8.46365 0.2925L10.6477 4.6195L15.5457 5.3155C15.9867 5.3775 16.1577 5.9515 15.8277 6.2655L12.3057 9.6215L13.1357 14.3515C13.2137 14.7945 12.7757 15.1415 12.3897 14.9435L7.99865 12.6875L3.61065 14.9435Z" fill="#dcdce6"/>
                               </svg>
                               {fill > 0 && (
-                                <div className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+                                <div data-name="scoring-final-star-fill" className="absolute inset-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
                                   <svg width="16" height="15" viewBox="0 0 16 15" fill="none">
                                     <path d="M3.61065 14.9435C3.22465 15.1415 2.78665 14.7945 2.86465 14.3515L3.69465 9.6215L0.171653 6.2655C-0.157347 5.9515 0.0136534 5.3775 0.454653 5.3155L5.35265 4.6195L7.53665 0.2925C7.73365 -0.0975 8.26665 -0.0975 8.46365 0.2925L10.6477 4.6195L15.5457 5.3155C15.9867 5.3775 16.1577 5.9515 15.8277 6.2655L12.3057 9.6215L13.1357 14.3515C13.2137 14.7945 12.7757 15.1415 12.3897 14.9435L7.99865 12.6875L3.61065 14.9435Z" fill="#003eb6"/>
                                   </svg>
@@ -2557,7 +2557,7 @@ function ExpertContent({ casino }: { casino: CasinoReview }) {
           Reviewed by
         </span>
         <div data-name="reviewer-1" className="flex items-center gap-1.5">
-          <div className="size-[30px] rounded-full bg-[#003EB6] flex items-center justify-center text-xs font-bold text-white shrink-0">
+          <div data-name="reviewer-1-avatar" className="size-[30px] rounded-full bg-[#003EB6] flex items-center justify-center text-xs font-bold text-white shrink-0">
             M
           </div>
           <span className="text-sm font-semibold text-[#060d17]">
@@ -2570,9 +2570,9 @@ function ExpertContent({ casino }: { casino: CasinoReview }) {
             </span>
           </div>
         </div>
-        <div className="h-[17px] w-px bg-[#d9d9d9]" />
+        <div data-name="reviewer-divider" className="h-[17px] w-px bg-[#d9d9d9]" />
         <div data-name="reviewer-2" className="flex items-center gap-1.5">
-          <div className="size-[30px] rounded-full bg-[#003EB6] flex items-center justify-center text-xs font-bold text-white shrink-0">
+          <div data-name="reviewer-2-avatar" className="size-[30px] rounded-full bg-[#003EB6] flex items-center justify-center text-xs font-bold text-white shrink-0">
             A
           </div>
           <span className="text-sm font-semibold text-[#060d17]">Alex</span>
@@ -2676,8 +2676,8 @@ function TableOfContents({ items }: { items: { label: string; id: string }[] }) 
       data-name="table-of-contents"
       className="sticky top-[140px] hidden xl:block w-[200px]"
     >
-      <div className="border border-[#e4e8ec] rounded-lg bg-white overflow-hidden shadow-sm">
-        <div className="bg-[#0d337d] px-4 py-3">
+      <div data-name="toc-container" className="border border-[#e4e8ec] rounded-lg bg-white overflow-hidden shadow-sm">
+        <div data-name="toc-header" className="bg-[#0d337d] px-4 py-3">
           <span className="text-[13px] font-semibold text-white uppercase tracking-wide">
             Table of Contents
           </span>
@@ -2711,7 +2711,7 @@ export function ExpertReviewBlock({ casino }: { casino: CasinoReview }) {
       ref={contentRef}
     >
       {/* TOC floats outside the container on the right, h-full lets sticky work */}
-      <div className="absolute top-0 bottom-0 left-full ml-6 hidden xl:block">
+      <div data-name="toc-sidebar-wrapper" className="absolute top-0 bottom-0 left-full ml-6 hidden xl:block">
         <TableOfContents items={tocItems} />
       </div>
 

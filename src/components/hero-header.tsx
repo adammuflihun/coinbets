@@ -63,13 +63,13 @@ export function HeroHeader() {
             >
               {/* Shimmer border layer */}
               <div data-name="shimmer-border" className="absolute inset-0 overflow-visible blur-[2px] [container-type:size]">
-                <div className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]">
-                  <div className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
+                <div data-name="shimmer-animation" className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]">
+                  <div data-name="shimmer-gradient" className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
                 </div>
               </div>
 
               {/* Inner background fill */}
-              <div className="absolute rounded-[8px] bg-[#020202] ring-1 ring-inset ring-[#e6b830] [inset:var(--cut)]" />
+              <div data-name="search-inner-background" className="absolute rounded-[8px] bg-[#020202] ring-1 ring-inset ring-[#e6b830] [inset:var(--cut)]" />
 
               {/* Input content */}
               <div data-name="search-input" className="relative">

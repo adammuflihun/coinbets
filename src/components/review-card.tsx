@@ -253,7 +253,7 @@ export function ReviewCard({ review }: { review: ReviewData }) {
       </div>
 
       {/* Bottom pinned: Bonus + CTA */}
-      <div className="mt-auto flex flex-col gap-3.5">
+      <div data-name="card-bottom" className="mt-auto flex flex-col gap-3.5">
         <div
           data-name="bonus-bar"
           className="flex items-center justify-between rounded-md border border-[#f1f1f1] px-2.5 py-2"

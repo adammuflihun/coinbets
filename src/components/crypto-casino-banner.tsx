@@ -186,8 +186,8 @@ function SafetyIndexCard() {
       className="relative w-full max-w-[380px] mx-auto"
     >
       {/* Stacked card decoration */}
-      <div className="absolute -top-[15px] inset-x-3 h-[278px] bg-[#4b4b4b] rounded-sm" />
-      <div className="absolute -top-[7px] inset-x-1.5 h-[278px] bg-[#323232] rounded-sm" />
+      <div data-name="stacked-card-back" className="absolute -top-[15px] inset-x-3 h-[278px] bg-[#4b4b4b] rounded-sm" />
+      <div data-name="stacked-card-front" className="absolute -top-[7px] inset-x-1.5 h-[278px] bg-[#323232] rounded-sm" />
 
       {/* Main card */}
       <div
@@ -201,7 +201,7 @@ function SafetyIndexCard() {
             className="flex items-end justify-between"
           >
             <div data-name="safety-label" className="flex flex-col gap-1">
-              <div className="h-2 w-[79px] rounded-full bg-[#323232]" />
+              <div data-name="safety-label-placeholder" className="h-2 w-[79px] rounded-full bg-[#323232]" />
               <div data-name="safety-index-row" className="flex items-center gap-1">
                 <span className="text-xs font-bold uppercase text-[#f8f8f8]">
                   Safety Index
@@ -237,16 +237,16 @@ function SafetyIndexCard() {
               data-name="pn-bar"
               className="relative h-[9px] w-full rounded-sm overflow-hidden bg-[#f1f1f1]"
             >
-              <div className="absolute inset-y-0 left-0 bg-[#23ba21] rounded-l-sm animate-vote-green" />
-              <div className="absolute inset-y-0 right-0 bg-[#ff2024] rounded-r-sm animate-vote-red" />
+              <div data-name="pn-bar-positive" className="absolute inset-y-0 left-0 bg-[#23ba21] rounded-l-sm animate-vote-green" />
+              <div data-name="pn-bar-negative" className="absolute inset-y-0 right-0 bg-[#ff2024] rounded-r-sm animate-vote-red" />
             </div>
             <AnimatedCounts />
           </div>
 
           {/* Placeholder bars */}
           <div data-name="placeholder-bars" className="flex flex-col gap-2">
-            <div className="h-[35px] w-full rounded bg-[#323232]" />
-            <div className="h-[18px] w-[86%] rounded bg-[#323232]" />
+            <div data-name="placeholder-bar-wide" className="h-[35px] w-full rounded bg-[#323232]" />
+            <div data-name="placeholder-bar-narrow" className="h-[18px] w-[86%] rounded bg-[#323232]" />
           </div>
 
           {/* Trustpilot + Stars */}
@@ -259,7 +259,7 @@ function SafetyIndexCard() {
               className="flex items-center gap-2"
             >
               <TrustpilotIcon />
-              <div className="h-2 w-[79px] rounded-full bg-[#323232]" />
+              <div data-name="trustpilot-label-placeholder" className="h-2 w-[79px] rounded-full bg-[#323232]" />
             </div>
             <div
               data-name="trustpilot-stars"
@@ -345,9 +345,9 @@ export function CryptoCasinoBanner() {
               data-name="slide-indicators"
               className="flex items-center gap-2"
             >
-              <div className="flex-1 h-1.5 rounded-full bg-white/20" />
-              <div className="flex-1 h-1.5 rounded-full bg-white" />
-              <div className="flex-1 h-1.5 rounded-full bg-white/20" />
+              <div data-name="slide-indicator-inactive-first" className="flex-1 h-1.5 rounded-full bg-white/20" />
+              <div data-name="slide-indicator-active" className="flex-1 h-1.5 rounded-full bg-white" />
+              <div data-name="slide-indicator-inactive-last" className="flex-1 h-1.5 rounded-full bg-white/20" />
             </div>
 
             {/* Learn more button */}

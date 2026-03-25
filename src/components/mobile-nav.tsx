@@ -105,7 +105,7 @@ export function MobileNav() {
               ))}
             </div>
 
-            <div className="my-2 border-t border-neutral-100" />
+            <div data-name="mobile-divider-top" className="my-2 border-t border-neutral-100" />
 
             {/* Pages */}
             <div data-name="mobile-pages" className="px-2">
@@ -124,7 +124,7 @@ export function MobileNav() {
               ))}
             </div>
 
-            <div className="my-2 border-t border-neutral-100" />
+            <div data-name="mobile-divider-bottom" className="my-2 border-t border-neutral-100" />
 
             {/* Country Selector */}
             <div data-name="mobile-language" className="px-4 py-2">

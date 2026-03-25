@@ -80,7 +80,7 @@ function AccordionItem({
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="px-4 pb-4 text-base text-[#020202]/70 leading-relaxed">
+            <div data-name="faq-answer" className="px-4 pb-4 text-base text-[#020202]/70 leading-relaxed">
               {answer}
             </div>
           </motion.div>
@@ -101,7 +101,7 @@ export function CoinbetIndexSeoMetatags() {
           <h2 className="text-[26px] font-bold tracking-tight text-[#020202]">
             How the CoinBets Casino Index Works
           </h2>
-          <div className="text-base text-[#020202]/70 leading-relaxed flex flex-col gap-3.5">
+          <div data-name="how-it-works-text" className="text-base text-[#020202]/70 leading-relaxed flex flex-col gap-3.5">
             <p>
               The CoinBets Casino Index is our attempt to rank every crypto
               casino we can find based on what actually matters to players — not
@@ -125,7 +125,7 @@ export function CoinbetIndexSeoMetatags() {
           <h2 className="text-[26px] font-bold tracking-tight text-[#020202]">
             Player Reviews — 50%
           </h2>
-          <div className="text-base text-[#020202]/70 leading-relaxed flex flex-col gap-3.5">
+          <div data-name="player-reviews-text" className="text-base text-[#020202]/70 leading-relaxed flex flex-col gap-3.5">
             <p>
               Real reviews from real players are the foundation of the Index.
             </p>
@@ -151,7 +151,7 @@ export function CoinbetIndexSeoMetatags() {
           <h2 className="text-[26px] font-bold tracking-tight text-[#020202]">
             Expert Score — 20%
           </h2>
-          <div className="text-base text-[#020202]/70 leading-relaxed flex flex-col gap-3.5">
+          <div data-name="expert-score-text" className="text-base text-[#020202]/70 leading-relaxed flex flex-col gap-3.5">
             <p>
               Our team deposits real cryptocurrency, plays real games, and
               attempts real withdrawals at every casino we review.
@@ -168,7 +168,7 @@ export function CoinbetIndexSeoMetatags() {
               </li>
             ))}
           </ul>
-          <div className="text-base text-[#020202]/70 leading-relaxed mt-1">
+          <div data-name="expert-testing-note" className="text-base text-[#020202]/70 leading-relaxed mt-1">
             <p>
               We&apos;ve completed hands-on testing at over 100 casinos and
               counting. The expert score reflects direct, firsthand interaction —

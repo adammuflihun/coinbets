@@ -228,7 +228,7 @@ function CasinoRow({ casino }: { casino: (typeof casinos)[number] }) {
 
       {/* Reviews */}
       <div data-name="reviews-count" className="flex flex-col gap-2">
-        <div className="flex items-center gap-1">
+        <div data-name="reviews-count-row" className="flex items-center gap-1">
           <span className="text-[19px] font-semibold text-white">
             {casino.reviews}
           </span>
@@ -339,32 +339,32 @@ export function CasinoIndex() {
                 data-name="table-header"
                 className={`${TABLE_GRID} pl-5 pr-8 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase whitespace-nowrap`}
               >
-                <div className="flex items-center justify-center gap-2">
+                <div data-name="header-rank" className="flex items-center justify-center gap-2">
                   Rank
                   <SortIcon />
                 </div>
-                <div>Casino Name</div>
-                <div className="flex items-center gap-2">
+                <div data-name="header-casino-name">Casino Name</div>
+                <div data-name="header-user-score" className="flex items-center gap-2">
                   User Score
                   <SortIcon />
                 </div>
-                <div className="flex items-center gap-2">
+                <div data-name="header-last-6m" className="flex items-center gap-2">
                   In Last 6M
                   <SortIcon />
                 </div>
-                <div className="flex items-center gap-2">
+                <div data-name="header-expert-score" className="flex items-center gap-2">
                   Expert Score
                   <SortIcon />
                 </div>
-                <div className="flex items-center gap-2">
+                <div data-name="header-30d-traffic" className="flex items-center gap-2">
                   30D Traffic
                   <SortIcon />
                 </div>
-                <div className="flex items-center gap-2">
+                <div data-name="header-safety" className="flex items-center gap-2">
                   Safety
                   <SortIcon />
                 </div>
-                <div className="text-center">View</div>
+                <div data-name="header-view" className="text-center">View</div>
               </div>
 
               {/* Casino rows */}

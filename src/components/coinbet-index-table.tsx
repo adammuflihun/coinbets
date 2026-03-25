@@ -302,7 +302,7 @@ function CasinoRow({ casino }: { casino: Casino }) {
         data-name="casino-name-logo"
         className="sticky left-0 z-10 flex items-center gap-3 self-stretch bg-[#121212] pr-3 shadow-[8px_0_12px_#121212] sm:static sm:self-auto sm:shadow-none sm:pr-0 hover:opacity-80 transition-opacity"
       >
-        <div className="w-[61px] h-[43px] rounded-lg overflow-hidden flex items-center justify-center shrink-0 bg-[#020202]">
+        <div data-name="casino-logo-wrapper" className="w-[61px] h-[43px] rounded-lg overflow-hidden flex items-center justify-center shrink-0 bg-[#020202]">
           <Image
             src={casino.logo}
             alt={casino.name}
@@ -439,13 +439,13 @@ export function CoinbetIndexTable() {
 
   return (
     <section data-section="coinbet-index-table" className="bg-[#020202] pb-62">
-      <div className="site-container">
+      <div data-name="table-container" className="site-container">
         {/* Search bar + Latest update */}
         <div
           data-name="table-toolbar"
           className="flex items-center justify-between gap-4 mb-6"
         >
-          <div className="relative w-full max-w-md">
+          <div data-name="search-wrapper" className="relative w-full max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-white/40" />
             <input
               type="text"
@@ -461,20 +461,20 @@ export function CoinbetIndexTable() {
         </div>
 
         {/* Scrollable table wrapper */}
-        <div className="overflow-x-auto" style={{ scrollbarWidth: "none" }}>
-          <div className="min-w-[1200px]">
+        <div data-name="table-scroll-wrapper" className="overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+          <div data-name="table-min-width" className="min-w-[1200px]">
             <div
               data-name="table-header"
               className={`${TABLE_GRID} pl-5 pr-8 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase whitespace-nowrap`}
             >
               {headerCol("Rank", "rank")}
-              <div>Casino Name</div>
+              <div data-name="header-casino-name">Casino Name</div>
               {headerCol("User Score", "userScore")}
               {headerCol("In Last 6M", "reviews")}
               {headerCol("Expert Score", "expertScore")}
               {headerCol("30D Traffic", "traffic")}
               {headerCol("Safety Index", "safetyIndex")}
-              <div className="text-center">View</div>
+              <div data-name="header-view" className="text-center">View</div>
             </div>
 
             <AnimatePresence mode="popLayout" initial={false}>
