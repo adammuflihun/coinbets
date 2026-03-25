@@ -1028,8 +1028,8 @@ function GameRow({
       data-name="game-row-wrapper"
       className={`flex flex-col gap-2 rounded-md ${
         isOpen
-          ? "bg-[#020202] border border-[#363636] p-4 md:p-5"
-          : "bg-[#121212] px-4 md:px-5 py-3 md:py-3.5"
+          ? "bg-[#020202] border border-[#363636] p-4 md:py-5 md:pl-5 md:pr-8"
+          : "bg-[#121212] px-4 md:pl-5 md:pr-8 py-3 md:py-3.5"
       }`}
     >
       {/* Game summary row */}
@@ -1092,7 +1092,7 @@ function GameRow({
         </div>
 
         {/* Desktop grid layout */}
-        <div className="hidden md:grid grid-cols-[3fr_2fr_5fr_4fr_2fr] items-center gap-4 whitespace-nowrap">
+        <div className="hidden md:grid grid-cols-[3fr_2fr_5fr_4fr_auto] items-center gap-4 whitespace-nowrap">
           <div className="flex items-center gap-4">
             <Image
               src={game.icon}
@@ -1311,7 +1311,7 @@ export function CasinoOriginalsTable() {
             {/* Outer table header */}
             <div
               data-name="table-header"
-              className="hidden md:grid grid-cols-[3fr_2fr_5fr_4fr_2fr] items-center gap-4 bg-[#020202] rounded-md px-5 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase whitespace-nowrap"
+              className="hidden md:grid grid-cols-[3fr_2fr_5fr_4fr_auto] items-center gap-4 bg-[#020202] rounded-md pl-5 pr-8 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase whitespace-nowrap"
             >
               <button className="flex items-center gap-4 cursor-pointer" onClick={() => handleOuterSort("name")}>
                 Game Name <SortIcon dir={outerSortField === "name" ? outerSortDir : null} />
