@@ -52,11 +52,11 @@ const SAFETY_COLORS: Record<string, string> = {
 };
 
 const RATING_COLORS: Record<number, string> = {
-  5: "#23BA21",
-  4: "#9FF11A",
-  3: "#D8DC00",
-  2: "#FFB257",
-  1: "#FF6847",
+  5: "#1A8F18",
+  4: "#5A9E10",
+  3: "#9B8E00",
+  2: "#D4802A",
+  1: "#CC4433",
 };
 
 const LANG_FLAGS: Record<string, string> = {
