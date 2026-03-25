@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ReviewBlock } from "@/components/review-block";
+import { CoinbetIndexSeoMetatags } from "@/components/coinbet-index-seo-metatags";
 import { casinoReviews } from "@/data/casino-reviews";
 
 export async function generateMetadata({
@@ -27,6 +28,7 @@ export default async function CasinoReviewPage({
   return (
     <main data-section="casino-review" className="flex-1">
       <ReviewBlock slug={slug} />
+      <CoinbetIndexSeoMetatags />
     </main>
   );
 }

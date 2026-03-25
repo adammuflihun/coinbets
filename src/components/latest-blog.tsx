@@ -55,7 +55,7 @@ function MobileCarousel() {
 
   return (
     <div ref={flickityRef} data-name="blog-carousel">
-      {blogPosts.map((post, i) => (
+      {blogPosts.slice(0, 4).map((post, i) => (
         <div key={i} className="w-[calc(100vw-3rem)] mr-3">
           <BlogCard {...post} />
         </div>
@@ -153,7 +153,7 @@ export function LatestBlog() {
           className="-mt-24 relative z-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 px-0 sm:px-4 lg:px-8"
           data-name="blog-grid"
         >
-          {blogPosts.map((post, i) => (
+          {blogPosts.slice(0, 4).map((post, i) => (
             <BlogCard key={i} {...post} />
           ))}
         </div>

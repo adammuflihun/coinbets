@@ -13,7 +13,7 @@ const badgeByTab: Record<string, string> = {
   "Provably Fair": "/badges/provably fair.svg",
 };
 
-interface Casino {
+export interface Casino {
   logo: string;
   name: string;
   safetyLevel: string;
@@ -266,12 +266,12 @@ function MobileCarousel({
   );
 }
 
-function CasinoCategoryCard({
+export function CasinoCategoryCard({
   casino,
   badge,
 }: {
   casino: Casino;
-  badge: string;
+  badge?: string;
 }) {
   return (
     <Link
@@ -326,9 +326,11 @@ function CasinoCategoryCard({
       </div>
 
       {/* Badge overlay */}
-      <div className="absolute -top-[5px] -right-[5px] w-[100px] h-[100px]">
-        <Image src={badge} alt="" width={100} height={100} />
-      </div>
+      {badge && (
+        <div className="absolute -top-[5px] -right-[5px] w-[100px] h-[100px]">
+          <Image src={badge} alt="" width={100} height={100} />
+        </div>
+      )}
     </Link>
   );
 }
@@ -370,7 +372,7 @@ export function CasinoCategories() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(i)}
-                className={`flex-1 px-2 sm:px-2.5 py-1.5 text-sm sm:text-base font-semibold rounded-[10px] transition-all whitespace-nowrap ${
+                className={`flex-1 px-2 sm:px-2.5 py-1.5 text-sm sm:text-base font-semibold rounded-[10px] transition-all whitespace-nowrap cursor-pointer ${
                   activeTab === i
                     ? "bg-white shadow-sm text-[#060D17]"
                     : "text-[#060D17]/70"

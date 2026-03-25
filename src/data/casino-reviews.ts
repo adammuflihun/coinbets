@@ -25,6 +25,8 @@ export interface CasinoReview {
   estimatedRevenue: string;
   licensingAuthorities: { flag: string; name: string }[];
   gameProviders: { name: string; image: string }[];
+  contactEmail: string;
+  lastUpdated: string;
 }
 
 export const casinoReviews: CasinoReview[] = [
@@ -94,6 +96,8 @@ export const casinoReviews: CasinoReview[] = [
       { name: "ELK Studios", image: "https://coinbets.com/wp-content/uploads/2025/12/ELK-Studios.avif" },
       { name: "AvatarUX", image: "https://coinbets.com/wp-content/uploads/2025/12/AvatarUX.avif" },
     ],
+    contactEmail: "support [at] stake [dot] com",
+    lastUpdated: "17 Mar 2026",
   },
   {
     slug: "menace",
@@ -155,6 +159,8 @@ export const casinoReviews: CasinoReview[] = [
       { name: "Endorphina", image: "https://coinbets.com/wp-content/uploads/2025/12/Endorphina.avif" },
       { name: "Four Leaf Gaming", image: "https://coinbets.com/wp-content/uploads/2025/12/Four-Leaf-Gaming.avif" },
     ],
+    contactEmail: "support [at] menace [dot] com",
+    lastUpdated: "10 Mar 2026",
   },
   {
     slug: "shuffle",
@@ -219,6 +225,8 @@ export const casinoReviews: CasinoReview[] = [
       { name: "AvatarUX", image: "https://coinbets.com/wp-content/uploads/2025/12/AvatarUX.avif" },
       { name: "ELK Studios", image: "https://coinbets.com/wp-content/uploads/2025/12/ELK-Studios.avif" },
     ],
+    contactEmail: "support [at] shuffle [dot] com",
+    lastUpdated: "12 Mar 2026",
   },
   {
     slug: "bitsler",
@@ -282,6 +290,8 @@ export const casinoReviews: CasinoReview[] = [
       { name: "Clawbuster", image: "https://coinbets.com/wp-content/uploads/2025/12/Clawbuster.avif" },
       { name: "AvatarUX", image: "https://coinbets.com/wp-content/uploads/2025/12/AvatarUX.avif" },
     ],
+    contactEmail: "support [at] bitsler [dot] com",
+    lastUpdated: "5 Mar 2026",
   },
   {
     slug: "thrill",
@@ -344,6 +354,8 @@ export const casinoReviews: CasinoReview[] = [
       { name: "NetEnt", image: "https://coinbets.com/wp-content/uploads/2025/12/NetEnt.avif" },
       { name: "AvatarUX", image: "https://coinbets.com/wp-content/uploads/2025/12/AvatarUX.avif" },
     ],
+    contactEmail: "support [at] thrill [dot] com",
+    lastUpdated: "8 Mar 2026",
   },
   {
     slug: "roobet",
@@ -409,6 +421,8 @@ export const casinoReviews: CasinoReview[] = [
       { name: "ELK Studios", image: "https://coinbets.com/wp-content/uploads/2025/12/ELK-Studios.avif" },
       { name: "Spinomenal", image: "https://coinbets.com/wp-content/uploads/2025/12/Spinomenal.avif" },
     ],
+    contactEmail: "support [at] roobet [dot] com",
+    lastUpdated: "14 Mar 2026",
   },
   {
     slug: "gamdom",
@@ -474,5 +488,7 @@ export const casinoReviews: CasinoReview[] = [
       { name: "Clawbuster", image: "https://coinbets.com/wp-content/uploads/2025/12/Clawbuster.avif" },
       { name: "NetEnt", image: "https://coinbets.com/wp-content/uploads/2025/12/NetEnt.avif" },
     ],
+    contactEmail: "support [at] gamdom [dot] com",
+    lastUpdated: "15 Mar 2026",
   },
 ];

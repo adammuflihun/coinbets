@@ -9,12 +9,13 @@ export interface BlogPost {
   date: string;
   views: number;
   slug?: string;
+  href?: string;
 }
 
-export function BlogCard({ image, badge, title, date, views, slug }: BlogPost) {
+export function BlogCard({ image, badge, title, date, views, slug, href }: BlogPost) {
   return (
     <Link
-      href={slug ? `/expert-reviews/${slug}` : "#"}
+      href={href ?? (slug ? `/expert-reviews/${slug}` : "#")}
       className="group flex flex-col gap-3.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
     >
       <div

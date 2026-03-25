@@ -297,9 +297,10 @@ function CasinoRow({ casino }: { casino: Casino }) {
         #{casino.rank}
       </span>
 
-      <div
+      <Link
+        href={`/casino/review/${casino.name.toLowerCase().replace(/\s+/g, "-")}`}
         data-name="casino-name-logo"
-        className="sticky left-0 z-10 flex items-center gap-3 self-stretch bg-[#121212] pr-3 shadow-[8px_0_12px_#121212] sm:static sm:self-auto sm:shadow-none sm:pr-0"
+        className="sticky left-0 z-10 flex items-center gap-3 self-stretch bg-[#121212] pr-3 shadow-[8px_0_12px_#121212] sm:static sm:self-auto sm:shadow-none sm:pr-0 hover:opacity-80 transition-opacity"
       >
         <div className="w-[61px] h-[43px] rounded-lg overflow-hidden flex items-center justify-center shrink-0 bg-[#020202]">
           <Image
@@ -311,7 +312,7 @@ function CasinoRow({ casino }: { casino: Casino }) {
           />
         </div>
         <span className="text-sm font-semibold text-white">{casino.name}</span>
-      </div>
+      </Link>
 
       <UserStarRating rating={casino.userScore} />
 
@@ -426,23 +427,15 @@ export function CoinbetIndexTable() {
     return sorted;
   }, [search, sortKey, sortDir]);
 
-  function HeaderCol({
-    label,
-    sortField,
-  }: {
-    label: string;
-    sortField: SortKey;
-  }) {
-    return (
-      <button
-        onClick={() => handleSort(sortField)}
-        className="flex items-center gap-2 cursor-pointer hover:text-white/90 transition-colors"
-      >
-        {label}
-        <SortIcon active={sortKey === sortField} dir={sortDir} />
-      </button>
-    );
-  }
+  const headerCol = (label: string, sortField: SortKey) => (
+    <button
+      onClick={() => handleSort(sortField)}
+      className="flex items-center gap-2 cursor-pointer hover:text-white/90 transition-colors"
+    >
+      {label}
+      <SortIcon active={sortKey === sortField} dir={sortDir} />
+    </button>
+  );
 
   return (
     <section data-section="coinbet-index-table" className="bg-[#020202] pb-62">
@@ -474,13 +467,13 @@ export function CoinbetIndexTable() {
               data-name="table-header"
               className={`${TABLE_GRID} pl-5 pr-8 pb-4 text-sm font-bold text-[#f8f8f8]/67 uppercase whitespace-nowrap`}
             >
-              <HeaderCol label="Rank" sortField="rank" />
+              {headerCol("Rank", "rank")}
               <div>Casino Name</div>
-              <HeaderCol label="User Score" sortField="userScore" />
-              <HeaderCol label="In Last 6M" sortField="reviews" />
-              <HeaderCol label="Expert Score" sortField="expertScore" />
-              <HeaderCol label="30D Traffic" sortField="traffic" />
-              <HeaderCol label="Safety Index" sortField="safetyIndex" />
+              {headerCol("User Score", "userScore")}
+              {headerCol("In Last 6M", "reviews")}
+              {headerCol("Expert Score", "expertScore")}
+              {headerCol("30D Traffic", "traffic")}
+              {headerCol("Safety Index", "safetyIndex")}
               <div className="text-center">View</div>
             </div>
 

@@ -31,6 +31,8 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { AnimatePresence, motion } from "motion/react";
 import "flag-icons/css/flag-icons.min.css";
 import { GAME_ICONS } from "@/components/game-icons";
+import { CasinoCategoryCard } from "@/components/casino-categories";
+import { ExpertReviewBlock } from "@/components/expert-review-block";
 
 /* ------------------------------------------------------------------ */
 /*  Types & Data                                                       */
@@ -395,7 +397,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
             {/* ---- Casino Header Card ---- */}
             <div
               data-name="casino-header-card"
-              className="rounded-lg border border-neutral-200 bg-white p-2 sm:p-5 shadow-sm"
+              className="rounded-lg border border-neutral-200 bg-white p-5 sm:p-5 shadow-sm"
             >
               <div
                 data-name="header-layout"
@@ -571,7 +573,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                       window.scrollTo({ top: y, behavior: "instant" });
                     }
                   }}
-                  className={`flex-1 px-2 sm:px-2.5 py-1.5 text-sm sm:text-base font-semibold rounded-[10px] transition-all whitespace-nowrap ${
+                  className={`flex-1 px-2 sm:px-2.5 py-1.5 text-sm sm:text-base font-semibold rounded-[10px] transition-all whitespace-nowrap cursor-pointer ${
                     activeTab === i
                       ? "bg-white shadow-sm text-[#060D17]"
                       : "text-[#060D17]/70"
@@ -1378,6 +1380,9 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 Complaints about {casino.name} (0)
               </p>
             </div>
+
+            {/* ---- Expert Review Section ---- */}
+            <ExpertReviewBlock casino={casino} />
           </div>
 
           {/* ---- Sidebar ---- */}
@@ -1728,11 +1733,17 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   Games
                 </h3>
                 <div className="flex flex-wrap items-center gap-2">
-                  {casino.games.filter((g) => g in GAME_ICONS).slice(0, 5).map((game) => (
-                    <span key={game} className="shrink-0 flex items-center justify-center size-10 rounded-full bg-neutral-100">
-                      {GAME_ICONS[game]}
-                    </span>
-                  ))}
+                  {casino.games
+                    .filter((g) => g in GAME_ICONS)
+                    .slice(0, 5)
+                    .map((game) => (
+                      <span
+                        key={game}
+                        className="shrink-0 flex items-center justify-center size-10 rounded-full bg-neutral-100"
+                      >
+                        {GAME_ICONS[game]}
+                      </span>
+                    ))}
                 </div>
                 <AnimatePresence initial={false}>
                   {gamesShowAll && (
@@ -1744,19 +1755,21 @@ export function ReviewBlock({ slug }: { slug: string }) {
                       style={{ overflow: "hidden" }}
                     >
                       <div className="flex flex-col mt-4 border-t border-neutral-100">
-                        {casino.games.filter((g) => g in GAME_ICONS).map((game) => (
-                          <div
-                            key={game}
-                            className="flex items-center gap-3 py-3 border-b border-neutral-100 last:border-b-0"
-                          >
-                            <span className="shrink-0 flex items-center justify-center size-10 rounded-full bg-neutral-100">
-                              {GAME_ICONS[game]}
-                            </span>
-                            <span className="text-sm font-medium text-[#060D17]">
-                              {game}
-                            </span>
-                          </div>
-                        ))}
+                        {casino.games
+                          .filter((g) => g in GAME_ICONS)
+                          .map((game) => (
+                            <div
+                              key={game}
+                              className="flex items-center gap-3 py-3 border-b border-neutral-100 last:border-b-0"
+                            >
+                              <span className="shrink-0 flex items-center justify-center size-10 rounded-full bg-neutral-100">
+                                {GAME_ICONS[game]}
+                              </span>
+                              <span className="text-sm font-medium text-[#060D17]">
+                                {game}
+                              </span>
+                            </div>
+                          ))}
                       </div>
                     </motion.div>
                   )}
@@ -1885,6 +1898,87 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 </CollapsibleTrigger>
               )}
             </Collapsible>
+
+            {/* Author & Contact */}
+            <div
+              data-name="author-contact"
+              className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
+            >
+              <div className="flex flex-col gap-6">
+                {/* Author */}
+                <div>
+                  <h3 className="text-lg font-bold text-[#060D17] mb-3">
+                    Author & Guarantor
+                  </h3>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="size-12 rounded-full bg-[#003EB6] flex items-center justify-center shrink-0">
+                      <span className="text-lg font-bold text-white">G</span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-[#060D17]">
+                        Guilherme V
+                      </p>
+                      <p className="text-xs text-neutral-500">
+                        Last updated: {casino.lastUpdated}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-neutral-600 mb-3">
+                    Anything incorrect or missing?
+                  </p>
+                  <button className="rounded-lg bg-[#003EB6] px-5 py-2 text-sm font-semibold text-white hover:bg-[#002f8a] transition-colors">
+                    Let Me Know
+                  </button>
+                </div>
+
+                {/* Contact */}
+                <div className="border-t pt-4 border-neutral-100">
+                  <h3 className="text-lg font-bold text-[#060D17] mb-3">
+                    Contact info for {casino.name}
+                  </h3>
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-medium text-neutral-500">
+                      Email
+                    </span>
+                    <span className="text-sm font-medium text-[#003EB6]">
+                      {casino.contactEmail}
+                    </span>
+                  </div>
+                  <div className="mt-4">
+                    <button className="group flex items-center gap-2 rounded-lg bg-[#2d6b1e] px-5 py-2 text-sm font-semibold text-white hover:bg-[#245a18] transition-colors">
+                      Official Site Info
+                      <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* See Other Recommendations */}
+            <div data-name="other-recommendations" className="mt-5 ">
+              <h3 className="text-lg font-bold text-[#060D17] mb-4">
+                See Other Recommendations
+              </h3>
+              <div className="flex flex-col gap-3">
+                {casinoReviews
+                  .filter((c) => c.slug !== casino.slug)
+                  .slice(0, 3)
+                  .map((c) => (
+                    <CasinoCategoryCard
+                      key={c.slug}
+                      casino={{
+                        logo: c.logo,
+                        name: c.name,
+                        safetyLevel: c.safetyIndex,
+                        safetyColor:
+                          c.safetyIndex === "High" ? "#00DE00" : "#EAEE45",
+                        rating: c.expertScore,
+                        ratingLabel: "Expert Rating",
+                      }}
+                    />
+                  ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
