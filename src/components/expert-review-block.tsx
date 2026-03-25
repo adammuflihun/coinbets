@@ -1699,9 +1699,9 @@ function SportsSection({ casino }: { casino: CasinoReview }) {
           >
             <SportsIcon />
           </div>
-          <span className="text-[20px] font-medium text-black leading-[40px]">
+          <h3 className="text-[20px] font-medium text-black leading-[40px]">
             Virtual Sport
-          </span>
+          </h3>
         </div>
       </div>
 
@@ -1738,9 +1738,9 @@ function SportsSection({ casino }: { casino: CasinoReview }) {
           >
             <SportsIcon />
           </div>
-          <span className="text-[20px] font-medium text-black leading-[40px]">
+          <h3 className="text-[20px] font-medium text-black leading-[40px]">
             Sportsbook
-          </span>
+          </h3>
         </div>
       </div>
 
@@ -1849,9 +1849,9 @@ function PromotionsSection({ casino }: { casino: CasinoReview }) {
 
       {activeTab === 0 && (
         <>
-          <h2 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
             Promotional Offers
-          </h2>
+          </h3>
 
           <p className="text-[17px] leading-[28.8px] text-black">
             Despite the lack of a {casino.name} welcome bonus, there are plenty
@@ -2022,9 +2022,9 @@ function SupportDesignSection({ casino }: { casino: CasinoReview }) {
 
       {activeTab === 0 && (
         <>
-          <h2 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
             Player Support
-          </h2>
+          </h3>
 
           <div data-name="support-content" className="flex flex-col gap-[25px]">
             <div className="text-[17px] leading-[28.8px] text-black">
@@ -2168,9 +2168,9 @@ function CryptoTokenSection({ casino }: { casino: CasinoReview }) {
           >
             <Bitcoin className="size-[30px] text-white" />
           </div>
-          <span className="text-[20px] font-medium text-black leading-[40px]">
+          <h3 className="text-[20px] font-medium text-black leading-[40px]">
             Crypto Token and Tokenomics
-          </span>
+          </h3>
         </div>
       </div>
 
@@ -2248,9 +2248,9 @@ function InterestingFactsSection({ casino }: { casino: CasinoReview }) {
           >
             <Lightbulb className="size-[30px] text-white" />
           </div>
-          <span className="text-[20px] font-medium text-black leading-[40px]">
+          <h3 className="text-[20px] font-medium text-black leading-[40px]">
             Other Interesting Facts
-          </span>
+          </h3>
         </div>
       </div>
 
@@ -2300,9 +2300,9 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
           >
             <Star className="size-[28px] text-white" />
           </div>
-          <span className="text-[20px] font-medium text-black leading-[40px]">
+          <h3 className="text-[20px] font-medium text-black leading-[40px]">
             Overall Reputation
-          </span>
+          </h3>
         </div>
       </div>
 
@@ -2554,7 +2554,7 @@ function VerdictSection({ casino }: { casino: CasinoReview }) {
 
       {/* Verdict Text */}
       <div data-name="verdict-text" className="bg-white p-[25px] flex flex-col gap-[25px]">
-        <span className="text-[26.875px] font-medium text-[#060d17] leading-[40.5px]">Verdict</span>
+        <h3 className="text-[26.875px] font-medium text-[#060d17] leading-[40.5px]">Verdict</h3>
         <div className="text-[17px] leading-[28.8px] text-black">
           <p className="mb-0">
             Okay, so what&apos;s my final take on {casino.name}? Well, to put it
@@ -2802,6 +2802,7 @@ function useHeadingToc(containerRef: React.RefObject<HTMLDivElement | null>) {
       if (!text) return;
       const id = h.id || "toc-" + text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/-+$/, "");
       if (!h.id) h.id = id;
+      h.style.scrollMarginTop = "280px";
       tocItems.push({ label: text, id });
     });
     // eslint-disable-next-line react-hooks/set-state-in-effect
