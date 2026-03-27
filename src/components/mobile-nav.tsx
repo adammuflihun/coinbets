@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, ChevronDown, Search } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
+import { PredictiveSearch } from "@/components/predictive-search";
 import {
   Sheet,
   SheetContent,
@@ -63,15 +64,10 @@ export function MobileNav() {
           </SheetHeader>
 
           <div data-name="mobile-nav-content" className="flex flex-col py-2 overflow-y-auto">
-            {/* Search */}
+            {/* Search — predictive */}
             <div data-name="mobile-search" className="px-4 py-3">
-              <div data-name="mobile-search-input" className="flex items-center gap-2 rounded-lg border border-neutral-200 px-3 py-2">
-                <Search className="size-4 text-neutral-400" />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="flex-1 bg-transparent text-sm outline-none placeholder:text-neutral-400"
-                />
+              <div data-name="mobile-search-input" className="rounded-lg border border-neutral-200 px-1">
+                <PredictiveSearch placeholder="Search..." variant="light" />
               </div>
             </div>
 

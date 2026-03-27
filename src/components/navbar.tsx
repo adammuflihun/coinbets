@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Search } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { ChevronDown, Search, Gamepad2, BookOpen, Star } from "lucide-react";
 import { CountrySelector } from "@/components/country-selector";
 import { LoginDialog } from "@/components/login-dialog";
 import { MobileNav } from "@/components/mobile-nav";
@@ -13,6 +14,16 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import {
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from "@/components/ui/command";
+import { casinoReviews } from "@/data/casino-reviews";
+import { guides } from "@/data/guides";
 
 function useScrollDirection() {
   const [visible, setVisible] = useState(true);
@@ -66,7 +77,7 @@ function CasinoIndexIcon({ className }: { className?: string }) {
 const navCategories = [
   { label: "Crypto Casinos", icon: "/icons/casino.svg", hasDropdown: true },
   { label: "Sports Betting", icon: "/icons/sports.svg" },
-  { label: "User Reviews", icon: "/icons/reviews.svg" },
+  { label: "User Reviews", icon: "/icons/reviews.svg", href: "/users-review" },
 ];
 
 const navLinks = [
@@ -77,6 +88,28 @@ const navLinks = [
 
 export function Navbar() {
   const { visible, atTop } = useScrollDirection();
+  const pathname = usePathname();
+  const router = useRouter();
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  const handleSelect = useCallback(
+    (href: string) => {
+      setSearchOpen(false);
+      router.push(href);
+    },
+    [router]
+  );
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   return (
     <header
@@ -99,28 +132,46 @@ export function Navbar() {
           data-section="nav-categories"
           className="hidden lg:flex items-center gap-0"
         >
-          {navCategories.map((item) => (
-            <button
-              key={item.label}
-              className="flex items-center gap-1.5 text-sm font-medium text-neutral-900 hover:bg-neutral-100 transition-colors rounded-lg px-3 py-1.5"
-            >
-              <Image
-                src={item.icon}
-                alt=""
-                width={19}
-                height={20}
-                className="shrink-0"
-              />
-              <span>{item.label}</span>
-              {item.hasDropdown && (
-                <ChevronDown className="size-4 text-neutral-500" />
-              )}
-            </button>
-          ))}
+          {navCategories.map((item) => {
+            const isActive = item.href && pathname === item.href;
+            const classes = `flex items-center gap-1.5 text-sm font-medium transition-colors rounded-lg px-3 py-1.5 ${
+              isActive
+                ? "bg-yellow-400 text-black"
+                : "text-neutral-900 hover:bg-neutral-100"
+            }`;
+            const content = (
+              <>
+                <Image
+                  src={item.icon}
+                  alt=""
+                  width={19}
+                  height={20}
+                  className="shrink-0"
+                />
+                <span>{item.label}</span>
+                {item.hasDropdown && (
+                  <ChevronDown className="size-4 text-neutral-500" />
+                )}
+              </>
+            );
+            return item.href ? (
+              <Link key={item.label} href={item.href} className={classes}>
+                {content}
+              </Link>
+            ) : (
+              <button key={item.label} className={classes}>
+                {content}
+              </button>
+            );
+          })}
 
           {/* Casino Index Dropdown */}
           <DropdownMenu>
-            <DropdownMenuTrigger openOnHover className="flex items-center gap-1.5 text-sm font-medium text-neutral-900 hover:bg-neutral-100 transition-colors rounded-lg px-3 py-1.5 outline-none cursor-pointer">
+            <DropdownMenuTrigger openOnHover className={`flex items-center gap-1.5 text-sm font-medium transition-colors rounded-lg px-3 py-1.5 outline-none cursor-pointer ${
+              pathname === "/coinbet-index" || pathname === "/casino-originals"
+                ? "bg-yellow-400 text-black"
+                : "text-neutral-900 hover:bg-neutral-100"
+            }`}>
               <CasinoIndexIcon className="shrink-0" />
               <span>Casino Index</span>
               <ChevronDown className="size-4 text-neutral-500" />
@@ -165,25 +216,33 @@ export function Navbar() {
             data-name="nav-links"
             className="hidden lg:flex items-center gap-1"
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="text-sm font-medium text-neutral-900 hover:bg-neutral-100 transition-colors rounded-lg px-3 py-1.5"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={`text-sm font-medium transition-colors rounded-lg px-3 py-1.5 ${
+                    isActive
+                      ? "bg-yellow-400 text-black"
+                      : "text-neutral-900 hover:bg-neutral-100"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
 
           <div
             data-name="nav-right-actions"
             className="flex items-center gap-2.5"
           >
-            {/* Search - desktop only */}
+            {/* Search */}
             <button
               data-section="nav-search"
-              className="hidden lg:block bg-neutral-100 rounded p-1 hover:bg-neutral-200 transition-colors"
+              onClick={() => setSearchOpen(true)}
+              className="hidden lg:block bg-neutral-100 rounded p-1 hover:bg-neutral-200 transition-colors cursor-pointer"
             >
               <Search className="size-6 text-neutral-600" />
             </button>
@@ -198,6 +257,66 @@ export function Navbar() {
           </div>
         </div>
       </nav>
+
+      {/* Search Command Dialog */}
+      <CommandDialog
+        open={searchOpen}
+        onOpenChange={setSearchOpen}
+        title="Search"
+        description="Search casinos, guides, and expert reviews"
+      >
+        <CommandInput placeholder="Search casinos, guides, reviews..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+
+          <CommandGroup heading="Casino Reviews">
+            {casinoReviews.map((casino) => (
+              <CommandItem
+                key={casino.slug}
+                onSelect={() => handleSelect(`/casino/review/${casino.slug}`)}
+              >
+                <Image src={casino.logo} alt="" width={20} height={20} className="size-5 rounded object-contain bg-[#060D17]" />
+                <span>{casino.name}</span>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+
+          <CommandGroup heading="Guides">
+            {guides.map((guide) => (
+              <CommandItem
+                key={guide.slug}
+                onSelect={() => handleSelect(`/guides/${guide.slug}`)}
+              >
+                <BookOpen className="size-4 text-neutral-500" />
+                <span>{guide.title}</span>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+
+          <CommandGroup heading="Pages">
+            <CommandItem onSelect={() => handleSelect("/expert-reviews")}>
+              <Star className="size-4 text-neutral-500" />
+              <span>Expert Reviews</span>
+            </CommandItem>
+            <CommandItem onSelect={() => handleSelect("/users-review")}>
+              <Star className="size-4 text-neutral-500" />
+              <span>User Reviews</span>
+            </CommandItem>
+            <CommandItem onSelect={() => handleSelect("/coinbet-index")}>
+              <Star className="size-4 text-neutral-500" />
+              <span>52 Index</span>
+            </CommandItem>
+            <CommandItem onSelect={() => handleSelect("/casino-originals")}>
+              <Star className="size-4 text-neutral-500" />
+              <span>Casino Originals</span>
+            </CommandItem>
+            <CommandItem onSelect={() => handleSelect("/bonuses")}>
+              <Star className="size-4 text-neutral-500" />
+              <span>Bonuses</span>
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
     </header>
   );
 }

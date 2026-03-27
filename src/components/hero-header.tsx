@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { PredictiveSearch } from "@/components/predictive-search";
 
 const cryptoIcons = [
   { src: "/hero/coin-btc.png", alt: "Bitcoin" },
@@ -49,38 +49,37 @@ export function HeroHeader() {
             </div>
 
             {/* Search Input with shimmer border */}
-            <div
-              data-section="hero-search"
-              className="relative w-full max-w-[603px] overflow-hidden rounded-lg shadow-[0px_1px_52px_0px_rgba(230,184,48,0.5)]"
-              style={
-                {
-                  "--spread": "120deg",
-                  "--shimmer-color": "#ffffff",
-                  "--speed": "2.5s",
-                  "--cut": "2px",
-                } as React.CSSProperties
-              }
-            >
-              {/* Shimmer border layer */}
-              <div data-name="shimmer-border" className="absolute inset-0 overflow-visible blur-[2px] [container-type:size]">
-                <div data-name="shimmer-animation" className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]">
-                  <div data-name="shimmer-gradient" className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
+            <div data-section="hero-search" className="relative w-full max-w-[603px]">
+              {/* Shimmer border box */}
+              <div
+                data-name="shimmer-box"
+                className="relative overflow-hidden rounded-lg shadow-[0px_1px_52px_0px_rgba(230,184,48,0.5)]"
+                style={
+                  {
+                    "--spread": "120deg",
+                    "--shimmer-color": "#ffffff",
+                    "--speed": "2.5s",
+                    "--cut": "2px",
+                  } as React.CSSProperties
+                }
+              >
+                {/* Shimmer border layer */}
+                <div data-name="shimmer-border" className="absolute inset-0 overflow-visible blur-[2px] [container-type:size]">
+                  <div data-name="shimmer-animation" className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]">
+                    <div data-name="shimmer-gradient" className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
+                  </div>
                 </div>
-              </div>
 
-              {/* Inner background fill */}
-              <div data-name="search-inner-background" className="absolute rounded-[8px] bg-[#020202] ring-1 ring-inset ring-[#e6b830] [inset:var(--cut)]" />
+                {/* Inner background fill */}
+                <div data-name="search-inner-background" className="absolute rounded-[8px] bg-[#020202] ring-1 ring-inset ring-[#e6b830] [inset:var(--cut)]" />
 
-              {/* Input content */}
-              <div data-name="search-input" className="relative">
-                <div data-name="search-icon" className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-10">
-                  <Search className="size-5 sm:size-6 text-white" />
+                {/* Input */}
+                <div data-name="search-input" className="relative">
+                  <PredictiveSearch
+                    placeholder="Search the Top-Rated Crypto Casinos"
+                    variant="dark"
+                  />
                 </div>
-                <Input
-                  type="text"
-                  placeholder="Search the Top-Rated Crypto Casinos"
-                  className="h-12 sm:h-[60px] w-full rounded-lg border-0 bg-transparent pl-10 sm:pl-12 pr-4 text-sm sm:text-base text-white caret-white placeholder:text-white/60 focus-visible:ring-0 focus-visible:border-0"
-                />
               </div>
             </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { PredictiveSearch } from "@/components/predictive-search";
 
 const badges = ["No KYC", "Scam Reports", "Fast Withdrawals"];
 
@@ -29,15 +29,15 @@ function DecorativeImage({
   );
 }
 
-export function SearchboxIndex() {
+export function SearchboxIndex({ overlap = true, title = "Browse all Crypto Casinos" }: { overlap?: boolean; title?: string }) {
   return (
     <div
       data-section="searchbox-index"
-      className="relative z-10 -mt-[120px] mb-[-120px] px-5"
+      className={`relative z-10 mx-auto max-w-[1200px] px-5 ${overlap ? "-mt-[120px] mb-[-120px]" : ""}`}
     >
       <div
         data-name="searchbox-card"
-        className="relative mx-auto max-w-[1200px] bg-[#020202] border border-[#6f6f6f] rounded-xl overflow-hidden py-12 sm:py-14"
+        className="relative bg-[#020202] border border-[#6f6f6f] rounded-xl overflow-hidden py-12 sm:py-14"
       >
         {/* Decorative stacked cards */}
         <DecorativeImage
@@ -58,7 +58,7 @@ export function SearchboxIndex() {
             data-name="searchbox-title"
             className="text-[28px] sm:text-[35px] font-black text-white text-center leading-tight tracking-tight"
           >
-            Browse all Crypto Casinos
+            {title}
           </h2>
 
           {/* Search input with shimmer border */}
@@ -84,15 +84,11 @@ export function SearchboxIndex() {
             {/* Inner background fill */}
             <div data-name="shimmer-inner-bg" className="absolute rounded-[8px] bg-[#020202] ring-1 ring-inset ring-[#e6b830] inset-(--cut)" />
 
-            {/* Input content */}
+            {/* Input content — predictive search */}
             <div data-name="search-input-content" className="relative">
-              <div data-name="search-icon-wrapper" className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
-                <Search className="size-6 text-white" />
-              </div>
-              <input
-                type="text"
+              <PredictiveSearch
                 placeholder="Search the Top-Rated Crypto Casinos"
-                className="h-[60px] w-full rounded-lg border-0 bg-transparent pl-14 pr-4 text-base text-white caret-white placeholder:text-white/60 focus:outline-none"
+                variant="dark"
               />
             </div>
           </div>

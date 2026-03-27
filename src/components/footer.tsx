@@ -200,8 +200,8 @@ export function Footer() {
           <div className="shrink-0" data-name="footer-logo">
             <Link href="/">
               <svg
-                width="auto"
-                height="auto"
+                width="150"
+                height="31"
                 viewBox="0 0 150 31"
                 fill="none"
                 className="h-[40px] w-[100%]"
