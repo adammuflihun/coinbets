@@ -16,6 +16,7 @@ import {
   Minus,
   Info,
   Pencil,
+  X,
 } from "lucide-react";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
@@ -315,6 +316,8 @@ export function ReviewBlock({ slug }: { slug: string }) {
   const [gamesShowAll, setGamesShowAll] = useState(false);
   const [videoOpen, setVideoOpen] = useState(false);
   const [providersOpen, setProvidersOpen] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [galleryIndex, setGalleryIndex] = useState(0);
   const tabSentinelRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
   useEffect(() => {
@@ -1600,9 +1603,11 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   </button>
                 </div>
               </div>
-              <div
+              <button
+                type="button"
                 data-name="screenshot-image"
-                className="overflow-hidden rounded-lg"
+                className="overflow-hidden rounded-lg cursor-pointer hover:opacity-90 transition-opacity w-full"
+                onClick={() => { setGalleryIndex(currentScreenshot); setGalleryOpen(true); }}
               >
                 <Image
                   key={currentScreenshot}
@@ -1612,7 +1617,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   height={220}
                   className="w-full h-[200px] object-cover rounded-lg"
                 />
-              </div>
+              </button>
             </div>
 
             {/* Accepting players from */}
@@ -2017,6 +2022,76 @@ export function ReviewBlock({ slug }: { slug: string }) {
           </div>
         </div>
       </div>
+
+      {/* Screenshot Gallery Modal */}
+      {galleryOpen && casino.screenshots.length > 0 && (
+        <div
+          data-name="gallery-overlay"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80"
+          onClick={() => setGalleryOpen(false)}
+        >
+          <div
+            data-name="gallery-modal"
+            className="relative max-w-[900px] w-[90vw]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setGalleryOpen(false)}
+              data-name="gallery-close"
+              className="absolute -top-10 right-0 text-white hover:text-neutral-300 transition-colors cursor-pointer"
+            >
+              <X className="size-6" />
+            </button>
+
+            <div data-name="gallery-image" className="relative w-full h-[60vh] rounded-xl overflow-hidden bg-[#11181f]">
+              <Image
+                src={casino.screenshots[galleryIndex]}
+                alt={`Screenshot ${galleryIndex + 1}`}
+                fill
+                className="object-contain"
+              />
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setGalleryIndex((galleryIndex - 1 + casino.screenshots.length) % casino.screenshots.length)}
+              data-name="gallery-prev"
+              className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center size-10 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors cursor-pointer"
+            >
+              <ChevronLeft className="size-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setGalleryIndex((galleryIndex + 1) % casino.screenshots.length)}
+              data-name="gallery-next"
+              className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center size-10 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors cursor-pointer"
+            >
+              <ChevronRight className="size-5" />
+            </button>
+
+            <div
+              data-name="gallery-thumbs"
+              className="flex gap-2 mt-3 overflow-x-auto justify-center"
+              style={{ scrollbarWidth: "none" }}
+            >
+              {casino.screenshots.map((src, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setGalleryIndex(i)}
+                  data-name="gallery-thumb"
+                  className={`relative h-[60px] w-[90px] shrink-0 rounded-md overflow-hidden cursor-pointer transition-all ${
+                    i === galleryIndex ? "ring-2 ring-white opacity-100" : "opacity-50 hover:opacity-80"
+                  }`}
+                >
+                  <Image src={src} alt={`Thumb ${i + 1}`} fill className="object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

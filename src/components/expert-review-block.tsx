@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, createContext, useContext } from "react";
 import Image from "next/image";
 import {
   RefreshCw,
   ChevronRight,
+  ChevronLeft,
   ShieldCheck,
   Lock,
   Gift,
@@ -26,9 +27,128 @@ import {
   Bitcoin,
   Lightbulb,
   Star,
+  X,
 } from "lucide-react";
 import type { CasinoReview } from "@/data/casino-reviews";
 import ExpertRatingCard from "@/components/expert-rating-card";
+
+/* ------------------------------------------------------------------ */
+/*  Screenshot Gallery Context                                         */
+/* ------------------------------------------------------------------ */
+
+const GalleryContext = createContext<{
+  open: (src: string, screenshots: string[]) => void;
+}>({ open: () => {} });
+
+function ScreenshotImage({
+  src,
+  alt,
+  screenshots,
+  className = "relative w-full h-[391px] bg-[#11181f] overflow-hidden",
+  dataName,
+}: {
+  src: string;
+  alt: string;
+  screenshots: string[];
+  className?: string;
+  dataName?: string;
+}) {
+  const gallery = useContext(GalleryContext);
+  return (
+    <button
+      type="button"
+      onClick={() => gallery.open(src, screenshots)}
+      data-name={dataName}
+      className={`${className} cursor-pointer hover:opacity-90 transition-opacity`}
+    >
+      <Image src={src} alt={alt} fill className="object-cover" />
+    </button>
+  );
+}
+
+function GalleryModal({
+  isOpen,
+  onClose,
+  screenshots,
+  index,
+  setIndex,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  screenshots: string[];
+  index: number;
+  setIndex: (i: number) => void;
+}) {
+  if (!isOpen || screenshots.length === 0) return null;
+  return (
+    <div
+      data-name="gallery-overlay"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80"
+      onClick={onClose}
+    >
+      <div
+        data-name="gallery-modal"
+        className="relative max-w-[900px] w-[90vw]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          data-name="gallery-close"
+          className="absolute -top-10 right-0 text-white hover:text-neutral-300 transition-colors cursor-pointer"
+        >
+          <X className="size-6" />
+        </button>
+
+        <div data-name="gallery-image" className="relative w-full h-[60vh] rounded-xl overflow-hidden bg-[#11181f]">
+          <Image
+            src={screenshots[index]}
+            alt={`Screenshot ${index + 1}`}
+            fill
+            className="object-contain"
+          />
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setIndex((index - 1 + screenshots.length) % screenshots.length)}
+          data-name="gallery-prev"
+          className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center size-10 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors cursor-pointer"
+        >
+          <ChevronLeft className="size-5" />
+        </button>
+        <button
+          type="button"
+          onClick={() => setIndex((index + 1) % screenshots.length)}
+          data-name="gallery-next"
+          className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center size-10 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors cursor-pointer"
+        >
+          <ChevronRight className="size-5" />
+        </button>
+
+        <div
+          data-name="gallery-thumbs"
+          className="flex gap-2 mt-3 overflow-x-auto justify-center"
+          style={{ scrollbarWidth: "none" }}
+        >
+          {screenshots.map((src, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setIndex(i)}
+              data-name="gallery-thumb"
+              className={`relative h-[60px] w-[90px] shrink-0 rounded-md overflow-hidden cursor-pointer transition-all ${
+                i === index ? "ring-2 ring-white opacity-100" : "opacity-50 hover:opacity-80"
+              }`}
+            >
+              <Image src={src} alt={`Thumb ${i + 1}`} fill className="object-cover" />
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const SAFETY_COLORS: Record<string, string> = {
   High: "#00de00",
@@ -59,17 +179,7 @@ function ExpertHero({ casino }: { casino: CasinoReview }) {
         {/* Left — Screenshot + Data Cards */}
         <div data-name="expert-hero-left" className="flex flex-col gap-4">
           {/* Screenshot */}
-          <div
-            data-name="expert-screenshot"
-            className="relative h-[220px] sm:h-[260px] w-full rounded-xl overflow-hidden"
-          >
-            <Image
-              src="https://coinbets.com/wp-content/smush-webp/2025/11/rocketplay.jpg.webp"
-              alt={`${casino.name} screenshot`}
-              fill
-              className="object-cover"
-            />
-          </div>
+          <ScreenshotImage dataName="expert-screenshot" className="relative h-[220px] sm:h-[260px] w-full rounded-xl overflow-hidden" src="https://coinbets.com/wp-content/smush-webp/2025/11/rocketplay.jpg.webp" alt={`${casino.name} screenshot`} screenshots={casino.screenshots} />
 
           {/* Data Cards */}
           <div data-name="data-cards" className="flex gap-3">
@@ -505,17 +615,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 3 && (
-            <div
-              data-name="section-screenshot"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[3]}
-                alt={`${casino.name} screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="section-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[3]} alt={`${casino.name} screenshot`} screenshots={casino.screenshots} />
           )}
         </div>
       )}
@@ -584,17 +684,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 12 && (
-            <div
-              data-name="account-screenshot-1"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[12]}
-                alt={`${casino.name} sign up screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="account-screenshot-1" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[12]} alt={`${casino.name} sign up screenshot`} screenshots={casino.screenshots} />
           )}
 
           <div data-name="account-important" className="flex flex-col gap-4">
@@ -618,17 +708,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 11 && (
-            <div
-              data-name="account-screenshot-2"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[11]}
-                alt={`${casino.name} account screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="account-screenshot-2" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[11]} alt={`${casino.name} account screenshot`} screenshots={casino.screenshots} />
           )}
         </div>
       )}
@@ -702,17 +782,7 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
       </div>
 
       {casino.screenshots.length > 11 && (
-        <div
-          data-name="payment-screenshot-1"
-          className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-        >
-          <Image
-            src={casino.screenshots[11]}
-            alt={`${casino.name} deposit screenshot`}
-            fill
-            className="object-cover"
-          />
-        </div>
+        <ScreenshotImage dataName="payment-screenshot-1" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[11]} alt={`${casino.name} deposit screenshot`} screenshots={casino.screenshots} />
       )}
 
       <div
@@ -730,17 +800,7 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
       </div>
 
       {casino.screenshots.length > 1 && (
-        <div
-          data-name="payment-screenshot-2"
-          className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-        >
-          <Image
-            src={casino.screenshots[1]}
-            alt={`${casino.name} withdrawal screenshot`}
-            fill
-            className="object-cover"
-          />
-        </div>
+        <ScreenshotImage dataName="payment-screenshot-2" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[1]} alt={`${casino.name} withdrawal screenshot`} screenshots={casino.screenshots} />
       )}
 
       <div
@@ -758,17 +818,7 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
       </div>
 
       {casino.screenshots.length > 2 && (
-        <div
-          data-name="payment-screenshot-3"
-          className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-        >
-          <Image
-            src={casino.screenshots[2]}
-            alt={`${casino.name} wallet screenshot`}
-            fill
-            className="object-cover"
-          />
-        </div>
+        <ScreenshotImage dataName="payment-screenshot-3" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[2]} alt={`${casino.name} wallet screenshot`} screenshots={casino.screenshots} />
       )}
 
       <p className="text-[17px] leading-[28.8px] text-black">
@@ -811,17 +861,7 @@ function BuyingCryptoSection({ casino }: { casino: CasinoReview }) {
         and follow the prompts.
       </p>
       {casino.screenshots.length > 11 && (
-        <div
-          data-name="buying-crypto-screenshot"
-          className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-        >
-          <Image
-            src={casino.screenshots[11]}
-            alt={`${casino.name} buy crypto screenshot`}
-            fill
-            className="object-cover"
-          />
-        </div>
+        <ScreenshotImage dataName="buying-crypto-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[11]} alt={`${casino.name} buy crypto screenshot`} screenshots={casino.screenshots} />
       )}
     </div>
   );
@@ -968,17 +1008,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 0 && (
-            <div
-              data-name="game-slots-screenshot"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[0]}
-                alt={`${casino.name} slots screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="game-slots-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[0]} alt={`${casino.name} slots screenshot`} screenshots={casino.screenshots} />
           )}
 
           {/* CoinBets Experience */}
@@ -1002,17 +1032,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
                 Kingdom of Asgard (Pragmatic Play)
               </h4>
               {casino.screenshots.length > 1 && (
-                <div
-                  data-name="game-review-1-screenshot"
-                  className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-                >
-                  <Image
-                    src={casino.screenshots[1]}
-                    alt="Kingdom of Asgard gameplay"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                <ScreenshotImage dataName="game-review-1-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[1]} alt="Kingdom of Asgard gameplay" screenshots={casino.screenshots} />
               )}
               <div data-name="game-review-1-text" className="text-[17px] leading-[28.8px] text-black">
                 <p className="mb-4">
@@ -1043,17 +1063,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
                 King of Sweets (Play&apos;n GO)
               </h4>
               {casino.screenshots.length > 2 && (
-                <div
-                  data-name="game-review-2-screenshot"
-                  className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-                >
-                  <Image
-                    src={casino.screenshots[2]}
-                    alt="King of Sweets gameplay"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                <ScreenshotImage dataName="game-review-2-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[2]} alt="King of Sweets gameplay" screenshots={casino.screenshots} />
               )}
               <div data-name="game-review-2-text" className="text-[17px] leading-[28.8px] text-black">
                 <p className="mb-4">
@@ -1109,17 +1119,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
             </p>
           </div>
           {casino.screenshots.length > 3 && (
-            <div
-              data-name="game-crash-screenshot"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[3]}
-                alt={`${casino.name} crash games screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="game-crash-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[3]} alt={`${casino.name} crash games screenshot`} screenshots={casino.screenshots} />
           )}
         </div>
       )}
@@ -1145,17 +1145,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
             </p>
           </div>
           {casino.screenshots.length > 4 && (
-            <div
-              data-name="game-live-screenshot-1"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[4]}
-                alt={`${casino.name} live casino screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="game-live-screenshot-1" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[4]} alt={`${casino.name} live casino screenshot`} screenshots={casino.screenshots} />
           )}
           <p className="text-[17px] leading-[28.8px] text-black">
             Thankfully, there is a live game show category, which makes browsing
@@ -1165,17 +1155,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
             Roulette, and Sweet Bonanza Candyland.
           </p>
           {casino.screenshots.length > 6 && (
-            <div
-              data-name="game-live-screenshot-2"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[6]}
-                alt={`${casino.name} live game shows screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="game-live-screenshot-2" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[6]} alt={`${casino.name} live game shows screenshot`} screenshots={casino.screenshots} />
           )}
         </div>
       )}
@@ -1221,17 +1201,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
             fans.
           </p>
           {casino.screenshots.length > 5 && (
-            <div
-              data-name="game-bingo-screenshot"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[5]}
-                alt={`${casino.name} bingo and keno screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="game-bingo-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[5]} alt={`${casino.name} bingo and keno screenshot`} screenshots={casino.screenshots} />
           )}
         </div>
       )}
@@ -1355,17 +1325,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 9 && (
-            <div
-              data-name="provably-fair-screenshot"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[9]}
-                alt={`${casino.name} provably fair games screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="provably-fair-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[9]} alt={`${casino.name} provably fair games screenshot`} screenshots={casino.screenshots} />
           )}
 
           {/* Lottery */}
@@ -1381,17 +1341,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           </p>
 
           {casino.screenshots.length > 5 && (
-            <div
-              data-name="lottery-screenshot"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[5]}
-                alt={`${casino.name} lottery screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="lottery-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[5]} alt={`${casino.name} lottery screenshot`} screenshots={casino.screenshots} />
           )}
 
           {/* Crypto Trading */}
@@ -1409,17 +1359,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           </p>
 
           {casino.screenshots.length > 8 && (
-            <div
-              data-name="crypto-trading-screenshot"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[8]}
-                alt={`${casino.name} crypto trading screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="crypto-trading-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[8]} alt={`${casino.name} crypto trading screenshot`} screenshots={casino.screenshots} />
           )}
 
           {/* Lootboxes */}
@@ -1434,17 +1374,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           </p>
 
           {casino.screenshots.length > 7 && (
-            <div
-              data-name="lootboxes-screenshot"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[7]}
-                alt={`${casino.name} lootboxes screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="lootboxes-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[7]} alt={`${casino.name} lootboxes screenshot`} screenshots={casino.screenshots} />
           )}
         </div>
       )}
@@ -1481,17 +1411,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 6 && (
-            <div
-              data-name="challenge-medium-screenshot"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[6]}
-                alt={`${casino.name} wheel medium risk screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="challenge-medium-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[6]} alt={`${casino.name} wheel medium risk screenshot`} screenshots={casino.screenshots} />
           )}
 
           <p className="text-[17px] leading-[28.8px] text-black">
@@ -1500,17 +1420,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           </p>
 
           {casino.screenshots.length > 7 && (
-            <div
-              data-name="challenge-high-screenshot"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[7]}
-                alt={`${casino.name} wheel high risk screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="challenge-high-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[7]} alt={`${casino.name} wheel high risk screenshot`} screenshots={casino.screenshots} />
           )}
 
           <div data-name="challenge-verification-text" className="text-[17px] leading-[28.8px] text-black">
@@ -1569,17 +1479,7 @@ function SportsSection({ casino }: { casino: CasinoReview }) {
       </p>
 
       {casino.screenshots.length > 10 && (
-        <div
-          data-name="virtual-sport-screenshot"
-          className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-        >
-          <Image
-            src={casino.screenshots[10]}
-            alt={`${casino.name} virtual sports screenshot`}
-            fill
-            className="object-cover"
-          />
-        </div>
+        <ScreenshotImage dataName="virtual-sport-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[10]} alt={`${casino.name} virtual sports screenshot`} screenshots={casino.screenshots} />
       )}
 
       {/* Sportsbook */}
@@ -1609,17 +1509,7 @@ function SportsSection({ casino }: { casino: CasinoReview }) {
       </p>
 
       {casino.screenshots.length > 10 && (
-        <div
-          data-name="sportsbook-screenshot"
-          className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-        >
-          <Image
-            src={casino.screenshots[10]}
-            alt={`${casino.name} sportsbook screenshot`}
-            fill
-            className="object-cover"
-          />
-        </div>
+        <ScreenshotImage dataName="sportsbook-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[10]} alt={`${casino.name} sportsbook screenshot`} screenshots={casino.screenshots} />
       )}
     </div>
   );
@@ -1735,17 +1625,7 @@ function PromotionsSection({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 8 && (
-            <div
-              data-name="promo-screenshot"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[8]}
-                alt={`${casino.name} promotions screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="promo-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[8]} alt={`${casino.name} promotions screenshot`} screenshots={casino.screenshots} />
           )}
         </>
       )}
@@ -1770,17 +1650,7 @@ function PromotionsSection({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 8 && (
-            <div
-              data-name="vip-screenshot"
-              className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-            >
-              <Image
-                src={casino.screenshots[8]}
-                alt={`${casino.name} VIP program screenshot`}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScreenshotImage dataName="vip-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[8]} alt={`${casino.name} VIP program screenshot`} screenshots={casino.screenshots} />
           )}
         </>
       )}
@@ -1901,17 +1771,7 @@ function SupportDesignSection({ casino }: { casino: CasinoReview }) {
             </div>
 
             {casino.screenshots.length > 12 && (
-              <div
-                data-name="support-screenshot"
-                className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-              >
-                <Image
-                  src={casino.screenshots[12]}
-                  alt={`${casino.name} player support screenshot`}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+              <ScreenshotImage dataName="support-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[12]} alt={`${casino.name} player support screenshot`} screenshots={casino.screenshots} />
             )}
           </div>
         </>
@@ -2045,17 +1905,7 @@ function CryptoTokenSection({ casino }: { casino: CasinoReview }) {
       </div>
 
       {casino.screenshots.length > 11 && (
-        <div
-          data-name="crypto-token-screenshot-1"
-          className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-        >
-          <Image
-            src={casino.screenshots[11]}
-            alt={`${casino.name} crypto token screenshot`}
-            fill
-            className="object-cover"
-          />
-        </div>
+        <ScreenshotImage dataName="crypto-token-screenshot-1" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[11]} alt={`${casino.name} crypto token screenshot`} screenshots={casino.screenshots} />
       )}
 
       <div data-name="crypto-token-staking-text" className="text-[17px] leading-[28.8px] text-black">
@@ -2074,17 +1924,7 @@ function CryptoTokenSection({ casino }: { casino: CasinoReview }) {
       </div>
 
       {casino.screenshots.length > 11 && (
-        <div
-          data-name="crypto-token-screenshot-2"
-          className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-        >
-          <Image
-            src={casino.screenshots[11]}
-            alt={`${casino.name} tokenomics screenshot`}
-            fill
-            className="object-cover"
-          />
-        </div>
+        <ScreenshotImage dataName="crypto-token-screenshot-2" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[11]} alt={`${casino.name} tokenomics screenshot`} screenshots={casino.screenshots} />
       )}
     </div>
   );
@@ -2120,17 +1960,7 @@ function InterestingFactsSection({ casino }: { casino: CasinoReview }) {
       </p>
 
       {casino.screenshots.length > 12 && (
-        <div
-          data-name="interesting-facts-screenshot"
-          className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-        >
-          <Image
-            src={casino.screenshots[12]}
-            alt={`${casino.name} DappRadar screenshot`}
-            fill
-            className="object-cover"
-          />
-        </div>
+        <ScreenshotImage dataName="interesting-facts-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[12]} alt={`${casino.name} DappRadar screenshot`} screenshots={casino.screenshots} />
       )}
     </div>
   );
@@ -2316,17 +2146,7 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
       </p>
 
       {casino.screenshots.length > 4 && (
-        <div
-          data-name="reputation-screenshot-1"
-          className="relative w-full h-[391px] bg-[#11181f] overflow-hidden"
-        >
-          <Image
-            src={casino.screenshots[4]}
-            alt={`${casino.name} reputation screenshot`}
-            fill
-            className="object-cover"
-          />
-        </div>
+        <ScreenshotImage dataName="reputation-screenshot-1" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[4]} alt={`${casino.name} reputation screenshot`} screenshots={casino.screenshots} />
       )}
     </div>
   );
@@ -2395,14 +2215,7 @@ function VerdictSection({ casino }: { casino: CasinoReview }) {
 
             {/* Screenshot */}
             {casino.screenshots.length > 0 && (
-              <div data-name="review-card-screenshot" className="flex-1 h-[391px] bg-[#11181f] overflow-hidden relative">
-                <Image
-                  src={casino.screenshots[0]}
-                  alt={`${casino.name} review screenshot`}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+              <ScreenshotImage dataName="review-card-screenshot" className="flex-1 h-[391px] bg-[#11181f] overflow-hidden relative" src={casino.screenshots[0]} alt={`${casino.name} review screenshot`} screenshots={casino.screenshots} />
             )}
           </div>
         </div>
@@ -2702,24 +2515,43 @@ function TableOfContents({ items }: { items: { label: string; id: string }[] }) 
 export function ExpertReviewBlock({ casino }: { casino: CasinoReview }) {
   const contentRef = useRef<HTMLDivElement>(null);
   const tocItems = useHeadingToc(contentRef);
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  const [galleryScreenshots, setGalleryScreenshots] = useState<string[]>([]);
+
+  const openGallery = (src: string, screenshots: string[]) => {
+    setGalleryScreenshots(screenshots);
+    setGalleryIndex(Math.max(0, screenshots.indexOf(src)));
+    setGalleryOpen(true);
+  };
 
   return (
-    <div
-      id="expert-review"
-      data-name="expert-review-section"
-      className="relative flex flex-col gap-6"
-      ref={contentRef}
-    >
-      {/* TOC floats outside the container on the right, h-full lets sticky work */}
-      <div data-name="toc-sidebar-wrapper" className="absolute top-0 bottom-0 left-full ml-6 hidden xl:block">
-        <TableOfContents items={tocItems} />
+    <GalleryContext.Provider value={{ open: openGallery }}>
+      <div
+        id="expert-review"
+        data-name="expert-review-section"
+        className="relative flex flex-col gap-6"
+        ref={contentRef}
+      >
+        {/* TOC floats outside the container on the right, h-full lets sticky work */}
+        <div data-name="toc-sidebar-wrapper" className="absolute top-0 bottom-0 left-full ml-6 hidden xl:block">
+          <TableOfContents items={tocItems} />
+        </div>
+
+        {/* Hero */}
+        <ExpertHero casino={casino} />
+
+        {/* Content */}
+        <ExpertContent casino={casino} />
       </div>
 
-      {/* Hero */}
-      <ExpertHero casino={casino} />
-
-      {/* Content */}
-      <ExpertContent casino={casino} />
-    </div>
+      <GalleryModal
+        isOpen={galleryOpen}
+        onClose={() => setGalleryOpen(false)}
+        screenshots={galleryScreenshots}
+        index={galleryIndex}
+        setIndex={setGalleryIndex}
+      />
+    </GalleryContext.Provider>
   );
 }
