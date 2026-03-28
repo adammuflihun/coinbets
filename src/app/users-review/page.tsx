@@ -2,6 +2,7 @@ import { HeroPageTemplate } from "@/components/hero-page-template";
 import { SearchboxIndex } from "@/components/searchbox-index";
 import { UserReviewList } from "@/components/user-review-list";
 import { UserReviewsCard } from "@/components/user-reviews-card";
+import { CoinbetIndexSeoMetatags } from "@/components/coinbet-index-seo-metatags";
 
 export const metadata = {
   title: "User Reviews",
@@ -18,6 +19,7 @@ export default function UsersReviewPage() {
         description="CoinBets is the only crypto casino review site where every player review is verified by our team to confirm real deposits and gameplay."
         buttonText="Write a Review"
         buttonHref="#write-review"
+        backgroundImage="/hero/bg_user_reviews.svg"
       />
       <UserReviewsCard />
 
@@ -113,6 +115,7 @@ export default function UsersReviewPage() {
 
       <SearchboxIndex overlap={false} title="Browse all user reviews" />
       <UserReviewList />
+      <CoinbetIndexSeoMetatags />
     </main>
   );
 }

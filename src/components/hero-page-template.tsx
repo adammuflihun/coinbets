@@ -8,6 +8,11 @@ interface HeroPageTemplateProps {
   description: string;
   buttonText: string;
   buttonHref: string;
+  heroImage?: string;
+  contentMaxWidth?: string;
+  backgroundImage?: string;
+  heroHeight?: string;
+  heroObjectFit?: string;
 }
 
 export function HeroPageTemplate({
@@ -16,19 +21,24 @@ export function HeroPageTemplate({
   description,
   buttonText,
   buttonHref,
+  heroImage = "/hero/user-review-header.png",
+  contentMaxWidth = "max-w-[52ch]",
+  backgroundImage,
+  heroHeight = "h-[500px]",
+  heroObjectFit = "object-contain",
 }: HeroPageTemplateProps) {
   return (
     <section
       data-section="hero"
-      className="relative overflow-hidden bg-[#020202] pb-10   sm:pb-10 lg:pb-10"
+      className="relative overflow-hidden bg-[#020202] "
     >
-      {/* Background gradient SVG */}
-      <div
-        data-section="hero-background"
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/hero/bg_user_reviews.svg')" }}
-      />
-
+      {backgroundImage && (
+        <div
+          data-section="hero-background"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url('${backgroundImage}')` }}
+        />
+      )}
       <div
         data-name="hero-container"
         className="relative site-container py-5 lg:py-5"
@@ -40,7 +50,7 @@ export function HeroPageTemplate({
           {/* Left: Content */}
           <div
             data-section="hero-content"
-            className="flex w-full flex-col gap-6 sm:gap-4 max-w-[52ch]"
+            className={`flex w-full flex-col gap-4 sm:gap-5 ${contentMaxWidth}`}
           >
             {/* Headline */}
             <div
@@ -68,7 +78,7 @@ export function HeroPageTemplate({
               </div>
 
               {/* CTA Button */}
-              <div data-name="hero-cta" className="pt-5">
+              <div data-name="hero-cta" className="pt-2 sm:pt-4">
                 <Link
                   href={buttonHref}
                   className="group inline-flex items-center gap-2 rounded-lg bg-[#e6b830] px-6 py-3 text-sm sm:text-base font-bold text-[#020202] transition-all hover:bg-[#f0c840]"
@@ -83,14 +93,14 @@ export function HeroPageTemplate({
           {/* Right: Casino Illustration */}
           <div
             data-section="hero-illustration"
-            className="relative hidden h-[500px] lg:block"
+            className={`relative hidden ${heroHeight} lg:block`}
           >
             <Image
-              src="/hero/user-review-header.png"
+              src={heroImage}
               alt="Player review card and casino screenshot"
               width={540}
               height={500}
-              className="absolute inset-0 size-full object-contain"
+              className={`absolute inset-0 size-full ${heroObjectFit}`}
               priority
             />
           </div>

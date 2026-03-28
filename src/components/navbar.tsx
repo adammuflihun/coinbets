@@ -76,7 +76,7 @@ function CasinoIndexIcon({ className }: { className?: string }) {
 
 const navCategories = [
   { label: "Crypto Casinos", icon: "/icons/casino.svg", hasDropdown: true },
-  { label: "Sports Betting", icon: "/icons/sports.svg" },
+  { label: "Sports Betting", icon: "/icons/sports.svg", href: "/sports-betting" },
   { label: "User Reviews", icon: "/icons/reviews.svg", href: "/users-review" },
 ];
 
