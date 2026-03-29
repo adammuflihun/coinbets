@@ -4,16 +4,25 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ChevronDown, Search, Gamepad2, BookOpen, Star } from "lucide-react";
+import {
+  ChevronDown,
+  Search,
+  BookOpen,
+  Star,
+  Trophy,
+  Sparkles,
+  Crown,
+  LayoutGrid,
+  Coins,
+  ShieldCheck,
+  EyeOff,
+  Smartphone,
+  MonitorPlay,
+} from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import { CountrySelector } from "@/components/country-selector";
 import { LoginDialog } from "@/components/login-dialog";
 import { MobileNav } from "@/components/mobile-nav";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
 import {
   CommandDialog,
   CommandInput,
@@ -74,6 +83,68 @@ function CasinoIndexIcon({ className }: { className?: string }) {
   );
 }
 
+function NavDropdown({
+  trigger,
+  children,
+}: {
+  trigger: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      data-name="nav-dropdown"
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      {trigger}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            data-name="nav-dropdown-panel"
+            className="absolute left-0 top-full z-50 pt-2"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 17,
+              opacity: { duration: 0.15 },
+            }}
+          >
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+const cryptoDropdownColumns = [
+  {
+    title: "Online Casinos",
+    items: [
+      { label: "Top Online Casinos", href: "/", icon: Trophy },
+      { label: "Newly Opened Casinos", href: "/", icon: Sparkles },
+      { label: "Big Brands", href: "/", icon: Crown },
+      { label: "All Casinos", href: "/", icon: LayoutGrid },
+    ],
+  },
+  {
+    title: "Popular Categories",
+    items: [
+      { label: "Crypto Casinos", href: "/", icon: Coins },
+      { label: "Provably Fair Originals", href: "/casino-originals", icon: ShieldCheck },
+      { label: "No KYC Casinos", href: "/", icon: EyeOff },
+      { label: "Mobile-Friendly Casinos", href: "/", icon: Smartphone },
+      { label: "Live Dealer Casinos", href: "/", icon: MonitorPlay },
+    ],
+  },
+];
+
 const navCategories = [
   { label: "Crypto Casinos", icon: "/icons/casino.svg", hasDropdown: true },
   { label: "Sports Betting", icon: "/icons/sports.svg", href: "/sports-betting" },
@@ -132,69 +203,89 @@ export function Navbar() {
           data-section="nav-categories"
           className="hidden lg:flex items-center gap-0"
         >
-          {navCategories.map((item) => {
-            const isActive = item.href && pathname === item.href;
-            const classes = `flex items-center gap-1.5 text-sm font-medium transition-colors rounded-lg px-3 py-1.5 ${
-              isActive
-                ? "bg-yellow-400 text-black"
-                : "text-neutral-900 hover:bg-neutral-100"
-            }`;
-            const content = (
-              <>
-                <Image
-                  src={item.icon}
-                  alt=""
-                  width={19}
-                  height={20}
-                  className="shrink-0"
-                />
-                <span>{item.label}</span>
-                {item.hasDropdown && (
-                  <ChevronDown className="size-4 text-neutral-500" />
-                )}
-              </>
-            );
-            return item.href ? (
-              <Link key={item.label} href={item.href} className={classes}>
-                {content}
-              </Link>
-            ) : (
-              <button key={item.label} className={classes}>
-                {content}
+          {/* Crypto Casinos Mega Dropdown */}
+          <NavDropdown
+            trigger={
+              <button className="flex items-center gap-1.5 text-sm font-medium transition-colors rounded-lg px-3 py-1.5 outline-none cursor-pointer text-neutral-900 hover:bg-neutral-100">
+                <Image src="/icons/casino.svg" alt="" width={19} height={20} className="shrink-0" />
+                <span>Crypto Casinos</span>
+                <ChevronDown className="size-4 text-neutral-500" />
               </button>
+            }
+          >
+            <div data-name="crypto-mega-dropdown" className="w-[720px] rounded-xl bg-[#020202] shadow-2xl grid grid-cols-2">
+              {cryptoDropdownColumns.map((column, colIdx) => (
+                <div
+                  key={column.title}
+                  data-name={`dropdown-column-${column.title.toLowerCase().replace(/\s/g, "-")}`}
+                  className={`flex flex-col px-5 py-4 ${colIdx === 1 ? "border-l border-[#212121]" : ""}`}
+                >
+                  <div data-name="dropdown-column-header" className="mb-4 border-b border-[#212121] pb-2">
+                    <p className="text-[11px] font-medium uppercase tracking-[3px] text-[#7e7e7e]">
+                      {column.title}
+                    </p>
+                  </div>
+                  <div data-name="dropdown-items" className="flex flex-col gap-0.5">
+                    {column.items.map((item) => (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        className="flex items-center gap-3 cursor-pointer rounded-lg px-2 py-2.5 text-white hover:bg-yellow-400 hover:text-black transition-colors"
+                      >
+                        <div data-name="dropdown-icon" className="flex size-7 shrink-0 items-center justify-center rounded-md bg-[#212121]">
+                          <item.icon className="size-4 text-neutral-400" />
+                        </div>
+                        <span className="text-[15px] font-normal">{item.label}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </NavDropdown>
+
+          {/* Sports Betting & User Reviews */}
+          {navCategories.filter((item) => item.href).map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.label}
+                href={item.href!}
+                className={`flex items-center gap-1.5 text-sm font-medium transition-colors rounded-lg px-3 py-1.5 ${
+                  isActive
+                    ? "bg-yellow-400 text-black"
+                    : "text-neutral-900 hover:bg-neutral-100"
+                }`}
+              >
+                <Image src={item.icon} alt="" width={19} height={20} className="shrink-0" />
+                <span>{item.label}</span>
+              </Link>
             );
           })}
 
           {/* Casino Index Dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger openOnHover className={`flex items-center gap-1.5 text-sm font-medium transition-colors rounded-lg px-3 py-1.5 outline-none cursor-pointer ${
-              pathname === "/coinbet-index" || pathname === "/casino-originals"
-                ? "bg-yellow-400 text-black"
-                : "text-neutral-900 hover:bg-neutral-100"
-            }`}>
-              <CasinoIndexIcon className="shrink-0" />
-              <span>Casino Index</span>
-              <ChevronDown className="size-4 text-neutral-500" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="start"
-              sideOffset={8}
-              className="min-w-[180px]"
-            >
-              <DropdownMenuItem
-                className="cursor-pointer px-3 py-2"
-                render={<Link href="/coinbet-index" />}
-              >
+          <NavDropdown
+            trigger={
+              <button className={`flex items-center gap-1.5 text-sm font-medium transition-colors rounded-lg px-3 py-1.5 outline-none cursor-pointer ${
+                pathname === "/coinbet-index" || pathname === "/casino-originals"
+                  ? "bg-yellow-400 text-black"
+                  : "text-neutral-900 hover:bg-neutral-100"
+              }`}>
+                <CasinoIndexIcon className="shrink-0" />
+                <span>Casino Index</span>
+                <ChevronDown className="size-4 text-neutral-500" />
+              </button>
+            }
+          >
+            <div data-name="casino-index-dropdown" className="min-w-[200px] rounded-xl bg-[#020202] p-2 shadow-2xl">
+              <Link href="/coinbet-index" className="flex w-full items-center rounded-lg px-3 py-2.5 text-white hover:bg-yellow-400 hover:text-black transition-colors">
                 52 Index
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="cursor-pointer px-3 py-2"
-                render={<Link href="/casino-originals" />}
-              >
+              </Link>
+              <Link href="/casino-originals" className="flex w-full items-center rounded-lg px-3 py-2.5 text-white hover:bg-yellow-400 hover:text-black transition-colors">
                 Casino Original
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+              </Link>
+            </div>
+          </NavDropdown>
         </div>
 
         {/* Center: Logo */}

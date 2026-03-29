@@ -1129,13 +1129,13 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
       className="rounded-xl border border-neutral-200 bg-white shadow-sm overflow-hidden"
     >
       {/* Top section: Logo + Info + Safety */}
-      <div data-name="casino-card-top" className="p-6">
-        <div data-name="casino-card-header" className="flex gap-5">
+      <div data-name="casino-card-top" className="p-4 sm:p-6">
+        <div data-name="casino-card-header" className="flex flex-col sm:flex-row gap-4 sm:gap-5">
           {/* Casino Logo */}
           <Link
             href={`/casino/review/${casino.slug}`}
             data-name="casino-logo"
-            className="shrink-0 size-[200px] rounded-lg bg-[#060D17] flex items-center justify-center overflow-hidden border border-neutral-200"
+            className="shrink-0 size-24 sm:size-[200px] rounded-lg bg-[#060D17] flex items-center justify-center overflow-hidden border border-neutral-200"
           >
             <Image
               src={casino.logo}
@@ -1148,17 +1148,17 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
 
           {/* Casino Info */}
           <div data-name="casino-info" className="flex-1 min-w-0">
-            <div data-name="casino-name-row" className="flex items-start justify-between gap-4">
+            <div data-name="casino-name-row" className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
               <Link
                 href={`/casino/review/${casino.slug}`}
                 data-name="casino-name"
-                className="text-2xl font-bold text-[#060D17] hover:underline"
+                className="text-xl sm:text-2xl font-bold text-[#060D17] hover:underline"
               >
                 {casino.name}
               </Link>
               <div
                 data-name="safety-badge"
-                className="flex items-center gap-1.5 rounded-md border border-neutral-200 px-3 py-1.5 shrink-0"
+                className="flex items-center gap-1.5 rounded-md border border-neutral-200 px-3 py-1.5 shrink-0 self-start"
               >
                 <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">
                   Safety Index:
@@ -1173,7 +1173,7 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
             </div>
 
             {/* Ratings Row */}
-            <div data-name="expert-ratings" className="flex items-start gap-6 mt-3">
+            <div data-name="expert-ratings" className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 mt-3">
               {/* Player Rating */}
               <div data-name="player-rating" className="flex items-start gap-2.5">
                 <PlayerRatingIcon />
@@ -1291,7 +1291,7 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
       {/* Bottom bar: Crypto + Actions */}
       <div
         data-name="casino-card-bottom"
-        className="flex items-center justify-between gap-4 border-t border-neutral-200 px-6 py-4"
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-neutral-200 px-4 sm:px-6 py-4"
       >
         {/* Crypto accepted */}
         <div data-name="crypto-accepted" className="flex items-center gap-2">
@@ -1337,12 +1337,12 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
         </div>
 
         {/* Action buttons */}
-        <div data-name="casino-actions" className="flex items-center gap-3">
+        <div data-name="casino-actions" className="flex items-center gap-3 w-full sm:w-auto">
           <button
             type="button"
             data-name="how-to-access-btn"
             onClick={() => setAccessOpen(true)}
-            className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 transition-colors cursor-pointer"
+            className="flex-1 sm:flex-none rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 transition-colors cursor-pointer text-center"
           >
             How to Access
           </button>
@@ -1434,7 +1434,7 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
           <Link
             href={`/casino/review/${casino.slug}`}
             data-name="read-reviews-btn"
-            className="inline-flex items-center gap-1.5 rounded-lg bg-yellow-400 px-5 py-2.5 text-sm font-semibold text-black hover:bg-yellow-500 transition-colors"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-lg bg-yellow-400 px-5 py-2.5 text-sm font-semibold text-black hover:bg-yellow-500 transition-colors"
           >
             Read Reviews
             <ChevronRight className="size-4" />
@@ -1463,13 +1463,13 @@ export function CasinoReviewList() {
   return (
     <section
       data-section="casino-review-list"
-      className="mx-auto max-w-[1200px] px-5 py-8"
+      className="mx-auto max-w-[1200px] px-4 sm:px-5 py-6 sm:py-8"
     >
       <div data-name="casino-list-layout" className="flex flex-col lg:flex-row gap-8">
         {/* Left: Casino Cards */}
         <div data-name="casino-list-main" className="flex-1 flex flex-col gap-6">
           {/* Header + sort + search */}
-          <div data-name="casino-list-header" className="flex items-center justify-between">
+          <div data-name="casino-list-header" className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
             <h2 data-name="casino-list-title" className="text-xl font-bold text-[#060D17]">
               Casino Reviews
             </h2>

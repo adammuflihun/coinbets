@@ -3,7 +3,20 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, ChevronDown } from "lucide-react";
+import {
+  Menu,
+  ChevronDown,
+  ChevronUp,
+  Trophy,
+  Sparkles,
+  Crown,
+  LayoutGrid,
+  Coins,
+  ShieldCheck,
+  EyeOff,
+  Smartphone,
+  MonitorPlay,
+} from "lucide-react";
 import { PredictiveSearch } from "@/components/predictive-search";
 import {
   Sheet,
@@ -15,9 +28,25 @@ import { CountrySelector } from "@/components/country-selector";
 
 const navCategories = [
   { label: "Crypto Casinos", icon: "/icons/casino.svg", hasDropdown: true },
-  { label: "Sports Betting", icon: "/icons/sports.svg" },
-  { label: "User Reviews", icon: "/icons/reviews.svg" },
-  { label: "Bonuses", icon: "/icons/bonuses.svg", customIcon: true },
+  { label: "Sports Betting", icon: "/icons/sports.svg", href: "/sports-betting" },
+  { label: "User Reviews", icon: "/icons/reviews.svg", href: "/users-review" },
+  { label: "Bonuses", icon: "/icons/bonuses.svg", customIcon: true, href: "/bonuses" },
+];
+
+const cryptoMobileItems = [
+  { title: "Online Casinos", items: [
+    { label: "Top Online Casinos", href: "/", icon: Trophy },
+    { label: "Newly Opened Casinos", href: "/", icon: Sparkles },
+    { label: "Big Brands", href: "/", icon: Crown },
+    { label: "All Casinos", href: "/", icon: LayoutGrid },
+  ]},
+  { title: "Popular Categories", items: [
+    { label: "Crypto Casinos", href: "/", icon: Coins },
+    { label: "Provably Fair Originals", href: "/casino-originals", icon: ShieldCheck },
+    { label: "No KYC Casinos", href: "/", icon: EyeOff },
+    { label: "Mobile-Friendly Casinos", href: "/", icon: Smartphone },
+    { label: "Live Dealer Casinos", href: "/", icon: MonitorPlay },
+  ]},
 ];
 
 function BonusesIcon() {
@@ -40,6 +69,7 @@ const navLinks = [
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
+  const [cryptoExpanded, setCryptoExpanded] = useState(false);
 
   return (
     <>
@@ -76,29 +106,66 @@ export function MobileNav() {
               <p className="px-3 py-2 text-xs font-medium text-neutral-500">
                 Categories
               </p>
-              {navCategories.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => setOpen(false)}
-                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-900 hover:bg-neutral-100 transition-colors"
-                >
-                  {item.customIcon ? (
-                    <BonusesIcon />
-                  ) : (
-                    <Image
-                      src={item.icon}
-                      alt=""
-                      width={20}
-                      height={20}
-                      className="shrink-0"
-                    />
-                  )}
-                  <span className="flex-1 text-left">{item.label}</span>
-                  {item.hasDropdown && (
-                    <ChevronDown className="size-4 text-neutral-400" />
-                  )}
-                </button>
-              ))}
+              {navCategories.map((item) =>
+                item.hasDropdown ? (
+                  <div key={item.label} data-name="mobile-crypto-dropdown">
+                    <button
+                      onClick={() => setCryptoExpanded(!cryptoExpanded)}
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-900 hover:bg-neutral-100 transition-colors"
+                    >
+                      <Image src={item.icon} alt="" width={20} height={20} className="shrink-0" />
+                      <span className="flex-1 text-left">{item.label}</span>
+                      {cryptoExpanded ? (
+                        <ChevronUp className="size-4 text-neutral-400" />
+                      ) : (
+                        <ChevronDown className="size-4 text-neutral-400" />
+                      )}
+                    </button>
+                    {cryptoExpanded && (
+                      <div data-name="mobile-crypto-sections" className="ml-4 border-l border-neutral-100 pl-2 pb-2">
+                        {cryptoMobileItems.map((section) => (
+                          <div key={section.title} data-name={`mobile-section-${section.title.toLowerCase().replace(/\s/g, "-")}`} className="mt-2">
+                            <p className="px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-neutral-400">{section.title}</p>
+                            {section.items.map((sub) => (
+                              <Link
+                                key={sub.label}
+                                href={sub.href}
+                                onClick={() => setOpen(false)}
+                                className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100 transition-colors"
+                              >
+                                <div className="flex size-6 items-center justify-center rounded-md bg-neutral-100">
+                                  <sub.icon className="size-3.5 text-neutral-500" />
+                                </div>
+                                <span>{sub.label}</span>
+                              </Link>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    key={item.label}
+                    href={item.href ?? "/"}
+                    onClick={() => setOpen(false)}
+                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-900 hover:bg-neutral-100 transition-colors"
+                  >
+                    {item.customIcon ? (
+                      <BonusesIcon />
+                    ) : (
+                      <Image
+                        src={item.icon}
+                        alt=""
+                        width={20}
+                        height={20}
+                        className="shrink-0"
+                      />
+                    )}
+                    <span className="flex-1 text-left">{item.label}</span>
+                  </Link>
+                )
+              )}
             </div>
 
             <div data-name="mobile-divider-top" className="my-2 border-t border-neutral-100" />
