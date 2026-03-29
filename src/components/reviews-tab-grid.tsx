@@ -281,7 +281,8 @@ export function ReviewsTabGrid({
       >
         <nav
           data-name="reviews-tabs"
-          className="site-container flex justify-center gap-8 overflow-x-auto"
+          className="site-container flex justify-start sm:justify-center gap-2 sm:gap-8 overflow-x-auto"
+          style={{ scrollbarWidth: "none" }}
         >
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -297,13 +298,13 @@ export function ReviewsTabGrid({
                 }`}
               >
                 <span
-                  className={`flex items-center justify-center size-10 rounded-full ${
+                  className={`flex items-center justify-center size-8 sm:size-10 rounded-full ${
                     isActive ? "bg-[#020202]" : "bg-neutral-300"
                   }`}
                 >
                   {tab.icon}
                 </span>
-                <span className="text-base font-semibold">{tab.label}</span>
+                <span className="text-sm sm:text-base font-semibold">{tab.label}</span>
               </button>
             );
           })}
