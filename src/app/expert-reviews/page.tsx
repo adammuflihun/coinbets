@@ -158,15 +158,15 @@ export default function ExpertReviewsPage() {
         >
           {/* Left — Header text */}
           <div data-name="reviews-hero-header" className="flex flex-col justify-start">
-            <p className="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-4">
+            <p className="text-sm sm:text-base font-bold leading-relaxed text-white mb-2.5">
               CoinBets Expert Reviews
             </p>
-            <h1 className="text-2xl sm:text-[32px] lg:text-[40px] font-black leading-[1.2] tracking-tight text-white max-w-2xl mb-4">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-[1.2] tracking-tight text-white max-w-2xl mb-4">
               Top Crypto Casinos,{" "}
               <br className="hidden sm:block" />
               Reviewed by Experts
             </h1>
-            <p className="text-base sm:text-lg leading-relaxed text-neutral-400 max-w-xl mb-8">
+            <p className="text-base sm:text-lg leading-relaxed text-white/70 max-w-xl mb-8">
               Unbiased ratings, in-depth analysis, and honest pros & cons. We go
               deep so you don&apos;t have to.
             </p>
