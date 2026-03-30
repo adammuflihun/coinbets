@@ -44,7 +44,7 @@ function ScreenshotImage({
   src,
   alt,
   screenshots,
-  className = "relative w-full h-[391px] bg-[#11181f] overflow-hidden",
+  className = "relative w-full h-[220px] sm:h-[391px] bg-[#11181f] overflow-hidden",
   dataName,
 }: {
   src: string;
@@ -389,7 +389,7 @@ function SectionNav({
   return (
     <div
       data-name="section-nav"
-      className="flex border border-[#dedede] bg-[#0d337d] overflow-x-auto"
+      className="flex flex-col sm:flex-row border border-[#dedede] bg-[#0d337d] overflow-x-auto"
     >
       {REVIEW_SECTIONS.map((section, i) => {
         const isActive = i === activeIndex;
@@ -399,15 +399,15 @@ function SectionNav({
             key={section.id}
             data-name={`section-tab-${section.id}`}
             onClick={() => onTabClick(i)}
-            className={`min-w-[180px] flex-1 flex flex-col gap-1.5 p-6 text-left cursor-pointer transition-colors ${
+            className={`sm:min-w-[180px] flex-1 flex flex-row sm:flex-col items-center sm:items-start gap-3 sm:gap-1.5 p-4 sm:p-6 text-left cursor-pointer transition-colors ${
               isActive
-                ? "bg-white border-b-[3px] border-b-[#0d337d]"
-                : "bg-[#f8f8f8] border-x border-[#dedede] hover:bg-[#f0f0f0]"
+                ? "bg-white border-l-[3px] sm:border-l-0 border-l-[#0d337d] sm:border-b-[3px] sm:border-b-[#0d337d]"
+                : "bg-[#f8f8f8] border-b sm:border-b-0 sm:border-x border-[#dedede] hover:bg-[#f0f0f0]"
             }`}
           >
             <div
               data-name="section-tab-icon"
-              className={`size-[42px] rounded flex items-center justify-center ${
+              className={`size-[42px] shrink-0 rounded flex items-center justify-center ${
                 isActive ? "bg-[#0d337d]" : ""
               }`}
             >
@@ -417,20 +417,22 @@ function SectionNav({
                 }`}
               />
             </div>
-            <p
-              className={`text-base font-medium text-[#060d17] leading-none ${
-                !isActive ? "opacity-50" : ""
-              }`}
-            >
-              {section.title}
-            </p>
-            <p
-              className={`text-sm text-[#060d17] leading-[1.2] ${
-                !isActive ? "opacity-50" : "opacity-70"
-              }`}
-            >
-              {section.description}
-            </p>
+            <div data-name="section-tab-text" className="flex flex-col gap-1 sm:gap-1.5">
+              <p
+                className={`text-base font-medium text-[#060d17] leading-none ${
+                  !isActive ? "opacity-50" : ""
+                }`}
+              >
+                {section.title}
+              </p>
+              <p
+                className={`text-sm text-[#060d17] leading-[1.2] ${
+                  !isActive ? "opacity-50" : "opacity-70"
+                }`}
+              >
+                {section.description}
+              </p>
+            </div>
           </button>
         );
       })}
@@ -615,7 +617,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 3 && (
-            <ScreenshotImage dataName="section-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[3]} alt={`${casino.name} screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="section-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[3]} alt={`${casino.name} screenshot`} screenshots={casino.screenshots} />
           )}
         </div>
       )}
@@ -684,7 +686,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 12 && (
-            <ScreenshotImage dataName="account-screenshot-1" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[12]} alt={`${casino.name} sign up screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="account-screenshot-1" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[12]} alt={`${casino.name} sign up screenshot`} screenshots={casino.screenshots} />
           )}
 
           <div data-name="account-important" className="flex flex-col gap-4">
@@ -708,7 +710,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 11 && (
-            <ScreenshotImage dataName="account-screenshot-2" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[11]} alt={`${casino.name} account screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="account-screenshot-2" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[11]} alt={`${casino.name} account screenshot`} screenshots={casino.screenshots} />
           )}
         </div>
       )}
@@ -782,7 +784,7 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
       </div>
 
       {casino.screenshots.length > 11 && (
-        <ScreenshotImage dataName="payment-screenshot-1" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[11]} alt={`${casino.name} deposit screenshot`} screenshots={casino.screenshots} />
+        <ScreenshotImage dataName="payment-screenshot-1" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[11]} alt={`${casino.name} deposit screenshot`} screenshots={casino.screenshots} />
       )}
 
       <div
@@ -800,7 +802,7 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
       </div>
 
       {casino.screenshots.length > 1 && (
-        <ScreenshotImage dataName="payment-screenshot-2" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[1]} alt={`${casino.name} withdrawal screenshot`} screenshots={casino.screenshots} />
+        <ScreenshotImage dataName="payment-screenshot-2" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[1]} alt={`${casino.name} withdrawal screenshot`} screenshots={casino.screenshots} />
       )}
 
       <div
@@ -818,7 +820,7 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
       </div>
 
       {casino.screenshots.length > 2 && (
-        <ScreenshotImage dataName="payment-screenshot-3" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[2]} alt={`${casino.name} wallet screenshot`} screenshots={casino.screenshots} />
+        <ScreenshotImage dataName="payment-screenshot-3" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[2]} alt={`${casino.name} wallet screenshot`} screenshots={casino.screenshots} />
       )}
 
       <p className="text-[17px] leading-[28.8px] text-black">
@@ -861,7 +863,7 @@ function BuyingCryptoSection({ casino }: { casino: CasinoReview }) {
         and follow the prompts.
       </p>
       {casino.screenshots.length > 11 && (
-        <ScreenshotImage dataName="buying-crypto-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[11]} alt={`${casino.name} buy crypto screenshot`} screenshots={casino.screenshots} />
+        <ScreenshotImage dataName="buying-crypto-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[11]} alt={`${casino.name} buy crypto screenshot`} screenshots={casino.screenshots} />
       )}
     </div>
   );
@@ -910,7 +912,7 @@ function GameCategoryNav({
   return (
     <div
       data-name="game-category-nav"
-      className="flex border border-[#dedede] bg-[#0d337d] overflow-x-auto"
+      className="flex flex-col sm:flex-row border border-[#dedede] bg-[#0d337d] overflow-x-auto"
     >
       {GAME_CATEGORIES.map((cat, i) => {
         const isActive = i === activeIndex;
@@ -920,15 +922,15 @@ function GameCategoryNav({
             key={cat.id}
             data-name={`game-tab-${cat.id}`}
             onClick={() => onTabClick(i)}
-            className={`min-w-[140px] flex-1 flex flex-col gap-1.5 p-6 text-left cursor-pointer transition-colors ${
+            className={`sm:min-w-[140px] flex-1 flex flex-row sm:flex-col items-center sm:items-start gap-3 sm:gap-1.5 p-4 sm:p-6 text-left cursor-pointer transition-colors ${
               isActive
-                ? "bg-white border-b-[3px] border-b-[#0d337d]"
-                : "bg-[#f8f8f8] border-x border-[#dedede] hover:bg-[#f0f0f0]"
+                ? "bg-white border-l-[3px] sm:border-l-0 border-l-[#0d337d] sm:border-b-[3px] sm:border-b-[#0d337d]"
+                : "bg-[#f8f8f8] border-b sm:border-b-0 sm:border-x border-[#dedede] hover:bg-[#f0f0f0]"
             }`}
           >
             <div
               data-name="game-tab-icon"
-              className={`size-[42px] rounded flex items-center justify-center ${
+              className={`size-[42px] shrink-0 rounded flex items-center justify-center ${
                 isActive ? "bg-[#0d337d]" : ""
               }`}
             >
@@ -938,20 +940,22 @@ function GameCategoryNav({
                 }`}
               />
             </div>
-            <p
-              className={`text-base font-medium text-[#060d17] leading-none ${
-                !isActive ? "opacity-50" : ""
-              }`}
-            >
-              {cat.title}
-            </p>
-            <p
-              className={`text-sm text-[#060d17] leading-[1.2] ${
-                !isActive ? "opacity-50" : "opacity-70"
-              }`}
-            >
-              {cat.description}
-            </p>
+            <div data-name="game-tab-text" className="flex flex-col gap-1 sm:gap-1.5">
+              <p
+                className={`text-base font-medium text-[#060d17] leading-none ${
+                  !isActive ? "opacity-50" : ""
+                }`}
+              >
+                {cat.title}
+              </p>
+              <p
+                className={`text-sm text-[#060d17] leading-[1.2] ${
+                  !isActive ? "opacity-50" : "opacity-70"
+                }`}
+              >
+                {cat.description}
+              </p>
+            </div>
           </button>
         );
       })}
@@ -1008,7 +1012,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 0 && (
-            <ScreenshotImage dataName="game-slots-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[0]} alt={`${casino.name} slots screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="game-slots-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[0]} alt={`${casino.name} slots screenshot`} screenshots={casino.screenshots} />
           )}
 
           {/* CoinBets Experience */}
@@ -1032,7 +1036,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
                 Kingdom of Asgard (Pragmatic Play)
               </h4>
               {casino.screenshots.length > 1 && (
-                <ScreenshotImage dataName="game-review-1-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[1]} alt="Kingdom of Asgard gameplay" screenshots={casino.screenshots} />
+                <ScreenshotImage dataName="game-review-1-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[1]} alt="Kingdom of Asgard gameplay" screenshots={casino.screenshots} />
               )}
               <div data-name="game-review-1-text" className="text-[17px] leading-[28.8px] text-black">
                 <p className="mb-4">
@@ -1063,7 +1067,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
                 King of Sweets (Play&apos;n GO)
               </h4>
               {casino.screenshots.length > 2 && (
-                <ScreenshotImage dataName="game-review-2-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[2]} alt="King of Sweets gameplay" screenshots={casino.screenshots} />
+                <ScreenshotImage dataName="game-review-2-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[2]} alt="King of Sweets gameplay" screenshots={casino.screenshots} />
               )}
               <div data-name="game-review-2-text" className="text-[17px] leading-[28.8px] text-black">
                 <p className="mb-4">
@@ -1119,7 +1123,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
             </p>
           </div>
           {casino.screenshots.length > 3 && (
-            <ScreenshotImage dataName="game-crash-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[3]} alt={`${casino.name} crash games screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="game-crash-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[3]} alt={`${casino.name} crash games screenshot`} screenshots={casino.screenshots} />
           )}
         </div>
       )}
@@ -1145,7 +1149,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
             </p>
           </div>
           {casino.screenshots.length > 4 && (
-            <ScreenshotImage dataName="game-live-screenshot-1" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[4]} alt={`${casino.name} live casino screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="game-live-screenshot-1" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[4]} alt={`${casino.name} live casino screenshot`} screenshots={casino.screenshots} />
           )}
           <p className="text-[17px] leading-[28.8px] text-black">
             Thankfully, there is a live game show category, which makes browsing
@@ -1155,7 +1159,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
             Roulette, and Sweet Bonanza Candyland.
           </p>
           {casino.screenshots.length > 6 && (
-            <ScreenshotImage dataName="game-live-screenshot-2" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[6]} alt={`${casino.name} live game shows screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="game-live-screenshot-2" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[6]} alt={`${casino.name} live game shows screenshot`} screenshots={casino.screenshots} />
           )}
         </div>
       )}
@@ -1201,7 +1205,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
             fans.
           </p>
           {casino.screenshots.length > 5 && (
-            <ScreenshotImage dataName="game-bingo-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[5]} alt={`${casino.name} bingo and keno screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="game-bingo-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[5]} alt={`${casino.name} bingo and keno screenshot`} screenshots={casino.screenshots} />
           )}
         </div>
       )}
@@ -1234,7 +1238,7 @@ function FairTabNav({
   return (
     <div
       data-name="fair-tab-nav"
-      className="flex border border-[#dedede] bg-[#0d337d] overflow-x-auto"
+      className="flex flex-col sm:flex-row border border-[#dedede] bg-[#0d337d] overflow-x-auto"
     >
       {FAIR_TABS.map((tab, i) => {
         const isActive = i === activeIndex;
@@ -1244,10 +1248,10 @@ function FairTabNav({
             key={tab.id}
             data-name={`fair-tab-${tab.id}`}
             onClick={() => onTabClick(i)}
-            className={`min-w-[180px] flex-1 flex flex-col gap-1.5 p-6 text-left cursor-pointer transition-colors ${
+            className={`sm:min-w-[180px] flex-1 flex flex-row sm:flex-col items-center sm:items-start gap-3 sm:gap-1.5 p-4 sm:p-6 text-left cursor-pointer transition-colors ${
               isActive
-                ? "bg-white border-b-[3px] border-b-[#0d337d]"
-                : "bg-[#f8f8f8] border-x border-[#dedede] hover:bg-[#f0f0f0]"
+                ? "bg-white border-l-[3px] sm:border-l-0 border-l-[#0d337d] sm:border-b-[3px] sm:border-b-[#0d337d]"
+                : "bg-[#f8f8f8] border-b sm:border-b-0 sm:border-x border-[#dedede] hover:bg-[#f0f0f0]"
             }`}
           >
             <div
@@ -1270,20 +1274,22 @@ function FairTabNav({
                 </div>
               )}
             </div>
-            <p
-              className={`text-base font-medium text-[#060d17] leading-none ${
-                !isActive ? "opacity-50" : ""
-              }`}
-            >
-              {tab.title}
-            </p>
-            <p
-              className={`text-sm text-[#060d17] leading-[1.2] ${
-                !isActive ? "opacity-50" : "opacity-70"
-              }`}
-            >
-              {tab.description}
-            </p>
+            <div data-name="fair-tab-text" className="flex flex-col gap-1 sm:gap-1.5">
+              <p
+                className={`text-base font-medium text-[#060d17] leading-none ${
+                  !isActive ? "opacity-50" : ""
+                }`}
+              >
+                {tab.title}
+              </p>
+              <p
+                className={`text-sm text-[#060d17] leading-[1.2] ${
+                  !isActive ? "opacity-50" : "opacity-70"
+                }`}
+              >
+                {tab.description}
+              </p>
+            </div>
           </button>
         );
       })}
@@ -1325,7 +1331,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 9 && (
-            <ScreenshotImage dataName="provably-fair-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[9]} alt={`${casino.name} provably fair games screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="provably-fair-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[9]} alt={`${casino.name} provably fair games screenshot`} screenshots={casino.screenshots} />
           )}
 
           {/* Lottery */}
@@ -1341,7 +1347,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           </p>
 
           {casino.screenshots.length > 5 && (
-            <ScreenshotImage dataName="lottery-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[5]} alt={`${casino.name} lottery screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="lottery-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[5]} alt={`${casino.name} lottery screenshot`} screenshots={casino.screenshots} />
           )}
 
           {/* Crypto Trading */}
@@ -1359,7 +1365,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           </p>
 
           {casino.screenshots.length > 8 && (
-            <ScreenshotImage dataName="crypto-trading-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[8]} alt={`${casino.name} crypto trading screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="crypto-trading-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[8]} alt={`${casino.name} crypto trading screenshot`} screenshots={casino.screenshots} />
           )}
 
           {/* Lootboxes */}
@@ -1374,7 +1380,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           </p>
 
           {casino.screenshots.length > 7 && (
-            <ScreenshotImage dataName="lootboxes-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[7]} alt={`${casino.name} lootboxes screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="lootboxes-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[7]} alt={`${casino.name} lootboxes screenshot`} screenshots={casino.screenshots} />
           )}
         </div>
       )}
@@ -1411,7 +1417,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 6 && (
-            <ScreenshotImage dataName="challenge-medium-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[6]} alt={`${casino.name} wheel medium risk screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="challenge-medium-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[6]} alt={`${casino.name} wheel medium risk screenshot`} screenshots={casino.screenshots} />
           )}
 
           <p className="text-[17px] leading-[28.8px] text-black">
@@ -1420,7 +1426,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           </p>
 
           {casino.screenshots.length > 7 && (
-            <ScreenshotImage dataName="challenge-high-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[7]} alt={`${casino.name} wheel high risk screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="challenge-high-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[7]} alt={`${casino.name} wheel high risk screenshot`} screenshots={casino.screenshots} />
           )}
 
           <div data-name="challenge-verification-text" className="text-[17px] leading-[28.8px] text-black">
@@ -1479,7 +1485,7 @@ function SportsSection({ casino }: { casino: CasinoReview }) {
       </p>
 
       {casino.screenshots.length > 10 && (
-        <ScreenshotImage dataName="virtual-sport-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[10]} alt={`${casino.name} virtual sports screenshot`} screenshots={casino.screenshots} />
+        <ScreenshotImage dataName="virtual-sport-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[10]} alt={`${casino.name} virtual sports screenshot`} screenshots={casino.screenshots} />
       )}
 
       {/* Sportsbook */}
@@ -1509,7 +1515,7 @@ function SportsSection({ casino }: { casino: CasinoReview }) {
       </p>
 
       {casino.screenshots.length > 10 && (
-        <ScreenshotImage dataName="sportsbook-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[10]} alt={`${casino.name} sportsbook screenshot`} screenshots={casino.screenshots} />
+        <ScreenshotImage dataName="sportsbook-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[10]} alt={`${casino.name} sportsbook screenshot`} screenshots={casino.screenshots} />
       )}
     </div>
   );
@@ -1530,7 +1536,7 @@ function PromoTabNav({
   return (
     <div
       data-name="promo-tab-nav"
-      className="flex border border-[#dedede] bg-[#0d337d] overflow-x-auto"
+      className="flex flex-col sm:flex-row border border-[#dedede] bg-[#0d337d] overflow-x-auto"
     >
       {PROMO_TABS.map((tab, i) => {
         const isActive = i === activeIndex;
@@ -1540,15 +1546,15 @@ function PromoTabNav({
             key={tab.id}
             data-name={`promo-tab-${tab.id}`}
             onClick={() => onTabClick(i)}
-            className={`min-w-[180px] flex-1 flex flex-col gap-1.5 p-6 text-left cursor-pointer transition-colors ${
+            className={`sm:min-w-[180px] flex-1 flex flex-row sm:flex-col items-center sm:items-start gap-3 sm:gap-1.5 p-4 sm:p-6 text-left cursor-pointer transition-colors ${
               isActive
-                ? "bg-white border-b-[3px] border-b-[#0d337d]"
-                : "bg-[#f8f8f8] border-x border-[#dedede] hover:bg-[#f0f0f0]"
+                ? "bg-white border-l-[3px] sm:border-l-0 border-l-[#0d337d] sm:border-b-[3px] sm:border-b-[#0d337d]"
+                : "bg-[#f8f8f8] border-b sm:border-b-0 sm:border-x border-[#dedede] hover:bg-[#f0f0f0]"
             }`}
           >
             <div
               data-name="promo-tab-icon"
-              className={`size-[42px] rounded flex items-center justify-center ${
+              className={`size-[42px] shrink-0 rounded flex items-center justify-center ${
                 isActive ? "bg-[#003eb6]" : ""
               }`}
             >
@@ -1556,22 +1562,24 @@ function PromoTabNav({
                 className={`size-5 ${isActive ? "text-white" : "text-[#999]"}`}
               />
             </div>
-            <span
-              className={`text-[16px] font-medium leading-none ${
-                isActive ? "text-[#0d0f12]" : "text-[#060d17] opacity-50"
-              }`}
-            >
-              {tab.label}
-            </span>
-            <span
-              className={`text-[14px] leading-[28.8px] ${
-                isActive
-                  ? "text-[#0d0f12] opacity-70"
-                  : "text-[#060d17] opacity-50"
-              }`}
-            >
-              {tab.subtitle}
-            </span>
+            <div data-name="promo-tab-text" className="flex flex-col gap-1 sm:gap-1.5">
+              <span
+                className={`text-[16px] font-medium leading-none ${
+                  isActive ? "text-[#0d0f12]" : "text-[#060d17] opacity-50"
+                }`}
+              >
+                {tab.label}
+              </span>
+              <span
+                className={`text-[14px] leading-[28.8px] ${
+                  isActive
+                    ? "text-[#0d0f12] opacity-70"
+                    : "text-[#060d17] opacity-50"
+                }`}
+              >
+                {tab.subtitle}
+              </span>
+            </div>
           </button>
         );
       })}
@@ -1625,7 +1633,7 @@ function PromotionsSection({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 8 && (
-            <ScreenshotImage dataName="promo-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[8]} alt={`${casino.name} promotions screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="promo-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[8]} alt={`${casino.name} promotions screenshot`} screenshots={casino.screenshots} />
           )}
         </>
       )}
@@ -1650,7 +1658,7 @@ function PromotionsSection({ casino }: { casino: CasinoReview }) {
           </div>
 
           {casino.screenshots.length > 8 && (
-            <ScreenshotImage dataName="vip-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[8]} alt={`${casino.name} VIP program screenshot`} screenshots={casino.screenshots} />
+            <ScreenshotImage dataName="vip-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[8]} alt={`${casino.name} VIP program screenshot`} screenshots={casino.screenshots} />
           )}
         </>
       )}
@@ -1674,7 +1682,7 @@ function SupportTabNav({
   return (
     <div
       data-name="support-tab-nav"
-      className="flex border border-[#dedede] bg-[#0d337d] overflow-x-auto"
+      className="flex flex-col sm:flex-row border border-[#dedede] bg-[#0d337d] overflow-x-auto"
     >
       {SUPPORT_TABS.map((tab, i) => {
         const isActive = i === activeIndex;
@@ -1684,15 +1692,15 @@ function SupportTabNav({
             key={tab.id}
             data-name={`support-tab-${tab.id}`}
             onClick={() => onTabClick(i)}
-            className={`min-w-[140px] flex-1 flex flex-col gap-1.5 p-6 text-left cursor-pointer transition-colors ${
+            className={`sm:min-w-[140px] flex-1 flex flex-row sm:flex-col items-center sm:items-start gap-3 sm:gap-1.5 p-4 sm:p-6 text-left cursor-pointer transition-colors ${
               isActive
-                ? "bg-white border-b-[3px] border-b-[#0d337d]"
-                : "bg-[#f8f8f8] border-x border-[#dedede] hover:bg-[#f0f0f0]"
+                ? "bg-white border-l-[3px] sm:border-l-0 border-l-[#0d337d] sm:border-b-[3px] sm:border-b-[#0d337d]"
+                : "bg-[#f8f8f8] border-b sm:border-b-0 sm:border-x border-[#dedede] hover:bg-[#f0f0f0]"
             }`}
           >
             <div
               data-name="support-tab-icon"
-              className={`size-[40px] rounded flex items-center justify-center overflow-hidden ${
+              className={`size-[40px] shrink-0 rounded flex items-center justify-center overflow-hidden ${
                 isActive ? "bg-[#0d337d]" : ""
               }`}
             >
@@ -1700,20 +1708,22 @@ function SupportTabNav({
                 className={`size-5 ${isActive ? "text-white" : "text-[#999]"}`}
               />
             </div>
-            <span
-              className={`text-[16px] font-medium leading-none ${
-                isActive ? "text-black" : "text-[#707070]"
-              }`}
-            >
-              {tab.label}
-            </span>
-            <span
-              className={`text-[14px] leading-[28.8px] opacity-70 ${
-                isActive ? "text-black" : "text-[#707070]"
-              }`}
-            >
-              {tab.subtitle}
-            </span>
+            <div data-name="support-tab-text" className="flex flex-col gap-1 sm:gap-1.5">
+              <span
+                className={`text-[16px] font-medium leading-none ${
+                  isActive ? "text-black" : "text-[#707070]"
+                }`}
+              >
+                {tab.label}
+              </span>
+              <span
+                className={`text-[14px] leading-[28.8px] opacity-70 ${
+                  isActive ? "text-black" : "text-[#707070]"
+                }`}
+              >
+                {tab.subtitle}
+              </span>
+            </div>
           </button>
         );
       })}
@@ -1771,7 +1781,7 @@ function SupportDesignSection({ casino }: { casino: CasinoReview }) {
             </div>
 
             {casino.screenshots.length > 12 && (
-              <ScreenshotImage dataName="support-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[12]} alt={`${casino.name} player support screenshot`} screenshots={casino.screenshots} />
+              <ScreenshotImage dataName="support-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[12]} alt={`${casino.name} player support screenshot`} screenshots={casino.screenshots} />
             )}
           </div>
         </>
@@ -1905,7 +1915,7 @@ function CryptoTokenSection({ casino }: { casino: CasinoReview }) {
       </div>
 
       {casino.screenshots.length > 11 && (
-        <ScreenshotImage dataName="crypto-token-screenshot-1" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[11]} alt={`${casino.name} crypto token screenshot`} screenshots={casino.screenshots} />
+        <ScreenshotImage dataName="crypto-token-screenshot-1" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[11]} alt={`${casino.name} crypto token screenshot`} screenshots={casino.screenshots} />
       )}
 
       <div data-name="crypto-token-staking-text" className="text-[17px] leading-[28.8px] text-black">
@@ -1924,7 +1934,7 @@ function CryptoTokenSection({ casino }: { casino: CasinoReview }) {
       </div>
 
       {casino.screenshots.length > 11 && (
-        <ScreenshotImage dataName="crypto-token-screenshot-2" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[11]} alt={`${casino.name} tokenomics screenshot`} screenshots={casino.screenshots} />
+        <ScreenshotImage dataName="crypto-token-screenshot-2" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[11]} alt={`${casino.name} tokenomics screenshot`} screenshots={casino.screenshots} />
       )}
     </div>
   );
@@ -1960,7 +1970,7 @@ function InterestingFactsSection({ casino }: { casino: CasinoReview }) {
       </p>
 
       {casino.screenshots.length > 12 && (
-        <ScreenshotImage dataName="interesting-facts-screenshot" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[12]} alt={`${casino.name} DappRadar screenshot`} screenshots={casino.screenshots} />
+        <ScreenshotImage dataName="interesting-facts-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[12]} alt={`${casino.name} DappRadar screenshot`} screenshots={casino.screenshots} />
       )}
     </div>
   );
@@ -2146,7 +2156,7 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
       </p>
 
       {casino.screenshots.length > 4 && (
-        <ScreenshotImage dataName="reputation-screenshot-1" className="relative w-full h-[391px] bg-[#11181f] overflow-hidden" src={casino.screenshots[4]} alt={`${casino.name} reputation screenshot`} screenshots={casino.screenshots} />
+        <ScreenshotImage dataName="reputation-screenshot-1" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[4]} alt={`${casino.name} reputation screenshot`} screenshots={casino.screenshots} />
       )}
     </div>
   );

@@ -43,12 +43,21 @@ export const metadata: Metadata = {
     title: "CoinBets - Crypto Casino Reviews, Bonuses & Guides",
     description:
       "Find the best crypto casinos, sports betting sites, expert reviews, exclusive bonuses, and in-depth guides at CoinBets.",
+    images: [
+      {
+        url: "/opengraph.webp",
+        width: 1200,
+        height: 630,
+        alt: "CoinBets - No affiliate links. No paid rankings. No casino influence.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "CoinBets - Crypto Casino Reviews, Bonuses & Guides",
     description:
       "Find the best crypto casinos, sports betting sites, expert reviews, exclusive bonuses, and in-depth guides at CoinBets.",
+    images: ["/opengraph.webp"],
   },
   robots: {
     index: true,
