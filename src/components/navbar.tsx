@@ -127,10 +127,10 @@ const cryptoDropdownColumns = [
   {
     title: "Online Casinos",
     items: [
-      { label: "Top Online Casinos", href: "/", icon: Trophy },
-      { label: "Newly Opened Casinos", href: "/", icon: Sparkles },
-      { label: "Big Brands", href: "/", icon: Crown },
-      { label: "All Casinos", href: "/", icon: LayoutGrid },
+      { label: "Top Online Casinos", href: "/top-online-casino", icon: Trophy },
+      { label: "Newly Opened Casinos", href: "/newly-opened-casinos", icon: Sparkles },
+      { label: "Big Brands", href: "/big-brands", icon: Crown },
+      { label: "All Casinos", href: "/all-casino", icon: LayoutGrid },
     ],
   },
   {

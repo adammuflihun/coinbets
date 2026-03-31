@@ -13,6 +13,8 @@ interface HeroPageTemplateProps {
   backgroundImage?: string;
   heroHeight?: string;
   heroObjectFit?: string;
+  heroImageClassName?: string;
+  containerClassName?: string;
 }
 
 export function HeroPageTemplate({
@@ -24,8 +26,10 @@ export function HeroPageTemplate({
   heroImage = "/hero/user-review-header.png",
   contentMaxWidth = "max-w-[52ch]",
   backgroundImage,
-  heroHeight = "h-[500px]",
+  heroHeight = "h-[400px]",
   heroObjectFit = "object-contain",
+  heroImageClassName = "absolute inset-0 size-full",
+  containerClassName = "relative site-container py-5 lg:py-5",
 }: HeroPageTemplateProps) {
   return (
     <section
@@ -39,10 +43,7 @@ export function HeroPageTemplate({
           style={{ backgroundImage: `url('${backgroundImage}')` }}
         />
       )}
-      <div
-        data-name="hero-container"
-        className="relative site-container py-5 lg:py-5"
-      >
+      <div data-name="hero-container" className={containerClassName}>
         <div
           data-name="hero-layout"
           className="grid grid-cols-1 lg:grid-cols-2 items-center gap-4 lg:gap-5"
@@ -93,14 +94,14 @@ export function HeroPageTemplate({
           {/* Right: Casino Illustration */}
           <div
             data-section="hero-illustration"
-            className={`relative hidden ${heroHeight} lg:block`}
+            className={`relative ${heroHeight}`}
           >
             <Image
               src={heroImage}
               alt="Player review card and casino screenshot"
               width={540}
               height={500}
-              className={`absolute inset-0 size-full ${heroObjectFit}`}
+              className={`${heroImageClassName} ${heroObjectFit}`}
               priority
             />
           </div>

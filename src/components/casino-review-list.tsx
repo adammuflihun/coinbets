@@ -1449,7 +1449,7 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
 /*  Main Component                                                     */
 /* ------------------------------------------------------------------ */
 
-export function CasinoReviewList() {
+export function CasinoReviewList({ title = "Casino Reviews" }: { title?: string }) {
   const [sortOpen, setSortOpen] = useState(false);
   const [sortBy, setSortBy] = useState("Top Rated");
   const [searchQuery, setSearchQuery] = useState("");
@@ -1471,7 +1471,7 @@ export function CasinoReviewList() {
           {/* Header + sort + search */}
           <div data-name="casino-list-header" className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
             <h2 data-name="casino-list-title" className="text-xl font-bold text-[#060D17]">
-              Casino Reviews
+              {title}
             </h2>
             <div data-name="casino-list-actions" className="flex items-center gap-2">
               {/* Search */}

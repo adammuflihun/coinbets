@@ -102,9 +102,10 @@ function ExpertShieldIcon({ size = 30 }: { size?: number }) {
 
 export function ReviewCard({ review }: { review: ReviewData }) {
   return (
-    <div
+    <Link
+      href={`/casino/review/${review.slug}`}
       data-name="expert-card"
-      className="flex flex-col gap-3.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full"
+      className="flex flex-col gap-3.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full transition-shadow hover:shadow-md"
     >
       {/* Casino header */}
       <div
@@ -309,14 +310,14 @@ export function ReviewCard({ review }: { review: ReviewData }) {
           </div>
         </div>
 
-        <Link
-          href={`/casino/review/${review.slug}`}
-          className="group flex items-center justify-between rounded-lg bg-[#eab914] px-6 py-2.5 text-sm font-semibold text-[#171717] hover:bg-[#d4a812] transition-colors"
+        <div
+          data-name="read-review-button"
+          className="group/btn flex items-center justify-between rounded-lg bg-[#eab914] px-6 py-2.5 text-sm font-semibold text-[#171717] transition-colors"
         >
           Read Review
-          <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-        </Link>
+          <ChevronRight className="size-4 transition-transform group-hover/btn:translate-x-0.5" />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
