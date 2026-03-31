@@ -21,10 +21,10 @@ export default function NewlyOpenedCasinosPage() {
         buttonHref="#write-review"
         heroImage="/hero/newly-opened.webp"
         contentMaxWidth="max-w-[75ch]"
-        heroHeight="h-[400px]"
+        heroHeight="h-[200px] sm:h-[280px] lg:h-[400px]"
         heroObjectFit="object-contain"
         backgroundImage="/hero/bg-recommend.svg"
-        containerClassName="relative site-container py-0 lg:py-0"
+        containerClassName="relative site-container py-6 lg:py-0"
       />
 
       <SportsSectionNav />

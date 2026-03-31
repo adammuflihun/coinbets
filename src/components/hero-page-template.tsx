@@ -26,7 +26,7 @@ export function HeroPageTemplate({
   heroImage = "/hero/user-review-header.png",
   contentMaxWidth = "max-w-[52ch]",
   backgroundImage,
-  heroHeight = "h-[400px]",
+  heroHeight = "h-[200px] sm:h-[280px] lg:h-[400px]",
   heroObjectFit = "object-contain",
   heroImageClassName = "absolute inset-0 size-full",
   containerClassName = "relative site-container py-5 lg:py-5",

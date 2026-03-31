@@ -21,7 +21,7 @@ export default function SportsBettingPage() {
         buttonHref="#write-review"
         heroImage="/hero/sports-betting.webp"
         contentMaxWidth="max-w-[75ch]"
-        heroHeight="h-[400px]"
+        heroHeight="h-[200px] sm:h-[280px] lg:h-[400px]"
         heroObjectFit="object-cover"
       />
 
