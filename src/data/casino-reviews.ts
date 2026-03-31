@@ -27,6 +27,7 @@ export interface CasinoReview {
   gameProviders: { name: string; image: string }[];
   contactEmail: string;
   lastUpdated: string;
+  brandColor?: string;
 }
 
 export const casinoReviews: CasinoReview[] = [
@@ -107,6 +108,7 @@ export const casinoReviews: CasinoReview[] = [
     ],
     contactEmail: "support [at] stake [dot] com",
     lastUpdated: "17 Mar 2026",
+    brandColor: "#1475E1",
   },
   {
     slug: "menace",
@@ -179,6 +181,7 @@ export const casinoReviews: CasinoReview[] = [
     ],
     contactEmail: "support [at] menace [dot] com",
     lastUpdated: "10 Mar 2026",
+    brandColor: "#E53E3E",
   },
   {
     slug: "shuffle",
@@ -254,6 +257,7 @@ export const casinoReviews: CasinoReview[] = [
     ],
     contactEmail: "support [at] shuffle [dot] com",
     lastUpdated: "12 Mar 2026",
+    brandColor: "#886CFF",
   },
   {
     slug: "bitsler",
@@ -328,6 +332,7 @@ export const casinoReviews: CasinoReview[] = [
     ],
     contactEmail: "support [at] bitsler [dot] com",
     lastUpdated: "5 Mar 2026",
+    brandColor: "#FF9500",
   },
   {
     slug: "thrill",
@@ -401,6 +406,7 @@ export const casinoReviews: CasinoReview[] = [
     ],
     contactEmail: "support [at] thrill [dot] com",
     lastUpdated: "8 Mar 2026",
+    brandColor: "#3B82F6",
   },
   {
     slug: "roobet",
@@ -477,6 +483,7 @@ export const casinoReviews: CasinoReview[] = [
     ],
     contactEmail: "support [at] roobet [dot] com",
     lastUpdated: "14 Mar 2026",
+    brandColor: "#EEAF0E",
   },
   {
     slug: "gamdom",
@@ -553,5 +560,85 @@ export const casinoReviews: CasinoReview[] = [
     ],
     contactEmail: "support [at] gamdom [dot] com",
     lastUpdated: "15 Mar 2026",
+    brandColor: "#00C853",
+  },
+  {
+    slug: "bc-game",
+    name: "BC.Game",
+    logo: "/casino-index/logo-bcgame.png",
+    playerRating: 4.1,
+    playerReviews: 892,
+    expertScore: 3.8,
+    views: "35K+",
+    safetyIndex: "High",
+    safetyScore: 8.2,
+    safetyFactors: [
+      "Licensed in Anjouan (AOFA) with growing regulatory compliance",
+      "Supports 150+ cryptocurrencies — largest selection in the industry",
+      "Provably fair in-house games with transparent algorithms",
+      "Active community with strong social media presence",
+    ],
+    reviewTitle: "BC.Game Review",
+    reviewText:
+      "BC.Game has rapidly grown since its 2017 launch into one of the most popular crypto casinos worldwide. Known for its massive cryptocurrency support (150+ coins), provably fair original games, and generous community rewards, BC.Game offers a unique blend of casino gaming and crypto culture. The platform features thousands of slots from 80+ providers alongside its acclaimed in-house originals like Crash, Plinko, and Mines. With a rewarding VIP program, daily lucky spins, and task-based bonuses, there's always something to chase. However, geo-restrictions and occasional withdrawal delays have been noted by some players.",
+    whatWeLiked: [
+      "150+ cryptocurrencies supported — industry-leading selection",
+      "Excellent provably fair original games (Crash, Plinko, Mines)",
+      "Massive game library from 80+ providers including Pragmatic Play, Evolution, Hacksaw",
+    ],
+    redFlags: [
+      "Withdrawal processing can be slow during peak times",
+      "Customer support response times vary",
+      "Some geo-restrictions apply without clear communication",
+    ],
+    cryptoAccepted: [
+      { icon: "/crypto-payments/Bitcoin.webp", name: "Bitcoin (BTC)" },
+      { icon: "/crypto-payments/Ethereum.webp", name: "Ethereum (ETH)" },
+      { icon: "/crypto-payments/USDT.webp", name: "USDT Tether (USDT)" },
+      { icon: "/crypto-payments/USDC.webp", name: "USDC (USDC)" },
+      { icon: "/crypto-payments/Solana.webp", name: "Solana (SOL)" },
+      { icon: "/crypto-payments/XRP.webp", name: "XRP (Ripple)" },
+      { icon: "/crypto-payments/Bitcoin.webp", name: "Litecoin (LTC)" },
+      { icon: "/crypto-payments/Ethereum.webp", name: "Binance Coin (BNB)" },
+      { icon: "/crypto-payments/Solana.webp", name: "Avalanche (AVAX)" },
+      { icon: "/crypto-payments/ADA.webp", name: "Polkadot (DOT)" },
+    ],
+    bonus: "300% up to $20,000",
+    screenshots: [
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Slots.jpg",
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-3-Hot-Chillies.jpg",
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-3-Hot-Chillies-Win.jpg",
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-The-Biggest-Win-X50.jpg",
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Big-Bass-Halloween.jpg",
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Road-2-Riches.jpg",
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Sweet-Success-Megaways-Mystery-Symbols.jpg",
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Sweet-Success-Megaways-Win.jpg",
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Mega-Greatest-Catch-Bonus-Buy-Win.jpg",
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Provably-Fair-Turbo-Games.jpg",
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Virtual-Sports.jpg",
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Shop.jpg",
+      "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-X.jpg",
+    ],
+    websiteLanguages: ["English", "Spanish", "Portuguese", "German", "French", "Japanese", "Korean", "Chinese", "Russian", "Turkish", "Arabic", "Hindi", "Indonesian", "Vietnamese", "Thai", "Polish", "Italian", "Finnish", "Norwegian", "Czech", "Greek"],
+    supportLanguages: ["English", "Spanish", "Portuguese", "Chinese", "Japanese", "Korean", "Russian", "Turkish"],
+    games: ["Provably Fair", "Roulette", "Scratch Cards", "Poker", "Sports betting", "Blackjack", "Towers", "Slots", "Dice & Craps", "Bingo", "Jackpot Slots", "Baccarat", "Live Games", "Crash Games", "eSports Betting", "Keno", "Lottery", "Mines", "Originals", "Plinko"],
+    videoUrl: "https://www.youtube.com/embed/tjxDVcHv1Fw",
+    owner: "BlockDance B.V.",
+    established: 2017,
+    estimatedRevenue: ">$200M",
+    licensingAuthorities: [{ flag: "km", name: "Anjouan (AOFA)" }],
+    gameProviders: [
+      { name: "Pragmatic Play", image: "https://coinbets.com/wp-content/uploads/2025/12/Endorphina.avif" },
+      { name: "Evolution", image: "https://coinbets.com/wp-content/uploads/2025/12/Spinomenal.avif" },
+      { name: "Hacksaw Gaming", image: "https://coinbets.com/wp-content/uploads/2025/12/Clawbuster.avif" },
+      { name: "NetEnt", image: "https://coinbets.com/wp-content/uploads/2025/12/NetEnt.avif" },
+      { name: "Nolimit City", image: "https://coinbets.com/wp-content/uploads/2025/12/Buck-Stakes-Entertainment.avif" },
+      { name: "Push Gaming", image: "https://coinbets.com/wp-content/uploads/2025/12/AvatarUX.avif" },
+      { name: "Bgaming", image: "https://coinbets.com/wp-content/uploads/2025/12/ELK-Studios.avif" },
+      { name: "Spribe", image: "https://coinbets.com/wp-content/uploads/2025/12/Four-Leaf-Gaming.avif" },
+    ],
+    contactEmail: "support [at] bc [dot] game",
+    lastUpdated: "25 Mar 2026",
+    brandColor: "#27C100",
   },
 ];

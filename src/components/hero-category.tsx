@@ -17,14 +17,14 @@ const categories = [
     title: "Crypto Casinos",
     badge: 27,
     description: "Top-Rated Crypto Casinos Reviewed",
-    href: "#",
+    href: "/all-casino",
   },
   {
     icon: "/categories/icon-sports-betting-orig.svg",
     title: "Sports Betting",
     badge: 78,
     description: "Best Crypto Sportsbooks Ranked",
-    href: "#",
+    href: "/sports-betting",
   },
   {
     icon: "/categories/icon-crypto-esport-orig.svg",
@@ -38,7 +38,7 @@ const categories = [
     title: "User Reviews",
     badge: 78,
     description: "Reviews You Can Trust",
-    href: "#",
+    href: "/users-review",
   },
   {
     icon: "/categories/icon-expert-reviews-orig.svg",

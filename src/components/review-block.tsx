@@ -384,11 +384,47 @@ export function ReviewBlock({ slug }: { slug: string }) {
       {/* ---- Breadcrumb (dark strip) ---- */}
       <div
         data-name="dark-header"
-        className="bg-[#060D17] bg-[url('/hero/background-expert-review.svg')] bg-cover bg-center pb-28 flex items-center"
+        className="relative bg-[#060D17] pb-28 flex items-center overflow-hidden"
       >
+        {/* Dynamic SVG background — fill color matches casino brand */}
+        <svg
+          data-name="dark-header-bg"
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 1600 252"
+          fill="none"
+          preserveAspectRatio="xMidYMid slice"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect width="1600" height="252" fill="#020202" />
+          <g opacity="0.6" filter="url(#headerBlur1)">
+            <path
+              d="M215.048 25.0938L8.41406 -65.9299V-158H1758.79L1732.63 3.64571L1611.79 11.4926L1515.54 74.2676L1373.77 -15.7099L1200.09 53.8657L1075.07 -15.7099L846.983 74.2676L565.542 -82.1468L215.048 25.0938Z"
+              fill={casino.brandColor ?? "#003EB6"}
+            />
+          </g>
+          <g filter="url(#headerBlur2)">
+            <path
+              d="M1384.74 78.0938L1591.37 -12.9299V-105H-159.003L-132.847 56.6457L-12.005 64.4926L84.25 127.268L226.017 37.2901L399.694 106.866L524.721 37.2901L752.804 127.268L1034.24 -29.1468L1384.74 78.0938Z"
+              fill={casino.brandColor ?? "#003EB6"}
+            />
+          </g>
+          <defs>
+            <filter id="headerBlur1" x="-155.586" y="-322" width="2078.38" height="560.268" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+              <feGaussianBlur stdDeviation="82" result="effect1_foregroundBlur" />
+            </filter>
+            <filter id="headerBlur2" x="-323.004" y="-269" width="2078.38" height="560.268" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+              <feGaussianBlur stdDeviation="82" result="effect1_foregroundBlur" />
+            </filter>
+          </defs>
+        </svg>
+
         <nav
           data-name="breadcrumb"
-          className="mx-auto max-w-[1280px] pt-10 w-full px-5 sm:px-10 flex items-center gap-2 text-sm text-white/60"
+          className="relative z-10 mx-auto max-w-[1280px] pt-10 w-full px-5 sm:px-10 flex items-center gap-2 text-sm text-white/60"
         >
           <Link href="/" className="hover:text-white transition-colors">
             Home
@@ -407,7 +443,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
 
       <div
         data-name="content-container"
-        className="mx-auto max-w-[1280px] px-5 sm:px-10 -mt-24 py-8"
+        className="relative z-10 mx-auto max-w-[1280px] px-5 sm:px-10 -mt-24 py-8"
       >
         {/* ---- Two-Column Content ---- */}
         <div
