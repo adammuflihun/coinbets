@@ -490,22 +490,22 @@ export default function AboutPage() {
           >
             {[
               {
-                icon: "/about/about-icon-plan-01.png",
+                icon: "/hero/icon-plan-01.png",
                 title: "Pro Comparisons",
                 text: "Powerful premium casino comparison tools with advanced filters",
               },
               {
-                icon: "/about/about-icon-plan-02.png",
+                icon: "/hero/icon-plan-02.png",
                 title: "Deep Insights",
                 text: "Exclusive reports, deep-dive insights, and real payout data for b2b",
               },
               {
-                icon: "/about/about-icon-plan-03.png",
+                icon: "/hero/icon-plan-03.png",
                 title: "Scam Alerts",
                 text: "Advanced alerts when casinos are flagged for scams, frozen funds, or delayed withdrawals",
               },
               {
-                icon: "/about/about-icon-plan-04.png",
+                icon: "/hero/icon-plan-04.png",
                 title: "Dispute Support",
                 text: "Elite investigative support for high-stakes casino disputes",
               },
@@ -557,17 +557,17 @@ export default function AboutPage() {
           >
             {[
               {
-                icon: "/about/about-icon-plan-05.png",
+                icon: "/hero/icon-plan-05.png",
                 title: "Crypto Partners",
                 text: "Crypto wallets, VPN providers, and crypto projects unrelated to gambling",
               },
               {
-                icon: "/about/about-icon-plan-06.png",
+                icon: "/hero/icon-plan-06.png",
                 title: "Privacy Tools",
                 text: "Tax reporting tools, password managers, and privacy-focused browser extensions",
               },
               {
-                icon: "/about/about-icon-plan-07.png",
+                icon: "/hero/icon-plan-07.png",
                 title: "Security Hardware",
                 text: "Hardware wallet companies and DeFi security projects that align with user-first values",
               },
