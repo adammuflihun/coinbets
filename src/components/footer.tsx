@@ -7,24 +7,24 @@ import { useEffect, useState } from "react";
 
 const helpfulGuides = [
   {
-    label: "Introduction to Crypto Gambling",
-    href: "/guides/intro-crypto-gambling",
+    label: "Crypto vs Traditional Gambling",
+    href: "/guides/crypto-vs-traditional-gambling",
   },
   {
-    label: "The Best Crypto Casinos of 2024",
-    href: "/guides/best-crypto-casinos",
+    label: "Understanding RTP & House Edge",
+    href: "/guides/understanding-rtp-house-edge",
   },
   {
-    label: "How to Choose a Safe and Reliable Crypto Casino",
-    href: "/guides/safe-crypto-casino",
+    label: "Stay Safe at Crypto Casinos",
+    href: "/guides/stay-safe-crypto-casinos",
   },
   {
-    label: "Understanding Blockchain Technology in Online Gambling",
-    href: "/guides/blockchain-gambling",
+    label: "Bitcoin vs Ethereum for Gambling",
+    href: "/guides/bitcoin-vs-ethereum-gambling",
   },
   {
-    label: "Top Cryptocurrencies for Gambling: Beyond Bitcoin",
-    href: "/guides/top-crypto-gambling",
+    label: "Beginner's Guide to Crypto Sports Betting",
+    href: "/guides/beginners-guide-crypto-sports-betting",
   },
 ];
 
@@ -38,7 +38,7 @@ const companyLinks = [
 const coinbetsLinks = [
   {
     label: "Crypto Casinos",
-    href: "/crypto-casinos",
+    href: "/all-casino",
     icon: "/categories/icon-crypto-casinos.svg",
   },
   {
@@ -59,7 +59,7 @@ const coinbetsLinks = [
   },
   {
     label: "User Reviews",
-    href: "/user-reviews",
+    href: "/users-review",
     icon: "/categories/icon-user-reviews.svg",
   },
   { label: "All Guides", href: "/guides", icon: null },

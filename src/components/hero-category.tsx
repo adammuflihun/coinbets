@@ -31,7 +31,7 @@ const categories = [
     title: "Crypto Esport",
     badge: 78,
     description: "Leading Crypto Esports Platforms",
-    href: "#",
+    href: "/esports",
   },
   {
     icon: "/categories/icon-user-reviews-orig.svg",
