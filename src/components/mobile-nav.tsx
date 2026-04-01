@@ -11,7 +11,6 @@ import {
   Sparkles,
   Crown,
   LayoutGrid,
-  Coins,
   ShieldCheck,
   EyeOff,
   Smartphone,
@@ -41,11 +40,10 @@ const cryptoMobileItems = [
     { label: "All Casinos", href: "/all-casino", icon: LayoutGrid },
   ]},
   { title: "Popular Categories", items: [
-    { label: "Crypto Casinos", href: "/", icon: Coins },
     { label: "Provably Fair Originals", href: "/casino-originals", icon: ShieldCheck },
-    { label: "No KYC Casinos", href: "/", icon: EyeOff },
-    { label: "Mobile-Friendly Casinos", href: "/", icon: Smartphone },
-    { label: "Live Dealer Casinos", href: "/", icon: MonitorPlay },
+    { label: "No KYC Casinos", href: "/no-kyc-casinos", icon: EyeOff },
+    { label: "Mobile-Friendly Casinos", href: "/mobile-friendly-casinos", icon: Smartphone },
+    { label: "Live Dealer Casinos", href: "/live-dealer-casinos", icon: MonitorPlay },
   ]},
 ];
 
