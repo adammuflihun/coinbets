@@ -33,6 +33,7 @@ const companyLinks = [
   { label: "Contact us", href: "/contact" },
   { label: "Transparency Report", href: "/transparency" },
   { label: "Terms of Use", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
 ];
 
 const coinbetsLinks = [
