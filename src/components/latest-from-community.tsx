@@ -134,7 +134,7 @@ function CommunityReviewCard({
             fill="#060D17"
           />
         </svg>
-        <p className="tracking-[.5px] font-regular  text-[18px] leading-[1.5] text-[#060D17]">
+        <p className="tracking-[.5px] font-regular  text-[14px] leading-[1.5] text-[#060D17]">
           {review}
         </p>
       </div>

@@ -1,62 +1,89 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import type Flickity from "flickity";
 import { BlogCard } from "@/components/blog-card";
 import { blogPosts } from "@/data/blog-posts";
 
-const features = [
-  {
-    title: "Guides That Actually Help",
-    description: "Clear, no-fluff advice for crypto gamblers at every level.",
-  },
-  {
-    title: "Expert Reviews That Go Deep",
-    description: "Written by real players and pros who know the game.",
-  },
-  {
-    title: "Articles That Unpack the Industry",
-    description: "We go deeper. Casinos wish we wouldn't.",
-  },
-];
+function BlogSlider() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const speedRef = useRef(0);
 
-function MobileCarousel() {
-  const flickityRef = useRef<HTMLDivElement>(null);
-  const flktyInstance = useRef<Flickity | null>(null);
+  const posts = blogPosts.slice(0, 4);
+  const loopedPosts = [...posts, ...posts, ...posts];
 
   useEffect(() => {
-    if (!flickityRef.current) return;
+    const el = scrollRef.current;
+    if (!el) return;
 
-    let destroyed = false;
+    const oneSetWidth = el.scrollWidth / 3;
+    el.scrollLeft = oneSetWidth;
 
-    import("flickity").then((mod) => {
-      if (destroyed || !flickityRef.current) return;
-      const Flkty = mod.default;
-      flktyInstance.current = new Flkty(flickityRef.current, {
-        cellAlign: "center",
-        contain: false,
-        prevNextButtons: false,
-        pageDots: false,
-        freeScroll: true,
-        wrapAround: true,
-      });
-    });
+    const tick = () => {
+      if (speedRef.current !== 0 && el) {
+        el.scrollLeft += speedRef.current;
+
+        const oneSet = el.scrollWidth / 3;
+        if (el.scrollLeft >= oneSet * 2) {
+          el.scrollLeft -= oneSet;
+        } else if (el.scrollLeft <= 0) {
+          el.scrollLeft += oneSet;
+        }
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const ratio = x / rect.width;
+
+      if (ratio < 0.15) {
+        speedRef.current = -(0.15 - ratio) * 50;
+      } else if (ratio > 0.85) {
+        speedRef.current = (ratio - 0.85) * 50;
+      } else {
+        speedRef.current = 0;
+      }
+    };
+
+    const onMouseEnter = () => {
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    const onMouseLeave = () => {
+      speedRef.current = 0;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    };
+
+    el.addEventListener("mousemove", onMouseMove);
+    el.addEventListener("mouseenter", onMouseEnter);
+    el.addEventListener("mouseleave", onMouseLeave);
 
     return () => {
-      destroyed = true;
-      if (flktyInstance.current) {
-        flktyInstance.current.destroy();
-        flktyInstance.current = null;
-      }
+      el.removeEventListener("mousemove", onMouseMove);
+      el.removeEventListener("mouseenter", onMouseEnter);
+      el.removeEventListener("mouseleave", onMouseLeave);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
   return (
-    <div ref={flickityRef} data-name="blog-carousel">
-      {blogPosts.slice(0, 4).map((post, i) => (
-        <div key={i} data-name="carousel-cell" className="w-[calc(100vw-2.5rem)] mr-3">
+    <div
+      ref={scrollRef}
+      data-name="blog-slider"
+      className="flex gap-4 overflow-x-auto items-stretch"
+      style={{ scrollbarWidth: "none" }}
+    >
+      {loopedPosts.map((post, i) => (
+        <div
+          key={i}
+          data-name="slider-cell"
+          className="w-[75vw] sm:w-[280px] lg:w-[300px] shrink-0"
+        >
           <BlogCard {...post} />
         </div>
       ))}
@@ -65,99 +92,39 @@ function MobileCarousel() {
 }
 
 export function LatestBlog() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 640);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
   return (
-    <section data-section="latest-blog" className="site-container py-8">
-      {/* Dark banner */}
+    <section data-section="latest-blog" className="py-8 overflow-hidden">
       <div
-        className="flex flex-col lg:flex-row rounded-lg border border-neutral-200 bg-[#020202] p-5 sm:p-8 lg:p-12 pb-40 sm:pb-44 lg:pb-52 shadow-sm"
+        className="flex flex-col lg:flex-row items-start gap-8 lg:gap-0"
         data-name="blog-banner"
       >
-        {/* Left content */}
+        {/* Left content — aligned to site-container */}
         <div
-          className="flex flex-col gap-4 sm:gap-6 flex-1"
+          className="min-w-[56ch] flex flex-col gap-4 sm:gap-6 shrink-0 lg:max-w-[380px] pl-5 sm:pl-10 lg:pl-[max(1.5rem,calc((100vw-1600px)/2+6.5rem))] pr-5 sm:pr-10 lg:pr-0"
           data-name="blog-banner-text"
         >
-          <p className="text-base font-bold text-[#f8f8f8]">
+          <p className="text-base font-bold text-[#060D17]">
             Top Expert and User Rated
           </p>
-          <h2 className="text-2xl sm:text-[30px] lg:text-[35px] font-black leading-[1.2] tracking-tight text-white">
-            Expert Reviews &<br className="hidden sm:block" />
-            {" "}Comprehensive Guides
+          <h2 className="text-2xl sm:text-[30px] lg:text-[35px] font-black leading-[1.2] tracking-tight text-[#060D17]">
+            Expert Reviews &<br className="hidden sm:block" /> Comprehensive
+            Guides
           </h2>
           <Link
             href="/blog"
-            className="group flex w-full sm:w-fit items-center justify-center sm:justify-start gap-1.5 rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-[#020202] hover:bg-neutral-100 transition-colors"
+            className="group flex w-full sm:w-fit items-center justify-center sm:justify-start gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors"
           >
             Read all articles
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
 
-        {/* Divider */}
-        <div data-name="blog-divider" className="hidden lg:block mx-15 w-px self-stretch bg-white/20" />
-
-        {/* Right features */}
-        <div
-          className="hidden lg:flex flex-col gap-6 flex-1 max-w-[364px]"
-          data-name="blog-features"
-        >
-          {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="flex gap-2.5 items-start"
-              data-name="feature-item"
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                className="size-6 shrink-0 mt-0.5"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM17.2071 9.70711C17.5976 9.31658 17.5976 8.68342 17.2071 8.29289C16.8166 7.90237 16.1834 7.90237 15.7929 8.29289L10.5 13.5858L8.20711 11.2929C7.81658 10.9024 7.18342 10.9024 6.79289 11.2929C6.40237 11.6834 6.40237 12.3166 6.79289 12.7071L9.79289 15.7071C10.1834 16.0976 10.8166 16.0976 11.2071 15.7071L17.2071 9.70711Z"
-                  fill="white"
-                />
-              </svg>
-              <div className="flex flex-col gap-3.5" data-name="feature-text">
-                <p className="text-base font-bold leading-snug text-[#f8f8f8]">
-                  {feature.title}
-                </p>
-                <p className="text-base leading-normal text-[#f8f8f8]">
-                  {feature.description}
-                </p>
-              </div>
-            </div>
-          ))}
+        {/* Right: blog slider — bleeds to right viewport edge */}
+        <div className="relative w-full lg:flex-1 min-w-0" data-name="blog-grid">
+          <div data-name="blog-grid-overlay" className="pointer-events-none absolute left-0 top-0 z-10 h-full w-[20%] hidden lg:block bg-linear-to-r from-[#f5f5f5] to-transparent" />
+          <BlogSlider />
         </div>
       </div>
-
-      {/* Blog cards */}
-      {isMobile ? (
-        <div data-name="blog-mobile-wrapper" className="-mt-20 -mx-5 relative z-10">
-          <MobileCarousel />
-        </div>
-      ) : (
-        <div
-          className="-mt-24 relative z-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 px-0 sm:px-4 lg:px-8"
-          data-name="blog-grid"
-        >
-          {blogPosts.slice(0, 4).map((post, i) => (
-            <BlogCard key={i} {...post} />
-          ))}
-        </div>
-      )}
     </section>
   );
 }

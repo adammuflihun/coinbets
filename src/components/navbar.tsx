@@ -268,31 +268,20 @@ export function Navbar() {
             );
           })}
 
-          {/* Casino Index Dropdown */}
-          <NavDropdown
-            trigger={
-              <button className={`flex items-center gap-1.5 text-sm font-medium transition-colors rounded-lg px-3 py-1.5 outline-none cursor-pointer ${
-                pathname === "/coinbet-index" || pathname === "/casino-originals"
-                  ? "bg-yellow-400 text-black"
-                  : isDark
-                    ? "text-white hover:bg-white/10"
-                    : "text-neutral-900 hover:bg-neutral-100"
-              }`}>
-                <CasinoIndexIcon className="shrink-0" inverted={isDark} />
-                <span>Casino Index</span>
-                <ChevronDown className={`size-4 ${isDark ? "text-white/50" : "text-neutral-500"}`} />
-              </button>
-            }
+          {/* Casino Index Link */}
+          <Link
+            href="/coinbet-index"
+            className={`flex items-center gap-1.5 text-sm font-medium transition-colors rounded-lg px-3 py-1.5 ${
+              pathname === "/coinbet-index"
+                ? "bg-yellow-400 text-black"
+                : isDark
+                  ? "text-white hover:bg-white/10"
+                  : "text-neutral-900 hover:bg-neutral-100"
+            }`}
           >
-            <div data-name="casino-index-dropdown" className="min-w-[200px] rounded-xl bg-[#020202] p-2 shadow-2xl">
-              <Link href="/coinbet-index" className="flex w-full items-center rounded-lg px-3 py-2.5 text-white hover:bg-yellow-400 hover:text-black transition-colors">
-                52 Index
-              </Link>
-              <Link href="/casino-originals" className="flex w-full items-center rounded-lg px-3 py-2.5 text-white hover:bg-yellow-400 hover:text-black transition-colors">
-                Casino Original
-              </Link>
-            </div>
-          </NavDropdown>
+            <CasinoIndexIcon className="shrink-0" inverted={isDark} />
+            <span>Casino Index</span>
+          </Link>
         </div>
 
         {/* Center: Logo */}

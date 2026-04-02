@@ -133,7 +133,7 @@ function ReviewCard({
             fill="#343434"
           />
         </svg>
-        <div data-name="review-paragraphs" className="py-4 tracking-[.5px] font-regular text-[18px] leading-[1.3] bg-linear-to-b from-[#343434] to-[#202020] bg-clip-text text-transparent">
+        <div data-name="review-paragraphs" className="py-4 tracking-[.5px] font-regular text-[14px] leading-[1.3] bg-linear-to-b from-[#343434] to-[#202020] bg-clip-text text-transparent">
           {review.split("\n\n").map((paragraph, i) => (
             <p key={i} className={i > 0 ? "mt-3.5" : ""}>
               {paragraph}

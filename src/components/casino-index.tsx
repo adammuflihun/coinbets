@@ -388,20 +388,13 @@ export function CasinoIndex() {
       >
         <div
           data-name="index-cta-buttons"
-          className="flex flex-col sm:flex-row gap-5 px-5 pointer-events-auto pb-25"
+          className="px-5 pointer-events-auto pb-25"
         >
           <Link
             href="/coinbet-index"
             className="group flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-3 text-sm font-bold text-[#171717] hover:bg-white transition-colors"
           >
             View Casino Index
-            <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-          </Link>
-          <Link
-            href="/casino-originals"
-            className="group flex items-center gap-2 rounded-lg bg-[#f5f5f5] px-6 py-3 text-sm font-bold text-[#171717] hover:bg-white transition-colors"
-          >
-            View Casino Originals
             <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
