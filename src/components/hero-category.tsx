@@ -97,7 +97,6 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 function ReviewSlideCard({
-  slug,
   logo,
   name,
   review,
@@ -107,9 +106,10 @@ function ReviewSlideCard({
   safetyIndex,
 }: (typeof reviews)[number]) {
   return (
-    <div
+    <Link
+      href="/users-review"
       data-name="review-card"
-      className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full"
+      className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full hover:shadow-md transition-shadow"
     >
       <div
         data-name="review-top-row"
@@ -151,10 +151,9 @@ function ReviewSlideCard({
         />
       </div>
 
-      <Link
-        href={`/casino/review/${slug}`}
+      <div
         data-name="review-product"
-        className="flex items-start gap-3.5 hover:opacity-80 transition-opacity"
+        className="flex items-start gap-3.5"
       >
         <div
           data-name="review-product-logo"
@@ -187,8 +186,8 @@ function ReviewSlideCard({
             </span>
           </div>
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }
 
