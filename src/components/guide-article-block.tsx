@@ -178,7 +178,7 @@ function GuideContent({ guide }: { guide: Guide }) {
       {/* Article Title */}
       <h2
         data-name="guide-article-title"
-        className="text-[27px] font-semibold leading-[1.4] text-[#060d17]"
+        className="text-xl font-semibold leading-[1.4] text-[#060d17]"
       >
         {guide.title}
       </h2>
@@ -199,18 +199,18 @@ function GuideContent({ guide }: { guide: Guide }) {
       {/* Intro */}
       <div
         data-name="guide-intro"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p>{guide.description}</p>
       </div>
 
       {/* Benefits of Crypto Gambling */}
-      <h3 className="text-[25px] font-semibold leading-[1.3] text-[#060d17]">
+      <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
         Benefits of Crypto Gambling
       </h3>
       <div
         data-name="section-benefits"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p className="mb-4">
           Needless to say, crypto casinos can offer features and products that
@@ -226,12 +226,12 @@ function GuideContent({ guide }: { guide: Guide }) {
       </div>
 
       {/* Enhanced Privacy and Security */}
-      <h2 className="text-[20px] font-semibold leading-[1.3] text-[#060d17]">
+      <h2 className="text-base font-semibold leading-[1.3] text-[#060d17]">
         Enhanced Privacy and Security
       </h2>
       <div
         data-name="section-privacy"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p className="mb-4">
           One of the most appealing benefits of crypto gambling is{" "}
@@ -256,7 +256,7 @@ function GuideContent({ guide }: { guide: Guide }) {
         data-name="guide-blockquote"
         className="flex gap-4 items-start bg-[#f8f8f8] border-l-4 border-[#003EB6] px-[15px] py-[18px]"
       >
-        <p className="text-[17px] leading-[1.7] text-[#0d0f12]">
+        <p className="text-[15px] leading-[1.6] text-[#0d0f12]">
           But on the whole, crypto transactions don&apos;t require the same
           level of personal information as traditional payment methods. This
           means you&apos;re{" "}
@@ -265,12 +265,12 @@ function GuideContent({ guide }: { guide: Guide }) {
       </div>
 
       {/* Faster, Cheaper Transactions */}
-      <h2 className="text-[20px] font-semibold leading-[1.3] text-[#060d17]">
+      <h2 className="text-base font-semibold leading-[1.3] text-[#060d17]">
         Faster, Cheaper Transactions
       </h2>
       <div
         data-name="section-transactions"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p className="mb-4">
           Cryptocurrency transactions can also be{" "}
@@ -297,12 +297,12 @@ function GuideContent({ guide }: { guide: Guide }) {
       </div>
 
       {/* Improved Accessibility */}
-      <h2 className="text-[20px] font-semibold leading-[1.3] text-[#060d17]">
+      <h2 className="text-base font-semibold leading-[1.3] text-[#060d17]">
         Improved Accessibility and Censorship Resistance
       </h2>
       <div
         data-name="section-accessibility"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p className="mb-4">
           A further advantage of crypto gambling is its sheer{" "}
@@ -323,7 +323,7 @@ function GuideContent({ guide }: { guide: Guide }) {
         data-name="guide-blockquote"
         className="flex gap-4 items-start bg-[#f8f8f8] border-l-4 border-[#003EB6] px-[15px] py-[18px]"
       >
-        <p className="text-[17px] leading-[1.7] text-[#0d0f12]">
+        <p className="text-[15px] leading-[1.6] text-[#0d0f12]">
           Theoretically, at least, cryptocurrencies allow casino operators to
           do business with players <strong>anywhere in the world</strong>.
         </p>
@@ -336,22 +336,22 @@ function GuideContent({ guide }: { guide: Guide }) {
       />
 
       {/* Drawbacks of Crypto Gambling */}
-      <h3 className="text-[25px] font-semibold leading-[1.3] text-[#060d17]">
+      <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
         Drawbacks of Crypto Gambling
       </h3>
-      <p className="text-[17px] leading-[28.8px] text-black">
+      <p className="text-[15px] leading-[1.6] text-black">
         But (there&apos;s always a &quot;but&quot;), the very fact that crypto
         gambling sites can operate outside of the reach of regulators can be a{" "}
         <strong>double-edged sword</strong>.
       </p>
 
       {/* Weak Player Protection */}
-      <h2 className="text-[20px] font-semibold leading-[1.3] text-[#060d17]">
+      <h2 className="text-base font-semibold leading-[1.3] text-[#060d17]">
         Weak Player Protection
       </h2>
       <div
         data-name="section-weak-protection"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p className="mb-4">
           Because crypto casinos often operate from obscure, &quot;light
@@ -375,12 +375,12 @@ function GuideContent({ guide }: { guide: Guide }) {
       </div>
 
       {/* Crypto Price Volatility */}
-      <h2 className="text-[20px] font-semibold leading-[1.3] text-[#060d17]">
+      <h2 className="text-base font-semibold leading-[1.3] text-[#060d17]">
         Crypto Price Volatility
       </h2>
       <div
         data-name="section-volatility"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p className="mb-4">
           The <strong>price volatility</strong> of cryptocurrencies is also an
@@ -396,10 +396,10 @@ function GuideContent({ guide }: { guide: Guide }) {
       </div>
 
       {/* Dodgy Operators */}
-      <h2 className="text-[20px] font-semibold leading-[1.3] text-[#060d17]">
+      <h2 className="text-base font-semibold leading-[1.3] text-[#060d17]">
         Dodgy Operators
       </h2>
-      <p className="text-[17px] leading-[28.8px] text-black">
+      <p className="text-[15px] leading-[1.6] text-black">
         Finally, because of its ability to offer pseudo-anonymous transactions,
         the crypto space still attracts some <strong>scammers</strong>. And,
         there&apos;s no getting around it, the gambling industry has seen its
@@ -510,12 +510,12 @@ function GuideContent({ guide }: { guide: Guide }) {
       />
 
       {/* How to Choose */}
-      <h2 className="text-[33px] font-semibold leading-[1.3] text-[#060d17]">
+      <h2 className="text-xl font-semibold leading-[1.3] text-[#060d17]">
         How to Choose Between Traditional and Crypto Gambling
       </h2>
       <div
         data-name="section-how-to-choose"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p className="mb-4">
           Here at CoinBets, we <em>love</em> <strong>crypto casinos</strong>{" "}
@@ -550,14 +550,14 @@ function GuideContent({ guide }: { guide: Guide }) {
         data-name="guide-blockquote"
         className="flex gap-4 items-start bg-[#f8f8f8] border-l-4 border-[#003EB6] px-[15px] py-[18px]"
       >
-        <p className="text-[17px] leading-[1.7] text-[#0d0f12]">
+        <p className="text-[15px] leading-[1.6] text-[#0d0f12]">
           On the other hand, a good crypto casino or sportsbook site will suit
           those who prioritize <strong>privacy</strong>, <strong>speed</strong>,
           and exciting <strong>new games and features</strong>.
         </p>
       </div>
 
-      <p className="text-[17px] leading-[28.8px] text-black">
+      <p className="text-[15px] leading-[1.6] text-black">
         And, let&apos;s not forget, if you&apos;re living in a country with
         repressive gambling regulations, a crypto platform may be the{" "}
         <strong>only safe way</strong> to access online casino gaming and
@@ -583,7 +583,7 @@ function GuideContent({ guide }: { guide: Guide }) {
             <p className="text-[#e6b830] text-sm font-semibold uppercase tracking-wider mb-1">
               Traditional vs. Crypto Gambling
             </p>
-            <h3 className="text-xl sm:text-[26px] font-bold text-white">
+            <h3 className="text-lg sm:text-xl font-bold text-white">
               A Side-by-Side Showdown
             </h3>
           </div>
@@ -732,10 +732,10 @@ function GuideContent({ guide }: { guide: Guide }) {
       />
 
       {/* Future Online Gambling Trends */}
-      <h2 className="text-[33px] font-semibold leading-[1.3] text-[#060d17]">
+      <h2 className="text-xl font-semibold leading-[1.3] text-[#060d17]">
         Future Online Gambling Trends
       </h2>
-      <p className="text-[17px] leading-[28.8px] text-black">
+      <p className="text-[15px] leading-[1.6] text-black">
         So, we&apos;ve looked at the history of online gambling and how
         cryptocurrencies and decentralized technologies are revolutionizing the
         industry right now. But what does the <strong>future</strong> hold?
@@ -750,12 +750,12 @@ function GuideContent({ guide }: { guide: Guide }) {
       />
 
       {/* Tier 1 Regulators */}
-      <h3 className="text-[25px] font-semibold leading-[1.3] text-[#060d17]">
+      <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
         Tier 1 Regulators Enable Crypto Support
       </h3>
       <div
         data-name="section-regulators"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p className="mb-4">
           As already mentioned, most of today&apos;s &quot;crypto casinos&quot;
@@ -786,12 +786,12 @@ function GuideContent({ guide }: { guide: Guide }) {
       />
 
       {/* Provably Fair Games */}
-      <h3 className="text-[25px] font-semibold leading-[1.3] text-[#060d17]">
+      <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
         Provably Fair Games Become the New Standard
       </h3>
       <div
         data-name="section-provably-fair"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p className="mb-4">
           <strong>Provably fair games</strong>, on the other hand, will
@@ -821,7 +821,7 @@ function GuideContent({ guide }: { guide: Guide }) {
         data-name="guide-blockquote"
         className="flex gap-4 items-start bg-[#f8f8f8] border-l-4 border-[#003EB6] px-[15px] py-[18px]"
       >
-        <p className="text-[17px] leading-[1.7] text-[#0d0f12]">
+        <p className="text-[15px] leading-[1.6] text-[#0d0f12]">
           Importantly, as the market for provably fair games grows,{" "}
           <strong>major game providers</strong> (Pragmatic Play, Hacksaw,
           Nolimit City, etc.), will be more willing to invest in product
@@ -836,12 +836,12 @@ function GuideContent({ guide }: { guide: Guide }) {
       />
 
       {/* Regulatory Pushback */}
-      <h3 className="text-[25px] font-semibold leading-[1.3] text-[#060d17]">
+      <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
         The Inevitable Regulatory Pushback
       </h3>
       <div
         data-name="section-regulatory"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p className="mb-4">
           Here&apos;s the &quot;<em>but</em>&quot; again; many regulators are
@@ -870,12 +870,12 @@ function GuideContent({ guide }: { guide: Guide }) {
       />
 
       {/* AI Meets Crypto Gambling */}
-      <h3 className="text-[25px] font-semibold leading-[1.3] text-[#060d17]">
+      <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
         When AI Meets Crypto Gambling
       </h3>
       <div
         data-name="section-ai"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p className="mb-4">
           Additionally, the relentless progress in the fields of{" "}
@@ -900,14 +900,14 @@ function GuideContent({ guide }: { guide: Guide }) {
         data-name="guide-blockquote"
         className="flex gap-4 items-start bg-[#f8f8f8] border-l-4 border-[#003EB6] px-[15px] py-[18px]"
       >
-        <p className="text-[17px] leading-[1.7] text-[#0d0f12]">
+        <p className="text-[15px] leading-[1.6] text-[#0d0f12]">
           AI, especially, will allow operators to offer{" "}
           <strong>highly personalized bonuses</strong> and products, while at
           the same time reducing operational costs.
         </p>
       </div>
 
-      <p className="text-[17px] leading-[28.8px] text-black">
+      <p className="text-[15px] leading-[1.6] text-black">
         And, given the forward-looking nature of the crypto gambling industry
         and player base, we think it&apos;s safe to say both will be pushing
         the AI envelope.
@@ -1092,7 +1092,7 @@ function RelatedArticles({ currentSlug }: { currentSlug: string }) {
 
   return (
     <section data-name="related-articles" className="mt-12 sm:mt-16">
-      <h2 data-name="related-articles-title" className="text-[24px] font-bold text-[#060d17] mb-6">
+      <h2 data-name="related-articles-title" className="text-lg font-bold text-[#060d17] mb-6">
         Related Articles
       </h2>
       <div

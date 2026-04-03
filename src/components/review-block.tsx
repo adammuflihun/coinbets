@@ -53,11 +53,11 @@ const SAFETY_COLORS: Record<string, string> = {
 };
 
 const RATING_COLORS: Record<number, string> = {
-  5: "#1A8F18",
-  4: "#5A9E10",
-  3: "#9B8E00",
-  2: "#D4802A",
-  1: "#CC4433",
+  5: "#23BA21",
+  4: "#9FF11A",
+  3: "#D8DC00",
+  2: "#FFB257",
+  1: "#FF6847",
 };
 
 const LANG_FLAGS: Record<string, string> = {
@@ -165,10 +165,10 @@ function ExpertShieldIcon({ size = 30 }: { size?: number }) {
 
 const TABS = [
   "Overview",
-  "Bonuses",
-  "User Reviews",
   "Safety Index",
+  "User Reviews",
   "Expert Review",
+  "Bonuses",
 ];
 
 type UserReview = {
@@ -485,7 +485,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     data-name="name-and-cta"
                     className="flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                   >
-                    <h1 className="text-2xl font-bold text-[#060D17]">
+                    <h1 className="text-lg font-bold text-[#060D17]">
                       {casino.name}
                     </h1>
                     <Link
@@ -510,7 +510,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                       <PlayerRatingIcon />
                       <div data-name="player-rating-details" className="flex flex-col gap-1">
                         <div data-name="player-rating-value" className="flex items-center gap-1.5">
-                          <span className="text-[23px] font-medium leading-none text-[#060D17]">
+                          <span className="text-lg font-medium leading-none text-[#060D17]">
                             {casino.playerRating.toFixed(1)}
                           </span>
                           <svg
@@ -541,7 +541,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                       <ExpertShieldIcon />
                       <div data-name="expert-score-details" className="flex flex-col gap-1">
                         <div data-name="expert-score-value" className="flex items-center gap-1.5">
-                          <span className="text-[23px] font-medium leading-none text-[#060D17]">
+                          <span className="text-lg font-medium leading-none text-[#060D17]">
                             {casino.expertScore.toFixed(1)}
                           </span>
                           <svg
@@ -635,7 +635,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                       window.scrollTo({ top: y, behavior: "instant" });
                     }
                   }}
-                  className={`flex-1 px-2 sm:px-2.5 py-1.5 text-sm sm:text-base font-semibold rounded-[10px] transition-all whitespace-nowrap cursor-pointer ${
+                  className={`flex-1 px-2 sm:px-2.5 py-1.5 text-[13px] sm:text-[15px] font-semibold rounded-[10px] transition-all whitespace-nowrap cursor-pointer ${
                     activeTab === i
                       ? "bg-white shadow-sm text-[#060D17]"
                       : "text-[#060D17]/70"
@@ -655,7 +655,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 data-name="review-header"
                 className="flex flex-col sm:flex-row sm:items-center justify-between gap-3"
               >
-                <h2 className="text-xl font-bold text-[#060D17]">
+                <h2 className="text-base font-bold text-[#060D17]">
                   {casino.reviewTitle}
                 </h2>
                 <ShimmerButton
@@ -706,7 +706,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
               {/* Review text */}
               <p
                 data-name="review-text"
-                className="text-base leading-relaxed text-neutral-600"
+                className="text-[15px] leading-relaxed text-neutral-600"
               >
                 {casino.reviewText}
               </p>
@@ -758,39 +758,136 @@ export function ReviewBlock({ slug }: { slug: string }) {
               </div>
             </div>
 
-            {/* ---- Bonuses Section ---- */}
+            {/* ---- Safety Index Section ---- */}
             <div
-              id="bonuses"
-              data-name="bonuses-section"
-              className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm flex flex-col gap-5"
+              id="safety-index"
+              data-name="safety-index-section"
+              className="rounded-lg border border-neutral-200 bg-white p-6 sm:p-8 shadow-sm flex flex-col gap-6"
             >
-              <h2
-                data-name="bonuses-title"
-                className="text-xl font-bold text-[#060D17]"
-              >
-                {casino.name} Bonuses
-              </h2>
-              <p
-                data-name="bonuses-text"
-                className="text-base leading-relaxed text-neutral-600"
-              >
-                {casino.name} skips the usual welcome bonus, instead focusing on
-                crypto-only wager races, leaderboards, and VIP rewards.
-                It&apos;s a different approach for a crypto casino, but at least
-                it&apos;s transparent. Explore all {casino.name} casino bonuses
-                and promotions below (availability may vary)
-              </p>
-              <div
-                data-name="bonuses-disclaimer"
-                className="rounded-xl bg-[#efefef] p-5"
-              >
-                <p className="text-base leading-relaxed text-neutral-700">
-                  <span className="font-bold text-[#003EB6]">Disclaimer:</span>{" "}
-                  CoinBets is fully independent, with no affiliate links or
-                  financial incentives. Our bonus breakdowns are unbiased, but
-                  always verify terms with the casino, as they may change.
+              <div data-name="safety-header" className="flex flex-col gap-3">
+                <h2
+                  data-name="safety-title"
+                  className="text-base font-bold text-[#060D17]"
+                >
+                  CoinBets Safety Index Explained: {casino.name}
+                </h2>
+                <p
+                  data-name="safety-description"
+                  className="text-[15px] leading-relaxed text-neutral-600"
+                >
+                  Curious how {casino.name} performs on trust and fairness?
+                  Below is a breakdown of the unique factors we considered when
+                  calculating its CoinBets Safety Index. This rating is based on
+                  objective criteria including licensing, player reports, game
+                  fairness, and operational transparency. Our goal is to inform
+                  players with verified data, not to promote or recommend any
+                  casino.
                 </p>
               </div>
+
+              <div
+                data-name="safety-body"
+                className="flex flex-col sm:flex-row gap-6"
+              >
+                {/* Score card */}
+                <div
+                  data-name="safety-score-card"
+                  className="flex flex-col items-start justify-center rounded-xl p-6 sm:p-8 min-w-[180px]"
+                  style={{
+                    backgroundColor:
+                      RATING_COLORS[
+                        casino.safetyScore >= 7.5
+                          ? 5
+                          : casino.safetyScore >= 5.5
+                            ? 4
+                            : casino.safetyScore >= 3.5
+                              ? 3
+                              : casino.safetyScore >= 1.5
+                                ? 2
+                                : 1
+                      ],
+                  }}
+                >
+                  <div data-name="safety-score-value" className="flex items-baseline gap-1">
+                    <span className="text-5xl font-bold text-white">
+                      {casino.safetyScore.toFixed(1)}
+                    </span>
+                    <span className="text-lg font-medium text-white/70">
+                      / 10
+                    </span>
+                  </div>
+                  <div data-name="safety-score-badge" className="flex items-center gap-2 mt-2">
+                    <span className="text-sm font-medium text-white/80">
+                      Safety Index:
+                    </span>
+                    <span className="rounded-md bg-white/20 px-2 py-0.5 text-xs font-bold text-white">
+                      {casino.safetyIndex}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Factors list */}
+                <div
+                  data-name="safety-factors"
+                  className="flex flex-1 flex-col gap-3"
+                >
+                  {casino.safetyFactors.map((factor, i) => (
+                    <div
+                      key={i}
+                      data-name="safety-factor-row"
+                      className="flex items-center justify-between gap-4 rounded-lg border border-neutral-200 bg-neutral-50 px-5 py-3.5"
+                    >
+                      <span className="text-[15px] text-neutral-700">
+                        {factor}
+                      </span>
+                      <Popover>
+                        <PopoverTrigger>
+                          <Info className="size-5 shrink-0 text-neutral-300 hover:text-neutral-500 transition-colors cursor-pointer" />
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto max-w-xs text-xs px-3 py-1.5">
+                          {factor}
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Disclaimer */}
+              <div
+                data-name="safety-disclaimer"
+                className="border-t border-neutral-200 pt-5"
+              >
+                <p className="text-sm leading-relaxed text-neutral-500">
+                  Disclaimer: This Safety Index reflects CoinBets&apos;
+                  independent research and is not an endorsement of the casino.{" "}
+                  <span className="text-[#003EB6] cursor-pointer hover:underline">
+                    Learn how we rate casinos.
+                  </span>
+                </p>
+              </div>
+
+              {/* Complaint CTA */}
+              <div
+                data-name="safety-complaint"
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+              >
+                <span className="text-base font-bold text-[#060D17]">
+                  Has this casino done something unfair to you?
+                </span>
+                <button className="flex items-center gap-2 rounded-lg bg-[#7a1a1a] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#5c1414] transition-colors">
+                  Submit a complaint
+                  <Pencil className="size-4" />
+                </button>
+              </div>
+
+              {/* Complaints count */}
+              <p
+                data-name="complaints-count"
+                className="text-center text-sm font-bold text-[#060D17]"
+              >
+                Complaints about {casino.name} (0)
+              </p>
             </div>
 
             {/* ---- User Feedback Summary ---- */}
@@ -806,7 +903,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
               >
                 <p
                   data-name="feedback-question"
-                  className="text-xl font-bold text-[#060D17]"
+                  className="text-base font-bold text-[#060D17]"
                 >
                   Do you have any experience with {casino.name}?
                 </p>
@@ -848,7 +945,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   </span>
                   <span
                     data-name="feedback-value"
-                    className="text-2xl font-bold text-[#060D17]"
+                    className="text-lg font-bold text-[#060D17]"
                   >
                     {casino.playerRating} –{" "}
                     <span style={{ color: ratingColor }}>
@@ -959,7 +1056,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
             >
               <h2
                 data-name="user-reviews-title"
-                className="text-xl font-bold text-[#060D17]"
+                className="text-base font-bold text-[#060D17]"
               >
                 User Reviews
               </h2>
@@ -1175,13 +1272,13 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   >
                     <h3
                       data-name="review-title"
-                      className="text-xl font-bold text-[#060D17]"
+                      className="text-base font-bold text-[#060D17]"
                     >
                       {review.title}
                     </h3>
                     <p
                       data-name="review-text"
-                      className="text-base leading-relaxed text-neutral-600"
+                      className="text-[15px] leading-relaxed text-neutral-600"
                     >
                       {review.body}
                     </p>
@@ -1311,140 +1408,43 @@ export function ReviewBlock({ slug }: { slug: string }) {
               <ChevronRight className="size-4 text-neutral-400" />
             </button>
 
-            {/* ---- Safety Index Section ---- */}
-            <div
-              id="safety-index"
-              data-name="safety-index-section"
-              className="rounded-lg border border-neutral-200 bg-white p-6 sm:p-8 shadow-sm flex flex-col gap-6"
-            >
-              <div data-name="safety-header" className="flex flex-col gap-3">
-                <h2
-                  data-name="safety-title"
-                  className="text-xl font-bold text-[#060D17]"
-                >
-                  CoinBets Safety Index Explained: {casino.name}
-                </h2>
-                <p
-                  data-name="safety-description"
-                  className="text-base leading-relaxed text-neutral-600"
-                >
-                  Curious how {casino.name} performs on trust and fairness?
-                  Below is a breakdown of the unique factors we considered when
-                  calculating its CoinBets Safety Index. This rating is based on
-                  objective criteria including licensing, player reports, game
-                  fairness, and operational transparency. Our goal is to inform
-                  players with verified data, not to promote or recommend any
-                  casino.
-                </p>
-              </div>
-
-              <div
-                data-name="safety-body"
-                className="flex flex-col sm:flex-row gap-6"
-              >
-                {/* Score card */}
-                <div
-                  data-name="safety-score-card"
-                  className="flex flex-col items-start justify-center rounded-xl p-6 sm:p-8 min-w-[180px]"
-                  style={{
-                    backgroundColor:
-                      RATING_COLORS[
-                        casino.safetyScore >= 7.5
-                          ? 5
-                          : casino.safetyScore >= 5.5
-                            ? 4
-                            : casino.safetyScore >= 3.5
-                              ? 3
-                              : casino.safetyScore >= 1.5
-                                ? 2
-                                : 1
-                      ],
-                  }}
-                >
-                  <div data-name="safety-score-value" className="flex items-baseline gap-1">
-                    <span className="text-5xl font-bold text-white">
-                      {casino.safetyScore.toFixed(1)}
-                    </span>
-                    <span className="text-lg font-medium text-white/70">
-                      / 10
-                    </span>
-                  </div>
-                  <div data-name="safety-score-badge" className="flex items-center gap-2 mt-2">
-                    <span className="text-sm font-medium text-white/80">
-                      Safety Index:
-                    </span>
-                    <span className="rounded-md bg-white/20 px-2 py-0.5 text-xs font-bold text-white">
-                      {casino.safetyIndex}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Factors list */}
-                <div
-                  data-name="safety-factors"
-                  className="flex flex-1 flex-col gap-3"
-                >
-                  {casino.safetyFactors.map((factor, i) => (
-                    <div
-                      key={i}
-                      data-name="safety-factor-row"
-                      className="flex items-center justify-between gap-4 rounded-lg border border-neutral-200 bg-neutral-50 px-5 py-3.5"
-                    >
-                      <span className="text-sm sm:text-base text-neutral-700">
-                        {factor}
-                      </span>
-                      <Popover>
-                        <PopoverTrigger>
-                          <Info className="size-5 shrink-0 text-neutral-300 hover:text-neutral-500 transition-colors cursor-pointer" />
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto max-w-xs text-xs px-3 py-1.5">
-                          {factor}
-                        </PopoverContent>
-                      </Popover>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Disclaimer */}
-              <div
-                data-name="safety-disclaimer"
-                className="border-t border-neutral-200 pt-5"
-              >
-                <p className="text-sm leading-relaxed text-neutral-500">
-                  Disclaimer: This Safety Index reflects CoinBets&apos;
-                  independent research and is not an endorsement of the casino.{" "}
-                  <span className="text-[#003EB6] cursor-pointer hover:underline">
-                    Learn how we rate casinos.
-                  </span>
-                </p>
-              </div>
-
-              {/* Complaint CTA */}
-              <div
-                data-name="safety-complaint"
-                className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-              >
-                <span className="text-base font-bold text-[#060D17]">
-                  Has this casino done something unfair to you?
-                </span>
-                <button className="flex items-center gap-2 rounded-lg bg-[#7a1a1a] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#5c1414] transition-colors">
-                  Submit a complaint
-                  <Pencil className="size-4" />
-                </button>
-              </div>
-
-              {/* Complaints count */}
-              <p
-                data-name="complaints-count"
-                className="text-center text-sm font-bold text-[#060D17]"
-              >
-                Complaints about {casino.name} (0)
-              </p>
-            </div>
-
             {/* ---- Expert Review Section ---- */}
             <ExpertReviewBlock casino={casino} />
+
+            {/* ---- Bonuses Section ---- */}
+            <div
+              id="bonuses"
+              data-name="bonuses-section"
+              className="rounded-lg border border-neutral-200 bg-white p-8 shadow-sm flex flex-col gap-5"
+            >
+              <h2
+                data-name="bonuses-title"
+                className="text-base font-bold text-[#060D17]"
+              >
+                {casino.name} Bonuses
+              </h2>
+              <p
+                data-name="bonuses-text"
+                className="text-[15px] leading-relaxed text-neutral-600"
+              >
+                {casino.name} skips the usual welcome bonus, instead focusing on
+                crypto-only wager races, leaderboards, and VIP rewards.
+                It&apos;s a different approach for a crypto casino, but at least
+                it&apos;s transparent. Explore all {casino.name} casino bonuses
+                and promotions below (availability may vary)
+              </p>
+              <div
+                data-name="bonuses-disclaimer"
+                className="rounded-xl bg-[#efefef] p-5"
+              >
+                <p className="text-[15px] leading-relaxed text-neutral-700">
+                  <span className="font-bold text-[#003EB6]">Disclaimer:</span>{" "}
+                  CoinBets is fully independent, with no affiliate links or
+                  financial incentives. Our bonus breakdowns are unbiased, but
+                  always verify terms with the casino, as they may change.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* ---- Sidebar ---- */}
@@ -1517,7 +1517,10 @@ export function ReviewBlock({ slug }: { slug: string }) {
               className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
             >
               <div data-name="independence-content" className="flex items-start gap-3">
-                <Shield className="size-8 text-[#2563eb] shrink-0" />
+                <svg width="37" height="37" viewBox="0 0 37 37" fill="none" className="size-[37px] shrink-0">
+                  <path d="M0 6C0 2.68629 2.68629 0 6 0H31C34.3137 0 37 2.68629 37 6V31C37 34.3137 34.3137 37 31 37H6C2.68629 37 0 34.3137 0 31V6Z" fill="#E7E7E7"/>
+                  <path d="M18.5 5.78949L8 8.03372V19.7445C8 21.6623 8.75299 23.5189 10.0916 24.9267C12.5807 27.4974 15.3835 29.5784 18.5 31.2105C21.6165 29.5784 24.4193 27.4974 26.9084 24.9267C28.2679 23.5189 29 21.6623 29 19.7445V8.03372L18.5 5.78949Z" fill="#0945B8"/>
+                </svg>
                 <div data-name="independence-text" className="flex flex-col gap-2">
                   <p className="text-base font-semibold text-[#060D17]">
                     CoinBets is 100% Independent

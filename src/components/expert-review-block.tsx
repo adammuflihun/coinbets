@@ -302,7 +302,7 @@ function ExpertHero({ casino }: { casino: CasinoReview }) {
           </div>
 
           {/* Title */}
-          <h2 className="text-[25px] font-black leading-[1.2] tracking-[-0.25px] text-white">
+          <h2 className="text-lg font-black leading-[1.2] tracking-[-0.25px] text-white">
             {casino.name} Expert Casino Review 2026 - Real Crypto, No Sponsors
           </h2>
 
@@ -454,10 +454,10 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
           className="flex flex-col gap-[25px]"
         >
           <div data-name="section-license" className="flex flex-col gap-[5px]">
-            <h3 className="text-[24px] font-semibold leading-[30px] tracking-[-0.12px] text-[#060d17]">
+            <h3 className="text-base font-semibold leading-[1.3] text-[#060d17]">
               License and Security
             </h3>
-            <p className="text-[17px] leading-[28.8px] text-black">
+            <p className="text-[15px] leading-[1.6] text-black">
               Right, first things first, let&apos;s see who&apos;s running{" "}
               {casino.name}:
             </p>
@@ -475,7 +475,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
                 <ShieldCheck className="size-6 text-white" />
               </div>
               <div data-name="callout-content" className="flex flex-col gap-4">
-                <p className="text-[17px] leading-[1.7] text-[#0d0f12]">
+                <p className="text-sm leading-[1.6] text-[#0d0f12]">
                   <strong>{casino.name}</strong> is operated by {casino.owner}.
                   {casino.licensingAuthorities.length > 0 && (
                     <>
@@ -526,7 +526,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
               >
                 <Lock className="size-6 text-white" />
               </div>
-              <p className="text-[17px] leading-[1.7] text-[#0d0f12]">
+              <p className="text-sm leading-[1.6] text-[#0d0f12]">
                 The site security certificate is valid, and the connection shows
                 as &quot;secure&quot;.
               </p>
@@ -542,10 +542,10 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
           className="flex flex-col gap-[25px]"
         >
           <div data-name="section-bonus" className="flex flex-col gap-4 pt-3">
-            <h3 className="text-[24px] font-semibold leading-[1.3] text-[#060d17]">
+            <h3 className="text-base font-semibold leading-[1.3] text-[#060d17]">
               Welcome Bonus
             </h3>
-            <p className="text-[17px] leading-[28.8px] text-black">
+            <p className="text-[15px] leading-[1.6] text-black">
               {casino.bonus}
             </p>
           </div>
@@ -571,7 +571,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
             ].map((item, i) => (
               <div key={i} data-name="bonus-item" className="pl-2.5">
                 <div data-name="bonus-item-content" className="bg-[#f8f8f8] border-l-4 border-[#003EB6] px-[15px] py-2.5">
-                  <p className="text-[17px] leading-[1.7] text-[#0d0f12]">
+                  <p className="text-sm leading-[1.6] text-[#0d0f12]">
                     <strong>{item.label}</strong> {item.detail}
                   </p>
                 </div>
@@ -581,7 +581,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
 
           <div
             data-name="bonus-explanation"
-            className="text-[17px] leading-[28.8px] text-black"
+            className="text-[15px] leading-[1.6] text-black"
           >
             <p className="mb-4">
               What the heck is &quot;USDB&quot; I hear you ask? Apparently,
@@ -595,13 +595,13 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
             </p>
           </div>
 
-          <p className="text-lg font-bold leading-[28.8px] text-black">
+          <p className="text-base font-bold leading-[1.4] text-black">
             Unlock amount = wager amount x 1% x 0.1
           </p>
 
           <div
             data-name="bonus-details"
-            className="text-[17px] leading-[28.8px] text-black"
+            className="text-[15px] leading-[1.6] text-black"
           >
             <p className="mb-4">
               As you unlock your bonus funds, they will appear in your USDB
@@ -629,10 +629,10 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
           className="flex flex-col gap-[25px]"
         >
           <div data-name="section-account" className="flex flex-col gap-4 pt-3">
-            <h3 className="text-[24px] font-semibold leading-[1.3] text-[#060d17]">
+            <h3 className="text-base font-semibold leading-[1.3] text-[#060d17]">
               Opening a New Account
             </h3>
-            <p className="text-[17px] leading-[28.8px] text-black">
+            <p className="text-[15px] leading-[1.6] text-black">
               There are several ways to sign up at {casino.name}:
             </p>
           </div>
@@ -677,7 +677,7 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
             ].map((item, i) => (
               <div key={i} data-name="account-option-item" className="pl-2.5">
                 <div data-name="account-option-content" className="bg-[#f8f8f8] border-l-4 border-[#003EB6] px-[15px] py-2.5">
-                  <p className="text-[17px] leading-[1.7] text-[#0d0f12]">
+                  <p className="text-sm leading-[1.6] text-[#0d0f12]">
                     {item.text}
                   </p>
                 </div>
@@ -690,10 +690,10 @@ function SectionTabs({ casino }: { casino: CasinoReview }) {
           )}
 
           <div data-name="account-important" className="flex flex-col gap-4">
-            <p className="text-lg font-bold leading-[28.8px] text-black">
+            <p className="text-base font-bold leading-[1.4] text-black">
               Important
             </p>
-            <div data-name="account-important-text" className="text-[17px] leading-[28.8px] text-black">
+            <div data-name="account-important-text" className="text-[15px] leading-[1.6] text-black">
               <p className="mb-4">
                 {casino.name} operates under a Tobique gaming license. This
                 means that, while KYC is not required at sign-up, the casino
@@ -727,10 +727,10 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
         data-name="section-payments-header"
         className="flex flex-col gap-[5px]"
       >
-        <h3 className="text-[24px] font-semibold leading-[1.3] text-[#060d17]">
+        <h3 className="text-base font-semibold leading-[1.3] text-[#060d17]">
           Payments
         </h3>
-        <p className="text-[17px] leading-[28.8px] text-black">
+        <p className="text-[15px] leading-[1.6] text-black">
           {casino.name} supports deposits and withdrawals in an extensive range
           of cryptocurrencies, including many Solana-based memecoins. Selected
           NFT collections are also supported.
@@ -789,7 +789,7 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
 
       <div
         data-name="deposit-text"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p>
           <strong>To make a crypto deposit,</strong> tap the teal
@@ -807,7 +807,7 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
 
       <div
         data-name="withdraw-text"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p>
           <strong>To withdraw crypto,</strong> open your wallet (in your profile
@@ -823,7 +823,7 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
         <ScreenshotImage dataName="payment-screenshot-3" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[2]} alt={`${casino.name} wallet screenshot`} screenshots={casino.screenshots} />
       )}
 
-      <p className="text-[17px] leading-[28.8px] text-black">
+      <p className="text-[15px] leading-[1.6] text-black">
         Note that, like many other crypto casinos, {casino.name} does offer a
         crypto vault for &quot;long term storage&quot;. However, I strongly
         advise against leaving large amounts of crypto at any casino. Instead,
@@ -837,7 +837,7 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
         className="flex gap-2.5 items-start bg-[#fff8e8] border-l-4 border-[#ffe4ab] px-3 py-5"
       >
         <AlertTriangle className="size-6 shrink-0 text-[#e6b830]" />
-        <p className="text-[17px] leading-[1.7] text-[#0d0f12]">
+        <p className="text-sm leading-[1.6] text-[#0d0f12]">
           <strong>CoinBets.com Tip: </strong>
           Always double-check crypto wallet addresses after pasting them — you
           don&apos;t want to fall victim to &apos;PasteJacking&apos;. This is
@@ -852,10 +852,10 @@ function PaymentsSection({ casino }: { casino: CasinoReview }) {
 function BuyingCryptoSection({ casino }: { casino: CasinoReview }) {
   return (
     <div data-name="section-buying-crypto" className="flex flex-col gap-[20px]">
-      <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+      <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
         Buying Crypto
       </h3>
-      <p className="text-[17px] leading-[28.8px] text-black">
+      <p className="text-[15px] leading-[1.6] text-black">
         Like most of the best crypto casinos, {casino.name} allows you to
         purchase crypto directly using fiat methods, including bank transfers,
         PSC, E-Wallets, and E-Cash. The service is powered by Swapped.com, and
@@ -972,10 +972,10 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
       data-name="section-game-selection"
       className="flex flex-col gap-[20px]"
     >
-      <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+      <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
         Game Selection
       </h3>
-      <p className="text-[17px] leading-[28.8px] text-black">
+      <p className="text-[15px] leading-[1.6] text-black">
         At the point of writing this {casino.name} review, the platform offered
         over 4,200 casino games from around 40 providers. Overall, despite a lot
         going on, the lobbies are pretty well organized with useful categories
@@ -990,10 +990,10 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
           data-name="game-slots-content"
           className="flex flex-col gap-[15px]"
         >
-          <h4 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h4 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             Slots
           </h4>
-          <div data-name="game-slots-text" className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="game-slots-text" className="text-[15px] leading-[1.6] text-black">
             <p className="mb-4">
               Despite styling itself as the ultimate Web3 Solana-based crypto
               casino, in truth, the vast majority of games at {casino.name} are
@@ -1025,20 +1025,20 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
               className="flex items-center gap-2.5 bg-[#0d337d] px-[15px] py-2"
             >
               <Gamepad2 className="size-6 text-white" />
-              <span className="text-[19px] font-medium text-[#f8f8f8]">
+              <span className="text-sm font-medium text-[#f8f8f8]">
                 CoinBets Experience
               </span>
             </div>
 
             {/* Game Review 1 */}
             <div data-name="game-review-1" className="flex flex-col gap-2.5">
-              <h4 className="text-[27px] font-medium leading-[40.5px] text-[#060d17]">
+              <h4 className="text-lg font-medium leading-[1.4] text-[#060d17]">
                 Kingdom of Asgard (Pragmatic Play)
               </h4>
               {casino.screenshots.length > 1 && (
                 <ScreenshotImage dataName="game-review-1-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[1]} alt="Kingdom of Asgard gameplay" screenshots={casino.screenshots} />
               )}
-              <div data-name="game-review-1-text" className="text-[17px] leading-[28.8px] text-black">
+              <div data-name="game-review-1-text" className="text-[15px] leading-[1.6] text-black">
                 <p className="mb-4">
                   I&apos;d been watching a YouTube video about Vikings at
                   lunchtime, so they must have been on my mind when I chose to
@@ -1063,13 +1063,13 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
 
             {/* Game Review 2 */}
             <div data-name="game-review-2" className="flex flex-col gap-2.5">
-              <h4 className="text-[27px] font-medium leading-[40.5px] text-[#060d17]">
+              <h4 className="text-lg font-medium leading-[1.4] text-[#060d17]">
                 King of Sweets (Play&apos;n GO)
               </h4>
               {casino.screenshots.length > 2 && (
                 <ScreenshotImage dataName="game-review-2-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[2]} alt="King of Sweets gameplay" screenshots={casino.screenshots} />
               )}
-              <div data-name="game-review-2-text" className="text-[17px] leading-[28.8px] text-black">
+              <div data-name="game-review-2-text" className="text-[15px] leading-[1.6] text-black">
                 <p className="mb-4">
                   To cheer things up, I decided to play something distinctly
                   more upbeat next. Specifically, King of Sweets from
@@ -1103,10 +1103,10 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
           data-name="game-crash-content"
           className="flex flex-col gap-[15px]"
         >
-          <h4 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h4 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             Crash &amp; Instant Wins
           </h4>
-          <div data-name="game-crash-text" className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="game-crash-text" className="text-[15px] leading-[1.6] text-black">
             <p className="mb-4">
               Interestingly, at {casino.name}, games usually referred to as
               &quot;instant wins&quot; or &quot;casual&quot; are in a category
@@ -1131,10 +1131,10 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
       {/* Live Casino */}
       {activeGame === 2 && (
         <div data-name="game-live-content" className="flex flex-col gap-[15px]">
-          <h4 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h4 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             Live Casino
           </h4>
-          <div data-name="game-live-text" className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="game-live-text" className="text-[15px] leading-[1.6] text-black">
             <p className="mb-4">
               The {casino.name} live casino features several hundred live dealer
               games. No surprises, most are from Evolution and Pragmatic Play,
@@ -1151,7 +1151,7 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
           {casino.screenshots.length > 4 && (
             <ScreenshotImage dataName="game-live-screenshot-1" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[4]} alt={`${casino.name} live casino screenshot`} screenshots={casino.screenshots} />
           )}
-          <p className="text-[17px] leading-[28.8px] text-black">
+          <p className="text-[15px] leading-[1.6] text-black">
             Thankfully, there is a live game show category, which makes browsing
             much easier. And, thanks to the presence of both Evolution and
             Pragmatic, the most popular game shows are available, including
@@ -1170,10 +1170,10 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
           data-name="game-table-content"
           className="flex flex-col gap-[15px]"
         >
-          <h4 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h4 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             Table Games and Video Poker
           </h4>
-          <p className="text-[17px] leading-[28.8px] text-black">
+          <p className="text-[15px] leading-[1.6] text-black">
             As mentioned earlier, the RNG-based table games are all over the
             place here at {casino.name}. Some are in the &quot;Casual RNG&quot;
             category, while roulette games can be found in the
@@ -1193,10 +1193,10 @@ function GameSelectionSection({ casino }: { casino: CasinoReview }) {
           data-name="game-bingo-content"
           className="flex flex-col gap-[15px]"
         >
-          <h4 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h4 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             Bingo and Keno
           </h4>
-          <p className="text-[17px] leading-[28.8px] text-black">
+          <p className="text-[15px] leading-[1.6] text-black">
             Finding video bingo also requires the search bar, though with only 4
             games - all from Belatra - it&apos;s hardly worth the effort.
             There&apos;s also 4 keno games on offer - a couple from Mascot, one
@@ -1310,10 +1310,10 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           data-name="provably-fair-content"
           className="flex flex-col gap-[20px]"
         >
-          <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             Provably Fair Games
           </h3>
-          <div data-name="provably-fair-text" className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="provably-fair-text" className="text-[15px] leading-[1.6] text-black">
             <p className="mb-4">
               Like most large crypto casinos, {casino.name} offers a modest
               range of provably fair &quot;in-house original&quot; games. Yep,
@@ -1335,10 +1335,10 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           )}
 
           {/* Lottery */}
-          <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             Lottery
           </h3>
-          <p className="text-[17px] leading-[28.8px] text-black">
+          <p className="text-[15px] leading-[1.6] text-black">
             Tickets for the {casino.name} provably fair daily in-house lottery
             cost $2 each, and you can choose your own numbers. Matching 5 balls
             plus the bonus ball lands you a US$100,000 jackpot, while matching
@@ -1351,10 +1351,10 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           )}
 
           {/* Crypto Trading */}
-          <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             Crypto Trading
           </h3>
-          <p className="text-[17px] leading-[28.8px] text-black">
+          <p className="text-[15px] leading-[1.6] text-black">
             Unusually, {casino.name} also offers crypto trading. The interface
             is simple - set your wager and payout multiplier, and Buy/Long or
             Sell/Short. Both PnL and flat fee trading are offered. However,
@@ -1369,10 +1369,10 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           )}
 
           {/* Lootboxes */}
-          <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             Lootboxes
           </h3>
-          <p className="text-[17px] leading-[28.8px] text-black">
+          <p className="text-[15px] leading-[1.6] text-black">
             Cash and NFT lootboxes are also available to purchase. At the time
             of writing this {casino.name} review, options included
             Counter-Strike cases, Bluechip NFT boxes, and Solana boxes. Prices
@@ -1391,10 +1391,10 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
           data-name="coinbets-challenge-content"
           className="flex flex-col gap-[20px]"
         >
-          <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             CoinBets Challenge: Medium vs High Risk Wheel
           </h3>
-          <div data-name="coinbets-challenge-text" className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="coinbets-challenge-text" className="text-[15px] leading-[1.6] text-black">
             <p className="mb-4">
               For today&apos;s CoinBets Challenge, I decided to play on one of
               the {casino.name} provably fair originals - specifically, Wheel.
@@ -1420,7 +1420,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
             <ScreenshotImage dataName="challenge-medium-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[6]} alt={`${casino.name} wheel medium risk screenshot`} screenshots={casino.screenshots} />
           )}
 
-          <p className="text-[17px] leading-[28.8px] text-black">
+          <p className="text-[15px] leading-[1.6] text-black">
             But the 50 x 0.50 USD on Hard with 30 segments delivered a total win
             of 58.00 USDT - that&apos;s a very respectable RTP of 235.2%.
           </p>
@@ -1429,7 +1429,7 @@ function ProvablyFairSection({ casino }: { casino: CasinoReview }) {
             <ScreenshotImage dataName="challenge-high-screenshot" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[7]} alt={`${casino.name} wheel high risk screenshot`} screenshots={casino.screenshots} />
           )}
 
-          <div data-name="challenge-verification-text" className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="challenge-verification-text" className="text-[15px] leading-[1.6] text-black">
             <p className="mb-4">Challenge smashed.</p>
             <p>
               Oh, and the provably fair verification system is nice and
@@ -1471,13 +1471,13 @@ function SportsSection({ casino }: { casino: CasinoReview }) {
           >
             <SportsIcon />
           </div>
-          <h3 className="text-[20px] font-medium text-black leading-[40px]">
+          <h3 className="text-base font-medium text-black leading-[1.4]">
             Virtual Sport
           </h3>
         </div>
       </div>
 
-      <p className="text-[17px] leading-[28.8px] text-black">
+      <p className="text-[15px] leading-[1.6] text-black">
         For those who like the idea of sports betting but prefer instant action,{" "}
         {casino.name} offers a range of virtual sports from Pragmatic Play.
         Available options include Fantastic League Football, Flat Horse Racing,
@@ -1500,13 +1500,13 @@ function SportsSection({ casino }: { casino: CasinoReview }) {
           >
             <SportsIcon />
           </div>
-          <h3 className="text-[20px] font-medium text-black leading-[40px]">
+          <h3 className="text-base font-medium text-black leading-[1.4]">
             Sportsbook
           </h3>
         </div>
       </div>
 
-      <p className="text-[17px] leading-[28.8px] text-black">
+      <p className="text-[15px] leading-[1.6] text-black">
         In common with all the best online crypto gambling platforms,{" "}
         {casino.name} also boasts an extensive sportsbook. It offers standard
         and live sports betting on everything from soccer and basketball to ice
@@ -1564,14 +1564,14 @@ function PromoTabNav({
             </div>
             <div data-name="promo-tab-text" className="flex flex-col gap-1 sm:gap-1.5">
               <span
-                className={`text-[16px] font-medium leading-none ${
+                className={`text-sm font-medium leading-none ${
                   isActive ? "text-[#0d0f12]" : "text-[#060d17] opacity-50"
                 }`}
               >
                 {tab.label}
               </span>
               <span
-                className={`text-[14px] leading-[28.8px] ${
+                className={`text-xs leading-snug ${
                   isActive
                     ? "text-[#0d0f12] opacity-70"
                     : "text-[#060d17] opacity-50"
@@ -1603,11 +1603,11 @@ function PromotionsSection({ casino }: { casino: CasinoReview }) {
 
       {activeTab === 0 && (
         <>
-          <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             Promotional Offers
           </h3>
 
-          <p className="text-[17px] leading-[28.8px] text-black">
+          <p className="text-[15px] leading-[1.6] text-black">
             Despite the lack of a {casino.name} welcome bonus, there are plenty
             of other promotional offers for existing players. At the time of
             writing this review, they included:
@@ -1624,7 +1624,7 @@ function PromotionsSection({ casino }: { casino: CasinoReview }) {
                   data-name="promo-offer-border"
                   className="bg-white border-l-4 border-l-[#003eb6] px-[15px] py-[10px]"
                 >
-                  <p className="text-[17px] font-bold leading-[1.7] text-[#0d0f12]">
+                  <p className="text-sm font-bold leading-[1.6] text-[#0d0f12]">
                     {offer}
                   </p>
                 </div>
@@ -1640,7 +1640,7 @@ function PromotionsSection({ casino }: { casino: CasinoReview }) {
 
       {activeTab === 1 && (
         <>
-          <div data-name="vip-content" className="text-[17px] leading-[28.8px] text-black">
+          <div data-name="vip-content" className="text-[15px] leading-[1.6] text-black">
             <p className="mb-0">
               The {casino.name} loyalty program spans an insane 80 levels. Perks
               include a daily bonus, weekly bonus, monthly bonus, rakeback,
@@ -1710,14 +1710,14 @@ function SupportTabNav({
             </div>
             <div data-name="support-tab-text" className="flex flex-col gap-1 sm:gap-1.5">
               <span
-                className={`text-[16px] font-medium leading-none ${
+                className={`text-sm font-medium leading-none ${
                   isActive ? "text-black" : "text-[#707070]"
                 }`}
               >
                 {tab.label}
               </span>
               <span
-                className={`text-[14px] leading-[28.8px] opacity-70 ${
+                className={`text-xs leading-snug opacity-70 ${
                   isActive ? "text-black" : "text-[#707070]"
                 }`}
               >
@@ -1758,12 +1758,12 @@ function SupportDesignSection({ casino }: { casino: CasinoReview }) {
 
       {activeTab === 0 && (
         <>
-          <h3 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h3 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             Player Support
           </h3>
 
           <div data-name="support-content" className="flex flex-col gap-[25px]">
-            <div data-name="support-text" className="text-[17px] leading-[28.8px] text-black">
+            <div data-name="support-text" className="text-[15px] leading-[1.6] text-black">
               <p className="mb-0">
                 Like most online casinos, {casino.name} provides 24/7 player
                 support via live chat - with the typical response time being
@@ -1789,12 +1789,12 @@ function SupportDesignSection({ casino }: { casino: CasinoReview }) {
 
       {activeTab === 1 && (
         <>
-          <h2 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h2 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             User Experience &amp; Website Design
           </h2>
 
           <div data-name="ux-content" className="flex flex-col gap-[25px]">
-            <div data-name="ux-text" className="text-[17px] leading-[28.8px] text-black">
+            <div data-name="ux-text" className="text-[15px] leading-[1.6] text-black">
               <p className="mb-0">
                 There&apos;s no getting away from it, {casino.name} looks like a
                 thousand other online casinos. Really, I&apos;d go as far as
@@ -1865,11 +1865,11 @@ function SupportDesignSection({ casino }: { casino: CasinoReview }) {
 
       {activeTab === 2 && (
         <>
-          <h2 className="text-[28px] font-semibold leading-[1.3] text-[#060d17]">
+          <h2 className="text-lg font-semibold leading-[1.3] text-[#060d17]">
             Mobile Apps
           </h2>
 
-          <p className="text-[17px] leading-[28.8px] text-black">
+          <p className="text-[15px] leading-[1.6] text-black">
             Although there is no dedicated {casino.name} mobile app, the
             web-based platform is optimized for mobile browsers, so you can
             still play on your smartphone or tablet.
@@ -1894,13 +1894,13 @@ function CryptoTokenSection({ casino }: { casino: CasinoReview }) {
           >
             <Bitcoin className="size-[30px] text-white" />
           </div>
-          <h3 className="text-[20px] font-medium text-black leading-[40px]">
+          <h3 className="text-base font-medium text-black leading-[1.4]">
             Crypto Token and Tokenomics
           </h3>
         </div>
       </div>
 
-      <div data-name="crypto-token-description" className="text-[17px] leading-[28.8px] text-black">
+      <div data-name="crypto-token-description" className="text-[15px] leading-[1.6] text-black">
         <p className="mb-0">
           Solcasino Token (SCS) is the creatively named native token of{" "}
           {casino.name}.
@@ -1918,7 +1918,7 @@ function CryptoTokenSection({ casino }: { casino: CasinoReview }) {
         <ScreenshotImage dataName="crypto-token-screenshot-1" className="relative w-full h-auto sm:h-[391px] bg-[#11181f] overflow-hidden aspect-video sm:aspect-auto" src={casino.screenshots[11]} alt={`${casino.name} crypto token screenshot`} screenshots={casino.screenshots} />
       )}
 
-      <div data-name="crypto-token-staking-text" className="text-[17px] leading-[28.8px] text-black">
+      <div data-name="crypto-token-staking-text" className="text-[15px] leading-[1.6] text-black">
         <p className="mb-0">
           In terms of utility, using SCS to wager at {casino.name} earns players
           rewards, while staking SCS in the casino&apos;s liquidity pool can
@@ -1954,13 +1954,13 @@ function InterestingFactsSection({ casino }: { casino: CasinoReview }) {
           >
             <Lightbulb className="size-[30px] text-white" />
           </div>
-          <h3 className="text-[20px] font-medium text-black leading-[40px]">
+          <h3 className="text-base font-medium text-black leading-[1.4]">
             Other Interesting Facts
           </h3>
         </div>
       </div>
 
-      <p className="text-[17px] leading-[28.8px] text-black">
+      <p className="text-[15px] leading-[1.6] text-black">
         According to the {casino.name} white paper, it was the first casino
         platform built on the Solana blockchain, and is among the top 5 most
         popular Solana dApps according to &quot;Dapparadar&quot;. I think they
@@ -1996,13 +1996,13 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
           >
             <Star className="size-[28px] text-white" />
           </div>
-          <h3 className="text-[20px] font-medium text-black leading-[40px]">
+          <h3 className="text-base font-medium text-black leading-[1.4]">
             Overall Reputation
           </h3>
         </div>
       </div>
 
-      <div data-name="reputation-intro-text" className="text-[17px] leading-[28.8px] text-black">
+      <div data-name="reputation-intro-text" className="text-[15px] leading-[1.6] text-black">
         <p className="mb-0">
           Okay, we&apos;ve seen what {casino.name} offers, but what are people
           saying about it?
@@ -2149,7 +2149,7 @@ function OverallReputationSection({ casino }: { casino: CasinoReview }) {
         ))}
       </div>
 
-      <p className="text-[18px] leading-[28.8px] text-black">
+      <p className="text-[15px] leading-[1.6] text-black">
         <span className="font-bold">Important: </span>
         When checking reviews, make sure you are looking at those for{" "}
         {casino.name} - not the similarly named Sol Casino.
@@ -2216,8 +2216,8 @@ function VerdictSection({ casino }: { casino: CasinoReview }) {
               <ExpertRatingCard casino={casino} />
 
               {/* Casino Name & Summary */}
-              <span className="text-[22px] font-bold text-[#060d17]">{casino.name}</span>
-              <p className="text-[17px] leading-[28.8px] text-black">
+              <span className="text-lg font-bold text-[#060d17]">{casino.name}</span>
+              <p className="text-[15px] leading-[1.6] text-black">
                 Okay, so what&apos;s my final take on {casino.name}? Well, to put it
                 bluntly, this casino is atrocious.
               </p>
@@ -2234,7 +2234,7 @@ function VerdictSection({ casino }: { casino: CasinoReview }) {
       {/* Verdict Text */}
       <div data-name="verdict-text" className="bg-white p-[25px] flex flex-col gap-[25px]">
         <h3 className="text-[26.875px] font-medium text-[#060d17] leading-[40.5px]">Verdict</h3>
-        <div data-name="verdict-text-body" className="text-[17px] leading-[28.8px] text-black">
+        <div data-name="verdict-text-body" className="text-[15px] leading-[1.6] text-black">
           <p className="mb-0">
             Okay, so what&apos;s my final take on {casino.name}? Well, to put it
             bluntly, this casino is atrocious.
@@ -2416,7 +2416,7 @@ function ExpertContent({ casino }: { casino: CasinoReview }) {
       </div>
 
       {/* Article Title */}
-      <h2 className="text-[27px] font-semibold leading-[1.4] text-[#060d17]">
+      <h2 className="text-xl font-semibold leading-[1.4] text-[#060d17]">
         {casino.name} Crypto Casino Review + Welcome Bonus 2026
       </h2>
 
@@ -2424,7 +2424,7 @@ function ExpertContent({ casino }: { casino: CasinoReview }) {
       <div
         id="toc-intro"
         data-name="expert-intro"
-        className="text-[17px] leading-[28.8px] text-black"
+        className="text-[15px] leading-[1.6] text-black"
       >
         <p>{casino.reviewText}</p>
       </div>

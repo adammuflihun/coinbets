@@ -34,7 +34,7 @@ export function SportsSectionNav() {
   const pathname = usePathname();
 
   return (
-    <div data-name="sports-section-nav" className="bg-white w-full">
+    <div data-name="sports-section-nav" className="bg-white w-full hidden">
       <div className="mx-auto max-w-[1200px] px-5">
         <div
           data-name="section-nav-tabs"
