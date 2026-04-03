@@ -34,7 +34,7 @@ export function HeroHeader() {
       >
         <div
           data-name="hero-layout"
-          className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10"
+          className="flex flex-col lg:flex-row items-center justify-between gap-2 lg:gap-2"
         >
           {/* Left: Content */}
           <div
@@ -143,7 +143,7 @@ export function HeroHeader() {
           {/* Right: Casino Illustration */}
           <div
             data-section="hero-illustration"
-            className="relative hidden h-[500px] w-[540px] shrink-0 lg:block"
+            className="relative hidden h-[500px] w-[740px] shrink-0 lg:block"
           >
             <Image
               src="/hero/hero-illustration.png"
