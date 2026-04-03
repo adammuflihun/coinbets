@@ -1,6 +1,5 @@
 import { HeroHeader } from "@/components/hero-header";
 import { HeroCategory } from "@/components/hero-category";
-import { LatestReviews } from "@/components/latest-reviews";
 import { CasinoIndex } from "@/components/casino-index";
 import { VideoHome } from "@/components/video-home";
 import { CryptoCasinoBanner } from "@/components/crypto-casino-banner";
@@ -15,7 +14,6 @@ export default function Home() {
       <HeroHeader />
       <HeroCategory />
       <div className="space-y-12">
-        <LatestReviews />
         <VideoHome />
         <CasinoCategories />
         <CryptoCasinoBanner />

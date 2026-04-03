@@ -19,7 +19,7 @@ export function HeroHeader() {
   return (
     <section
       data-section="hero"
-      className="relative overflow-hidden bg-[#020202] pb-16 sm:pb-20 lg:pb-20"
+      className="relative overflow-hidden bg-[#020202] pb-12 sm:pb-15 lg:pb-15"
     >
       {/* Background gradient SVG */}
       <div
@@ -28,8 +28,14 @@ export function HeroHeader() {
         style={{ backgroundImage: "url('/hero/background.svg')" }}
       />
 
-      <div data-name="hero-container" className="relative site-container py-5 lg:py-5">
-        <div data-name="hero-layout" className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10">
+      <div
+        data-name="hero-container"
+        className="relative site-container py-5 lg:py-5"
+      >
+        <div
+          data-name="hero-layout"
+          className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10"
+        >
           {/* Left: Content */}
           <div
             data-section="hero-content"
@@ -49,7 +55,10 @@ export function HeroHeader() {
             </div>
 
             {/* Search Input with shimmer border */}
-            <div data-section="hero-search" className="relative w-full max-w-[603px]">
+            <div
+              data-section="hero-search"
+              className="relative w-full max-w-[603px]"
+            >
               {/* Shimmer border box */}
               <div
                 data-name="shimmer-box"
@@ -64,14 +73,26 @@ export function HeroHeader() {
                 }
               >
                 {/* Shimmer border layer */}
-                <div data-name="shimmer-border" className="absolute inset-0 overflow-visible blur-[2px] [container-type:size]">
-                  <div data-name="shimmer-animation" className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]">
-                    <div data-name="shimmer-gradient" className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
+                <div
+                  data-name="shimmer-border"
+                  className="absolute inset-0 overflow-visible blur-[2px] [container-type:size]"
+                >
+                  <div
+                    data-name="shimmer-animation"
+                    className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]"
+                  >
+                    <div
+                      data-name="shimmer-gradient"
+                      className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]"
+                    />
                   </div>
                 </div>
 
                 {/* Inner background fill */}
-                <div data-name="search-inner-background" className="absolute rounded-[8px] bg-[#020202] ring-1 ring-inset ring-[#e6b830] [inset:var(--cut)]" />
+                <div
+                  data-name="search-inner-background"
+                  className="absolute rounded-[8px] bg-[#020202] ring-1 ring-inset ring-[#e6b830] [inset:var(--cut)]"
+                />
 
                 {/* Input */}
                 <div data-name="search-input" className="relative">

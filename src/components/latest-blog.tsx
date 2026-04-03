@@ -111,7 +111,7 @@ export function LatestBlog() {
             Guides
           </h2>
           <Link
-            href="/blog"
+            href="/guides"
             className="group flex w-full sm:w-fit items-center justify-center sm:justify-start gap-1.5 rounded-lg bg-neutral-900 px-3 py-1.5 text-sm font-medium text-[#f8f8f8] hover:bg-neutral-800 transition-colors"
           >
             Read all articles
