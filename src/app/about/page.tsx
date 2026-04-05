@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: "About | CoinBets",
     description:
       "Learn about CoinBets — our mission, team, and commitment to honest crypto casino reviews.",
+    images: [{ url: "/opengraph.webp", width: 1200, height: 630 }],
   },
 };
 

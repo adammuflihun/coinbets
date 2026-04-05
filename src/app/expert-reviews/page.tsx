@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     title: "Expert Reviews | CoinBets",
     description:
       "In-depth expert reviews of the top crypto casinos and sports betting platforms.",
+    images: [{ url: "/opengraph.webp", width: 1200, height: 630 }],
   },
 };
 

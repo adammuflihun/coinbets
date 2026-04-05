@@ -15,6 +15,13 @@ export async function generateMetadata({
   return {
     title: `${name} Review`,
     description: `In-depth review of ${name} — player ratings, expert score, bonuses, and more.`,
+    openGraph: {
+      title: `${name} Review | CoinBets`,
+      description: `In-depth review of ${name} — player ratings, expert score, bonuses, and more.`,
+      images: casino?.screenshots?.[0]
+        ? [{ url: casino.screenshots[0], width: 1200, height: 630 }]
+        : [{ url: "/opengraph.webp", width: 1200, height: 630 }],
+    },
   };
 }
 

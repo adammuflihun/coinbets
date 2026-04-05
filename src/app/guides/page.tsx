@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     title: "Guides | CoinBets",
     description:
       "Comprehensive guides on crypto gambling, sports betting strategies, and how to get started with Bitcoin casinos.",
+    images: [{ url: "/opengraph.webp", width: 1200, height: 630 }],
   },
 };
 

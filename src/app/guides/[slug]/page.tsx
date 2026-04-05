@@ -19,6 +19,15 @@ export async function generateMetadata({
     description:
       guide?.description ??
       "Comprehensive crypto gambling guide from CoinBets.",
+    openGraph: {
+      title: `${title} | CoinBets`,
+      description:
+        guide?.description ??
+        "Comprehensive crypto gambling guide from CoinBets.",
+      images: guide?.image
+        ? [{ url: guide.image, width: 1200, height: 630 }]
+        : [{ url: "/opengraph.webp", width: 1200, height: 630 }],
+    },
   };
 }
 
