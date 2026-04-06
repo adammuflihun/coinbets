@@ -35,12 +35,12 @@ const RATING_COLORS: Record<number, string> = {
 
 const STATUS_CONFIG: Record<
   ComplaintStatus,
-  { bg: string; hex: string; label: string }
+  { bg: string; hex: string; svgFill: string; label: string }
 > = {
-  resolved: { bg: "bg-[#16a34a]", hex: "#16a34a", label: "Case Closed" },
-  unresolved: { bg: "bg-[#dc2626]", hex: "#dc2626", label: "Case Open" },
-  opened: { bg: "bg-[#1d4ed8]", hex: "#1d4ed8", label: "Case Open" },
-  rejected: { bg: "bg-[#030712]", hex: "#030712", label: "Case Rejected" },
+  resolved: { bg: "bg-[#16a34a]", hex: "#16a34a", svgFill: "#16a34a", label: "Case Closed" },
+  unresolved: { bg: "bg-[#dc2626]", hex: "#dc2626", svgFill: "#dc2626", label: "Case Open" },
+  opened: { bg: "bg-[#1d4ed8]", hex: "#1d4ed8", svgFill: "#1d4ed8", label: "Case Open" },
+  rejected: { bg: "bg-[#030712]", hex: "#030712", svgFill: "#ffffff", label: "Case Rejected" },
 };
 
 /* ─── Helper components ─── */
@@ -297,10 +297,10 @@ export function ComplaintDetail({
           <g clipPath="url(#clip-complaint)">
             <rect width="1600" height="252" fill="#020202" />
             <g opacity="0.6" filter="url(#blur1-complaint)">
-              <path d="M215.048 25.0938L8.41406 -65.9299V-158H1758.79L1732.63 3.64571L1611.79 11.4926L1515.54 74.2676L1373.77 -15.7099L1200.09 53.8657L1075.07 -15.7099L846.983 74.2676L565.542 -82.1468L215.048 25.0938Z" fill={config.hex} />
+              <path d="M215.048 25.0938L8.41406 -65.9299V-158H1758.79L1732.63 3.64571L1611.79 11.4926L1515.54 74.2676L1373.77 -15.7099L1200.09 53.8657L1075.07 -15.7099L846.983 74.2676L565.542 -82.1468L215.048 25.0938Z" fill={config.svgFill} />
             </g>
             <g filter="url(#blur2-complaint)">
-              <path d="M1384.74 78.0938L1591.37 -12.9299V-105H-159.003L-132.847 56.6457L-12.005 64.4926L84.25 127.268L226.017 37.2901L399.694 106.866L524.721 37.2901L752.804 127.268L1034.24 -29.1468L1384.74 78.0938Z" fill={config.hex} />
+              <path d="M1384.74 78.0938L1591.37 -12.9299V-105H-159.003L-132.847 56.6457L-12.005 64.4926L84.25 127.268L226.017 37.2901L399.694 106.866L524.721 37.2901L752.804 127.268L1034.24 -29.1468L1384.74 78.0938Z" fill={config.svgFill} />
             </g>
           </g>
           <defs>
