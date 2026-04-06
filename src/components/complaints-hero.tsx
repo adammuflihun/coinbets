@@ -118,7 +118,7 @@ export function ComplaintsHero() {
           {/* Steps */}
           <div
             data-name="complaints-steps"
-            className="mx-auto mt-10 grid max-w-[900px] grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-6"
+            className="mx-auto mt-10 hidden max-w-[900px] gap-8 sm:grid sm:grid-cols-3 sm:gap-6"
           >
             {steps.map((step) => (
               <div
