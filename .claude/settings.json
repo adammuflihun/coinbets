@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(magick identify:*)",
+      "Bash(magick /Users/adammuflihun/Downloads/coinbet/public/hero/no-kyc-casinos-item.png -strip -quality 95 -define png:compression-level=9 -define png:compression-filter=5 -define png:compression-strategy=1 /Users/adammuflihun/Downloads/coinbet/public/hero/no-kyc-casinos-item.png)",
+      "Bash(magick /Users/adammuflihun/Downloads/coinbet/public/hero/mobile-friendly-item.png -strip -quality 95 -define png:compression-level=9 -define png:compression-filter=5 -define png:compression-strategy=1 /Users/adammuflihun/Downloads/coinbet/public/hero/mobile-friendly-item.png)",
+      "Bash(git commit:*)",
+      "mcp__claude_ai_Figma__get_design_context"
+    ]
+  }
+}

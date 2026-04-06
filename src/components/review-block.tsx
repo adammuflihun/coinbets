@@ -35,6 +35,7 @@ import { GAME_ICONS } from "@/components/game-icons";
 import { CasinoCategoryCard } from "@/components/casino-categories";
 import { ExpertReviewBlock } from "@/components/expert-review-block";
 import { ReviewerAvatar, getRankName } from "@/components/reviewer-avatar";
+import { ComplaintCard, type ComplaintData } from "@/components/complaint-card";
 
 /* ------------------------------------------------------------------ */
 /*  Types & Data                                                       */
@@ -190,6 +191,45 @@ type UserReview = {
   playerSince?: number;
   wageredAmount?: string;
 };
+
+const CASINO_COMPLAINTS: ComplaintData[] = [
+  {
+    id: "c1",
+    slug: "bc-game-withdrawal-delay",
+    title: "Withdrawal pending for 2 weeks with no response from support",
+    disputedAmount: "$4,200",
+    postedDate: "Mar 15, 2026",
+    status: "opened",
+    verdictText: "Case under review",
+    casino: {
+      name: "BC.Game",
+      slug: "bc-game",
+      logo: "/casino-index/logo-bcgame.png",
+      safetyIndex: "High",
+      playerRating: 4.1,
+      playerReviews: 1024,
+      expertScore: 8,
+    },
+  },
+  {
+    id: "c2",
+    slug: "bc-game-bonus-not-credited",
+    title: "Deposit bonus not credited after meeting wagering requirements",
+    disputedAmount: "$850",
+    postedDate: "Feb 28, 2026",
+    status: "resolved",
+    verdictText: "Resolved in player's favor",
+    casino: {
+      name: "BC.Game",
+      slug: "bc-game",
+      logo: "/casino-index/logo-bcgame.png",
+      safetyIndex: "High",
+      playerRating: 4.1,
+      playerReviews: 1024,
+      expertScore: 8,
+    },
+  },
+];
 
 const USER_REVIEWS: UserReview[] = [
   {
@@ -888,19 +928,26 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 <span className="text-base font-bold text-[#060D17]">
                   Has this casino done something unfair to you?
                 </span>
-                <button className="flex items-center gap-2 rounded-lg bg-[#7a1a1a] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#5c1414] transition-colors">
+                <Link href="/complaints/submit" className="flex items-center gap-2 rounded-lg bg-[#7a1a1a] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#5c1414] transition-colors">
                   Submit a complaint
                   <Pencil className="size-4" />
-                </button>
+                </Link>
               </div>
 
               {/* Complaints count */}
               <p
                 data-name="complaints-count"
-                className="text-center text-sm font-bold text-[#060D17]"
+                className="text-sm font-bold text-[#060D17]"
               >
-                Complaints about {casino.name} (0)
+                Complaints about {casino.name} ({CASINO_COMPLAINTS.filter((c) => c.casino.slug === casino.slug).length})
               </p>
+
+              {/* Active complaint threads */}
+              <div data-name="complaint-threads" className="flex flex-col gap-4">
+                {CASINO_COMPLAINTS.filter((c) => c.casino.slug === casino.slug).map((complaint) => (
+                  <ComplaintCard key={complaint.id} complaint={complaint} />
+                ))}
+              </div>
             </div>
 
             {/* ---- User Feedback Summary ---- */}
