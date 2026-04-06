@@ -192,44 +192,44 @@ type UserReview = {
   wageredAmount?: string;
 };
 
-const CASINO_COMPLAINTS: ComplaintData[] = [
-  {
-    id: "c1",
-    slug: "bc-game-withdrawal-delay",
-    title: "Withdrawal pending for 2 weeks with no response from support",
-    disputedAmount: "$4,200",
-    postedDate: "Mar 15, 2026",
-    status: "opened",
-    verdictText: "Case under review",
-    casino: {
-      name: "BC.Game",
-      slug: "bc-game",
-      logo: "/casino-index/logo-bcgame.png",
-      safetyIndex: "High",
-      playerRating: 4.1,
-      playerReviews: 1024,
-      expertScore: 8,
-    },
-  },
-  {
-    id: "c2",
-    slug: "bc-game-bonus-not-credited",
-    title: "Deposit bonus not credited after meeting wagering requirements",
-    disputedAmount: "$850",
-    postedDate: "Feb 28, 2026",
-    status: "resolved",
-    verdictText: "Resolved in player's favor",
-    casino: {
-      name: "BC.Game",
-      slug: "bc-game",
-      logo: "/casino-index/logo-bcgame.png",
-      safetyIndex: "High",
-      playerRating: 4.1,
-      playerReviews: 1024,
-      expertScore: 8,
-    },
-  },
+const COMPLAINT_SLUGS = [
+  "clubhouse-casino-network-errors",
+  "clubhouse-casino-withdrawal-delay",
+  "clubhouse-casino-bonus-terms",
 ];
+
+const COMPLAINT_TEMPLATES: {
+  title: string;
+  amount: string;
+  date: string;
+  status: ComplaintData["status"];
+  verdict: string;
+}[] = [
+  { title: "Withdrawal pending for 2 weeks with no response from support", amount: "$4,200", date: "Mar 15, 2026", status: "opened", verdict: "Case under review" },
+  { title: "Deposit bonus not credited after meeting wagering requirements", amount: "$850", date: "Feb 28, 2026", status: "resolved", verdict: "Resolved in player's favor" },
+  { title: "Account locked after requesting large withdrawal", amount: "$12,500", date: "Jan 20, 2026", status: "unresolved", verdict: "Casino unresponsive" },
+];
+
+function getCasinoComplaints(casino: { slug: string; name: string; logo: string; safetyIndex: string; playerRating: number; playerReviews: number; expertScore: number }): ComplaintData[] {
+  return COMPLAINT_TEMPLATES.map((t, i) => ({
+    id: `${casino.slug}-c${i}`,
+    slug: COMPLAINT_SLUGS[i],
+    title: t.title,
+    disputedAmount: t.amount,
+    postedDate: t.date,
+    status: t.status,
+    verdictText: t.verdict,
+    casino: {
+      name: casino.name,
+      slug: casino.slug,
+      logo: casino.logo,
+      safetyIndex: casino.safetyIndex,
+      playerRating: casino.playerRating,
+      playerReviews: casino.playerReviews,
+      expertScore: casino.expertScore,
+    },
+  }));
+}
 
 const USER_REVIEWS: UserReview[] = [
   {
@@ -934,19 +934,25 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 </Link>
               </div>
 
-              {/* Complaints count */}
-              <p
+              {/* Complaints */}
+              <div
                 data-name="complaints-count"
-                className="text-sm font-bold text-[#060D17]"
+                className="flex flex-col gap-4"
               >
-                Complaints about {casino.name} ({CASINO_COMPLAINTS.filter((c) => c.casino.slug === casino.slug).length})
-              </p>
-
-              {/* Active complaint threads */}
-              <div data-name="complaint-threads" className="flex flex-col gap-4">
-                {CASINO_COMPLAINTS.filter((c) => c.casino.slug === casino.slug).map((complaint) => (
+                <p className="text-sm font-bold text-[#060D17]">
+                  Complaints about {casino.name} ({getCasinoComplaints(casino).length})
+                </p>
+                {getCasinoComplaints(casino).slice(0, 1).map((complaint) => (
                   <ComplaintCard key={complaint.id} complaint={complaint} />
                 ))}
+                <Link
+                  href="/complaints"
+                  data-name="see-more-complaints"
+                  className="flex items-center justify-center gap-1.5 rounded-lg border border-neutral-200 py-2.5 text-sm font-semibold text-[#060D17] hover:bg-neutral-50 transition-colors"
+                >
+                  See all complaints
+                  <ChevronRight className="size-4" />
+                </Link>
               </div>
             </div>
 
