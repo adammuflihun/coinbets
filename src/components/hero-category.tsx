@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ReviewerAvatar } from "@/components/reviewer-avatar";
 
 /* ── Review data & helpers ── */
 
@@ -121,10 +122,7 @@ function ReviewSlideCard({
           className="flex items-center gap-2 text-sm"
         >
           <div data-name="review-username" className="flex items-center gap-1">
-            <div
-              data-name="review-avatar"
-              className="size-[17px] rounded-full bg-red-400 shrink-0"
-            />
+            <ReviewerAvatar name={userName} size="sm" />
             <span className="text-[#404040] text-sm">{userName}</span>
           </div>
           <span className="size-[3px] rounded-full bg-neutral-400 shrink-0" />

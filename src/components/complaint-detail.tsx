@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import "flag-icons/css/flag-icons.min.css";
 import { Badge } from "@/components/ui/badge";
+import { ReviewerAvatar } from "@/components/reviewer-avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardAction, CardDescription, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -530,14 +531,11 @@ export function ComplaintDetail({
                   >
                     {/* Avatar */}
                     <div data-name="user-avatar-container">
-                      <div
-                        data-name="avatar-circle"
-                        className="flex size-[107px] items-center justify-center overflow-hidden rounded-full bg-neutral-200"
-                      >
-                        <span className="text-3xl font-bold text-neutral-500">
-                          {complaint.author.name.charAt(0)}
-                        </span>
-                      </div>
+                      <ReviewerAvatar
+                        name={complaint.author.name}
+                        rankName={complaint.author.rank}
+                        size="lg"
+                      />
                     </div>
 
                     {/* Status */}
@@ -612,14 +610,10 @@ export function ComplaintDetail({
                       data-name="author-info"
                       className="flex items-center gap-1.5"
                     >
-                      <div
-                        data-name="author-avatar-small"
-                        className="flex size-[18px] items-center justify-center overflow-hidden rounded-[9px] bg-neutral-300"
-                      >
-                        <span className="text-[8px] font-bold text-neutral-600">
-                          {complaint.author.name.charAt(0)}
-                        </span>
-                      </div>
+                      <ReviewerAvatar
+                        name={complaint.author.name}
+                        size="xs"
+                      />
                       <span
                         data-name="author-name"
                         className="text-sm text-[#1c1c1c]"
@@ -807,14 +801,10 @@ export function ComplaintDetail({
                   <span className="text-sm text-[#1c1c1c] opacity-50">
                     Written by {complaint.caseSummary.writtenBy}
                   </span>
-                  <div
-                    data-name="specialist-avatar"
-                    className="flex size-[18px] items-center justify-center overflow-hidden rounded-[9px] bg-neutral-300"
-                  >
-                    <span className="text-[8px] font-bold text-neutral-600">
-                      {complaint.caseSummary.specialistName.charAt(0)}
-                    </span>
-                  </div>
+                  <ReviewerAvatar
+                    name={complaint.caseSummary.specialistName}
+                    size="xs"
+                  />
                   <span className="text-sm text-[#1c1c1c]">
                     by{" "}
                     <span className="font-bold">
@@ -844,14 +834,12 @@ export function ComplaintDetail({
                       className="flex flex-col items-center gap-3.5"
                     >
                       <div data-name="reply-avatar-container">
-                        <div
-                          data-name="reply-avatar-circle"
-                          className="flex size-[80px] items-center justify-center overflow-hidden rounded-full bg-neutral-200"
-                        >
-                          <span className="text-2xl font-bold text-neutral-500">
-                            {reply.author.name.charAt(0)}
-                          </span>
-                        </div>
+                        <ReviewerAvatar
+                          name={reply.author.name}
+                          rankName={reply.author.rank}
+                          size="md"
+                          customPx={80}
+                        />
                       </div>
                       <div
                         data-name="reply-user-status"
@@ -923,14 +911,10 @@ export function ComplaintDetail({
                         data-name="reply-author-mobile"
                         className="flex items-center gap-1.5 sm:hidden"
                       >
-                        <div
-                          data-name="reply-author-avatar-sm"
-                          className="flex size-[18px] items-center justify-center overflow-hidden rounded-[9px] bg-neutral-300"
-                        >
-                          <span className="text-[8px] font-bold text-neutral-600">
-                            {reply.author.name.charAt(0)}
-                          </span>
-                        </div>
+                        <ReviewerAvatar
+                          name={reply.author.name}
+                          size="xs"
+                        />
                         <span className="text-sm font-bold text-[#1c1c1c]">
                           {reply.author.name}
                         </span>

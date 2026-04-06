@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { ReviewerAvatar } from "@/components/reviewer-avatar";
 
 const reviews = [
   {
@@ -149,7 +150,7 @@ function CommunityReviewCard({
             data-name="community-username"
             className="flex items-center gap-1"
           >
-            <div data-name="community-avatar" className="size-[17px] rounded-full bg-red-400 shrink-0" />
+            <ReviewerAvatar name={userName} size="sm" />
             <span className="text-[#404040] text-sm">{userName}</span>
           </div>
           <span className="size-[3px] rounded-full bg-neutral-400 shrink-0" />

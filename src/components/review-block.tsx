@@ -34,6 +34,7 @@ import "flag-icons/css/flag-icons.min.css";
 import { GAME_ICONS } from "@/components/game-icons";
 import { CasinoCategoryCard } from "@/components/casino-categories";
 import { ExpertReviewBlock } from "@/components/expert-review-block";
+import { ReviewerAvatar, getRankName } from "@/components/reviewer-avatar";
 
 /* ------------------------------------------------------------------ */
 /*  Types & Data                                                       */
@@ -186,6 +187,8 @@ type UserReview = {
   downVotes: number;
   hasVerifiedReview: boolean;
   hasXVerified: boolean;
+  playerSince?: number;
+  wageredAmount?: string;
 };
 
 const USER_REVIEWS: UserReview[] = [
@@ -211,6 +214,8 @@ const USER_REVIEWS: UserReview[] = [
     downVotes: 0,
     hasVerifiedReview: true,
     hasXVerified: true,
+    playerSince: 2021,
+    wageredAmount: "$45,200",
   },
   {
     name: "CryptoKing99",
@@ -231,6 +236,8 @@ const USER_REVIEWS: UserReview[] = [
     downVotes: 1,
     hasVerifiedReview: true,
     hasXVerified: false,
+    playerSince: 2022,
+    wageredAmount: "$128,500",
   },
   {
     name: "LuckyDegen",
@@ -254,6 +261,8 @@ const USER_REVIEWS: UserReview[] = [
     downVotes: 2,
     hasVerifiedReview: true,
     hasXVerified: true,
+    playerSince: 2023,
+    wageredAmount: "$12,800",
   },
   {
     name: "SatoshiBets",
@@ -275,6 +284,8 @@ const USER_REVIEWS: UserReview[] = [
     downVotes: 0,
     hasVerifiedReview: true,
     hasXVerified: true,
+    playerSince: 2020,
+    wageredAmount: "$310,000",
   },
   {
     name: "NightOwl42",
@@ -295,6 +306,8 @@ const USER_REVIEWS: UserReview[] = [
     downVotes: 1,
     hasVerifiedReview: true,
     hasXVerified: false,
+    playerSince: 2024,
+    wageredAmount: "$3,400",
   },
 ];
 
@@ -1117,29 +1130,11 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     data-name="reviewer-header"
                     className="flex items-start gap-4"
                   >
-                    <div
-                      data-name="reviewer-avatar"
-                      className="relative shrink-0"
-                    >
-                      <div
-                        data-name="avatar-image"
-                        className="size-16 rounded-full bg-neutral-200 overflow-hidden"
-                      >
-                        <Image
-                          src={review.avatar}
-                          alt={review.name}
-                          width={64}
-                          height={64}
-                          className="size-full object-cover"
-                        />
-                      </div>
-                      <span
-                        data-name="reviewer-points"
-                        className="absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-[#167715] px-2 py-0.5 text-[10px] font-bold text-white whitespace-nowrap"
-                      >
-                        {review.points} pts
-                      </span>
-                    </div>
+                    <ReviewerAvatar
+                      name={review.name}
+                      points={review.points}
+                      size="md"
+                    />
                     <div
                       data-name="reviewer-info"
                       className="flex flex-col gap-1.5"
@@ -1154,6 +1149,12 @@ export function ReviewBlock({ slug }: { slug: string }) {
                           className={`fi fi-${review.country} fis rounded-full overflow-hidden`}
                           style={{ width: 16, height: 16 }}
                         />
+                        <span
+                          data-name="badge-rank-level"
+                          className="text-[11px] font-bold uppercase tracking-wide text-[#167715]"
+                        >
+                          {getRankName(review.points)}
+                        </span>
                       </span>
                       <div
                         data-name="reviewer-badges"
@@ -1197,6 +1198,28 @@ export function ReviewBlock({ slug }: { slug: string }) {
                               />
                             </svg>
                             Verified Account
+                          </span>
+                        )}
+                        {review.playerSince && (
+                          <span
+                            data-name="badge-player-since"
+                            className="inline-flex items-center gap-[5px] rounded-[4px] bg-[#e5e5e5] px-2 py-[4px] text-xs font-medium text-[#525252]"
+                          >
+                            <span className="material-symbols-outlined" style={{ fontSize: 14 }}>
+                              calendar_month
+                            </span>
+                            Player since {review.playerSince}
+                          </span>
+                        )}
+                        {review.wageredAmount && (
+                          <span
+                            data-name="badge-wagered"
+                            className="inline-flex items-center gap-[5px] rounded-[4px] bg-[#e5e5e5] px-2 py-[4px] text-xs font-medium text-[#525252]"
+                          >
+                            <span className="material-symbols-outlined" style={{ fontSize: 14 }}>
+                              payments
+                            </span>
+                            Wagered {review.wageredAmount}
                           </span>
                         )}
                       </div>

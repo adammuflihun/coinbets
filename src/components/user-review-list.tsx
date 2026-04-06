@@ -31,6 +31,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import "flag-icons/css/flag-icons.min.css";
 import { casinoReviews } from "@/data/casino-reviews";
+import { ReviewerAvatar, getRankName } from "@/components/reviewer-avatar";
 
 /* ------------------------------------------------------------------ */
 /*  SVG Paths                                                          */
@@ -69,6 +70,8 @@ type UserReview = {
   hasVerifiedReview: boolean;
   hasXVerified: boolean;
   casinoSlug: string;
+  playerSince?: number;
+  wageredAmount?: string;
 };
 
 const USER_REVIEWS: UserReview[] = [
@@ -95,6 +98,8 @@ const USER_REVIEWS: UserReview[] = [
     hasVerifiedReview: true,
     hasXVerified: true,
     casinoSlug: "stake",
+    playerSince: 2021,
+    wageredAmount: "$45,200",
   },
   {
     name: "CryptoKing99",
@@ -116,6 +121,8 @@ const USER_REVIEWS: UserReview[] = [
     hasVerifiedReview: true,
     hasXVerified: false,
     casinoSlug: "shuffle",
+    playerSince: 2022,
+    wageredAmount: "$128,500",
   },
   {
     name: "LuckyDegen",
@@ -140,6 +147,8 @@ const USER_REVIEWS: UserReview[] = [
     hasVerifiedReview: true,
     hasXVerified: true,
     casinoSlug: "roobet",
+    playerSince: 2023,
+    wageredAmount: "$12,800",
   },
   {
     name: "SatoshiBets",
@@ -162,6 +171,8 @@ const USER_REVIEWS: UserReview[] = [
     hasVerifiedReview: true,
     hasXVerified: true,
     casinoSlug: "bitsler",
+    playerSince: 2020,
+    wageredAmount: "$310,000",
   },
   {
     name: "NightOwl42",
@@ -183,6 +194,8 @@ const USER_REVIEWS: UserReview[] = [
     hasVerifiedReview: true,
     hasXVerified: false,
     casinoSlug: "menace",
+    playerSince: 2024,
+    wageredAmount: "$3,400",
   },
 ];
 
@@ -195,12 +208,12 @@ const STAR_RATING_COLORS: Record<number, string> = {
 };
 
 const REVIEWER_RANKINGS = [
-  { name: "Rookie Bettor", icon: "/hero/rank-rookie.png" },
-  { name: "Novice Gambler", icon: "/hero/rank-novice.png" },
-  { name: "Sharp Shooter", icon: "/hero/rank-sharp.png" },
-  { name: "Casino Ace", icon: "/hero/rank-ace.png" },
-  { name: "High Roller", icon: "/hero/rank-highroller.png" },
-  { name: "Administrator", icon: "/hero/rank-admin.png" },
+  { name: "Rookie Bettor", icon: "/user-level/rookie-bettor.png" },
+  { name: "Novice Gambler", icon: "/user-level/novice-gambler.png" },
+  { name: "Sharp Shooter", icon: "/user-level/sharp-shooter.png" },
+  { name: "Casino Ace", icon: "/user-level/casino-ace.png" },
+  { name: "High Roller", icon: "/user-level/high-roller.png" },
+  { name: "Administrator", icon: "/user-level/administrator.png" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -565,26 +578,11 @@ function ReviewCard({ review }: { review: UserReview }) {
     >
       {/* Reviewer header */}
       <div data-name="reviewer-header" className="flex items-start gap-4">
-        <div data-name="reviewer-avatar" className="relative shrink-0">
-          <div
-            data-name="avatar-image"
-            className="size-16 rounded-full bg-neutral-200 overflow-hidden"
-          >
-            <Image
-              src={review.avatar}
-              alt={review.name}
-              width={64}
-              height={64}
-              className="size-full object-cover"
-            />
-          </div>
-          <span
-            data-name="reviewer-points"
-            className="absolute -bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-[#167715] px-2 py-0.5 text-[10px] font-bold text-white whitespace-nowrap"
-          >
-            {review.points} pts
-          </span>
-        </div>
+        <ReviewerAvatar
+          name={review.name}
+          points={review.points}
+          size="md"
+        />
         <div data-name="reviewer-info" className="flex flex-col gap-1.5">
           <span
             data-name="reviewer-name"
@@ -596,6 +594,12 @@ function ReviewCard({ review }: { review: UserReview }) {
               className={`fi fi-${review.country} fis rounded-full overflow-hidden`}
               style={{ width: 16, height: 16 }}
             />
+            <span
+              data-name="badge-rank-level"
+              className="text-[11px] font-bold uppercase tracking-wide text-[#167715]"
+            >
+              {getRankName(review.points)}
+            </span>
           </span>
           <div
             data-name="reviewer-badges"
@@ -639,6 +643,28 @@ function ReviewCard({ review }: { review: UserReview }) {
                   />
                 </svg>
                 Verified Account
+              </span>
+            )}
+            {review.playerSince && (
+              <span
+                data-name="badge-player-since"
+                className="inline-flex items-center gap-[5px] rounded-[4px] bg-[#e5e5e5] px-2 py-[4px] text-xs font-medium text-[#525252]"
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: 14 }}>
+                  calendar_month
+                </span>
+                Player since {review.playerSince}
+              </span>
+            )}
+            {review.wageredAmount && (
+              <span
+                data-name="badge-wagered"
+                className="inline-flex items-center gap-[5px] rounded-[4px] bg-[#e5e5e5] px-2 py-[4px] text-xs font-medium text-[#525252]"
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: 14 }}>
+                  payments
+                </span>
+                Wagered {review.wageredAmount}
               </span>
             )}
           </div>
