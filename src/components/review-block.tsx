@@ -1557,13 +1557,16 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   {/* Reply thread */}
                   {(REVIEW_REPLIES[idx] ?? []).length > 0 && (
                     <div data-name="review-replies" className="mt-5 pt-4 border-t border-neutral-100">
-                      {/* Reply header — clickable to expand/collapse */}
-                      <button
+                      {/* Reply header + helpful actions — same row */}
+                      <div
                         data-name="reply-header"
-                        className="flex w-full items-center justify-between py-3 cursor-pointer"
-                        onClick={() => setExpandedReplies((prev) => ({ ...prev, [idx]: !prev[idx] }))}
+                        className="flex w-full items-center justify-between py-3"
                       >
-                        <div data-name="reply-count" className="flex items-center gap-2">
+                        <button
+                          data-name="reply-count"
+                          className="flex items-center gap-2 cursor-pointer"
+                          onClick={() => setExpandedReplies((prev) => ({ ...prev, [idx]: !prev[idx] }))}
+                        >
                           <div data-name="reply-avatars" className="flex -space-x-2">
                             <ReviewerAvatar name="reply" size="xs" />
                             <ReviewerAvatar name="reply" size="xs" />
@@ -1575,8 +1578,69 @@ export function ReviewBlock({ slug }: { slug: string }) {
                             {REVIEW_REPLIES[idx][REVIEW_REPLIES[idx].length - 1].timestamp}
                           </span>
                           <ChevronDown className={`size-4 text-neutral-400 transition-transform ${expandedReplies[idx] ? "rotate-180" : ""}`} />
+                        </button>
+                        <div
+                          data-name="helpful-actions"
+                          className="flex items-center gap-3"
+                        >
+                          <span className="text-sm text-neutral-500">Is this helpful?</span>
+                          <button
+                            data-name="vote-up"
+                            className={cn(
+                              "size-8 rounded-full border flex items-center justify-center transition-colors",
+                              voted[idx] === "up"
+                                ? "border-green-500 bg-green-50"
+                                : "border-neutral-200 hover:bg-neutral-50"
+                            )}
+                            onClick={() => {
+                              if (voted[idx] === "up") {
+                                setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) - 1 }));
+                                setVoted((prev) => ({ ...prev, [idx]: null }));
+                              } else if (voted[idx] === "down") {
+                                setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) + 2 }));
+                                setVoted((prev) => ({ ...prev, [idx]: "up" }));
+                              } else {
+                                setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) + 1 }));
+                                setVoted((prev) => ({ ...prev, [idx]: "up" }));
+                              }
+                            }}
+                          >
+                            <ThumbsUp className={cn("size-4", voted[idx] === "up" ? "text-green-500" : "text-neutral-500")} />
+                          </button>
+                          <span
+                            data-name="vote-up-count"
+                            className={cn(
+                              "text-sm",
+                              voted[idx] === "up" ? "text-green-500" : voted[idx] === "down" ? "text-red-500" : "text-neutral-500"
+                            )}
+                          >
+                            ({votes[idx] ?? 0})
+                          </span>
+                          <button
+                            data-name="vote-down"
+                            className={cn(
+                              "size-8 rounded-full border flex items-center justify-center transition-colors",
+                              voted[idx] === "down"
+                                ? "border-red-500 bg-red-50"
+                                : "border-neutral-200 hover:bg-neutral-50"
+                            )}
+                            onClick={() => {
+                              if (voted[idx] === "down") {
+                                setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) + 1 }));
+                                setVoted((prev) => ({ ...prev, [idx]: null }));
+                              } else if (voted[idx] === "up") {
+                                setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) - 2 }));
+                                setVoted((prev) => ({ ...prev, [idx]: "down" }));
+                              } else {
+                                setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) - 1 }));
+                                setVoted((prev) => ({ ...prev, [idx]: "down" }));
+                              }
+                            }}
+                          >
+                            <ThumbsDown className={cn("size-4", voted[idx] === "down" ? "text-red-500" : "text-neutral-500")} />
+                          </button>
                         </div>
-                      </button>
+                      </div>
 
                       {/* Reply thread with left connector — collapsible */}
                       {expandedReplies[idx] && (
@@ -1649,78 +1713,6 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     </div>
                   )}
 
-                  {/* Helpful footer */}
-                  <div
-                    data-name="review-footer"
-                    className="flex items-center justify-between mt-5 pt-4 border-t border-neutral-100"
-                  >
-                    <span
-                      data-name="helpful-label"
-                      className="text-sm text-neutral-500"
-                    >
-                      Is this helpful?
-                    </span>
-                    <div
-                      data-name="helpful-actions"
-                      className="flex items-center gap-3"
-                    >
-                      <button
-                        data-name="vote-up"
-                        className={cn(
-                          "size-8 rounded-full border flex items-center justify-center transition-colors",
-                          voted[idx] === "up"
-                            ? "border-green-500 bg-green-50"
-                            : "border-neutral-200 hover:bg-neutral-50"
-                        )}
-                        onClick={() => {
-                          if (voted[idx] === "up") {
-                            setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) - 1 }));
-                            setVoted((prev) => ({ ...prev, [idx]: null }));
-                          } else if (voted[idx] === "down") {
-                            setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) + 2 }));
-                            setVoted((prev) => ({ ...prev, [idx]: "up" }));
-                          } else {
-                            setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) + 1 }));
-                            setVoted((prev) => ({ ...prev, [idx]: "up" }));
-                          }
-                        }}
-                      >
-                        <ThumbsUp className={cn("size-4", voted[idx] === "up" ? "text-green-500" : "text-neutral-500")} />
-                      </button>
-                      <span
-                        data-name="vote-up-count"
-                        className={cn(
-                          "text-sm",
-                          voted[idx] === "up" ? "text-green-500" : voted[idx] === "down" ? "text-red-500" : "text-neutral-500"
-                        )}
-                      >
-                        ({votes[idx] ?? 0})
-                      </span>
-                      <button
-                        data-name="vote-down"
-                        className={cn(
-                          "size-8 rounded-full border flex items-center justify-center transition-colors",
-                          voted[idx] === "down"
-                            ? "border-red-500 bg-red-50"
-                            : "border-neutral-200 hover:bg-neutral-50"
-                        )}
-                        onClick={() => {
-                          if (voted[idx] === "down") {
-                            setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) + 1 }));
-                            setVoted((prev) => ({ ...prev, [idx]: null }));
-                          } else if (voted[idx] === "up") {
-                            setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) - 2 }));
-                            setVoted((prev) => ({ ...prev, [idx]: "down" }));
-                          } else {
-                            setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) - 1 }));
-                            setVoted((prev) => ({ ...prev, [idx]: "down" }));
-                          }
-                        }}
-                      >
-                        <ThumbsDown className={cn("size-4", voted[idx] === "down" ? "text-red-500" : "text-neutral-500")} />
-                      </button>
-                    </div>
-                  </div>
                 </div>
               );
             })}

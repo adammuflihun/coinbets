@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main data-section="main" className="flex-1">
+    <main data-section="main" className="flex-1 bg-[#060505]">
       {/* Hero */}
       <div
         data-name="about-hero"
@@ -38,11 +38,11 @@ export default function AboutPage() {
 
         <div
           data-name="about-hero-container"
-          className="relative site-container py-24 lg:py-40 flex justify-center"
+          className="relative site-container py-12 lg:py-40 flex justify-center"
         >
           <div
             data-name="about-hero-content"
-            className="max-w-[480px] flex flex-col gap-[22px]"
+            className="max-w-[480px] flex flex-col gap-3 lg:gap-[22px]"
           >
             <p
               data-name="about-tagline"
@@ -54,11 +54,13 @@ export default function AboutPage() {
               data-name="about-title"
               className="text-[32px] lg:text-[45px] font-black leading-none tracking-[-0.45px] text-white"
             >
-              The Truth. Uncensored. No Bullsh*t.
+              The Truth. Uncensored.
+              <br />
+              No Bullsh*t.
             </h1>
             <div
               data-name="about-paragraphs"
-              className="flex flex-col gap-8 text-lg font-medium text-white leading-[1.4]"
+              className="flex flex-col gap-4 lg:gap-8 text-base lg:text-lg font-medium text-white leading-[1.4]"
             >
               <p data-name="about-paragraph-1">
                 The world of crypto casino reviews is a crime-ridden city.
@@ -83,11 +85,11 @@ export default function AboutPage() {
       <div data-name="about-independent" className="bg-[#060505]">
         <div
           data-name="about-independent-container"
-          className="site-container py-16 lg:py-24"
+          className="site-container pt-8 pb-4 lg:py-24"
         >
           <div
             data-name="about-independent-grid"
-            className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center"
           >
             <div
               data-name="about-independent-image"
@@ -102,7 +104,7 @@ export default function AboutPage() {
             </div>
             <div
               data-name="about-independent-content"
-              className="flex flex-col gap-11"
+              className="flex flex-col gap-6 lg:gap-11"
             >
               <h2
                 data-name="about-independent-heading"
@@ -171,20 +173,20 @@ export default function AboutPage() {
       <div data-name="about-ugly-truth" className="bg-[#060505]">
         <div
           data-name="about-ugly-truth-container"
-          className="site-container py-16 lg:py-24"
+          className="site-container pt-8 pb-4 lg:py-24"
         >
           <div
             data-name="about-ugly-truth-grid"
-            className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start"
           >
             <div
               data-name="about-ugly-truth-content"
-              className="flex flex-col gap-12"
+              className="flex flex-col gap-6 lg:gap-12"
             >
               {/* Heading + Lists */}
               <div
                 data-name="about-ugly-truth-main"
-                className="flex flex-col gap-6"
+                className="flex flex-col gap-4 lg:gap-6"
               >
                 <h2
                   data-name="about-ugly-truth-heading"
@@ -340,7 +342,7 @@ export default function AboutPage() {
 
             <div
               data-name="about-ugly-truth-image"
-              className="relative aspect-[615/773] rounded-sm overflow-hidden"
+              className="relative aspect-[615/773] rounded-sm overflow-hidden order-first lg:order-last"
             >
               <Image
                 src="/hero/about-images-01.png"
@@ -356,7 +358,7 @@ export default function AboutPage() {
       <div data-name="about-corrupt" className="bg-[#060505]">
         <div
           data-name="about-corrupt-container"
-          className="site-container py-16 lg:py-24"
+          className="site-container pt-4 pb-8 lg:py-24"
         >
           {/* Heading */}
           <h2
@@ -369,7 +371,7 @@ export default function AboutPage() {
           {/* Center image + description */}
           <div
             data-name="about-corrupt-hero"
-            className="mt-10 flex flex-col items-center"
+            className="mt-6 lg:mt-10 flex flex-col items-center"
           >
             <Image
               data-name="about-corrupt-image"
@@ -392,7 +394,7 @@ export default function AboutPage() {
           {/* Three cards */}
           <div
             data-name="about-corrupt-cards"
-            className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
+            className="mt-6 lg:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6"
           >
             {[
               {
@@ -446,7 +448,7 @@ export default function AboutPage() {
           {/* Bottom image */}
           <div
             data-name="about-corrupt-bottom-image"
-            className="mt-16 relative w-full aspect-[1331/667] rounded-sm overflow-hidden"
+            className="mt-8 lg:mt-16 relative w-full aspect-[1331/667] rounded-sm overflow-hidden"
           >
             <Image
               src="/hero/about-image-04.png"
@@ -612,7 +614,7 @@ export default function AboutPage() {
         {/* Olive background */}
         <div
           data-name="about-cta-backdrop"
-          className="relative bg-[#292a23] pt-48 lg:pt-80 pb-48 lg:pb-64 overflow-hidden min-h-[1280px]"
+          className="relative bg-[#292a23] pt-24 lg:pt-80 pb-24 lg:pb-64 overflow-hidden min-h-[600px] lg:min-h-[1280px]"
         >
           <div data-name="about-cta-bg-overlay" className="absolute top-0 left-0 right-0 h-[20%] bg-linear-to-b from-[#060505] to-transparent z-1" />
           <Image
@@ -624,11 +626,11 @@ export default function AboutPage() {
           />
           <div
             data-name="about-cta-heading-wrap"
-            className="site-container relative z-10"
+            className="absolute bottom-32 lg:bottom-64 left-0 right-0 site-container z-10"
           >
             <h2
               data-name="about-cta-heading"
-              className="text-[28px] lg:text-[49px] font-extrabold leading-none tracking-[-0.49px] text-white text-center max-w-[1023px] mx-auto"
+              className="text-[28px] lg:text-[49px] font-extrabold leading-none tracking-[-0.49px] text-white text-center max-w-[1023px] mx-auto pb-8 lg:pb-12"
             >
               Hold crypto casinos accountable. Join the fight with CoinBets.
             </h2>
