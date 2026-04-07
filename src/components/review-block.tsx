@@ -462,14 +462,6 @@ export function ReviewBlock({ slug }: { slug: string }) {
   );
   const [voted, setVoted] = useState<Record<number, "up" | "down" | null>>({});
   const [expandedReplies, setExpandedReplies] = useState<Record<number, boolean>>({});
-  const [replyVotes, setReplyVotes] = useState<Record<number, number>>(() => {
-    const init: Record<number, number> = {};
-    Object.entries(REVIEW_REPLIES).forEach(([k, replies]) => {
-      init[Number(k)] = replies.reduce((s, r) => s + r.upVotes - r.downVotes, 0);
-    });
-    return init;
-  });
-  const [replyVoted, setReplyVoted] = useState<Record<number, "up" | "down" | null>>({});
   const tabSentinelRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
   useEffect(() => {
@@ -1583,58 +1575,6 @@ export function ReviewBlock({ slug }: { slug: string }) {
                             {REVIEW_REPLIES[idx][REVIEW_REPLIES[idx].length - 1].timestamp}
                           </span>
                           <ChevronDown className={`size-4 text-neutral-400 transition-transform ${expandedReplies[idx] ? "rotate-180" : ""}`} />
-                        </div>
-                        <div data-name="reply-helpful" className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
-                          <span className="text-sm text-neutral-500">Is this helpful?</span>
-                          <button
-                            data-name="reply-vote-up"
-                            className={cn(
-                              "size-8 rounded-full border flex items-center justify-center transition-colors",
-                              replyVoted[idx] === "up"
-                                ? "border-green-500 bg-green-50"
-                                : "border-neutral-200 hover:bg-neutral-50"
-                            )}
-                            onClick={() => {
-                              if (replyVoted[idx] === "up") {
-                                setReplyVotes((p) => ({ ...p, [idx]: (p[idx] ?? 0) - 1 }));
-                                setReplyVoted((p) => ({ ...p, [idx]: null }));
-                              } else if (replyVoted[idx] === "down") {
-                                setReplyVotes((p) => ({ ...p, [idx]: (p[idx] ?? 0) + 2 }));
-                                setReplyVoted((p) => ({ ...p, [idx]: "up" }));
-                              } else {
-                                setReplyVotes((p) => ({ ...p, [idx]: (p[idx] ?? 0) + 1 }));
-                                setReplyVoted((p) => ({ ...p, [idx]: "up" }));
-                              }
-                            }}
-                          >
-                            <ThumbsUp className={cn("size-4", replyVoted[idx] === "up" ? "text-green-500" : "text-neutral-500")} />
-                          </button>
-                          <span className={cn("text-sm", replyVoted[idx] === "up" ? "text-green-500" : replyVoted[idx] === "down" ? "text-red-500" : "text-neutral-500")}>
-                            ({replyVotes[idx] ?? 0})
-                          </span>
-                          <button
-                            data-name="reply-vote-down"
-                            className={cn(
-                              "size-8 rounded-full border flex items-center justify-center transition-colors",
-                              replyVoted[idx] === "down"
-                                ? "border-red-500 bg-red-50"
-                                : "border-neutral-200 hover:bg-neutral-50"
-                            )}
-                            onClick={() => {
-                              if (replyVoted[idx] === "down") {
-                                setReplyVotes((p) => ({ ...p, [idx]: (p[idx] ?? 0) + 1 }));
-                                setReplyVoted((p) => ({ ...p, [idx]: null }));
-                              } else if (replyVoted[idx] === "up") {
-                                setReplyVotes((p) => ({ ...p, [idx]: (p[idx] ?? 0) - 2 }));
-                                setReplyVoted((p) => ({ ...p, [idx]: "down" }));
-                              } else {
-                                setReplyVotes((p) => ({ ...p, [idx]: (p[idx] ?? 0) - 1 }));
-                                setReplyVoted((p) => ({ ...p, [idx]: "down" }));
-                              }
-                            }}
-                          >
-                            <ThumbsDown className={cn("size-4", replyVoted[idx] === "down" ? "text-red-500" : "text-neutral-500")} />
-                          </button>
                         </div>
                       </button>
 
