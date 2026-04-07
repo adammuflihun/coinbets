@@ -1130,50 +1130,92 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
     >
       {/* Top section: Logo + Info + Safety */}
       <div data-name="casino-card-top" className="p-4 sm:p-6">
-        <div data-name="casino-card-header" className="flex flex-col sm:flex-row gap-4 sm:gap-5">
-          {/* Casino Logo */}
-          <Link
-            href={`/casino/review/${casino.slug}`}
-            data-name="casino-logo"
-            className="shrink-0 size-24 sm:size-[200px] rounded-lg bg-[#060D17] flex items-center justify-center overflow-hidden border border-neutral-200"
-          >
-            <Image
-              src={casino.logo}
-              alt={casino.name}
-              width={200}
-              height={200}
-              className="object-contain size-full"
-            />
-          </Link>
-
-          {/* Casino Info */}
-          <div data-name="casino-info" className="flex-1 min-w-0">
-            <div data-name="casino-name-row" className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
+        <div data-name="casino-card-header" className="flex flex-col gap-4 sm:gap-5">
+          {/* Mobile: Logo + Name row */}
+          <div data-name="mobile-logo-identity" className="flex flex-row items-center gap-3 sm:hidden">
+            <Link
+              href={`/casino/review/${casino.slug}`}
+              data-name="casino-logo-mobile"
+              className="shrink-0 size-[64px] rounded-lg bg-[#060D17] flex items-center justify-center overflow-hidden border border-neutral-200"
+            >
+              <Image
+                src={casino.logo}
+                alt={casino.name}
+                width={64}
+                height={64}
+                className="object-contain size-full"
+              />
+            </Link>
+            <div data-name="casino-name-row" className="flex flex-col gap-1.5 min-w-0">
               <Link
                 href={`/casino/review/${casino.slug}`}
                 data-name="casino-name"
-                className="text-xl sm:text-2xl font-bold text-[#060D17] hover:underline"
+                className="text-base font-bold text-[#060D17] hover:underline"
               >
                 {casino.name}
               </Link>
               <div
                 data-name="safety-badge"
-                className="flex items-center gap-1.5 rounded-md border border-neutral-200 px-3 py-1.5 shrink-0 self-start"
+                className="flex items-center gap-1.5 rounded-md border border-neutral-200 px-2 py-1 shrink-0 self-start"
               >
-                <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+                <span className="text-[10px] font-semibold text-neutral-500 uppercase tracking-wider">
                   Safety Index:
                 </span>
                 <span
-                  className="px-2 py-0.5 rounded-full text-[11px] font-bold"
+                  className="px-1.5 py-0.5 rounded-full text-[10px] font-bold"
                   style={{ backgroundColor: safetyStyle.bg, color: safetyStyle.text }}
                 >
                   {casino.safetyIndex}
                 </span>
               </div>
             </div>
+          </div>
 
-            {/* Ratings Row */}
-            <div data-name="expert-ratings" className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 mt-3">
+          {/* Desktop: Logo + Info side by side */}
+          <div data-name="desktop-card-header" className="hidden sm:flex flex-row gap-5">
+            {/* Casino Logo */}
+            <Link
+              href={`/casino/review/${casino.slug}`}
+              data-name="casino-logo"
+              className="shrink-0 size-[200px] rounded-lg bg-[#060D17] flex items-center justify-center overflow-hidden border border-neutral-200"
+            >
+              <Image
+                src={casino.logo}
+                alt={casino.name}
+                width={200}
+                height={200}
+                className="object-contain size-full"
+              />
+            </Link>
+
+            {/* Casino Info */}
+            <div data-name="casino-info" className="flex-1 min-w-0">
+              <div data-name="casino-name-row" className="flex flex-row items-start justify-between gap-4">
+                <Link
+                  href={`/casino/review/${casino.slug}`}
+                  data-name="casino-name"
+                  className="text-2xl font-bold text-[#060D17] hover:underline"
+                >
+                  {casino.name}
+                </Link>
+                <div
+                  data-name="safety-badge"
+                  className="flex items-center gap-1.5 rounded-md border border-neutral-200 px-3 py-1.5 shrink-0 self-start"
+                >
+                  <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+                    Safety Index:
+                  </span>
+                  <span
+                    className="px-2 py-0.5 rounded-full text-[11px] font-bold"
+                    style={{ backgroundColor: safetyStyle.bg, color: safetyStyle.text }}
+                  >
+                    {casino.safetyIndex}
+                  </span>
+                </div>
+              </div>
+
+              {/* Ratings Row (desktop) */}
+              <div data-name="expert-ratings" className="flex flex-row items-start gap-6 mt-3">
               {/* Player Rating */}
               <div data-name="player-rating" className="flex items-start gap-2.5">
                 <PlayerRatingIcon />
@@ -1222,11 +1264,97 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
                   </Link>
                 </div>
               </div>
+              </div>
+
+              {/* Description */}
+              <div data-name="casino-description" className="mt-4">
+                <h4 className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.2em] mb-1.5">
+                  Description
+                </h4>
+                <p className="text-sm leading-relaxed text-neutral-700 line-clamp-3">
+                  {casino.reviewText}
+                </p>
+              </div>
+
+              {/* Pros / Cons */}
+              <div data-name="casino-pros-cons" className="mt-4 flex flex-col gap-2">
+                {casino.whatWeLiked.slice(0, 2).map((item, i) => (
+                  <div key={i} data-name="pro-item" className="flex items-start gap-2">
+                    <div data-name="pro-icon" className="size-5 rounded bg-[#167715] flex items-center justify-center shrink-0 mt-0.5">
+                      <Plus className="size-3 text-white" />
+                    </div>
+                    <p className="text-sm text-neutral-700">{item}</p>
+                  </div>
+                ))}
+                {casino.redFlags.slice(0, 2).map((item, i) => (
+                  <div key={i} data-name="con-item" className="flex items-start gap-2">
+                    <div data-name="con-icon" className="size-5 rounded bg-[#da3131] flex items-center justify-center shrink-0 mt-0.5">
+                      <Minus className="size-3 text-white" />
+                    </div>
+                    <p className="text-sm text-neutral-700">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile: Ratings + Description + Pros/Cons */}
+          <div data-name="mobile-card-details" className="flex flex-col gap-3 sm:hidden">
+            {/* Ratings Row (mobile - vertical) */}
+            <div data-name="expert-ratings-mobile" className="grid grid-cols-2 gap-3">
+              {/* Player Rating */}
+              <div data-name="player-rating" className="flex items-start gap-2">
+                <PlayerRatingIcon size={24} />
+                <div data-name="player-rating-detail" className="flex flex-col gap-0.5">
+                  <div data-name="player-score-row" className="flex items-center gap-1">
+                    <span className="text-base font-medium leading-none text-[#060d17]">
+                      {casino.playerRating.toFixed(1)}
+                    </span>
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
+                      <path d={STAR_BG} fill={playerColor} />
+                      <path d={STAR_SHAPE} fill="white" />
+                    </svg>
+                  </div>
+                  <p className="text-xs font-medium text-[#060d17]">Player Rating</p>
+                  <Link
+                    href={`/casino/review/${casino.slug}#reviews`}
+                    className="text-xs font-medium text-[#2563eb]"
+                  >
+                    {casino.playerReviews} Reviews
+                  </Link>
+                </div>
+              </div>
+
+              {/* Expert Score */}
+              <div data-name="expert-score" className="flex items-start gap-2">
+                <ExpertShieldIcon size={24} />
+                <div data-name="expert-score-detail" className="flex flex-col gap-0.5">
+                  <div data-name="expert-score-row" className="flex items-center gap-1">
+                    <span className="text-base font-medium leading-none text-[#060d17]">
+                      {casino.expertScore.toFixed(1)}
+                    </span>
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
+                      <rect width="20" height="20" rx="5" fill="#003EB6" />
+                      <path
+                        d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </div>
+                  <p className="text-xs font-medium text-[#060d17]">Expert Score</p>
+                  <Link
+                    href={`/casino/review/${casino.slug}`}
+                    className="text-xs font-medium text-[#2563eb]"
+                  >
+                    Independent Audit
+                  </Link>
+                </div>
+              </div>
             </div>
 
             {/* Description */}
-            <div data-name="casino-description" className="mt-4">
-              <h4 className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.2em] mb-1.5">
+            <div data-name="casino-description" className="mt-1">
+              <h4 className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.2em] mb-1">
                 Description
               </h4>
               <p className="text-sm leading-relaxed text-neutral-700 line-clamp-3">
@@ -1235,7 +1363,7 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
             </div>
 
             {/* Pros / Cons */}
-            <div data-name="casino-pros-cons" className="mt-4 flex flex-col gap-2">
+            <div data-name="casino-pros-cons" className="flex flex-col gap-2">
               {casino.whatWeLiked.slice(0, 2).map((item, i) => (
                 <div key={i} data-name="pro-item" className="flex items-start gap-2">
                   <div data-name="pro-icon" className="size-5 rounded bg-[#167715] flex items-center justify-center shrink-0 mt-0.5">

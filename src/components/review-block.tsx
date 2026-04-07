@@ -17,6 +17,7 @@ import {
   Info,
   Pencil,
   X,
+  MessageSquare,
 } from "lucide-react";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
@@ -36,12 +37,14 @@ import { CasinoCategoryCard } from "@/components/casino-categories";
 import { ExpertReviewBlock } from "@/components/expert-review-block";
 import { ReviewerAvatar, getRankName } from "@/components/reviewer-avatar";
 import { ComplaintCard, type ComplaintData } from "@/components/complaint-card";
+import { CommentEditor } from "@/components/comment-editor";
 
 /* ------------------------------------------------------------------ */
 /*  Types & Data                                                       */
 /* ------------------------------------------------------------------ */
 
 import { casinoReviews } from "@/data/casino-reviews";
+import { cn } from "@/lib/utils";
 export type { CasinoReview } from "@/data/casino-reviews";
 export { casinoReviews };
 
@@ -167,8 +170,8 @@ function ExpertShieldIcon({ size = 30 }: { size?: number }) {
 
 const TABS = [
   "Overview",
-  "Safety Index",
   "User Reviews",
+  "Safety Index",
   "Expert Review",
   "Bonuses",
 ];
@@ -230,6 +233,87 @@ function getCasinoComplaints(casino: { slug: string; name: string; logo: string;
     },
   }));
 }
+
+type ReviewReply = {
+  id: string;
+  type: "player" | "casino" | "coinbets";
+  name: string;
+  country?: string;
+  hasXVerified?: boolean;
+  timestamp: string;
+  content: string;
+  upVotes: number;
+  downVotes: number;
+};
+
+const REVIEW_REPLIES: Record<number, ReviewReply[]> = {
+  0: [
+    {
+      id: "r0-1",
+      type: "player",
+      name: "CryptoWhale42",
+      country: "de",
+      hasXVerified: true,
+      timestamp: "Today at 2:54 PM",
+      content: "At the beginning I really thought that this casino would become my favorite casino.\nThe first payouts were super fast, within a few hours or even minutes. When I started withdrawing more money, the payments were held back.",
+      upVotes: 14,
+      downVotes: 2,
+    },
+    {
+      id: "r0-2",
+      type: "player",
+      name: "LuckyDegen",
+      country: "gb",
+      hasXVerified: true,
+      timestamp: "Today at 3:15 PM",
+      content: "At the moment there are still 950\u20AC outstanding which have been in progress for days. I have slowly lost my trust in the casino! I will file a complaint. The casino advertises payouts within 9 minutes.",
+      upVotes: 8,
+      downVotes: 1,
+    },
+    {
+      id: "r0-3",
+      type: "coinbets",
+      name: "CoinBets Admin",
+      timestamp: "Today at 4:02 PM",
+      content: "We have reached out to the casino regarding the delayed withdrawals mentioned in this thread. We will update this review once we receive a response from their team.",
+      upVotes: 22,
+      downVotes: 0,
+    },
+  ],
+  1: [
+    {
+      id: "r1-1",
+      type: "casino",
+      name: "Casino Support",
+      timestamp: "Yesterday at 11:30 AM",
+      content: "Thank you for your review! We appreciate the positive feedback. Our team works hard to ensure fast payouts and a great gaming experience.",
+      upVotes: 5,
+      downVotes: 3,
+    },
+  ],
+  3: [
+    {
+      id: "r3-1",
+      type: "player",
+      name: "NightOwl42",
+      country: "br",
+      hasXVerified: false,
+      timestamp: "2 days ago",
+      content: "Can confirm, this casino is legit. Had the same experience with fast withdrawals and great original games.",
+      upVotes: 6,
+      downVotes: 0,
+    },
+    {
+      id: "r3-2",
+      type: "coinbets",
+      name: "CoinBets Admin",
+      timestamp: "1 day ago",
+      content: "Thank you for sharing your experience. We have verified the provably fair system of this casino and can confirm it meets our standards.",
+      upVotes: 10,
+      downVotes: 0,
+    },
+  ],
+};
 
 const USER_REVIEWS: UserReview[] = [
   {
@@ -371,6 +455,21 @@ export function ReviewBlock({ slug }: { slug: string }) {
   const [providersOpen, setProvidersOpen] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [galleryIndex, setGalleryIndex] = useState(0);
+  const [votes, setVotes] = useState<Record<number, number>>(() =>
+    Object.fromEntries(
+      USER_REVIEWS.map((r, i) => [i, r.upVotes - r.downVotes])
+    )
+  );
+  const [voted, setVoted] = useState<Record<number, "up" | "down" | null>>({});
+  const [expandedReplies, setExpandedReplies] = useState<Record<number, boolean>>({});
+  const [replyVotes, setReplyVotes] = useState<Record<number, number>>(() => {
+    const init: Record<number, number> = {};
+    Object.entries(REVIEW_REPLIES).forEach(([k, replies]) => {
+      init[Number(k)] = replies.reduce((s, r) => s + r.upVotes - r.downVotes, 0);
+    });
+    return init;
+  });
+  const [replyVoted, setReplyVoted] = useState<Record<number, "up" | "down" | null>>({});
   const tabSentinelRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
   useEffect(() => {
@@ -512,48 +611,87 @@ export function ReviewBlock({ slug }: { slug: string }) {
             >
               <div
                 data-name="header-layout"
-                className="flex flex-col lg:flex-row gap-6 lg:gap-8"
+                className="flex flex-col gap-4 lg:gap-8"
               >
-                {/* Logo */}
+                {/* Logo + Name/CTA row */}
                 <div
-                  data-name="casino-logo"
-                  className="flex items-center justify-center w-[140px] h-[115px] rounded-xl overflow-hidden bg-[#060d17] shrink-0"
+                  data-name="logo-and-identity"
+                  className="flex flex-row items-center gap-4 lg:hidden"
                 >
-                  <Image
-                    src={casino.logo}
-                    alt={casino.name}
-                    width={140}
-                    height={115}
-                    className="object-contain w-full h-full"
-                  />
-                </div>
-
-                {/* Info */}
-                <div
-                  data-name="casino-info"
-                  className="flex flex-col gap-4 flex-1 min-w-0"
-                >
-                  {/* Name + CTA */}
                   <div
-                    data-name="name-and-cta"
-                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                    data-name="casino-logo-mobile"
+                    className="flex items-center justify-center w-[72px] h-[60px] rounded-lg overflow-hidden bg-[#060d17] shrink-0"
                   >
-                    <h1 className="text-lg font-bold text-[#060D17]">
+                    <Image
+                      src={casino.logo}
+                      alt={casino.name}
+                      width={72}
+                      height={60}
+                      className="object-contain w-full h-full"
+                    />
+                  </div>
+                  <div
+                    data-name="name-and-cta-mobile"
+                    className="flex flex-col gap-1.5"
+                  >
+                    <h1 className="text-base font-bold text-[#060D17]">
                       {casino.name}
                     </h1>
                     <Link
                       href="#"
-                      className="group inline-flex items-center gap-1.5 rounded-lg border border-[#060D17] px-3.5 py-1.5 text-sm font-semibold text-[#060D17] hover:bg-neutral-100 transition-colors w-fit"
+                      className="group inline-flex items-center gap-1.5 rounded-lg border border-[#060D17] px-3 py-1 text-xs font-semibold text-[#060D17] hover:bg-neutral-100 transition-colors w-fit"
                     >
                       Official Site Info
-                      <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                      <ChevronRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
                     </Link>
                   </div>
+                </div>
 
-                  {/* Ratings row */}
+                {/* Desktop layout */}
+                <div
+                  data-name="desktop-header"
+                  className="hidden lg:flex flex-row gap-8"
+                >
+                  {/* Logo */}
+                  <div
+                    data-name="casino-logo"
+                    className="flex items-center justify-center w-[140px] h-[115px] rounded-xl overflow-hidden bg-[#060d17] shrink-0"
+                  >
+                    <Image
+                      src={casino.logo}
+                      alt={casino.name}
+                      width={140}
+                      height={115}
+                      className="object-contain w-full h-full"
+                    />
+                  </div>
+
+                  {/* Info */}
+                  <div
+                    data-name="casino-info"
+                    className="flex flex-col gap-4 flex-1 min-w-0"
+                  >
+                    {/* Name + CTA */}
+                    <div
+                      data-name="name-and-cta"
+                      className="flex flex-row items-center justify-between gap-3"
+                    >
+                      <h1 className="text-lg font-bold text-[#060D17]">
+                        {casino.name}
+                      </h1>
+                      <Link
+                        href="#"
+                        className="group inline-flex items-center gap-1.5 rounded-lg border border-[#060D17] px-3.5 py-1.5 text-sm font-semibold text-[#060D17] hover:bg-neutral-100 transition-colors w-fit"
+                      >
+                        Official Site Info
+                        <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                      </Link>
+                    </div>
+
+                  {/* Ratings row (desktop) */}
                   <div
                     data-name="ratings-row"
-                    className="flex flex-wrap items-start gap-6 lg:gap-10"
+                    className="hidden lg:flex flex-wrap items-start gap-6 lg:gap-10"
                   >
                     {/* Player Rating */}
                     <div
@@ -657,6 +795,117 @@ export function ReviewBlock({ slug }: { slug: string }) {
                           {casino.safetyIndex}
                         </span>
                       </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                {/* Ratings row (mobile) */}
+                <div
+                  data-name="ratings-row-mobile"
+                  className="flex flex-wrap items-start gap-4 lg:hidden"
+                >
+                  {/* Player Rating */}
+                  <div
+                    data-name="player-rating"
+                    className="flex items-start gap-2"
+                  >
+                    <PlayerRatingIcon size={24} />
+                    <div data-name="player-rating-details" className="flex flex-col gap-0.5">
+                      <div data-name="player-rating-value" className="flex items-center gap-1">
+                        <span className="text-base font-medium leading-none text-[#060D17]">
+                          {casino.playerRating.toFixed(1)}
+                        </span>
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          className="size-4 shrink-0"
+                        >
+                          <path d={STAR_BG} fill={ratingColor} />
+                          <path d={STAR_SHAPE} fill="white" />
+                        </svg>
+                      </div>
+                      <p className="text-xs font-medium text-neutral-500">
+                        Player Rating
+                      </p>
+                      <p className="text-xs font-medium text-[#2563eb]">
+                        {casino.playerReviews} Reviews
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Expert Score */}
+                  <div
+                    data-name="expert-score"
+                    className="flex items-start gap-2"
+                  >
+                    <ExpertShieldIcon size={24} />
+                    <div data-name="expert-score-details" className="flex flex-col gap-0.5">
+                      <div data-name="expert-score-value" className="flex items-center gap-1">
+                        <span className="text-base font-medium leading-none text-[#060D17]">
+                          {casino.expertScore.toFixed(1)}
+                        </span>
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          className="size-4 shrink-0"
+                        >
+                          <rect
+                            width="20"
+                            height="20"
+                            rx="5"
+                            fill="#003EB6"
+                          />
+                          <path
+                            d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </div>
+                      <p className="text-xs font-medium text-neutral-500">
+                        Expert Score
+                      </p>
+                      <p className="text-xs font-medium text-[#2563eb]">
+                        Audit
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Views */}
+                  <div data-name="views" className="flex items-center gap-1.5">
+                    <Eye className="size-4 text-neutral-400" />
+                    <div data-name="views-details" className="flex flex-col">
+                      <span className="text-[10px] font-bold text-neutral-400 uppercase">
+                        Views
+                      </span>
+                      <span className="text-sm font-semibold text-[#060D17]">
+                        {casino.views}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Safety Index */}
+                  <div
+                    data-name="safety-index"
+                    className="flex items-center gap-1.5"
+                  >
+                    <div data-name="safety-index-details" className="flex flex-col gap-0.5">
+                      <span className="text-[10px] font-bold text-neutral-400 uppercase">
+                        Safety Index
+                      </span>
+                      <span
+                        className="rounded-full px-2 py-0.5 text-[10px] font-semibold text-[#060d17] w-fit"
+                        style={{
+                          backgroundColor:
+                            SAFETY_COLORS[casino.safetyIndex] || "#eaee45",
+                        }}
+                      >
+                        {casino.safetyIndex}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -808,151 +1057,6 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     ))}
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* ---- Safety Index Section ---- */}
-            <div
-              id="safety-index"
-              data-name="safety-index-section"
-              className="rounded-lg border border-neutral-200 bg-white p-6 sm:p-8 shadow-sm flex flex-col gap-6"
-            >
-              <div data-name="safety-header" className="flex flex-col gap-3">
-                <h2
-                  data-name="safety-title"
-                  className="text-base font-bold text-[#060D17]"
-                >
-                  CoinBets Safety Index Explained: {casino.name}
-                </h2>
-                <p
-                  data-name="safety-description"
-                  className="text-[15px] leading-relaxed text-neutral-600"
-                >
-                  Curious how {casino.name} performs on trust and fairness?
-                  Below is a breakdown of the unique factors we considered when
-                  calculating its CoinBets Safety Index. This rating is based on
-                  objective criteria including licensing, player reports, game
-                  fairness, and operational transparency. Our goal is to inform
-                  players with verified data, not to promote or recommend any
-                  casino.
-                </p>
-              </div>
-
-              <div
-                data-name="safety-body"
-                className="flex flex-col sm:flex-row gap-6"
-              >
-                {/* Score card */}
-                <div
-                  data-name="safety-score-card"
-                  className="flex flex-col items-start justify-center rounded-xl p-6 sm:p-8 min-w-[180px]"
-                  style={{
-                    backgroundColor:
-                      RATING_COLORS[
-                        casino.safetyScore >= 7.5
-                          ? 5
-                          : casino.safetyScore >= 5.5
-                            ? 4
-                            : casino.safetyScore >= 3.5
-                              ? 3
-                              : casino.safetyScore >= 1.5
-                                ? 2
-                                : 1
-                      ],
-                  }}
-                >
-                  <div data-name="safety-score-value" className="flex items-baseline gap-1">
-                    <span className="text-5xl font-bold text-white">
-                      {casino.safetyScore.toFixed(1)}
-                    </span>
-                    <span className="text-lg font-medium text-white/70">
-                      / 10
-                    </span>
-                  </div>
-                  <div data-name="safety-score-badge" className="flex items-center gap-2 mt-2">
-                    <span className="text-sm font-medium text-white/80">
-                      Safety Index:
-                    </span>
-                    <span className="rounded-md bg-white/20 px-2 py-0.5 text-xs font-bold text-white">
-                      {casino.safetyIndex}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Factors list */}
-                <div
-                  data-name="safety-factors"
-                  className="flex flex-1 flex-col gap-3"
-                >
-                  {casino.safetyFactors.map((factor, i) => (
-                    <div
-                      key={i}
-                      data-name="safety-factor-row"
-                      className="flex items-center justify-between gap-4 rounded-lg border border-neutral-200 bg-neutral-50 px-5 py-3.5"
-                    >
-                      <span className="text-[15px] text-neutral-700">
-                        {factor}
-                      </span>
-                      <Popover>
-                        <PopoverTrigger>
-                          <Info className="size-5 shrink-0 text-neutral-300 hover:text-neutral-500 transition-colors cursor-pointer" />
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto max-w-xs text-xs px-3 py-1.5">
-                          {factor}
-                        </PopoverContent>
-                      </Popover>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Disclaimer */}
-              <div
-                data-name="safety-disclaimer"
-                className="border-t border-neutral-200 pt-5"
-              >
-                <p className="text-sm leading-relaxed text-neutral-500">
-                  Disclaimer: This Safety Index reflects CoinBets&apos;
-                  independent research and is not an endorsement of the casino.{" "}
-                  <span className="text-[#003EB6] cursor-pointer hover:underline">
-                    Learn how we rate casinos.
-                  </span>
-                </p>
-              </div>
-
-              {/* Complaint CTA */}
-              <div
-                data-name="safety-complaint"
-                className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-              >
-                <span className="text-base font-bold text-[#060D17]">
-                  Has this casino done something unfair to you?
-                </span>
-                <Link href="/complaints/submit" className="flex items-center gap-2 rounded-lg bg-[#7a1a1a] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#5c1414] transition-colors">
-                  Submit a complaint
-                  <Pencil className="size-4" />
-                </Link>
-              </div>
-
-              {/* Complaints */}
-              <div
-                data-name="complaints-count"
-                className="flex flex-col gap-4"
-              >
-                <p className="text-sm font-bold text-[#060D17]">
-                  Complaints about {casino.name} ({getCasinoComplaints(casino).length})
-                </p>
-                {getCasinoComplaints(casino).slice(0, 1).map((complaint) => (
-                  <ComplaintCard key={complaint.id} complaint={complaint} />
-                ))}
-                <Link
-                  href="/complaints"
-                  data-name="see-more-complaints"
-                  className="flex items-center justify-center gap-1.5 rounded-lg border border-neutral-200 py-2.5 text-sm font-semibold text-[#060D17] hover:bg-neutral-50 transition-colors"
-                >
-                  See all complaints
-                  <ChevronRight className="size-4" />
-                </Link>
               </div>
             </div>
 
@@ -1341,6 +1445,35 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     className="border-t border-neutral-100 my-5"
                   />
 
+                  {/* Screenshots */}
+                  {casino.screenshots.length > 0 && (
+                    <div
+                      data-name="review-screenshots"
+                      className="flex gap-2 overflow-x-auto pb-2 mb-2"
+                      style={{ scrollbarWidth: "none" }}
+                    >
+                      {casino.screenshots.slice(0, 4).map((src, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => {
+                            setGalleryIndex(i);
+                            setGalleryOpen(true);
+                          }}
+                          data-name="screenshot-thumb"
+                          className="relative h-[120px] w-[200px] shrink-0 rounded-lg overflow-hidden bg-[#11181f] cursor-pointer hover:opacity-90 transition-opacity"
+                        >
+                          <Image
+                            src={src}
+                            alt={`${casino.name} screenshot ${i + 1}`}
+                            fill
+                            className="object-cover"
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
                   {/* Review content */}
                   <div
                     data-name="review-content"
@@ -1429,6 +1562,153 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     </div>
                   </div>
 
+                  {/* Reply thread */}
+                  {(REVIEW_REPLIES[idx] ?? []).length > 0 && (
+                    <div data-name="review-replies" className="mt-5 pt-4 border-t border-neutral-100">
+                      {/* Reply header — clickable to expand/collapse */}
+                      <button
+                        data-name="reply-header"
+                        className="flex w-full items-center justify-between py-3 cursor-pointer"
+                        onClick={() => setExpandedReplies((prev) => ({ ...prev, [idx]: !prev[idx] }))}
+                      >
+                        <div data-name="reply-count" className="flex items-center gap-2">
+                          <div data-name="reply-avatars" className="flex -space-x-2">
+                            <ReviewerAvatar name="reply" size="xs" />
+                            <ReviewerAvatar name="reply" size="xs" />
+                          </div>
+                          <span className="text-base font-medium text-[#003EB6]">
+                            {REVIEW_REPLIES[idx].length} {REVIEW_REPLIES[idx].length === 1 ? "Reply" : "Replies"}
+                          </span>
+                          <span className="text-sm text-[#4a4a2c]">
+                            {REVIEW_REPLIES[idx][REVIEW_REPLIES[idx].length - 1].timestamp}
+                          </span>
+                          <ChevronDown className={`size-4 text-neutral-400 transition-transform ${expandedReplies[idx] ? "rotate-180" : ""}`} />
+                        </div>
+                        <div data-name="reply-helpful" className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
+                          <span className="text-sm text-neutral-500">Is this helpful?</span>
+                          <button
+                            data-name="reply-vote-up"
+                            className={cn(
+                              "size-8 rounded-full border flex items-center justify-center transition-colors",
+                              replyVoted[idx] === "up"
+                                ? "border-green-500 bg-green-50"
+                                : "border-neutral-200 hover:bg-neutral-50"
+                            )}
+                            onClick={() => {
+                              if (replyVoted[idx] === "up") {
+                                setReplyVotes((p) => ({ ...p, [idx]: (p[idx] ?? 0) - 1 }));
+                                setReplyVoted((p) => ({ ...p, [idx]: null }));
+                              } else if (replyVoted[idx] === "down") {
+                                setReplyVotes((p) => ({ ...p, [idx]: (p[idx] ?? 0) + 2 }));
+                                setReplyVoted((p) => ({ ...p, [idx]: "up" }));
+                              } else {
+                                setReplyVotes((p) => ({ ...p, [idx]: (p[idx] ?? 0) + 1 }));
+                                setReplyVoted((p) => ({ ...p, [idx]: "up" }));
+                              }
+                            }}
+                          >
+                            <ThumbsUp className={cn("size-4", replyVoted[idx] === "up" ? "text-green-500" : "text-neutral-500")} />
+                          </button>
+                          <span className={cn("text-sm", replyVoted[idx] === "up" ? "text-green-500" : replyVoted[idx] === "down" ? "text-red-500" : "text-neutral-500")}>
+                            ({replyVotes[idx] ?? 0})
+                          </span>
+                          <button
+                            data-name="reply-vote-down"
+                            className={cn(
+                              "size-8 rounded-full border flex items-center justify-center transition-colors",
+                              replyVoted[idx] === "down"
+                                ? "border-red-500 bg-red-50"
+                                : "border-neutral-200 hover:bg-neutral-50"
+                            )}
+                            onClick={() => {
+                              if (replyVoted[idx] === "down") {
+                                setReplyVotes((p) => ({ ...p, [idx]: (p[idx] ?? 0) + 1 }));
+                                setReplyVoted((p) => ({ ...p, [idx]: null }));
+                              } else if (replyVoted[idx] === "up") {
+                                setReplyVotes((p) => ({ ...p, [idx]: (p[idx] ?? 0) - 2 }));
+                                setReplyVoted((p) => ({ ...p, [idx]: "down" }));
+                              } else {
+                                setReplyVotes((p) => ({ ...p, [idx]: (p[idx] ?? 0) - 1 }));
+                                setReplyVoted((p) => ({ ...p, [idx]: "down" }));
+                              }
+                            }}
+                          >
+                            <ThumbsDown className={cn("size-4", replyVoted[idx] === "down" ? "text-red-500" : "text-neutral-500")} />
+                          </button>
+                        </div>
+                      </button>
+
+                      {/* Reply thread with left connector — collapsible */}
+                      {expandedReplies[idx] && (
+                      <div data-name="reply-thread" className="flex gap-3 pl-7 relative">
+                        {/* Left connector line */}
+                        <div data-name="reply-connector" className="absolute left-2.5 top-0 bottom-0 w-px bg-[#d9d9d9]" />
+
+                        <div data-name="reply-list" className="flex flex-1 flex-col">
+                          {REVIEW_REPLIES[idx].map((reply, ri) => (
+                            <div key={reply.id}>
+                              <div data-name="reply-item" className="flex flex-col gap-2.5 py-3">
+                                {/* Reply header */}
+                                <div data-name="reply-item-header" className={`flex items-center gap-2.5 ${reply.type === "coinbets" ? "rounded-md bg-black px-2.5 py-2" : ""}`}>
+                                  {reply.type === "coinbets" ? (
+                                    <Image src="/icons/logo.svg" alt="CoinBets" width={100} height={24} className="h-5 w-auto" />
+                                  ) : (
+                                    <ReviewerAvatar name={reply.name} size="sm" />
+                                  )}
+                                  <span className={`text-base font-medium tracking-wide ${reply.type === "coinbets" ? "text-white" : "text-[#060D17]"}`}>
+                                    {reply.name}
+                                  </span>
+                                  {reply.type === "player" && reply.hasXVerified && (
+                                    <span data-name="reply-x-badge" className="inline-flex items-center gap-0.5 rounded-md bg-black px-2 py-[3px] text-xs text-white">
+                                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="size-3.5 shrink-0">
+                                        <path d="M8.32 5.93L13.49 0H12.27L7.78 5.15L4.2 0H0L5.42 7.78L0 14H1.22L5.96 8.56L9.74 14H13.94L8.32 5.93ZM6.58 7.85L6.03 7.08L1.66 0.91H3.61L7.07 5.89L7.62 6.66L12.27 13.13H10.32L6.58 7.85Z" fill="white" />
+                                      </svg>
+                                      Verified Account
+                                    </span>
+                                  )}
+                                  {reply.type === "casino" && (
+                                    <span data-name="reply-casino-badge" className="inline-flex items-center gap-1 rounded-md bg-[#003EB6] px-2 py-[3px] text-xs text-white">
+                                      <Shield className="size-3" />
+                                      Casino Admin
+                                    </span>
+                                  )}
+                                  <span className={`ml-auto text-sm ${reply.type === "coinbets" ? "text-white/70" : "text-[#4a4a2c]"}`}>
+                                    {reply.timestamp}
+                                  </span>
+                                </div>
+
+                                {/* Reply content */}
+                                <p data-name="reply-content" className="text-base leading-relaxed text-[#313339] whitespace-pre-line">
+                                  {reply.content}
+                                </p>
+
+                                {/* Reply votes */}
+                                <div data-name="reply-votes" className="flex items-center gap-1.5">
+                                  <button className="flex items-center justify-center rounded bg-[#eee] px-2.5 py-1">
+                                    <ThumbsUp className="size-4 text-neutral-600" />
+                                  </button>
+                                  <span className="text-sm text-[#1c1c1c]">({reply.upVotes})</span>
+                                  <button className="flex items-center justify-center rounded bg-[#eee] px-2.5 py-1">
+                                    <ThumbsDown className="size-4 text-neutral-600" />
+                                  </button>
+                                </div>
+                              </div>
+                              {ri < REVIEW_REPLIES[idx].length - 1 && (
+                                <div data-name="reply-divider" className="h-px w-full bg-[#d9d9d9]" />
+                              )}
+                            </div>
+                          ))}
+
+                          {/* Comment editor */}
+                          <div data-name="reply-editor" className="mt-3">
+                            <CommentEditor placeholder="Write your reply..." />
+                          </div>
+                        </div>
+                      </div>
+                      )}
+                    </div>
+                  )}
+
                   {/* Helpful footer */}
                   <div
                     data-name="review-footer"
@@ -1446,28 +1726,59 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     >
                       <button
                         data-name="vote-up"
-                        className="size-8 rounded-full border border-neutral-200 hover:bg-neutral-50 flex items-center justify-center transition-colors"
+                        className={cn(
+                          "size-8 rounded-full border flex items-center justify-center transition-colors",
+                          voted[idx] === "up"
+                            ? "border-green-500 bg-green-50"
+                            : "border-neutral-200 hover:bg-neutral-50"
+                        )}
+                        onClick={() => {
+                          if (voted[idx] === "up") {
+                            setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) - 1 }));
+                            setVoted((prev) => ({ ...prev, [idx]: null }));
+                          } else if (voted[idx] === "down") {
+                            setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) + 2 }));
+                            setVoted((prev) => ({ ...prev, [idx]: "up" }));
+                          } else {
+                            setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) + 1 }));
+                            setVoted((prev) => ({ ...prev, [idx]: "up" }));
+                          }
+                        }}
                       >
-                        <ThumbsUp className="size-4 text-neutral-500" />
+                        <ThumbsUp className={cn("size-4", voted[idx] === "up" ? "text-green-500" : "text-neutral-500")} />
                       </button>
                       <span
                         data-name="vote-up-count"
-                        className="text-sm text-neutral-500"
+                        className={cn(
+                          "text-sm",
+                          voted[idx] === "up" ? "text-green-500" : voted[idx] === "down" ? "text-red-500" : "text-neutral-500"
+                        )}
                       >
-                        ({review.upVotes})
+                        ({votes[idx] ?? 0})
                       </span>
                       <button
                         data-name="vote-down"
-                        className="size-8 rounded-full border border-neutral-200 hover:bg-neutral-50 flex items-center justify-center transition-colors"
+                        className={cn(
+                          "size-8 rounded-full border flex items-center justify-center transition-colors",
+                          voted[idx] === "down"
+                            ? "border-red-500 bg-red-50"
+                            : "border-neutral-200 hover:bg-neutral-50"
+                        )}
+                        onClick={() => {
+                          if (voted[idx] === "down") {
+                            setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) + 1 }));
+                            setVoted((prev) => ({ ...prev, [idx]: null }));
+                          } else if (voted[idx] === "up") {
+                            setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) - 2 }));
+                            setVoted((prev) => ({ ...prev, [idx]: "down" }));
+                          } else {
+                            setVotes((prev) => ({ ...prev, [idx]: (prev[idx] ?? 0) - 1 }));
+                            setVoted((prev) => ({ ...prev, [idx]: "down" }));
+                          }
+                        }}
                       >
-                        <ThumbsDown className="size-4 text-neutral-500" />
+                        <ThumbsDown className={cn("size-4", voted[idx] === "down" ? "text-red-500" : "text-neutral-500")} />
                       </button>
-                      <span
-                        data-name="vote-down-count"
-                        className="text-sm text-neutral-500"
-                      >
-                        ({review.downVotes})
-                      </span>
                     </div>
                   </div>
                 </div>
@@ -1483,6 +1794,151 @@ export function ReviewBlock({ slug }: { slug: string }) {
               <span className="text-neutral-400">+3</span>
               <ChevronRight className="size-4 text-neutral-400" />
             </button>
+
+            {/* ---- Safety Index Section ---- */}
+            <div
+              id="safety-index"
+              data-name="safety-index-section"
+              className="rounded-lg border border-neutral-200 bg-white p-6 sm:p-8 shadow-sm flex flex-col gap-6"
+            >
+              <div data-name="safety-header" className="flex flex-col gap-3">
+                <h2
+                  data-name="safety-title"
+                  className="text-base font-bold text-[#060D17]"
+                >
+                  CoinBets Safety Index Explained: {casino.name}
+                </h2>
+                <p
+                  data-name="safety-description"
+                  className="text-[15px] leading-relaxed text-neutral-600"
+                >
+                  Curious how {casino.name} performs on trust and fairness?
+                  Below is a breakdown of the unique factors we considered when
+                  calculating its CoinBets Safety Index. This rating is based on
+                  objective criteria including licensing, player reports, game
+                  fairness, and operational transparency. Our goal is to inform
+                  players with verified data, not to promote or recommend any
+                  casino.
+                </p>
+              </div>
+
+              <div
+                data-name="safety-body"
+                className="flex flex-col sm:flex-row gap-6"
+              >
+                {/* Score card */}
+                <div
+                  data-name="safety-score-card"
+                  className="flex flex-col items-start justify-center rounded-xl p-6 sm:p-8 min-w-[180px]"
+                  style={{
+                    backgroundColor:
+                      RATING_COLORS[
+                        casino.safetyScore >= 7.5
+                          ? 5
+                          : casino.safetyScore >= 5.5
+                            ? 4
+                            : casino.safetyScore >= 3.5
+                              ? 3
+                              : casino.safetyScore >= 1.5
+                                ? 2
+                                : 1
+                      ],
+                  }}
+                >
+                  <div data-name="safety-score-value" className="flex items-baseline gap-1">
+                    <span className="text-5xl font-bold text-white">
+                      {casino.safetyScore.toFixed(1)}
+                    </span>
+                    <span className="text-lg font-medium text-white/70">
+                      / 10
+                    </span>
+                  </div>
+                  <div data-name="safety-score-badge" className="flex items-center gap-2 mt-2">
+                    <span className="text-sm font-medium text-white/80">
+                      Safety Index:
+                    </span>
+                    <span className="rounded-md bg-white/20 px-2 py-0.5 text-xs font-bold text-white">
+                      {casino.safetyIndex}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Factors list */}
+                <div
+                  data-name="safety-factors"
+                  className="flex flex-1 flex-col gap-3"
+                >
+                  {casino.safetyFactors.map((factor, i) => (
+                    <div
+                      key={i}
+                      data-name="safety-factor-row"
+                      className="flex items-center justify-between gap-4 rounded-lg border border-neutral-200 bg-neutral-50 px-5 py-3.5"
+                    >
+                      <span className="text-[15px] text-neutral-700">
+                        {factor}
+                      </span>
+                      <Popover>
+                        <PopoverTrigger>
+                          <Info className="size-5 shrink-0 text-neutral-300 hover:text-neutral-500 transition-colors cursor-pointer" />
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto max-w-xs text-xs px-3 py-1.5">
+                          {factor}
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Disclaimer */}
+              <div
+                data-name="safety-disclaimer"
+                className="border-t border-neutral-200 pt-5"
+              >
+                <p className="text-sm leading-relaxed text-neutral-500">
+                  Disclaimer: This Safety Index reflects CoinBets&apos;
+                  independent research and is not an endorsement of the casino.{" "}
+                  <span className="text-[#003EB6] cursor-pointer hover:underline">
+                    Learn how we rate casinos.
+                  </span>
+                </p>
+              </div>
+
+              {/* Complaint CTA */}
+              <div
+                data-name="safety-complaint"
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+              >
+                <span className="text-base font-bold text-[#060D17]">
+                  Has this casino done something unfair to you?
+                </span>
+                <Link href="/complaints/submit" className="flex items-center gap-2 rounded-lg bg-[#7a1a1a] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#5c1414] transition-colors">
+                  Submit a complaint
+                  <Pencil className="size-4" />
+                </Link>
+              </div>
+
+              {/* Complaints */}
+              <div
+                data-name="complaints-count"
+                className="flex flex-col gap-4"
+              >
+                <p className="text-sm font-bold text-[#060D17]">
+                  Complaints about {casino.name} ({getCasinoComplaints(casino).length})
+                </p>
+                {getCasinoComplaints(casino).slice(0, 1).map((complaint) => (
+                  <ComplaintCard key={complaint.id} complaint={complaint} />
+                ))}
+                <Link
+                  href="/complaints"
+                  data-name="see-more-complaints"
+                  className="flex items-center justify-center gap-1.5 rounded-lg border border-neutral-200 py-2.5 text-sm font-semibold text-[#060D17] hover:bg-neutral-50 transition-colors"
+                >
+                  See all complaints
+                  <ChevronRight className="size-4" />
+                </Link>
+              </div>
+            </div>
 
             {/* ---- Expert Review Section ---- */}
             <ExpertReviewBlock casino={casino} />

@@ -210,7 +210,6 @@ function UserStarRating({ rating }: { rating: number }) {
           ))}
         </div>
       </div>
-      <span className="text-xs text-white/50">Verified Players</span>
     </div>
   );
 }
@@ -243,7 +242,6 @@ function ExpertRating({ rating }: { rating: number }) {
           ))}
         </div>
       </div>
-      <span className="text-xs text-white/50">Independent Audit</span>
     </div>
   );
 }
@@ -323,7 +321,6 @@ function CasinoRow({ casino }: { casino: Casino }) {
           </span>
           <span className="text-xs text-white/50">Reviews</span>
         </div>
-        <span className="text-xs text-white/50">In Last 6 Months</span>
       </div>
 
       <ExpertRating rating={casino.expertScore} />

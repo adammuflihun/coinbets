@@ -9,11 +9,11 @@ import {
   MessageSquare,
   Plus,
   ExternalLink,
-  Send,
 } from "lucide-react";
 import "flag-icons/css/flag-icons.min.css";
 import { Badge } from "@/components/ui/badge";
 import { ReviewerAvatar } from "@/components/reviewer-avatar";
+import { CommentEditor } from "@/components/comment-editor";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardAction, CardDescription, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -152,18 +152,6 @@ const SAMPLE_REPLIES: Reply[] = [
 
 /* ─── Rich text toolbar ─── */
 
-const TOOLBAR_ACTIONS = [
-  { path: "M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z", command: "bold", label: "Bold" },
-  { path: "M10 4v3h2.21l-3.42 8H6v3h8v-3h-2.21l3.42-8H18V4z", command: "italic", label: "Italic" },
-  { path: "M5 4v3h5.5v12h3V7H19V4z", command: "formatBlock", arg: "h1", label: "H1" },
-  { path: "M5 4v3h5.5v12h3V7H19V4z", command: "formatBlock", arg: "h2", label: "H2" },
-  { path: "M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z", command: "formatBlock", arg: "blockquote", label: "Quote" },
-  { path: "M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z", command: "createLink", label: "Link" },
-  { path: "M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z", command: "insertUnorderedList", label: "Bullet list" },
-  { path: "M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z", command: "insertOrderedList", label: "Numbered list" },
-  { path: "M5 17v2h14v-2H5zm4.5-4.2h5l.9 2.2h2.1L12.75 4h-1.5L6.5 15h2.1l.9-2.2zM12 5.67L13.88 11h-3.76L12 5.67z", command: "formatBlock", arg: "p", label: "Paragraph" },
-];
-
 /* ─── Main component ─── */
 
 export function ComplaintDetail({
@@ -179,7 +167,6 @@ export function ComplaintDetail({
   const [submittedComments, setSubmittedComments] = useState<
     { id: string; parentId: string; content: string; quote: { author: string; content: string } | null; timestamp: string }[]
   >([]);
-  const editorRef = useRef<HTMLDivElement>(null);
   const commentCardRef = useRef<HTMLDivElement>(null);
   const config = STATUS_CONFIG[complaint.status];
 
@@ -189,18 +176,17 @@ export function ComplaintDetail({
     setReplyTargetId(parentId);
     setQuotedReply({ author, content });
     commentCardRef.current?.scrollIntoView({ behavior: "smooth" });
-    setTimeout(() => editorRef.current?.focus(), 400);
   }
 
-  function handleSubmitComment() {
-    const text = editorRef.current?.innerText?.trim();
+  function handleSubmitComment(html: string) {
+    const text = html.replace(/<[^>]*>/g, "").trim();
     if (!text) return;
     setSubmittedComments((prev) => [
       ...prev,
       {
         id: `c-${Date.now()}`,
         parentId: replyTargetId ?? "main",
-        content: editorRef.current?.innerHTML ?? text,
+        content: html,
         quote: quotedReply,
         timestamp: new Date().toLocaleString("en-GB", {
           weekday: "long",
@@ -209,7 +195,6 @@ export function ComplaintDetail({
         }),
       },
     ]);
-    if (editorRef.current) editorRef.current.innerHTML = "";
     setQuotedReply(null);
     setReplyTargetId(null);
   }
@@ -268,17 +253,6 @@ export function ComplaintDetail({
         ))}
       </div>
     );
-  }
-
-  function execToolbarCommand(command: string, arg?: string) {
-    if (command === "createLink") {
-      const url = prompt("Enter URL:");
-      if (url) document.execCommand(command, false, url);
-    } else if (arg) {
-      document.execCommand(command, false, arg);
-    } else {
-      document.execCommand(command, false);
-    }
   }
 
   return (
@@ -1011,53 +985,11 @@ export function ComplaintDetail({
                 </Card>
               )}
 
-              <div
-                data-name="editor-wrapper"
-                className="overflow-hidden rounded-lg border border-input"
-              >
-                {/* Toolbar */}
-                <div
-                  data-name="editor-toolbar"
-                  className="flex flex-wrap items-center gap-0.5 border-b border-input bg-neutral-50 px-2 py-1.5"
-                >
-                  {TOOLBAR_ACTIONS.map((action) => (
-                    <Button
-                      key={action.label}
-                      data-name="toolbar-btn"
-                      variant="ghost"
-                      size="icon-xs"
-                      onClick={() =>
-                        execToolbarCommand(action.command, action.arg)
-                      }
-                      title={action.label}
-                    >
-                      <svg viewBox="0 0 24 24" className="size-4 fill-current">
-                        <path d={action.path} />
-                      </svg>
-                    </Button>
-                  ))}
-                </div>
-                {/* Editor */}
-                <div
-                  ref={editorRef}
-                  data-name="comment-editor"
-                  contentEditable
-                  className="min-h-[120px] px-3 py-3 text-base leading-relaxed outline-none empty:before:text-muted-foreground empty:before:content-['Write_your_reply...'] [&_blockquote]:border-l-4 [&_blockquote]:border-neutral-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_h1]:text-2xl [&_h1]:font-bold [&_h2]:text-xl [&_h2]:font-bold [&_ol]:list-decimal [&_ol]:pl-6 [&_ul]:list-disc [&_ul]:pl-6"
-                />
-              </div>
-              <div
-                data-name="comment-actions"
-                className="mt-3 flex items-center justify-end"
-              >
-                <Button
-                  data-name="submit-comment-btn"
-                  className="bg-[#e6b830] text-[#1c1c1c] hover:bg-[#d4a812]"
-                  onClick={handleSubmitComment}
-                >
-                  <Send data-icon="inline-start" className="size-4" />
-                  Submit Reply
-                </Button>
-              </div>
+              <CommentEditor
+                placeholder="Write your reply..."
+                minHeight={120}
+                onSubmit={handleSubmitComment}
+              />
             </div>
 
           </div>

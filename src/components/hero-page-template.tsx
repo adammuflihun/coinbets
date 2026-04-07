@@ -72,7 +72,7 @@ export function HeroPageTemplate({
               className="flex flex-col gap-5"
             >
               {/* Description */}
-              <div data-section="hero-description">
+              <div data-section="hero-description" className="hidden sm:block">
                 <p className="text-sm sm:text-base font-normal text-white/70 leading-relaxed">
                   {description}
                 </p>

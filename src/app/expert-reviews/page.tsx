@@ -155,7 +155,7 @@ export default function ExpertReviewsPage() {
       <section data-name="reviews-hero-section" className="relative z-10 site-container pt-8">
         <div
           data-name="reviews-hero"
-          className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-8 rounded-lg px-5 sm:px-8 lg:px-12 pt-10 sm:pt-14 lg:pt-16 pb-10 sm:pb-14 lg:pb-16"
+          className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-8 rounded-lg px-0 sm:px-8 lg:px-12 pt-0 sm:pt-14 lg:pt-16 pb-0 sm:pb-14 lg:pb-16"
         >
           {/* Left — Header text */}
           <div data-name="reviews-hero-header" className="flex flex-col justify-start">
@@ -167,7 +167,7 @@ export default function ExpertReviewsPage() {
               <br className="hidden sm:block" />
               Reviewed by Experts
             </h1>
-            <p className="text-base sm:text-lg leading-relaxed text-white/70 max-w-xl mb-8">
+            <p className="text-base sm:text-lg leading-relaxed text-white/70 max-w-xl mb-0 sm:mb-8">
               Unbiased ratings, in-depth analysis, and honest pros & cons. We go
               deep so you don&apos;t have to.
             </p>
@@ -175,7 +175,7 @@ export default function ExpertReviewsPage() {
             {/* How expert reviews work */}
             <div
               data-name="reviews-work-banner"
-              className="flex flex-col rounded-lg border border-neutral-200 bg-white p-5 sm:p-6"
+              className="hidden sm:flex flex-col rounded-lg border border-neutral-200 bg-white p-5 sm:p-6"
             >
               <p className="text-sm font-bold uppercase tracking-wider text-[#060d17] mb-4">
                 How Our Expert Reviews Work

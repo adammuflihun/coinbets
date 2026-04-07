@@ -30,7 +30,7 @@ export default function GuidesPage() {
         <section data-name="guides-hero-section" className="relative z-10 site-container pt-8">
           <div
             data-name="guides-hero"
-            className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-8 rounded-lg px-5 sm:px-8 lg:px-12 pt-10 sm:pt-14 lg:pt-16 pb-10 sm:pb-14 lg:pb-16"
+            className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-8 rounded-lg px-0 sm:px-8 lg:px-12 pt-0 sm:pt-14 lg:pt-16 pb-0 sm:pb-14 lg:pb-16"
           >
             {/* Left — Header text */}
             <div data-name="guides-hero-header" className="flex flex-col justify-start">
@@ -40,7 +40,7 @@ export default function GuidesPage() {
               <h1 data-name="guides-hero-title" className="text-2xl sm:text-3xl lg:text-4xl font-black leading-[1.2] tracking-tight text-white max-w-2xl mb-4">
                 Latest Coinbets Articles
               </h1>
-              <p data-name="guides-hero-description" className="text-base sm:text-lg leading-relaxed text-white/70 max-w-xl mb-8">
+              <p data-name="guides-hero-description" className="text-base sm:text-lg leading-relaxed text-white/70 max-w-xl mb-0 sm:mb-8">
                 Learn about crypto betting, exclusive expert reviews, blockchain
                 security, responsible gambling practices, and much more.
               </p>
@@ -48,7 +48,7 @@ export default function GuidesPage() {
               {/* How guides work */}
               <div
                 data-name="guides-work-banner"
-                className="flex flex-col rounded-lg border border-neutral-200 bg-white p-5 sm:p-6"
+                className="hidden sm:flex flex-col rounded-lg border border-neutral-200 bg-white p-5 sm:p-6"
               >
                 <p data-name="guides-work-title" className="text-sm font-bold uppercase tracking-wider text-[#060d17] mb-4">
                   Why Read Our Guides
