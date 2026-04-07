@@ -283,14 +283,67 @@ const VIEW_TITLES: Record<View, string> = {
   forgot: "Reset Your Password",
 };
 
-export function LoginDialog() {
+export function useLoginDialog() {
   const [open, setOpen] = useState(false);
+  return { open, setOpen };
+}
+
+export function LoginDialogContent({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (isOpen: boolean) => void;
+}) {
   const [view, setView] = useState<View>("login");
 
   const handleOpenChange = (isOpen: boolean) => {
-    setOpen(isOpen);
+    onOpenChange(isOpen);
     if (!isOpen) setView("login");
   };
+
+  return (
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogContent
+        data-section="login-dialog"
+        className="sm:max-w-[860px] p-0 gap-0 overflow-hidden"
+      >
+        <div data-name="login-layout" className="flex min-h-[560px]">
+          {/* Left branded panel */}
+          <BrandedPanel />
+
+          {/* Right form panel */}
+          <div
+            data-name="login-form-panel"
+            className="flex-1 flex flex-col p-6 md:p-8 overflow-y-auto"
+          >
+            <DialogHeader className="items-center pb-5">
+              <DialogTitle className="text-xl font-bold text-neutral-900">
+                {VIEW_TITLES[view]}
+              </DialogTitle>
+            </DialogHeader>
+
+            {view === "login" && (
+              <LoginView
+                onForgot={() => setView("forgot")}
+                onSignup={() => setView("signup")}
+              />
+            )}
+            {view === "signup" && (
+              <SignupView onLogin={() => setView("login")} />
+            )}
+            {view === "forgot" && (
+              <ForgotView onLogin={() => setView("login")} />
+            )}
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+export function LoginDialog() {
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -314,42 +367,7 @@ export function LoginDialog() {
         />
       </ShimmerButton>
 
-      <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogContent
-          data-section="login-dialog"
-          className="sm:max-w-[860px] p-0 gap-0 overflow-hidden"
-        >
-          <div data-name="login-layout" className="flex min-h-[560px]">
-            {/* Left branded panel */}
-            <BrandedPanel />
-
-            {/* Right form panel */}
-            <div
-              data-name="login-form-panel"
-              className="flex-1 flex flex-col p-6 md:p-8 overflow-y-auto"
-            >
-              <DialogHeader className="items-center pb-5">
-                <DialogTitle className="text-xl font-bold text-neutral-900">
-                  {VIEW_TITLES[view]}
-                </DialogTitle>
-              </DialogHeader>
-
-              {view === "login" && (
-                <LoginView
-                  onForgot={() => setView("forgot")}
-                  onSignup={() => setView("signup")}
-                />
-              )}
-              {view === "signup" && (
-                <SignupView onLogin={() => setView("login")} />
-              )}
-              {view === "forgot" && (
-                <ForgotView onLogin={() => setView("login")} />
-              )}
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <LoginDialogContent open={open} onOpenChange={setOpen} />
     </>
   );
 }

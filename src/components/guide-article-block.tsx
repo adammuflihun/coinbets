@@ -7,6 +7,7 @@ import { ArrowLeft, Calendar, Eye, BadgeCheck, RefreshCw } from "lucide-react";
 import type { Guide } from "@/data/guides";
 import { guides } from "@/data/guides";
 import { BlogCard } from "@/components/blog-card";
+import { LoginDialogContent } from "@/components/login-dialog";
 
 /* ------------------------------------------------------------------ */
 /*  Table of Contents                                                  */
@@ -130,6 +131,40 @@ function TableOfContents({
 /* ------------------------------------------------------------------ */
 /*  Guide Article Content                                              */
 /* ------------------------------------------------------------------ */
+
+function GuideCommentSection() {
+  const [loginOpen, setLoginOpen] = useState(false);
+
+  return (
+    <div
+      data-name="guide-comments"
+      className="bg-white rounded-xl shadow-md p-6 sm:p-8"
+    >
+      <div data-name="guide-comments-logged-out" className="flex flex-col items-center gap-5 py-6">
+        <h3
+          data-name="guide-comments-title"
+          className="text-lg font-black uppercase tracking-wide text-[#060D17]"
+        >
+          Join the Conversation
+        </h3>
+        <button
+          data-name="guide-comments-login"
+          className="rounded-full bg-[#060D17] px-8 py-3 text-base font-semibold text-white hover:bg-neutral-800 transition-colors"
+          onClick={() => setLoginOpen(true)}
+        >
+          Login to Comment
+        </button>
+        <p
+          data-name="guide-comments-empty"
+          className="text-base text-[#060D17]/70"
+        >
+          No comments yet. Be the first to comment!
+        </p>
+        <LoginDialogContent open={loginOpen} onOpenChange={setLoginOpen} />
+      </div>
+    </div>
+  );
+}
 
 function GuideContent({ guide }: { guide: Guide }) {
   return (
@@ -1077,6 +1112,9 @@ export function GuideArticleBlock({ guide }: { guide: Guide }) {
 
         {/* Content Card */}
         <GuideContent guide={guide} />
+
+        {/* Comment Section */}
+        <GuideCommentSection />
       </div>
 
       {/* Related Articles */}
