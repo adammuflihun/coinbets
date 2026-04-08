@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { AuthProvider } from "@/components/auth-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -82,9 +83,11 @@ export default function RootLayout({
         />
       </head>
       <body data-section="body" className="min-h-full flex flex-col">
-          <Navbar />
-          {children}
-          <Footer />
+          <AuthProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </AuthProvider>
         </body>
     </html>
   );

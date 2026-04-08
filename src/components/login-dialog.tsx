@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
@@ -14,6 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { ArrowLeft } from "lucide-react";
+import { useAuth } from "@/components/auth-provider";
 
 type View = "login" | "signup" | "forgot";
 
@@ -104,12 +107,13 @@ function BrandedPanel() {
   );
 }
 
-function SocialButtons() {
+function SocialButtons({ onLogin }: { onLogin: () => void }) {
   return (
     <div data-name="social-buttons" className="flex flex-col gap-3">
       <Button
         variant="default"
         className="w-full h-12 gap-3 rounded-lg text-sm font-medium"
+        onClick={onLogin}
       >
         <AppleIcon />
         Continue with Apple
@@ -117,6 +121,7 @@ function SocialButtons() {
       <Button
         variant="outline"
         className="w-full h-12 gap-3 rounded-lg text-sm font-medium"
+        onClick={onLogin}
       >
         <GoogleIcon />
         Continue with Google
@@ -144,13 +149,15 @@ function Divider({ text }: { text: string }) {
 function LoginView({
   onForgot,
   onSignup,
+  onLogin,
 }: {
   onForgot: () => void;
   onSignup: () => void;
+  onLogin: () => void;
 }) {
   return (
     <div data-name="login-view" className="flex flex-col gap-3.5">
-      <SocialButtons />
+      <SocialButtons onLogin={onLogin} />
       <Divider text="or Continue with your email or user" />
 
       <Input
@@ -185,7 +192,10 @@ function LoginView({
         </button>
       </div>
 
-      <Button className="w-full h-12 rounded-lg text-sm font-semibold mt-1 bg-[#003EB6] hover:bg-[#003EB6]/90 text-white">
+      <Button
+        onClick={onLogin}
+        className="w-full h-12 rounded-lg text-sm font-semibold mt-1 bg-[#003EB6] hover:bg-[#003EB6]/90 text-white"
+      >
         Log in
       </Button>
 
@@ -202,10 +212,10 @@ function LoginView({
   );
 }
 
-function SignupView({ onLogin }: { onLogin: () => void }) {
+function SignupView({ onLogin, onSocialLogin }: { onLogin: () => void; onSocialLogin: () => void }) {
   return (
     <div data-name="signup-view" className="flex flex-col gap-3.5">
-      <SocialButtons />
+      <SocialButtons onLogin={onSocialLogin} />
       <Divider text="or sign up with your email" />
 
       <Input
@@ -296,10 +306,18 @@ export function LoginDialogContent({
   onOpenChange: (isOpen: boolean) => void;
 }) {
   const [view, setView] = useState<View>("login");
+  const router = useRouter();
+  const { login } = useAuth();
 
   const handleOpenChange = (isOpen: boolean) => {
     onOpenChange(isOpen);
     if (!isOpen) setView("login");
+  };
+
+  const handleLogin = () => {
+    login();
+    onOpenChange(false);
+    router.push("/profile");
   };
 
   return (
@@ -327,10 +345,11 @@ export function LoginDialogContent({
               <LoginView
                 onForgot={() => setView("forgot")}
                 onSignup={() => setView("signup")}
+                onLogin={handleLogin}
               />
             )}
             {view === "signup" && (
-              <SignupView onLogin={() => setView("login")} />
+              <SignupView onLogin={() => setView("login")} onSocialLogin={handleLogin} />
             )}
             {view === "forgot" && (
               <ForgotView onLogin={() => setView("login")} />
@@ -344,6 +363,28 @@ export function LoginDialogContent({
 
 export function LoginDialog() {
   const [open, setOpen] = useState(false);
+  const { isLoggedIn } = useAuth();
+
+  if (isLoggedIn) {
+    return (
+      <Link
+        href="/profile"
+        data-name="nav-user-avatar"
+        className="flex items-center gap-2 rounded-lg px-2 py-1 hover:bg-neutral-100 transition-colors"
+      >
+        <Image
+          src="/icons/default-avatar.svg"
+          alt="Profile"
+          width={32}
+          height={32}
+          className="size-8 rounded-full"
+        />
+        <span className="hidden sm:block text-sm font-semibold text-neutral-900">
+          Adam Bagusm
+        </span>
+      </Link>
+    );
+  }
 
   return (
     <>
