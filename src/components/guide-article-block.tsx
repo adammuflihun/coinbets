@@ -8,6 +8,7 @@ import type { Guide } from "@/data/guides";
 import { guides } from "@/data/guides";
 import { BlogCard } from "@/components/blog-card";
 import { LoginDialogContent } from "@/components/login-dialog";
+import { useAuth } from "@/components/auth-provider";
 
 /* ------------------------------------------------------------------ */
 /*  Table of Contents                                                  */
@@ -134,34 +135,83 @@ function TableOfContents({
 
 function GuideCommentSection() {
   const [loginOpen, setLoginOpen] = useState(false);
+  const [comment, setComment] = useState("");
+  const { isLoggedIn } = useAuth();
 
   return (
     <div
       data-name="guide-comments"
       className="bg-white rounded-xl shadow-md p-6 sm:p-8"
     >
-      <div data-name="guide-comments-logged-out" className="flex flex-col items-center gap-5 py-6">
-        <h3
-          data-name="guide-comments-title"
-          className="text-lg font-black uppercase tracking-wide text-[#060D17]"
-        >
-          Join the Conversation
-        </h3>
-        <button
-          data-name="guide-comments-login"
-          className="rounded-full bg-[#060D17] px-8 py-3 text-base font-semibold text-white hover:bg-neutral-800 transition-colors"
-          onClick={() => setLoginOpen(true)}
-        >
-          Login to Comment
-        </button>
-        <p
-          data-name="guide-comments-empty"
-          className="text-base text-[#060D17]/70"
-        >
-          No comments yet. Be the first to comment!
-        </p>
-        <LoginDialogContent open={loginOpen} onOpenChange={setLoginOpen} />
-      </div>
+      {isLoggedIn ? (
+        <div data-name="guide-comments-logged-in" className="flex flex-col gap-5">
+          <h3
+            data-name="guide-comments-title"
+            className="text-lg font-black uppercase tracking-wide text-[#060D17]"
+          >
+            Join the Conversation
+          </h3>
+          <div data-name="guide-comment-box" className="flex flex-col gap-3">
+            <div data-name="guide-comment-user" className="flex items-center gap-3">
+              <Image
+                src="/icons/default-avatar.svg"
+                alt="Your avatar"
+                width={36}
+                height={36}
+                className="size-9 rounded-full bg-[#1C1C1C]"
+              />
+              <span className="text-sm font-semibold text-neutral-900">Coinbet User</span>
+            </div>
+            <textarea
+              data-name="guide-comment-input"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Write a comment..."
+              rows={4}
+              className="w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 outline-none focus:border-neutral-300 focus:ring-2 focus:ring-neutral-200 resize-none transition-colors"
+            />
+            <div data-name="guide-comment-actions" className="flex items-center justify-between">
+              <p className="text-xs text-neutral-400">Be respectful and follow the community guidelines.</p>
+              <button
+                data-name="guide-comment-submit"
+                disabled={!comment.trim()}
+                className="rounded-lg bg-[#060D17] px-5 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+              >
+                Post Comment
+              </button>
+            </div>
+          </div>
+          <p
+            data-name="guide-comments-empty"
+            className="text-base text-[#060D17]/70 text-center pt-2"
+          >
+            No comments yet. Be the first to comment!
+          </p>
+        </div>
+      ) : (
+        <div data-name="guide-comments-logged-out" className="flex flex-col items-center gap-5 py-6">
+          <h3
+            data-name="guide-comments-title"
+            className="text-lg font-black uppercase tracking-wide text-[#060D17]"
+          >
+            Join the Conversation
+          </h3>
+          <button
+            data-name="guide-comments-login"
+            className="rounded-full bg-[#060D17] px-8 py-3 text-base font-semibold text-white hover:bg-neutral-800 transition-colors cursor-pointer"
+            onClick={() => setLoginOpen(true)}
+          >
+            Login to Comment
+          </button>
+          <p
+            data-name="guide-comments-empty"
+            className="text-base text-[#060D17]/70"
+          >
+            No comments yet. Be the first to comment!
+          </p>
+          <LoginDialogContent open={loginOpen} onOpenChange={setLoginOpen} />
+        </div>
+      )}
     </div>
   );
 }
