@@ -149,10 +149,7 @@ function ReviewSlideCard({
         />
       </div>
 
-      <div
-        data-name="review-product"
-        className="flex items-start gap-3.5"
-      >
+      <div data-name="review-product" className="flex items-start gap-3.5">
         <div
           data-name="review-product-logo"
           className="bg-[#060d17] rounded-sm px-1.5 py-2 shrink-0 flex items-center justify-center"
@@ -331,7 +328,7 @@ function CategoryCard({
             {badge}
           </span>
         </div>
-        <p className="-mt-2 text-sm text-neutral-600 leading-[18px]">
+        <p className="-mt-2  text-sm text-neutral-600 leading-[18px]">
           {description}
         </p>
       </div>
