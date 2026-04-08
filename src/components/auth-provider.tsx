@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 
 interface AuthContextValue {
   isLoggedIn: boolean;
@@ -17,8 +17,20 @@ const AuthContext = createContext<AuthContextValue>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const login = useCallback(() => setIsLoggedIn(true), []);
-  const logout = useCallback(() => setIsLoggedIn(false), []);
+  useEffect(() => {
+    const stored = localStorage.getItem("coinbet-auth");
+    if (stored === "true") setIsLoggedIn(true);
+  }, []);
+
+  const login = useCallback(() => {
+    setIsLoggedIn(true);
+    localStorage.setItem("coinbet-auth", "true");
+  }, []);
+
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("coinbet-auth");
+  }, []);
 
   return (
     <AuthContext value={{ isLoggedIn, login, logout }}>
