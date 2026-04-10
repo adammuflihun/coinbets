@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import {
   ChevronRight,
@@ -44,6 +45,8 @@ import { ExpertReviewBlock } from "@/components/expert-review-block";
 import { ReviewerAvatar, getRankName } from "@/components/reviewer-avatar";
 import { ComplaintCard, type ComplaintData } from "@/components/complaint-card";
 import { CommentEditor } from "@/components/comment-editor";
+import { useAuth } from "@/components/auth-provider";
+import { LoginDialogContent } from "@/components/login-dialog";
 
 /* ------------------------------------------------------------------ */
 /*  Types & Data                                                       */
@@ -566,6 +569,9 @@ function BonusVote() {
 
 export function ReviewBlock({ slug }: { slug: string }) {
   const casino = casinoReviews.find((c) => c.slug === slug) ?? casinoReviews[0];
+  const router = useRouter();
+  const { isLoggedIn } = useAuth();
+  const [loginOpen, setLoginOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
   const [cryptoOpen, setCryptoOpen] = useState(false);
@@ -650,6 +656,13 @@ export function ReviewBlock({ slug }: { slug: string }) {
 
   return (
     <div data-section="review-block" className="bg-[#f5f5f5] pb-20">
+      {/* Login dialog for write-a-review auth gate */}
+      <LoginDialogContent
+        open={loginOpen}
+        onOpenChange={setLoginOpen}
+        redirectTo={`/casino/review/${slug}/submit-review`}
+      />
+
       {/* ---- Breadcrumb (dark strip) ---- */}
       <div
         data-name="dark-header"
@@ -1196,7 +1209,14 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 </p>
                 <button
                   data-name="write-review-btn"
-                  className="shrink-0 flex items-center gap-2 rounded-lg bg-[#003EB6] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#002d8a] transition-colors"
+                  onClick={() => {
+                    if (isLoggedIn) {
+                      router.push(`/casino/review/${slug}/submit-review`);
+                    } else {
+                      setLoginOpen(true);
+                    }
+                  }}
+                  className="shrink-0 flex items-center gap-2 rounded-lg bg-[#003EB6] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#002d8a] transition-colors cursor-pointer"
                 >
                   Write a Review
                   <svg

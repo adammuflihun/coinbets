@@ -301,9 +301,11 @@ export function useLoginDialog() {
 export function LoginDialogContent({
   open,
   onOpenChange,
+  redirectTo,
 }: {
   open: boolean;
   onOpenChange: (isOpen: boolean) => void;
+  redirectTo?: string;
 }) {
   const [view, setView] = useState<View>("login");
   const router = useRouter();
@@ -317,7 +319,7 @@ export function LoginDialogContent({
   const handleLogin = () => {
     login();
     onOpenChange(false);
-    router.push("/profile");
+    router.push(redirectTo ?? "/profile");
   };
 
   return (
