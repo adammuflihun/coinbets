@@ -15,6 +15,19 @@ export interface CasinoReview {
   redFlags: string[];
   cryptoAccepted: { icon: string; name: string }[];
   bonus: string;
+  bonusDetails?: {
+    type: string;
+    description: string;
+    minDeposit: string;
+    maxDeposit: string;
+    depositDescription: string;
+    wageringRequirement: string;
+    wageringDescription: string;
+    bonusTiming: string;
+    timingDescription: string;
+    vpnAllowed: boolean;
+    termsAndConditions: string;
+  };
   screenshots: string[];
   websiteLanguages: string[];
   supportLanguages: string[];
@@ -73,6 +86,19 @@ export const casinoReviews: CasinoReview[] = [
       { icon: "/crypto-payments/ADA.webp", name: "Cardano (ADA)" },
     ],
     bonus: "300% up to $3,000",
+    bonusDetails: {
+      type: "Deposit bonus",
+      description: "Deposit-match bonus",
+      minDeposit: "$20",
+      maxDeposit: "$3,000",
+      depositDescription: "Minimum deposit of 20 USD; The maximum bonus amount for the bonus is 3,000",
+      wageringRequirement: "35 X",
+      wageringDescription: "You can only meet the wagering requirement by playing certain Slots and live casino at Stake; Wagering requirement for Bonus is 35x",
+      bonusTiming: "30 Days Expiry",
+      timingDescription: "The bonus is valid for 30 days from the date you receive it. If the wagering requirement hasn't been completed within the deadline, bonus funds and winnings will be forfeited and deducted from the player's balance.",
+      vpnAllowed: false,
+      termsAndConditions: "You can only meet the wagering requirement by playing certain Slots and live casino at Stake. The bet value in all other Casino and Live casino games on certain games will not count towards the wagering requirement.\n\nBonuses are limited to one instance per user, IP address, electronic device, household, residential address, telephone number, payment method, email address and any public environments where computers and IP addresses are shared.",
+    },
     screenshots: [
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Slots.jpg",
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-3-Hot-Chillies.jpg",
@@ -148,6 +174,19 @@ export const casinoReviews: CasinoReview[] = [
       { icon: "/crypto-payments/Binance Coin.webp", name: "BNB (BNB)" },
     ],
     bonus: "200% up to $2,000",
+    bonusDetails: {
+      type: "Deposit bonus",
+      description: "Deposit-match bonus + Free Spins",
+      minDeposit: "$10",
+      maxDeposit: "$2,000",
+      depositDescription: "Minimum deposit of 10 USD; The maximum bonus amount for the bonus is 2,000",
+      wageringRequirement: "40 X",
+      wageringDescription: "Wagering requirement for Bonus is 40x and for Free Spins is 60x",
+      bonusTiming: "7 Days Expiry",
+      timingDescription: "The bonus is valid for 7 days from the date you receive it. If the wagering requirement hasn't been completed within the deadline, bonus funds and winnings will be forfeited.",
+      vpnAllowed: true,
+      termsAndConditions: "You can only meet the wagering requirement by playing certain Slots and live casino. The bet value in all other Casino and Live casino games on certain games will not count towards the wagering requirement.\n\nBonuses are limited to one instance per user, IP address, electronic device, household, residential address.",
+    },
     screenshots: [
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Slots.jpg",
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-3-Hot-Chillies.jpg",
@@ -224,6 +263,19 @@ export const casinoReviews: CasinoReview[] = [
       { icon: "/crypto-payments/XRP.webp", name: "XRP (XRP)" },
     ],
     bonus: "250% up to $1,500",
+    bonusDetails: {
+      type: "Deposit bonus",
+      description: "Deposit-match bonus + Free Spins",
+      minDeposit: "$15",
+      maxDeposit: "$1,500",
+      depositDescription: "Minimum deposit of 15 USD; The maximum bonus amount for the bonus is 1,500",
+      wageringRequirement: "45 X",
+      wageringDescription: "Wagering requirement for Bonus is 45x and for Free Spins is 50x",
+      bonusTiming: "14 Days Expiry",
+      timingDescription: "The bonus is valid for 14 days from the date you receive it. If the wagering requirement hasn't been completed within the deadline, bonus funds and winnings will be forfeited.",
+      vpnAllowed: false,
+      termsAndConditions: "Bonuses are limited to one instance per user, IP address, electronic device, household. The bet value in all other Casino and Live casino games on certain games will not count towards the wagering requirement.",
+    },
     screenshots: [
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Slots.jpg",
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-3-Hot-Chillies.jpg",
@@ -299,6 +351,19 @@ export const casinoReviews: CasinoReview[] = [
       { icon: "/crypto-payments/XRP.webp", name: "XRP (XRP)" },
     ],
     bonus: "100% up to $700",
+    bonusDetails: {
+      type: "Deposit bonus",
+      description: "Deposit-match bonus",
+      minDeposit: "$10",
+      maxDeposit: "$700",
+      depositDescription: "Minimum deposit of 10 USD; The maximum bonus amount for the bonus is 700",
+      wageringRequirement: "30 X",
+      wageringDescription: "Wagering requirement for Bonus is 30x",
+      bonusTiming: "21 Days Expiry",
+      timingDescription: "The bonus is valid for 21 days from the date you receive it. If the wagering requirement hasn't been completed within the deadline, bonus funds and winnings will be forfeited.",
+      vpnAllowed: true,
+      termsAndConditions: "Bonuses are limited to one instance per user, IP address, electronic device, household, residential address, telephone number, payment method, email address.",
+    },
     screenshots: [
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Slots.jpg",
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-3-Hot-Chillies.jpg",
@@ -373,6 +438,19 @@ export const casinoReviews: CasinoReview[] = [
       { icon: "/crypto-payments/TRX.webp", name: "TRON (TRX)" },
     ],
     bonus: "350% up to $3,500",
+    bonusDetails: {
+      type: "Deposit bonus",
+      description: "Deposit-match bonus + Cashback",
+      minDeposit: "$25",
+      maxDeposit: "$3,500",
+      depositDescription: "Minimum deposit of 25 USD; The maximum bonus amount for the bonus is 3,500",
+      wageringRequirement: "50 X",
+      wageringDescription: "Wagering requirement for Bonus is 50x and for Cashback is 1x",
+      bonusTiming: "10 Days Expiry",
+      timingDescription: "The bonus is valid for 10 days from the date you receive it. If the wagering requirement hasn't been completed within the deadline, bonus funds and winnings will be forfeited.",
+      vpnAllowed: false,
+      termsAndConditions: "You can only meet the wagering requirement by playing certain Slots and live casino. Bonuses are limited to one instance per user, IP address, electronic device, household.",
+    },
     screenshots: [
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Slots.jpg",
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-3-Hot-Chillies.jpg",
@@ -450,6 +528,19 @@ export const casinoReviews: CasinoReview[] = [
       { icon: "/crypto-payments/XRP.webp", name: "XRP (XRP)" },
     ],
     bonus: "200% up to $1,000",
+    bonusDetails: {
+      type: "Deposit bonus",
+      description: "Deposit-match bonus + Free Spins",
+      minDeposit: "$10",
+      maxDeposit: "$1,000",
+      depositDescription: "Minimum deposit of 10 USD; The maximum bonus amount for the bonus is 1,000",
+      wageringRequirement: "38 X",
+      wageringDescription: "Wagering requirement for Bonus is 38x and for Free Spins is 45x",
+      bonusTiming: "7 Days Expiry",
+      timingDescription: "The bonus is valid for 7 days from the date you receive it. If the wagering requirement hasn't been completed within the deadline, bonus funds and winnings will be forfeited.",
+      vpnAllowed: true,
+      termsAndConditions: "Bonuses are limited to one instance per user, IP address, electronic device, household, residential address, telephone number, payment method.",
+    },
     screenshots: [
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Slots.jpg",
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-3-Hot-Chillies.jpg",
@@ -527,6 +618,19 @@ export const casinoReviews: CasinoReview[] = [
       { icon: "/crypto-payments/TRX.webp", name: "TRON (TRX)" },
     ],
     bonus: "150% up to $1,000",
+    bonusDetails: {
+      type: "Deposit bonus",
+      description: "Deposit-match bonus",
+      minDeposit: "$20",
+      maxDeposit: "$1,000",
+      depositDescription: "Minimum deposit of 20 USD; The maximum bonus amount for the bonus is 1,000",
+      wageringRequirement: "35 X",
+      wageringDescription: "Wagering requirement for Bonus is 35x",
+      bonusTiming: "14 Days Expiry",
+      timingDescription: "The bonus is valid for 14 days from the date you receive it. If the wagering requirement hasn't been completed within the deadline, bonus funds and winnings will be forfeited.",
+      vpnAllowed: false,
+      termsAndConditions: "You can only meet the wagering requirement by playing certain Slots and live casino at Gamdom. Bonuses are limited to one instance per user, IP address, electronic device.",
+    },
     screenshots: [
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Slots.jpg",
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-3-Hot-Chillies.jpg",
@@ -604,6 +708,19 @@ export const casinoReviews: CasinoReview[] = [
       { icon: "/crypto-payments/ADA.webp", name: "Polkadot (DOT)" },
     ],
     bonus: "300% up to $20,000",
+    bonusDetails: {
+      type: "Deposit bonus",
+      description: "Deposit-match bonus + Free Spins",
+      minDeposit: "$10",
+      maxDeposit: "$20,000",
+      depositDescription: "Minimum deposit of 10 USD; The maximum bonus amount for the bonus is 20,000",
+      wageringRequirement: "40 X",
+      wageringDescription: "You can only meet the wagering requirement by playing certain Slots and live casino at BC.Game; Wagering requirement for Bonus is 40x and for Free Spins is 60x",
+      bonusTiming: "7 Days Expiry",
+      timingDescription: "The bonus is valid for 7 days from the date you receive it. If the wagering requirement hasn't been completed within the deadline, bonus funds and winnings will be forfeited and deducted from the player's balance.",
+      vpnAllowed: false,
+      termsAndConditions: "You can only meet the wagering requirement by playing certain Slots and live casino at BC.Game. The bet value in all other Casino and Live casino games on certain games will not count towards the wagering requirement.\n\nBonuses are limited to one instance per user, IP address, electronic device, household, residential address, telephone number, payment method, email address and any public environments where computers and IP addresses are shared.",
+    },
     screenshots: [
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-Slots.jpg",
       "https://stg-coinbets-staging.kinsta.cloud/wp-content/uploads/2025/12/Betcoin.ag-3-Hot-Chillies.jpg",

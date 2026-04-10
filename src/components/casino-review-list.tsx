@@ -21,6 +21,14 @@ import {
   MessageCircle,
   Shield,
   CircleDollarSign,
+  Calendar,
+  Clock,
+  ShieldCheck,
+  FileText,
+  Info,
+  ThumbsUp,
+  ThumbsDown,
+  Trophy,
 } from "lucide-react";
 import {
   Sheet,
@@ -42,6 +50,13 @@ import {
 } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from "@/components/ui/collapsible";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { Slider } from "@/components/ui/slider";
 import { casinoReviews, type CasinoReview } from "@/data/casino-reviews";
 import { GAME_ICONS } from "@/components/game-icons";
 
@@ -1107,6 +1122,409 @@ function FilterSidebar() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Bonus Filter Sidebar                                               */
+/* ------------------------------------------------------------------ */
+
+const BONUS_TYPES = [
+  { label: "No Deposit Bonus", count: 4 },
+  { label: "Free bonus funds", count: 0 },
+  { label: "Free spins", count: 6 },
+  { label: "Deposit Bonus", count: 99 },
+  { label: "Reload bonus", count: 0 },
+  { label: "Cashback bonus", count: 1 },
+];
+
+const BONUS_FOR = [
+  { label: "New Players", count: 88 },
+  { label: "Existing Players", count: 2 },
+];
+
+const WAGERING_TYPES = [
+  { label: "Bonus", count: 86 },
+  { label: "Bonus + Deposit", count: 18 },
+  { label: "Cashback - no WR", count: 0 },
+  { label: "Deposit", count: 1 },
+  { label: "Non-standard WR", count: 1 },
+];
+
+const CASHOUT_OPTIONS = [
+  { label: "Cashout not Limited", count: 106 },
+];
+
+function BonusFilterSidebar() {
+  const [selectedBonusTypes, setSelectedBonusTypes] = useState<string[]>([]);
+  const [selectedBonusFor, setSelectedBonusFor] = useState<string[]>([]);
+  const [selectedWagering, setSelectedWagering] = useState<string[]>([]);
+  const [selectedCashout, setSelectedCashout] = useState<string[]>([]);
+  const [selectedBonusCountries, setSelectedBonusCountries] = useState<string[]>([]);
+  const [bonusCountrySearch, setBonusCountrySearch] = useState("");
+
+  const [bonusAmount, setBonusAmount] = useState<number[]>([0, 5000000]);
+  const [bonusPercent, setBonusPercent] = useState<number[]>([0, 5000]);
+  const [freeSpins, setFreeSpins] = useState<number[]>([0, 5000]);
+  const [maxWR, setMaxWR] = useState<number[]>([0, 500]);
+
+  const [bonusTypeOpen, setBonusTypeOpen] = useState(true);
+  const [bonusForOpen, setBonusForOpen] = useState(true);
+  const [bonusValueOpen, setBonusValueOpen] = useState(true);
+  const [wageringOpen, setWageringOpen] = useState(true);
+  const [cashoutOpen, setCashoutOpen] = useState(true);
+  const [bonusCountryOpen, setBonusCountryOpen] = useState(true);
+
+  const toggleBonusType = (val: string) =>
+    setSelectedBonusTypes((prev) =>
+      prev.includes(val) ? prev.filter((s) => s !== val) : [...prev, val]
+    );
+  const toggleBonusFor = (val: string) =>
+    setSelectedBonusFor((prev) =>
+      prev.includes(val) ? prev.filter((s) => s !== val) : [...prev, val]
+    );
+  const toggleWagering = (val: string) =>
+    setSelectedWagering((prev) =>
+      prev.includes(val) ? prev.filter((s) => s !== val) : [...prev, val]
+    );
+  const toggleCashout = (val: string) =>
+    setSelectedCashout((prev) =>
+      prev.includes(val) ? prev.filter((s) => s !== val) : [...prev, val]
+    );
+  const toggleBonusCountry = (val: string) =>
+    setSelectedBonusCountries((prev) =>
+      prev.includes(val) ? prev.filter((s) => s !== val) : [...prev, val]
+    );
+
+  const filteredBonusCountries = bonusCountrySearch.trim()
+    ? COUNTRIES.filter((c) => c.name.toLowerCase().includes(bonusCountrySearch.toLowerCase()))
+    : COUNTRIES;
+
+  const hasAnyFilter =
+    selectedBonusTypes.length > 0 ||
+    selectedBonusFor.length > 0 ||
+    selectedWagering.length > 0 ||
+    selectedCashout.length > 0 ||
+    selectedBonusCountries.length > 0 ||
+    bonusAmount[0] !== 0 || bonusAmount[1] !== 5000000 ||
+    bonusPercent[0] !== 0 || bonusPercent[1] !== 5000 ||
+    freeSpins[0] !== 0 || freeSpins[1] !== 5000 ||
+    maxWR[0] !== 0 || maxWR[1] !== 500;
+
+  const resetAll = () => {
+    setSelectedBonusTypes([]);
+    setSelectedBonusFor([]);
+    setSelectedWagering([]);
+    setSelectedCashout([]);
+    setSelectedBonusCountries([]);
+    setBonusAmount([0, 5000000]);
+    setBonusPercent([0, 5000]);
+    setFreeSpins([0, 5000]);
+    setMaxWR([0, 500]);
+    setBonusCountrySearch("");
+  };
+
+  return (
+    <div
+      data-name="bonus-filter-sidebar"
+      className="rounded-lg lg:border lg:border-neutral-200 bg-white p-4 lg:shadow-sm space-y-5"
+    >
+      {/* Filter Header */}
+      <div data-name="bonus-filter-header" className="flex items-center justify-between">
+        <h3 data-name="bonus-filter-title" className="text-base font-bold text-[#060D17]">Filter Bonuses</h3>
+        {hasAnyFilter && (
+          <button
+            type="button"
+            data-name="bonus-filter-reset"
+            onClick={resetAll}
+            className="text-xs font-medium text-blue-600 hover:underline cursor-pointer"
+          >
+            Reset All
+          </button>
+        )}
+      </div>
+
+      {/* Bonus Type */}
+      <div data-name="bonus-type-section">
+        <button
+          type="button"
+          data-name="bonus-type-toggle"
+          onClick={() => setBonusTypeOpen(!bonusTypeOpen)}
+          className="flex w-full items-center justify-between py-2 cursor-pointer"
+        >
+          <div data-name="bonus-type-label" className="flex items-center gap-2.5">
+            <div data-name="bonus-type-icon" className="size-8 rounded-lg bg-[#060D17] flex items-center justify-center">
+              <Trophy className="size-4 text-white" />
+            </div>
+            <span className="text-sm font-bold text-[#060D17]">Bonus Type</span>
+          </div>
+          <ChevronUp className={`size-4 text-neutral-400 transition-transform ${bonusTypeOpen ? "" : "rotate-180"}`} />
+        </button>
+        {bonusTypeOpen && (
+          <div data-name="bonus-type-options" className="mt-1 flex flex-col">
+            {BONUS_TYPES.map((item) => (
+              <label
+                key={item.label}
+                data-name="bonus-type-option"
+                className="flex items-center gap-3 py-2.5 border-t border-neutral-100 cursor-pointer"
+              >
+                <Checkbox
+                  checked={selectedBonusTypes.includes(item.label)}
+                  onCheckedChange={() => toggleBonusType(item.label)}
+                />
+                <span className="text-sm text-[#060D17] flex-1">{item.label}</span>
+                <span className="text-sm font-bold text-blue-600">{item.count}</span>
+              </label>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Bonus For */}
+      <div data-name="bonus-for-section">
+        <button
+          type="button"
+          data-name="bonus-for-toggle"
+          onClick={() => setBonusForOpen(!bonusForOpen)}
+          className="flex w-full items-center justify-between py-2 cursor-pointer"
+        >
+          <div data-name="bonus-for-label" className="flex items-center gap-2.5">
+            <div data-name="bonus-for-icon" className="size-8 rounded-lg bg-[#060D17] flex items-center justify-center">
+              <Gamepad2 className="size-4 text-white" />
+            </div>
+            <span className="text-sm font-bold text-[#060D17]">Bonus For</span>
+          </div>
+          <ChevronUp className={`size-4 text-neutral-400 transition-transform ${bonusForOpen ? "" : "rotate-180"}`} />
+        </button>
+        {bonusForOpen && (
+          <div data-name="bonus-for-options" className="mt-1 flex flex-col">
+            {BONUS_FOR.map((item) => (
+              <label
+                key={item.label}
+                data-name="bonus-for-option"
+                className="flex items-center gap-3 py-2.5 border-t border-neutral-100 cursor-pointer"
+              >
+                <Checkbox
+                  checked={selectedBonusFor.includes(item.label)}
+                  onCheckedChange={() => toggleBonusFor(item.label)}
+                />
+                <span className="text-sm text-[#060D17] flex-1">{item.label}</span>
+                <span className="text-sm font-bold text-blue-600">{item.count}</span>
+              </label>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Bonus Value */}
+      <div data-name="bonus-value-section">
+        <button
+          type="button"
+          data-name="bonus-value-toggle"
+          onClick={() => setBonusValueOpen(!bonusValueOpen)}
+          className="flex w-full items-center justify-between py-2 cursor-pointer"
+        >
+          <div data-name="bonus-value-label" className="flex items-center gap-2.5">
+            <div data-name="bonus-value-icon" className="size-8 rounded-lg bg-[#060D17] flex items-center justify-center">
+              <MessageCircle className="size-4 text-white" />
+            </div>
+            <span className="text-sm font-bold text-[#060D17]">Bonus Value</span>
+          </div>
+          <ChevronUp className={`size-4 text-neutral-400 transition-transform ${bonusValueOpen ? "" : "rotate-180"}`} />
+        </button>
+        {bonusValueOpen && (
+          <div data-name="bonus-value-options" className="mt-2 space-y-5">
+            <p className="text-sm text-neutral-500">Amount, percents, number of free</p>
+            <div data-name="bonus-value-sliders" className="rounded-lg border border-neutral-200 p-4 space-y-6">
+              {/* Bonus Amount */}
+              <div data-name="bonus-amount-slider">
+                <p className="text-sm font-medium text-[#060D17] mb-2">Bonus Amount ($)</p>
+                <div data-name="bonus-amount-labels" className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-semibold text-white bg-green-500 rounded px-1.5 py-0.5">${bonusAmount[0].toLocaleString()}</span>
+                  <span className="text-xs font-semibold text-white bg-green-500 rounded px-1.5 py-0.5">${bonusAmount[1].toLocaleString()}</span>
+                </div>
+                <Slider
+                  value={bonusAmount}
+                  onValueChange={(v) => setBonusAmount(Array.isArray(v) ? [...v] : [v])}
+                  min={0}
+                  max={5000000}
+                  className="[&_[data-slot=slider-range]]:bg-green-500 [&_[data-slot=slider-track]]:bg-green-500/20"
+                />
+              </div>
+
+              {/* Bonus Value (%) */}
+              <div data-name="bonus-percent-slider">
+                <p className="text-sm font-medium text-[#060D17] mb-2">Bonus Value (%)</p>
+                <div data-name="bonus-percent-labels" className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-semibold text-white bg-green-500 rounded px-1.5 py-0.5">{bonusPercent[0].toLocaleString()}</span>
+                  <span className="text-xs font-semibold text-white bg-green-500 rounded px-1.5 py-0.5">{bonusPercent[1].toLocaleString()}</span>
+                </div>
+                <Slider
+                  value={bonusPercent}
+                  onValueChange={(v) => setBonusPercent(Array.isArray(v) ? [...v] : [v])}
+                  min={0}
+                  max={5000}
+                  className="[&_[data-slot=slider-range]]:bg-green-500 [&_[data-slot=slider-track]]:bg-green-500/20"
+                />
+              </div>
+
+              {/* Number of free spins */}
+              <div data-name="bonus-freespins-slider">
+                <p className="text-sm font-medium text-[#060D17] mb-2">Number of free spin</p>
+                <div data-name="bonus-freespins-labels" className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-semibold text-white bg-green-500 rounded px-1.5 py-0.5">{freeSpins[0].toLocaleString()}</span>
+                  <span className="text-xs font-semibold text-white bg-green-500 rounded px-1.5 py-0.5">{freeSpins[1].toLocaleString()}</span>
+                </div>
+                <Slider
+                  value={freeSpins}
+                  onValueChange={(v) => setFreeSpins(Array.isArray(v) ? [...v] : [v])}
+                  min={0}
+                  max={5000}
+                  className="[&_[data-slot=slider-range]]:bg-green-500 [&_[data-slot=slider-track]]:bg-green-500/20"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Wagering Requirement */}
+      <div data-name="wagering-section">
+        <button
+          type="button"
+          data-name="wagering-toggle"
+          onClick={() => setWageringOpen(!wageringOpen)}
+          className="flex w-full items-center justify-between py-2 cursor-pointer"
+        >
+          <div data-name="wagering-label" className="flex items-center gap-2.5">
+            <div data-name="wagering-icon" className="size-8 rounded-lg bg-[#060D17] flex items-center justify-center">
+              <Shield className="size-4 text-white" />
+            </div>
+            <span className="text-sm font-bold text-[#060D17]">Wagering Requirement</span>
+          </div>
+          <ChevronUp className={`size-4 text-neutral-400 transition-transform ${wageringOpen ? "" : "rotate-180"}`} />
+        </button>
+        {wageringOpen && (
+          <div data-name="wagering-options" className="mt-1 flex flex-col">
+            {WAGERING_TYPES.map((item) => (
+              <label
+                key={item.label}
+                data-name="wagering-option"
+                className="flex items-center gap-3 py-2.5 border-t border-neutral-100 cursor-pointer"
+              >
+                <Checkbox
+                  checked={selectedWagering.includes(item.label)}
+                  onCheckedChange={() => toggleWagering(item.label)}
+                />
+                <span className="text-sm text-[#060D17] flex-1">{item.label}</span>
+                <span className="text-sm font-bold text-blue-600">{item.count}</span>
+              </label>
+            ))}
+            {/* Maximum WR slider */}
+            <div data-name="max-wr-slider" className="mt-3 rounded-lg border border-neutral-200 p-4">
+              <p className="text-sm font-medium text-neutral-500 mb-2">Maximum WR</p>
+              <div data-name="max-wr-labels" className="flex items-center justify-between mb-2">
+                <span className="text-xs font-semibold text-white bg-green-500 rounded px-1.5 py-0.5">{maxWR[0]} X</span>
+                <span className="text-xs font-semibold text-white bg-green-500 rounded px-1.5 py-0.5">{maxWR[1]} X</span>
+              </div>
+              <Slider
+                value={maxWR}
+                onValueChange={(v) => setMaxWR(Array.isArray(v) ? [...v] : [v])}
+                min={0}
+                max={500}
+                className="[&_[data-slot=slider-range]]:bg-green-500 [&_[data-slot=slider-track]]:bg-green-500/20"
+              />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Maximum Cashout */}
+      <div data-name="cashout-section">
+        <button
+          type="button"
+          data-name="cashout-toggle"
+          onClick={() => setCashoutOpen(!cashoutOpen)}
+          className="flex w-full items-center justify-between py-2 cursor-pointer"
+        >
+          <div data-name="cashout-label" className="flex items-center gap-2.5">
+            <div data-name="cashout-icon" className="size-8 rounded-lg bg-[#060D17] flex items-center justify-center">
+              <CircleDollarSign className="size-4 text-white" />
+            </div>
+            <span className="text-sm font-bold text-[#060D17]">Maximum Cashout</span>
+          </div>
+          <ChevronUp className={`size-4 text-neutral-400 transition-transform ${cashoutOpen ? "" : "rotate-180"}`} />
+        </button>
+        {cashoutOpen && (
+          <div data-name="cashout-options" className="mt-1 flex flex-col">
+            {CASHOUT_OPTIONS.map((item) => (
+              <label
+                key={item.label}
+                data-name="cashout-option"
+                className="flex items-center gap-3 py-2.5 border-t border-neutral-100 cursor-pointer"
+              >
+                <Checkbox
+                  checked={selectedCashout.includes(item.label)}
+                  onCheckedChange={() => toggleCashout(item.label)}
+                />
+                <span className="text-sm text-[#060D17] flex-1">{item.label}</span>
+                <span className="text-sm font-bold text-blue-600">{item.count}</span>
+              </label>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Bonuses for Players from */}
+      <div data-name="bonus-country-section">
+        <button
+          type="button"
+          data-name="bonus-country-toggle"
+          onClick={() => setBonusCountryOpen(!bonusCountryOpen)}
+          className="flex w-full items-center justify-between py-2 cursor-pointer"
+        >
+          <div data-name="bonus-country-label" className="flex items-center gap-2.5">
+            <div data-name="bonus-country-icon" className="size-8 rounded-lg bg-[#060D17] flex items-center justify-center">
+              <Globe className="size-4 text-white" />
+            </div>
+            <span className="text-sm font-bold text-[#060D17]">Bonuses for Players from</span>
+          </div>
+          <ChevronUp className={`size-4 text-neutral-400 transition-transform ${bonusCountryOpen ? "" : "rotate-180"}`} />
+        </button>
+        {bonusCountryOpen && (
+          <div data-name="bonus-country-options" className="mt-2 flex flex-col gap-2">
+            <p className="text-sm text-neutral-500">Is this your country of residence?</p>
+            <div data-name="bonus-country-search" className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-neutral-400" />
+              <input
+                type="text"
+                placeholder="Search filter"
+                value={bonusCountrySearch}
+                onChange={(e) => setBonusCountrySearch(e.target.value)}
+                className="w-full rounded-lg border border-neutral-200 py-2 pl-9 pr-3 text-sm outline-none focus:border-neutral-400"
+              />
+            </div>
+            <div data-name="bonus-country-list" className="flex flex-col max-h-[260px] overflow-y-auto" style={{ scrollbarWidth: "thin" }}>
+              {filteredBonusCountries.map((country) => (
+                <label
+                  key={country.code}
+                  data-name="bonus-country-option"
+                  className="flex items-center gap-3 py-2.5 border-t border-neutral-100 cursor-pointer"
+                >
+                  <Checkbox
+                    checked={selectedBonusCountries.includes(country.code)}
+                    onCheckedChange={() => toggleBonusCountry(country.code)}
+                  />
+                  <span className={`fi fi-${country.code} fis size-5 shrink-0 rounded-sm`} />
+                  <span className="text-sm text-[#060D17] flex-1">{country.name}</span>
+                  <span className="text-sm font-bold text-blue-600">0</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Casino Card                                                        */
 /* ------------------------------------------------------------------ */
 
@@ -1574,10 +1992,309 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Bonus Detail Row (collapsible)                                     */
+/* ------------------------------------------------------------------ */
+
+function BonusDetailRow({
+  icon,
+  label,
+  summary,
+  children,
+  highlight,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  summary?: string;
+  children?: React.ReactNode;
+  highlight?: "red" | "green";
+}) {
+  const [open, setOpen] = useState(false);
+  const hasContent = !!children;
+
+  const bgClass =
+    highlight === "red"
+      ? "bg-red-50"
+      : highlight === "green"
+        ? "bg-green-50"
+        : "";
+
+  return (
+    <Collapsible open={open} onOpenChange={setOpen}>
+      <CollapsibleTrigger
+        data-name="bonus-detail-trigger"
+        className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left border-b border-neutral-100 transition-colors ${
+          hasContent ? "cursor-pointer hover:bg-neutral-50" : "cursor-default"
+        } ${bgClass}`}
+      >
+        <div data-name="bonus-detail-label" className="flex items-center gap-2.5 min-w-0">
+          <span data-name="bonus-detail-icon" className="shrink-0 text-neutral-500">{icon}</span>
+          <span className="text-sm font-medium text-[#060D17]">{label}</span>
+          {summary && (
+            <span className="text-sm text-neutral-500">{summary}</span>
+          )}
+        </div>
+        {hasContent && (
+          <ChevronUp
+            className={`size-4 shrink-0 text-neutral-400 transition-transform ${
+              open ? "" : "rotate-180"
+            }`}
+          />
+        )}
+      </CollapsibleTrigger>
+      {hasContent && (
+        <CollapsibleContent>
+          <div data-name="bonus-detail-content" className="px-4 py-3 text-sm leading-relaxed text-neutral-600 border-b border-neutral-100 bg-neutral-50/50">
+            {children}
+          </div>
+        </CollapsibleContent>
+      )}
+    </Collapsible>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Bonus Casino Card                                                  */
+/* ------------------------------------------------------------------ */
+
+function BonusCasinoCard({ casino }: { casino: CasinoReview }) {
+  const [votes, setVotes] = useState({ up: 1, down: 0 });
+  const [voted, setVoted] = useState<"up" | "down" | null>(null);
+
+  const playerRatingKey = Math.min(5, Math.max(1, Math.round(casino.playerRating)));
+  const playerColor = RATING_COLORS[playerRatingKey] ?? RATING_COLORS[3];
+  const expertRatingKey = Math.min(5, Math.max(1, Math.round(casino.expertScore)));
+
+  const bonus = casino.bonusDetails;
+
+  const handleVote = (type: "up" | "down") => {
+    if (voted === type) return;
+    setVotes((prev) => ({
+      up: type === "up" ? prev.up + 1 : voted === "up" ? prev.up - 1 : prev.up,
+      down: type === "down" ? prev.down + 1 : voted === "down" ? prev.down - 1 : prev.down,
+    }));
+    setVoted(type);
+  };
+
+  return (
+    <div
+      data-name="bonus-casino-card"
+      className="rounded-xl border border-neutral-200 bg-white shadow-sm overflow-hidden"
+    >
+      {/* Top section: Logo + Ratings */}
+      <div data-name="casino-card-top" className="p-4 sm:p-6">
+        <div data-name="casino-card-header" className="flex flex-col sm:flex-row gap-4 sm:gap-5">
+          {/* Casino Logo */}
+          <Link
+            href={`/casino/review/${casino.slug}`}
+            data-name="casino-logo"
+            className="shrink-0 size-[100px] sm:size-[120px] rounded-lg bg-[#060D17] flex items-center justify-center overflow-hidden border border-neutral-200"
+          >
+            <Image
+              src={casino.logo}
+              alt={casino.name}
+              width={120}
+              height={120}
+              className="object-contain size-full"
+            />
+          </Link>
+
+          {/* Casino Info */}
+          <div data-name="casino-info" className="flex-1 min-w-0">
+            <Link
+              href={`/casino/review/${casino.slug}`}
+              data-name="casino-name"
+              className="text-xl sm:text-2xl font-bold text-[#060D17] hover:underline"
+            >
+              {casino.name}
+            </Link>
+
+            {/* Ratings Row */}
+            <div data-name="bonus-ratings" className="flex flex-row items-start gap-6 mt-3">
+              {/* Player Rating */}
+              <div data-name="player-rating" className="flex items-start gap-2">
+                <PlayerRatingIcon size={24} />
+                <div data-name="player-rating-detail" className="flex flex-col gap-0.5">
+                  <div data-name="player-score-row" className="flex items-center gap-1">
+                    <span className="text-lg font-medium leading-none text-[#060d17]">
+                      {casino.playerRating.toFixed(1)}
+                    </span>
+                    <div data-name="rating-stars" className="flex items-center gap-0.5">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <svg key={star} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
+                          <path d={STAR_BG} fill={star <= playerRatingKey ? playerColor : "#DDDDDD"} />
+                          <path d={STAR_SHAPE} fill="white" />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-xs font-medium text-[#060d17]">Player Rating</p>
+                  <Link
+                    href={`/casino/review/${casino.slug}#reviews`}
+                    className="text-xs font-medium text-[#2563eb]"
+                  >
+                    {casino.playerReviews} Reviews
+                  </Link>
+                </div>
+              </div>
+
+              {/* Expert Score */}
+              <div data-name="expert-score" className="flex items-start gap-2">
+                <ExpertShieldIcon size={24} />
+                <div data-name="expert-score-detail" className="flex flex-col gap-0.5">
+                  <div data-name="expert-score-row" className="flex items-center gap-1">
+                    <span className="text-lg font-medium leading-none text-[#060d17]">
+                      {casino.expertScore.toFixed(1)}
+                    </span>
+                    <div data-name="expert-shields" className="flex items-center gap-0.5">
+                      {[1, 2, 3, 4, 5].map((shield) => (
+                        <svg key={shield} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
+                          <rect width="20" height="20" rx="5" fill={shield <= expertRatingKey ? "#003EB6" : "#DDDDDD"} />
+                          <path
+                            d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
+                            fill="white"
+                          />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-xs font-medium text-[#060d17]">Coinbets Expert Score</p>
+                  <Link
+                    href={`/casino/review/${casino.slug}`}
+                    className="text-xs font-medium text-[#2563eb]"
+                  >
+                    Independent Audit
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Bonus Banner */}
+            <div
+              data-name="bonus-banner"
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-lg bg-green-500/10 px-4 sm:px-5 py-3.5 mt-4"
+            >
+              <p data-name="bonus-text" className="text-base sm:text-lg font-semibold text-[#060D17]">
+                {casino.bonus}
+              </p>
+              <Link
+                href={`/casino/review/${casino.slug}`}
+                data-name="bonus-info-btn"
+              >
+                <ShimmerButton
+                  shimmerColor="#ffffff"
+                  shimmerDuration="2.5s"
+                  background="rgba(22, 163, 74, 1)"
+                  borderRadius="8px"
+                  className="px-5 py-2 text-sm font-semibold border-green-500/30"
+                >
+                  Bonus Info
+                </ShimmerButton>
+              </Link>
+            </div>
+
+            {/* Bonus Details — Collapsible Sections */}
+            {bonus && (
+              <div data-name="bonus-details-section" className="mt-4">
+                <BonusDetailRow
+                  icon={<Calendar className="size-4" />}
+                  label={bonus.type}
+                >
+                  <p>{bonus.description}</p>
+                </BonusDetailRow>
+
+                <BonusDetailRow
+                  icon={<CircleDollarSign className="size-4" />}
+                  label={`Min Deposit: ${bonus.minDeposit}`}
+                  summary={`Max Deposit: ${bonus.maxDeposit}`}
+                >
+                  <p>{bonus.depositDescription}</p>
+                </BonusDetailRow>
+
+                <BonusDetailRow
+                  icon={<Gamepad2 className="size-4" />}
+                  label={`Wagering Requirement: ${bonus.wageringRequirement}`}
+                >
+                  <p>{bonus.wageringDescription}</p>
+                </BonusDetailRow>
+
+                <BonusDetailRow
+                  icon={<Clock className="size-4" />}
+                  label={`Bonus Timing: ${bonus.bonusTiming}`}
+                >
+                  <p>{bonus.timingDescription}</p>
+                </BonusDetailRow>
+
+                <BonusDetailRow
+                  icon={<ShieldCheck className="size-4" />}
+                  label={`VPN Allowed : ${bonus.vpnAllowed ? "Yes" : "No"}`}
+                  highlight={bonus.vpnAllowed ? "green" : "red"}
+                >
+                  {null}
+                </BonusDetailRow>
+
+                <BonusDetailRow
+                  icon={<Info className="size-4" />}
+                  label="Terms and Conditions"
+                >
+                  {bonus.termsAndConditions.split("\n\n").map((p, i) => (
+                    <p key={i} className={i > 0 ? "mt-3" : ""}>
+                      {p}
+                    </p>
+                  ))}
+                </BonusDetailRow>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Has this Bonus Worked for you? */}
+      <div
+        data-name="bonus-vote-section"
+        className="flex items-center justify-between gap-4 px-4 sm:px-6 py-4 border-t border-neutral-200"
+      >
+        <p data-name="bonus-vote-label" className="text-sm font-medium text-[#060D17]">
+          Has this Bonus Worked for you?
+        </p>
+        <div data-name="bonus-vote-actions" className="flex items-center gap-2">
+          <button
+            type="button"
+            data-name="bonus-vote-up"
+            onClick={() => handleVote("up")}
+            className={`flex items-center justify-center size-9 rounded-lg border transition-colors cursor-pointer ${
+              voted === "up"
+                ? "border-green-500 bg-green-50 text-green-600"
+                : "border-neutral-200 text-neutral-500 hover:bg-neutral-50"
+            }`}
+          >
+            <ThumbsUp className="size-4" />
+          </button>
+          <span data-name="bonus-vote-count" className="text-sm font-medium text-neutral-500 min-w-[24px] text-center">
+            ({votes.up})
+          </span>
+          <button
+            type="button"
+            data-name="bonus-vote-down"
+            onClick={() => handleVote("down")}
+            className={`flex items-center justify-center size-9 rounded-lg border transition-colors cursor-pointer ${
+              voted === "down"
+                ? "border-red-500 bg-red-50 text-red-600"
+                : "border-neutral-200 text-neutral-500 hover:bg-neutral-50"
+            }`}
+          >
+            <ThumbsDown className="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Main Component                                                     */
 /* ------------------------------------------------------------------ */
 
-export function CasinoReviewList({ title = "Casino Reviews" }: { title?: string }) {
+export function CasinoReviewList({ title = "Casino Reviews", variant = "default" }: { title?: string; variant?: "default" | "bonus" }) {
   const [sortOpen, setSortOpen] = useState(false);
   const [sortBy, setSortBy] = useState("Top Rated");
   const [searchQuery, setSearchQuery] = useState("");
@@ -1632,7 +2349,8 @@ export function CasinoReviewList({ title = "Casino Reviews" }: { title?: string 
                   <SheetHeader className="px-4 pt-4 pb-2">
                     <SheetTitle>Filters</SheetTitle>
                   </SheetHeader>
-                  <div className="px-4 pb-4">
+                  <div className="px-4 pb-4 space-y-6">
+                    {variant === "bonus" && <BonusFilterSidebar />}
                     <FilterSidebar />
                   </div>
                 </SheetContent>
@@ -1672,14 +2390,19 @@ export function CasinoReviewList({ title = "Casino Reviews" }: { title?: string 
           </div>
 
           {/* Casino cards */}
-          {filteredCasinos.map((casino) => (
-            <CasinoCard key={casino.slug} casino={casino} />
-          ))}
+          {filteredCasinos.map((casino) =>
+            variant === "bonus" ? (
+              <BonusCasinoCard key={casino.slug} casino={casino} />
+            ) : (
+              <CasinoCard key={casino.slug} casino={casino} />
+            )
+          )}
         </div>
 
         {/* Right: Filter sidebar — desktop only */}
         <div data-name="casino-list-sidebar" className="hidden lg:block w-[360px] shrink-0">
-          <div className="sticky top-24">
+          <div className="sticky top-24 space-y-6 lg:max-h-[calc(100vh-100px)] lg:overflow-y-auto" style={{ scrollbarWidth: "thin" }}>
+            {variant === "bonus" && <BonusFilterSidebar />}
             <FilterSidebar />
           </div>
         </div>

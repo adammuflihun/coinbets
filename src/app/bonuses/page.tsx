@@ -28,7 +28,7 @@ export default function BonusesPage() {
       />
 
       <SportsSectionNav />
-      <CasinoReviewList title="Crypto Casino Bonuses" />
+      <CasinoReviewList title="Crypto Casino Bonuses" variant="bonus" />
       <SearchboxIndex overlap={false} title="Browse all user reviews" />
       <CoinbetIndexSeoMetatags />
     </main>

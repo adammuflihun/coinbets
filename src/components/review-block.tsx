@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import {
   ChevronRight,
   ChevronLeft,
@@ -18,8 +18,14 @@ import {
   Pencil,
   X,
   MessageSquare,
+  Calendar,
+  Clock,
+  CircleDollarSign,
+  Gamepad2,
+  ShieldCheck,
+  ChevronUp,
 } from "lucide-react";
-import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import {
   Popover,
   PopoverContent,
@@ -434,6 +440,125 @@ const USER_REVIEWS: UserReview[] = [
     wageredAmount: "$3,400",
   },
 ];
+
+/* ------------------------------------------------------------------ */
+/*  Bonus Row (collapsible)                                            */
+/* ------------------------------------------------------------------ */
+
+function BonusRow({
+  icon,
+  label,
+  summary,
+  children,
+  highlight,
+}: {
+  icon: ReactNode;
+  label: string;
+  summary?: string;
+  children?: ReactNode;
+  highlight?: "red" | "green";
+}) {
+  const [open, setOpen] = useState(false);
+  const hasContent = !!children;
+
+  const bgClass =
+    highlight === "red"
+      ? "bg-red-50"
+      : highlight === "green"
+        ? "bg-green-50"
+        : "";
+
+  return (
+    <Collapsible open={open} onOpenChange={setOpen}>
+      <CollapsibleTrigger
+        data-name="bonus-detail-trigger"
+        className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left border-b border-neutral-100 transition-colors ${
+          hasContent ? "cursor-pointer hover:bg-neutral-50" : "cursor-default"
+        } ${bgClass}`}
+      >
+        <div data-name="bonus-detail-label" className="flex items-center gap-2.5 min-w-0">
+          <span data-name="bonus-detail-icon" className="shrink-0 text-neutral-500">{icon}</span>
+          <span className="text-sm font-medium text-[#060D17]">{label}</span>
+          {summary && (
+            <span className="text-sm text-neutral-500">{summary}</span>
+          )}
+        </div>
+        {hasContent && (
+          <ChevronUp
+            className={`size-4 shrink-0 text-neutral-400 transition-transform ${
+              open ? "" : "rotate-180"
+            }`}
+          />
+        )}
+      </CollapsibleTrigger>
+      {hasContent && (
+        <CollapsibleContent>
+          <div data-name="bonus-detail-content" className="px-4 py-3 text-sm leading-relaxed text-neutral-600 border-b border-neutral-100 bg-neutral-50/50">
+            {children}
+          </div>
+        </CollapsibleContent>
+      )}
+    </Collapsible>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Bonus Vote                                                         */
+/* ------------------------------------------------------------------ */
+
+function BonusVote() {
+  const [votes, setVotes] = useState({ up: 1, down: 0 });
+  const [voted, setVoted] = useState<"up" | "down" | null>(null);
+
+  const handleVote = (type: "up" | "down") => {
+    if (voted === type) return;
+    setVotes((prev) => ({
+      up: type === "up" ? prev.up + 1 : voted === "up" ? prev.up - 1 : prev.up,
+      down: type === "down" ? prev.down + 1 : voted === "down" ? prev.down - 1 : prev.down,
+    }));
+    setVoted(type);
+  };
+
+  return (
+    <div
+      data-name="bonus-vote-section"
+      className="flex items-center justify-between gap-4 rounded-lg border border-neutral-200 px-4 py-3"
+    >
+      <p data-name="bonus-vote-label" className="text-sm font-medium text-[#060D17]">
+        Has this Bonus Worked for you?
+      </p>
+      <div data-name="bonus-vote-actions" className="flex items-center gap-2">
+        <button
+          type="button"
+          data-name="bonus-vote-up"
+          onClick={() => handleVote("up")}
+          className={`flex items-center justify-center size-9 rounded-lg border transition-colors cursor-pointer ${
+            voted === "up"
+              ? "border-green-500 bg-green-50 text-green-600"
+              : "border-neutral-200 text-neutral-500 hover:bg-neutral-50"
+          }`}
+        >
+          <ThumbsUp className="size-4" />
+        </button>
+        <span data-name="bonus-vote-count" className="text-sm font-medium text-neutral-500 min-w-[24px] text-center">
+          ({votes.up})
+        </span>
+        <button
+          type="button"
+          data-name="bonus-vote-down"
+          onClick={() => handleVote("down")}
+          className={`flex items-center justify-center size-9 rounded-lg border transition-colors cursor-pointer ${
+            voted === "down"
+              ? "border-red-500 bg-red-50 text-red-600"
+              : "border-neutral-200 text-neutral-500 hover:bg-neutral-50"
+          }`}
+        >
+          <ThumbsDown className="size-4" />
+        </button>
+      </div>
+    </div>
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
@@ -1897,6 +2022,82 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 it&apos;s transparent. Explore all {casino.name} casino bonuses
                 and promotions below (availability may vary)
               </p>
+
+              {/* Bonus Banner */}
+              <div
+                data-name="bonus-banner"
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-lg bg-green-500/10 px-4 sm:px-5 py-3.5"
+              >
+                <p data-name="bonus-text" className="text-base sm:text-lg font-semibold text-[#060D17]">
+                  {casino.bonus}
+                </p>
+                <ShimmerButton
+                  shimmerColor="#ffffff"
+                  shimmerDuration="2.5s"
+                  background="rgba(22, 163, 74, 1)"
+                  borderRadius="8px"
+                  className="px-5 py-2 text-sm font-semibold border-green-500/30"
+                >
+                  Bonus Info
+                </ShimmerButton>
+              </div>
+
+              {/* Bonus Details */}
+              {casino.bonusDetails && (
+                <div data-name="bonus-details-section" className="flex flex-col">
+                  <BonusRow
+                    icon={<Calendar className="size-4" />}
+                    label={casino.bonusDetails.type}
+                  >
+                    <p>{casino.bonusDetails.description}</p>
+                  </BonusRow>
+
+                  <BonusRow
+                    icon={<CircleDollarSign className="size-4" />}
+                    label={`Min Deposit: ${casino.bonusDetails.minDeposit}`}
+                    summary={`Max Deposit: ${casino.bonusDetails.maxDeposit}`}
+                  >
+                    <p>{casino.bonusDetails.depositDescription}</p>
+                  </BonusRow>
+
+                  <BonusRow
+                    icon={<Gamepad2 className="size-4" />}
+                    label={`Wagering Requirement: ${casino.bonusDetails.wageringRequirement}`}
+                  >
+                    <p>{casino.bonusDetails.wageringDescription}</p>
+                  </BonusRow>
+
+                  <BonusRow
+                    icon={<Clock className="size-4" />}
+                    label={`Bonus Timing: ${casino.bonusDetails.bonusTiming}`}
+                  >
+                    <p>{casino.bonusDetails.timingDescription}</p>
+                  </BonusRow>
+
+                  <BonusRow
+                    icon={<ShieldCheck className="size-4" />}
+                    label={`VPN Allowed : ${casino.bonusDetails.vpnAllowed ? "Yes" : "No"}`}
+                    highlight={casino.bonusDetails.vpnAllowed ? "green" : "red"}
+                  >
+                    {null}
+                  </BonusRow>
+
+                  <BonusRow
+                    icon={<Info className="size-4" />}
+                    label="Terms and Conditions"
+                  >
+                    {casino.bonusDetails.termsAndConditions.split("\n\n").map((p, i) => (
+                      <p key={i} className={i > 0 ? "mt-3" : ""}>
+                        {p}
+                      </p>
+                    ))}
+                  </BonusRow>
+                </div>
+              )}
+
+              {/* Bonus Vote */}
+              <BonusVote />
+
               <div
                 data-name="bonuses-disclaimer"
                 className="rounded-xl bg-[#efefef] p-5"

@@ -13,6 +13,7 @@ import {
   Sparkles,
   Crown,
   LayoutGrid,
+  Gift,
   ShieldCheck,
   EyeOff,
   Smartphone,
@@ -130,6 +131,7 @@ const cryptoDropdownColumns = [
       { label: "Newly Opened Casinos", href: "/newly-opened-casinos", icon: Sparkles },
       { label: "Big Brands", href: "/big-brands", icon: Crown },
       { label: "All Casinos", href: "/all-casino", icon: LayoutGrid },
+      { label: "Bonuses", href: "/bonuses", icon: Gift },
     ],
   },
   {
