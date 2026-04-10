@@ -514,6 +514,11 @@ export function SubmitReviewForm({ slug }: { slug: string }) {
       ? RATING_COLORS[Math.min(4, Math.max(0, rating - 1))]
       : "#a3a3a3";
 
+  const casinoRatingColor =
+    RATING_COLORS[Math.min(4, Math.max(0, Math.round(casino.playerRating) - 1))];
+  const casinoExpertColor =
+    RATING_COLORS[Math.min(4, Math.max(0, Math.round(casino.expertScore) - 1))];
+
   const handleSubmit = () => {
     if (!isValid) return;
     setSubmitting(true);
@@ -608,13 +613,13 @@ export function SubmitReviewForm({ slug }: { slug: string }) {
             {/* Player Rating */}
             <div data-name="player-rating" className="flex items-center gap-2">
               <PlayerRatingIcon />
-              <div data-name="player-rating-detail" className="flex flex-col">
-                <div data-name="player-rating-value" className="flex items-center gap-1">
+              <div data-name="player-rating-detail" className="flex flex-col gap-0.5">
+                <div data-name="player-rating-value" className="flex items-center gap-1.5">
                   <span className="text-base font-medium text-[#060D17]">
                     {casino.playerRating.toFixed(1)}
                   </span>
                   <svg width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4">
-                    <path d={STAR_BG} fill={ratingColor} />
+                    <path d={STAR_BG} fill={casinoRatingColor} />
                     <path d={STAR_SHAPE} fill="white" />
                   </svg>
                 </div>
@@ -627,10 +632,16 @@ export function SubmitReviewForm({ slug }: { slug: string }) {
             {/* Expert Score */}
             <div data-name="expert-score" className="flex items-center gap-2">
               <ExpertShieldIcon />
-              <div data-name="expert-score-detail" className="flex flex-col">
-                <span className="text-base font-medium text-[#060D17]">
-                  {casino.expertScore.toFixed(1)}
-                </span>
+              <div data-name="expert-score-detail" className="flex flex-col gap-0.5">
+                <div data-name="expert-score-value" className="flex items-center gap-1.5">
+                  <span className="text-base font-medium text-[#060D17]">
+                    {casino.expertScore.toFixed(1)}
+                  </span>
+                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4">
+                    <rect width="20" height="20" rx="5" fill="#003EB6" />
+                    <path d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z" fill="white" />
+                  </svg>
+                </div>
                 <span className="text-xs text-neutral-500">Expert Score</span>
               </div>
             </div>
