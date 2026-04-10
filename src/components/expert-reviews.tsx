@@ -185,9 +185,7 @@ export function ExpertReviews() {
               Recent Guides and Expert Reviews
             </p>
             <h2 className="text-2xl sm:text-[30px] lg:text-[35px] font-black text-[#060d17] leading-[1.2] tracking-tight">
-              Top Crypto Casinos,
-              <br className="hidden sm:block" />
-              Sports Betting, and Esports Sites
+              Expert-Reviewed Crypto Casinos
             </h2>
           </div>
           <Link
