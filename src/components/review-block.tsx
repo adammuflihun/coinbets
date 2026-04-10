@@ -1196,17 +1196,22 @@ export function ReviewBlock({ slug }: { slug: string }) {
               data-name="user-feedback-summary"
               className="rounded-lg border border-neutral-200 bg-white p-6 sm:p-8 shadow-sm flex flex-col gap-6"
             >
-              {/* Top row: question + write review */}
+              {/* Top row: prominent CTA to write a review */}
               <div
                 data-name="feedback-top"
-                className="flex items-center justify-between gap-4"
+                className="rounded-xl bg-gradient-to-r from-[#003EB6] to-[#0055e0] p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
               >
-                <p
-                  data-name="feedback-question"
-                  className="text-base font-bold text-[#060D17]"
-                >
-                  Do you have any experience with {casino.name}?
-                </p>
+                <div data-name="feedback-top-text" className="flex flex-col gap-1.5">
+                  <p
+                    data-name="feedback-question"
+                    className="text-lg sm:text-xl font-bold text-white"
+                  >
+                    Have you played at {casino.name}?
+                  </p>
+                  <p data-name="feedback-subtitle" className="text-sm text-white/70">
+                    Share your honest experience to help other players make informed decisions.
+                  </p>
+                </div>
                 <button
                   data-name="write-review-btn"
                   onClick={() => {
@@ -1216,24 +1221,25 @@ export function ReviewBlock({ slug }: { slug: string }) {
                       setLoginOpen(true);
                     }
                   }}
-                  className="shrink-0 flex items-center gap-2 rounded-lg bg-[#003EB6] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#002d8a] transition-colors cursor-pointer"
+                  className="shrink-0 flex items-center gap-2.5 rounded-lg bg-[#eab914] px-5 py-3 text-sm font-bold text-[#060D17] hover:bg-[#d4a812] transition-colors cursor-pointer shadow-lg"
                 >
-                  Write a Review
                   <svg
-                    width="16"
-                    height="16"
+                    width="18"
+                    height="18"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="size-4"
+                    className="size-[18px]"
                   >
                     <path
                       d="M11.333 2.00004C11.5081 1.82494 11.716 1.68605 11.9447 1.59129C12.1735 1.49653 12.4187 1.44775 12.6663 1.44775C12.914 1.44775 13.1592 1.49653 13.388 1.59129C13.6167 1.68605 13.8246 1.82494 13.9997 2.00004C14.1748 2.17513 14.3137 2.38308 14.4084 2.61182C14.5032 2.84057 14.552 3.08575 14.552 3.33337C14.552 3.581 14.5032 3.82618 14.4084 4.05493C14.3137 4.28367 14.1748 4.49162 13.9997 4.66671L4.99967 13.6667L1.33301 14.6667L2.33301 11L11.333 2.00004Z"
-                      stroke="white"
+                      stroke="#060D17"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                   </svg>
+                  Write a Review
+                  <ChevronRight className="size-4" />
                 </button>
               </div>
 
