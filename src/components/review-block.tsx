@@ -47,6 +47,7 @@ import { ComplaintCard, type ComplaintData } from "@/components/complaint-card";
 import { CommentEditor } from "@/components/comment-editor";
 import { useAuth } from "@/components/auth-provider";
 import { LoginDialogContent } from "@/components/login-dialog";
+import { SubmitReviewSheet, ContinueReviewBar } from "@/components/submit-review-sheet";
 
 /* ------------------------------------------------------------------ */
 /*  Types & Data                                                       */
@@ -572,6 +573,8 @@ export function ReviewBlock({ slug }: { slug: string }) {
   const router = useRouter();
   const { isLoggedIn } = useAuth();
   const [loginOpen, setLoginOpen] = useState(false);
+  const [reviewSheetOpen, setReviewSheetOpen] = useState(false);
+  const [showContinueBar, setShowContinueBar] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
   const [cryptoOpen, setCryptoOpen] = useState(false);
@@ -659,9 +662,36 @@ export function ReviewBlock({ slug }: { slug: string }) {
       {/* Login dialog for write-a-review auth gate */}
       <LoginDialogContent
         open={loginOpen}
-        onOpenChange={setLoginOpen}
-        redirectTo={`/casino/review/${slug}/submit-review`}
+        onOpenChange={(v) => {
+          setLoginOpen(v);
+          if (!v && isLoggedIn) {
+            setReviewSheetOpen(true);
+          }
+        }}
       />
+
+      {/* Review bottom sheet */}
+      <SubmitReviewSheet
+        casino={casino}
+        open={reviewSheetOpen}
+        onOpenChange={(v) => {
+          setReviewSheetOpen(v);
+          if (!v) setShowContinueBar(true);
+        }}
+      />
+
+      {/* Continue review bar */}
+      <AnimatePresence>
+        {showContinueBar && !reviewSheetOpen && (
+          <ContinueReviewBar
+            casinoName={casino.name}
+            onContinue={() => {
+              setReviewSheetOpen(true);
+              setShowContinueBar(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
 
       {/* ---- Breadcrumb (dark strip) ---- */}
       <div
@@ -1216,7 +1246,8 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   data-name="write-review-btn"
                   onClick={() => {
                     if (isLoggedIn) {
-                      router.push(`/casino/review/${slug}/submit-review`);
+                      setReviewSheetOpen(true);
+                      setShowContinueBar(false);
                     } else {
                       setLoginOpen(true);
                     }

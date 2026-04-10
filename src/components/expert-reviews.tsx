@@ -209,7 +209,7 @@ export function ExpertReviews() {
       >
         {loopedReviews.map((review, i) => (
           <div key={i} data-name="carousel-cell" className="w-[85vw] sm:w-[340px] lg:w-[400px] shrink-0">
-            <ReviewCard review={review} />
+            <ReviewCard review={review} hideBonus />
           </div>
         ))}
       </div>

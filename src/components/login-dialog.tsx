@@ -382,7 +382,7 @@ export function LoginDialog() {
           className="size-8 rounded-full"
         />
         <span className="hidden sm:block text-sm font-semibold text-neutral-900">
-          Coinbet User
+          {"Coinbet User".split(" ")[0]}
         </span>
       </Link>
     );

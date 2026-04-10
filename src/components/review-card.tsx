@@ -100,7 +100,7 @@ function ExpertShieldIcon({ size = 30 }: { size?: number }) {
   );
 }
 
-export function ReviewCard({ review }: { review: ReviewData }) {
+export function ReviewCard({ review, hideBonus }: { review: ReviewData; hideBonus?: boolean }) {
   return (
     <Link
       href={`/casino/review/${review.slug}`}
@@ -255,7 +255,7 @@ export function ReviewCard({ review }: { review: ReviewData }) {
 
       {/* Bottom pinned: Bonus + CTA */}
       <div data-name="card-bottom" className="mt-auto flex flex-col gap-3.5">
-        <div
+        {!hideBonus && <div
           data-name="bonus-bar"
           className="flex items-center justify-between rounded-md border border-[#f1f1f1] px-2.5 py-2"
         >
@@ -308,7 +308,7 @@ export function ReviewCard({ review }: { review: ReviewData }) {
             </svg>
             <span className="text-sm font-semibold text-[#171717]">Bonus</span>
           </div>
-        </div>
+        </div>}
 
         <div
           data-name="read-review-button"
