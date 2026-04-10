@@ -208,9 +208,7 @@ export function VideoHome() {
             CoinBets Exclusive Videos
           </p>
           <h2 className="text-2xl sm:text-[30px] lg:text-[35px] font-black leading-[1.2] tracking-tight text-[#060D17]">
-            Real Wins, Raw Reviews and
-            <br className="hidden sm:block" />
-            {" "}Smarter Play Starts Here
+            Unfiltered Crypto Casino Reviews
           </h2>
         </div>
         <Link

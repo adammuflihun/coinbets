@@ -1,8 +1,6 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import { ReviewerAvatar } from "@/components/reviewer-avatar";
 
 /* ── Review data & helpers ── */
@@ -12,45 +10,37 @@ const reviews = [
     slug: "bitsler",
     logo: "/casino-index/logo-bitsler.svg",
     name: "Bitsler",
-    review:
-      "I have played on Fortunejack for about a year during 2023-2024\n\nTheir giveaways on site and discord are really good, maybe the best in industry.",
-    userName: "LegiaTmz",
+    review: "Hmm... Bitsler.... in some ways I love...",
+    userName: "brisketking",
     timeAgo: "1 day ago",
-    rating: 4.7,
-    safetyIndex: "Normal",
-  },
-  {
-    slug: "thrill",
-    logo: "/casino-index/logo-thrill.svg",
-    name: "Thrill",
-    review:
-      "A delightful surprise that left me amazed. The platform runs smoothly and payouts are fast.",
-    userName: "LegiaTmz",
-    timeAgo: "1 day ago",
-    rating: 4.7,
-    safetyIndex: "Normal",
-  },
-  {
-    slug: "bc-game",
-    logo: "/casino-index/logo-gamedom.svg",
-    name: "BC Game",
-    review:
-      "I've been meaning to check out BC Game for a while now. The variety of games is impressive.",
-    userName: "LegiaTmz",
-    timeAgo: "1 day ago",
-    rating: 1.7,
-    safetyIndex: "Normal",
+    rating: 4,
   },
   {
     slug: "roobet",
     logo: "/casino-index/logo-roobet.svg",
     name: "Roobet",
-    review:
-      "I originally did a VIP transfer and the experience has been great so far. Support is responsive.",
-    userName: "LegiaTmz",
+    review: "rollbit used to be one of the...",
+    userName: "FlyingDutchMan",
     timeAgo: "1 day ago",
-    rating: 4.7,
-    safetyIndex: "Normal",
+    rating: 2,
+  },
+  {
+    slug: "gamdom",
+    logo: "/casino-index/logo-gamedom.svg",
+    name: "Gamdom",
+    review: "I've been meaning to check out Gamdom...",
+    userName: "CanadianPrepper",
+    timeAgo: "1 day ago",
+    rating: 3,
+  },
+  {
+    slug: "stake",
+    logo: "/casino-index/logo-stake.svg",
+    name: "Stake",
+    review: "This isn't just another shady crypto casino....",
+    userName: "OwBinYa",
+    timeAgo: "1 day ago",
+    rating: 1,
   },
 ];
 
@@ -67,151 +57,94 @@ const RATING_COLORS: Record<number, string> = {
   1: "#FF6847",
 };
 
-function StarIcon({ color }: { color: string }) {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      className="shrink-0"
-    >
-      <path d={STAR_BG} fill={color} />
-      <path d={STAR_SHAPE} fill="white" />
-    </svg>
-  );
-}
-
-function StarRating({ rating }: { rating: number }) {
+function MiniStarRating({ rating }: { rating: number }) {
   const filled = Math.min(5, Math.max(1, Math.round(rating)));
   const activeColor = RATING_COLORS[filled] ?? RATING_COLORS[3];
 
   return (
-    <div data-name="star-rating" className="flex items-center gap-1.5">
-      <div data-name="star-icons" className="flex items-center gap-0.5">
-        {Array.from({ length: 5 }, (_, i) => (
-          <StarIcon key={i} color={i < filled ? activeColor : "#DDDDDD"} />
-        ))}
-      </div>
+    <div data-name="star-rating" className="flex items-center gap-px">
+      {Array.from({ length: 5 }, (_, i) => (
+        <svg key={i} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
+          <path d={STAR_BG} fill={i < filled ? activeColor : "#DDDDDD"} />
+          <path d={STAR_SHAPE} fill="white" />
+        </svg>
+      ))}
     </div>
   );
 }
 
-function ReviewSlideCard({
-  logo,
-  name,
-  review,
-  userName,
-  timeAgo,
-  rating,
-  safetyIndex,
-}: (typeof reviews)[number]) {
+function ReviewListCard() {
   return (
-    <Link
-      href="/users-review"
-      data-name="review-card"
-      className="flex flex-col gap-2.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full hover:shadow-md transition-shadow"
+    <div
+      data-name="review-slide-container"
+      className="rounded-lg border border-neutral-200 bg-white shadow-sm h-full flex flex-col"
     >
-      <div
-        data-name="review-top-row"
-        className="flex items-center justify-between gap-2"
-      >
-        <StarRating rating={rating} />
-        <div
-          data-name="review-user-info"
-          className="flex items-center gap-2 text-sm"
-        >
-          <div data-name="review-username" className="flex items-center gap-1">
-            <ReviewerAvatar name={userName} size="sm" />
-            <span className="text-[#404040] text-sm">{userName}</span>
-          </div>
-          <span className="size-[3px] rounded-full bg-neutral-400 shrink-0" />
-          <span className="text-xs text-[#1c1c1c]/50">{timeAgo}</span>
-        </div>
+      {/* Header */}
+      <div data-name="review-list-header" className="px-4 pt-4 pb-3">
+        <h3 className="text-xs font-bold text-[#060D17] uppercase tracking-wider">
+          Latest User Reviews
+        </h3>
       </div>
 
-      <div
-        data-name="review-text"
-        className="flex flex-col gap-2.5 overflow-hidden"
-      >
-        <p
-          data-name="review-paragraphs"
-          className="py-4 tracking-[.5px] font-regular text-[14px] leading-[1.3] bg-linear-to-b from-[#343434] to-[#202020] bg-clip-text text-transparent line-clamp-3"
-        >
-          {review.replace(/\n\n/g, " ")}
-        </p>
-      </div>
-
-      <div data-name="review-divider" className="py-[15px]">
-        <div
-          data-name="review-divider-line"
-          className="h-px w-full bg-[#d9d9d9]"
-        />
-      </div>
-
-      <div data-name="review-product" className="flex items-start gap-3.5">
-        <div
-          data-name="review-product-logo"
-          className="bg-[#060d17] rounded-sm px-1.5 py-2 shrink-0 flex items-center justify-center"
-        >
-          <Image
-            src={logo}
-            alt={name}
-            width={43}
-            height={27}
-            className="object-contain"
-          />
-        </div>
-        <div
-          data-name="review-product-info"
-          className="flex flex-col gap-[3px]"
-        >
-          <p className="text-base font-semibold text-[#060D17] leading-[1.4]">
-            {name}
-          </p>
-          <div
-            data-name="review-safety-index"
-            className="flex items-center gap-2"
+      {/* Review rows */}
+      <div data-name="review-list-rows" className="flex flex-col flex-1">
+        {reviews.slice(0, 3).map((r, i) => (
+          <Link
+            key={r.slug}
+            href={`/casino/review/${r.slug}`}
+            data-name={`review-row-${i}`}
+            className="flex items-center gap-3 px-4 py-3 border-t border-neutral-100 hover:bg-neutral-50 transition-colors"
           >
-            <span className="text-xs font-bold uppercase text-[#404040]">
-              Safety Index
-            </span>
-            <span className="rounded-full bg-[#eaee45] px-2 py-0.5 text-xs font-semibold text-[#060d17]">
-              {safetyIndex}
-            </span>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
-}
+            {/* Casino logo */}
+            <div
+              data-name="review-row-logo"
+              className="flex items-center justify-center w-[52px] h-[36px] rounded-md overflow-hidden bg-[#060d17] shrink-0"
+            >
+              <Image
+                src={r.logo}
+                alt={r.name}
+                width={52}
+                height={36}
+                className="object-contain w-full h-full"
+              />
+            </div>
 
-function ReviewSlider() {
-  const [active, setActive] = useState(0);
+            {/* Review text + user */}
+            <div data-name="review-row-content" className="flex-1 min-w-0">
+              <p
+                data-name="review-row-text"
+                className="text-sm font-medium text-[#060D17] truncate leading-snug"
+              >
+                {r.review}
+              </p>
+              <div
+                data-name="review-row-meta"
+                className="flex items-center gap-1.5 mt-1"
+              >
+                <ReviewerAvatar name={r.userName} size="xs" />
+                <span className="text-xs text-neutral-500">
+                  by <span className="font-medium text-[#060D17]">{r.userName}</span>
+                </span>
+                <span className="size-[3px] rounded-full bg-neutral-300 shrink-0" />
+                <span className="text-xs text-neutral-400">{r.timeAgo}</span>
+              </div>
+            </div>
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActive((prev) => (prev + 1) % reviews.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
-
-  return (
-    <div data-name="review-slider" className="flex flex-col gap-3 h-full">
-      <div
-        data-name="review-slide-container"
-        className="relative flex-1 min-h-0"
-      >
-        {reviews.map((review, i) => (
-          <div
-            key={i}
-            data-name="review-slide"
-            className={`absolute inset-0 transition-opacity duration-500 ${i === active ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-          >
-            <ReviewSlideCard {...review} />
-          </div>
+            {/* Star rating */}
+            <MiniStarRating rating={r.rating} />
+          </Link>
         ))}
       </div>
+
+      {/* See All footer */}
+      <Link
+        href="/users-review"
+        data-name="review-list-footer"
+        className="group flex items-center justify-between px-4 py-3 border-t border-neutral-100 hover:bg-neutral-50 transition-colors"
+      >
+        <span className="text-sm font-semibold text-[#060D17]">See All</span>
+        <ChevronRight className="size-4 text-neutral-400 transition-transform group-hover:translate-x-0.5" />
+      </Link>
     </div>
   );
 }
@@ -221,11 +154,11 @@ function ReviewSlider() {
 function CasinoIndex52Icon() {
   return (
     <svg
-      width="32"
-      height="32"
+      width="40"
+      height="40"
       viewBox="0 0 32 32"
       fill="none"
-      className="size-8 shrink-0"
+      className="size-10 shrink-0"
     >
       <rect width="32" height="32" rx="7" fill="#060D17" />
       <path
@@ -300,7 +233,7 @@ function CategoryCard({
     <Link
       href={href}
       data-name="category-card"
-      className="flex gap-2 items-start rounded-lg border border-neutral-200 bg-white p-2.5 shadow-sm hover:border-neutral-300 transition-colors"
+      className="flex gap-3 items-center rounded-lg border border-neutral-200 bg-white px-3 py-3 shadow-sm hover:border-neutral-300 hover:shadow-md transition-all h-full"
     >
       {customIcon ? (
         <CasinoIndex52Icon />
@@ -308,30 +241,28 @@ function CategoryCard({
         <Image
           src={icon}
           alt=""
-          width={32}
-          height={32}
-          className="size-8 shrink-0"
+          width={40}
+          height={40}
+          className="size-10 shrink-0"
         />
       )}
       <div
         data-name="category-content"
-        className="flex flex-1 flex-col gap-1.5 min-w-0"
+        className="flex flex-1 flex-col min-w-0"
       >
-        <div
-          data-name="category-title-row"
-          className="flex items-center justify-between gap-2"
-        >
-          <p className="text-base font-medium text-neutral-900 truncate">
-            {title}
-          </p>
-          <span className="shrink-0 rounded-lg bg-neutral-100 px-2 py-1 text-sm font-semibold text-neutral-900">
-            {badge}
-          </span>
-        </div>
-        <p className="-mt-2  text-sm text-neutral-600 leading-[18px]">
+        <p className="text-sm font-semibold text-neutral-900 truncate">
+          {title}
+        </p>
+        <p className="text-xs text-neutral-500 leading-snug truncate">
           {description}
         </p>
       </div>
+      <span
+        data-name="category-badge"
+        className="shrink-0 rounded-md bg-neutral-100 px-1.5 py-0.5 text-xs font-bold text-neutral-700"
+      >
+        {badge}
+      </span>
     </Link>
   );
 }
@@ -351,9 +282,9 @@ export function HeroCategory() {
         {/* Left: auto-sliding review card (hidden on mobile) */}
         <div
           data-name="hero-review-slider"
-          className="hidden lg:block w-[340px] shrink-0"
+          className="hidden lg:block flex-1 min-w-0"
         >
-          <ReviewSlider />
+          <ReviewListCard />
         </div>
 
         {/* Right: category grid */}
@@ -363,7 +294,7 @@ export function HeroCategory() {
         >
           <div
             data-name="category-grids"
-            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-3.5"
+            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-3 flex-1"
           >
             {categories.map((cat) => (
               <CategoryCard key={cat.title} {...cat} />
