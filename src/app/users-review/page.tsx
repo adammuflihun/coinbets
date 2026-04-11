@@ -27,7 +27,7 @@ export default function UsersReviewPage() {
       <section data-section="how-reviews-work" className="mx-auto max-w-[1200px] px-5 py-8">
         <div
           data-name="reviews-work-banner"
-          className="hidden md:flex flex-col rounded-lg bg-neutral-100 p-5 sm:p-8 lg:p-12 gap-8"
+          className="flex flex-col rounded-lg bg-neutral-100 p-5 sm:p-8 lg:p-12 gap-8"
         >
           {/* Title */}
           <div data-name="reviews-work-text" className="text-center">
