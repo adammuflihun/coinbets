@@ -37,10 +37,7 @@ function PlayButton() {
   return (
     <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
       <circle cx="21" cy="21" r="21" fill="#E6B830" />
-      <path
-        d="M28 21L17 27.9282L17 14.0718L28 21Z"
-        fill="white"
-      />
+      <path d="M28 21L17 27.9282L17 14.0718L28 21Z" fill="white" />
     </svg>
   );
 }
@@ -102,7 +99,10 @@ function VideoCard({
   onPlay,
 }: (typeof videos)[number] & { onPlay: (youtubeId: string) => void }) {
   return (
-    <div data-name="video-card" className="flex flex-col gap-3.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full">
+    <div
+      data-name="video-card"
+      className="flex flex-col gap-3.5 rounded-lg border border-neutral-200 bg-white p-5 shadow-sm h-full"
+    >
       {/* Video thumbnail */}
       <button
         data-name="video-thumbnail"
@@ -126,7 +126,10 @@ function VideoCard({
       </p>
 
       {/* User info */}
-      <div data-name="video-user-info" className="flex items-center gap-2 text-sm mt-auto">
+      <div
+        data-name="video-user-info"
+        className="flex items-center gap-2 text-sm mt-auto"
+      >
         <div data-name="video-username" className="flex items-center gap-1">
           <div className="size-[17px] rounded-full bg-red-400 shrink-0" />
           <span className="text-neutral-600 text-sm">{author}</span>
@@ -172,7 +175,11 @@ function MobileCarousel({ onPlay }: { onPlay: (youtubeId: string) => void }) {
   return (
     <div ref={flickityRef} data-name="video-carousel">
       {videos.map((video, i) => (
-        <div key={i} data-name="carousel-cell" className="w-[calc(100vw-2.5rem)] mr-3">
+        <div
+          key={i}
+          data-name="carousel-cell"
+          className="w-[calc(100vw-2.5rem)] mr-3"
+        >
           <VideoCard {...video} onPlay={onPlay} />
         </div>
       ))}
@@ -200,9 +207,12 @@ export function VideoHome() {
   }, []);
 
   return (
-    <section data-section="video-home" className="site-container py-8">
+    <section data-section="video-home" className="site-container py-2 lg:py-8">
       {/* Header */}
-      <div data-name="video-header" className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+      <div
+        data-name="video-header"
+        className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6"
+      >
         <div data-name="video-header-text" className="flex flex-col gap-3">
           <p className="text-base font-bold text-[#060D17]">
             CoinBets Exclusive Videos
@@ -229,7 +239,10 @@ export function VideoHome() {
 
       {/* Desktop: Grid */}
       {!isMobile && (
-        <div data-name="video-grid" className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div
+          data-name="video-grid"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+        >
           {videos.map((video, i) => (
             <VideoCard key={i} {...video} onPlay={handlePlay} />
           ))}

@@ -1642,10 +1642,14 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
                     <span className="text-[23px] font-medium leading-none text-[#060d17]">
                       {casino.playerRating.toFixed(1)}
                     </span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="size-5 shrink-0">
-                      <path d={STAR_BG} fill={playerColor} />
-                      <path d={STAR_SHAPE} fill="white" />
-                    </svg>
+                  </div>
+                  <div data-name="player-rating-stars" className="flex items-center gap-0.5">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <svg key={star} width="18" height="18" viewBox="0 0 20 20" fill="none" className="size-[18px] shrink-0">
+                        <path d={STAR_BG} fill={star <= playerRatingKey ? playerColor : "#E5E7EB"} />
+                        <path d={STAR_SHAPE} fill="white" />
+                      </svg>
+                    ))}
                   </div>
                   <p className="text-sm font-medium text-[#060d17]">Player Rating</p>
                   <Link
@@ -1665,13 +1669,17 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
                     <span className="text-[23px] font-medium leading-none text-[#060d17]">
                       {casino.expertScore.toFixed(1)}
                     </span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="size-5 shrink-0">
-                      <rect width="20" height="20" rx="5" fill="#003EB6" />
-                      <path
-                        d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
-                        fill="white"
-                      />
-                    </svg>
+                  </div>
+                  <div data-name="expert-score-shields" className="flex items-center gap-0.5">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <svg key={star} width="18" height="18" viewBox="0 0 20 20" fill="none" className="size-[18px] shrink-0">
+                        <rect width="20" height="20" rx="5" fill={star <= expertRatingKey ? "#003EB6" : "#E5E7EB"} />
+                        <path
+                          d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
+                          fill="white"
+                        />
+                      </svg>
+                    ))}
                   </div>
                   <p className="text-sm font-medium text-[#060d17]">Coinbets Expert Score</p>
                   <Link
@@ -1721,17 +1729,21 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
             {/* Ratings Row (mobile - vertical) */}
             <div data-name="expert-ratings-mobile" className="grid grid-cols-2 gap-3">
               {/* Player Rating */}
-              <div data-name="player-rating" className="flex items-start gap-2">
-                <PlayerRatingIcon size={24} />
+              <div data-name="player-rating" className="flex items-start gap-1.5">
+                <PlayerRatingIcon size={20} />
                 <div data-name="player-rating-detail" className="flex flex-col gap-0.5">
                   <div data-name="player-score-row" className="flex items-center gap-1">
                     <span className="text-base font-medium leading-none text-[#060d17]">
                       {casino.playerRating.toFixed(1)}
                     </span>
-                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
-                      <path d={STAR_BG} fill={playerColor} />
-                      <path d={STAR_SHAPE} fill="white" />
-                    </svg>
+                  </div>
+                  <div data-name="player-rating-stars" className="flex items-center gap-0.5">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <svg key={star} width="14" height="14" viewBox="0 0 20 20" fill="none" className="size-3.5 shrink-0">
+                        <path d={STAR_BG} fill={star <= playerRatingKey ? playerColor : "#E5E7EB"} />
+                        <path d={STAR_SHAPE} fill="white" />
+                      </svg>
+                    ))}
                   </div>
                   <p className="text-xs font-medium text-[#060d17]">Player Rating</p>
                   <Link
@@ -1744,22 +1756,26 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
               </div>
 
               {/* Expert Score */}
-              <div data-name="expert-score" className="flex items-start gap-2">
-                <ExpertShieldIcon size={24} />
+              <div data-name="expert-score" className="flex items-start gap-1.5">
+                <ExpertShieldIcon size={20} />
                 <div data-name="expert-score-detail" className="flex flex-col gap-0.5">
                   <div data-name="expert-score-row" className="flex items-center gap-1">
                     <span className="text-base font-medium leading-none text-[#060d17]">
                       {casino.expertScore.toFixed(1)}
                     </span>
-                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
-                      <rect width="20" height="20" rx="5" fill="#003EB6" />
-                      <path
-                        d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
-                        fill="white"
-                      />
-                    </svg>
                   </div>
-                  <p className="text-xs font-medium text-[#060d17]">Expert Score</p>
+                  <div data-name="expert-score-shields" className="flex items-center gap-0.5">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <svg key={star} width="14" height="14" viewBox="0 0 20 20" fill="none" className="size-3.5 shrink-0">
+                        <rect width="20" height="20" rx="5" fill={star <= expertRatingKey ? "#003EB6" : "#E5E7EB"} />
+                        <path
+                          d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
+                          fill="white"
+                        />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-[11px] font-medium text-[#060d17] whitespace-nowrap">Coinbets Expert Score</p>
                   <Link
                     href={`/casino/review/${casino.slug}`}
                     className="text-xs font-medium text-[#2563eb]"

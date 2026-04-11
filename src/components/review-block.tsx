@@ -736,7 +736,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
 
         <nav
           data-name="breadcrumb"
-          className="relative z-10 mx-auto max-w-[1280px] pt-10 w-full px-5 sm:px-10 flex items-center gap-2 text-sm text-white/60"
+          className="relative z-10 mx-auto max-w-[1280px] pt-10 w-full px-5 sm:px-10 hidden sm:flex items-center gap-2 text-sm text-white/60"
         >
           <Link href="/" className="hover:text-white transition-colors">
             Home
@@ -755,7 +755,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
 
       <div
         data-name="content-container"
-        className="relative z-10 mx-auto max-w-[1280px] px-5 sm:px-10 -mt-24 py-8"
+        className="relative z-10 mx-auto max-w-[1280px] px-5 sm:px-10 -mt-24 py-4 sm:py-8"
       >
         {/* ---- Two-Column Content ---- */}
         <div
@@ -767,13 +767,13 @@ export function ReviewBlock({ slug }: { slug: string }) {
             {/* ---- Casino Header Card ---- */}
             <div
               data-name="casino-header-card"
-              className="rounded-lg border border-neutral-200 bg-white p-5 sm:p-5 shadow-sm"
+              className="rounded-lg border border-neutral-200 bg-white p-3 sm:p-5 shadow-sm"
             >
               <div
                 data-name="header-layout"
                 className="flex flex-col gap-4 lg:gap-8"
               >
-                {/* Logo + Name/CTA row */}
+                {/* Mobile: logo + name row */}
                 <div
                   data-name="logo-and-identity"
                   className="flex flex-row items-center gap-4 lg:hidden"
@@ -791,19 +791,27 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     />
                   </div>
                   <div
-                    data-name="name-and-cta-mobile"
-                    className="flex flex-col gap-1.5"
+                    data-name="name-and-stats-mobile"
+                    className="flex flex-col gap-1"
                   >
                     <h1 className="text-base font-bold text-[#060D17]">
                       {casino.name}
                     </h1>
-                    <Link
-                      href="#"
-                      className="group inline-flex items-center gap-1.5 rounded-lg border border-[#060D17] px-3 py-1 text-xs font-semibold text-[#060D17] hover:bg-neutral-100 transition-colors w-fit"
-                    >
-                      Official Site Info
-                      <ChevronRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-                    </Link>
+                    <p className="text-sm text-neutral-500">
+                      Views <span className="font-bold text-[#060D17]">{casino.views}</span>
+                    </p>
+                    <div data-name="safety-badge-mobile" className="flex items-center gap-1.5">
+                      <span className="text-sm text-neutral-500">Safety Index:</span>
+                      <span
+                        className="rounded-full px-2 py-0.5 text-xs font-semibold text-[#060d17]"
+                        style={{
+                          backgroundColor:
+                            SAFETY_COLORS[casino.safetyIndex] || "#eaee45",
+                        }}
+                      >
+                        {casino.safetyIndex}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -963,7 +971,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 {/* Ratings row (mobile) */}
                 <div
                   data-name="ratings-row-mobile"
-                  className="flex flex-wrap items-start gap-4 lg:hidden"
+                  className="grid grid-cols-2 gap-2 lg:hidden"
                 >
                   {/* Player Rating */}
                   <div
@@ -973,21 +981,19 @@ export function ReviewBlock({ slug }: { slug: string }) {
                     <PlayerRatingIcon size={24} />
                     <div data-name="player-rating-details" className="flex flex-col gap-0.5">
                       <div data-name="player-rating-value" className="flex items-center gap-1">
-                        <span className="text-base font-medium leading-none text-[#060D17]">
+                        <span className="text-lg font-medium leading-none text-[#060D17]">
                           {casino.playerRating.toFixed(1)}
                         </span>
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          className="size-4 shrink-0"
-                        >
-                          <path d={STAR_BG} fill={ratingColor} />
-                          <path d={STAR_SHAPE} fill="white" />
-                        </svg>
                       </div>
-                      <p className="text-xs font-medium text-neutral-500">
+                      <div data-name="player-rating-stars" className="flex items-center gap-0.5">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <svg key={star} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
+                            <path d={STAR_BG} fill={star <= Math.round(casino.playerRating) ? ratingColor : "#E5E7EB"} />
+                            <path d={STAR_SHAPE} fill="white" />
+                          </svg>
+                        ))}
+                      </div>
+                      <p className="text-xs font-medium text-[#060D17]">
                         Player Rating
                       </p>
                       <p className="text-xs font-medium text-[#2563eb]">
@@ -999,76 +1005,42 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   {/* Expert Score */}
                   <div
                     data-name="expert-score"
-                    className="flex items-start gap-2"
+                    className="flex items-start gap-1.5"
                   >
-                    <ExpertShieldIcon size={24} />
+                    <ExpertShieldIcon size={20} />
                     <div data-name="expert-score-details" className="flex flex-col gap-0.5">
                       <div data-name="expert-score-value" className="flex items-center gap-1">
-                        <span className="text-base font-medium leading-none text-[#060D17]">
+                        <span className="text-lg font-medium leading-none text-[#060D17]">
                           {casino.expertScore.toFixed(1)}
                         </span>
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          className="size-4 shrink-0"
-                        >
-                          <rect
-                            width="20"
-                            height="20"
-                            rx="5"
-                            fill="#003EB6"
-                          />
-                          <path
-                            d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
-                            fill="white"
-                          />
-                        </svg>
                       </div>
-                      <p className="text-xs font-medium text-neutral-500">
-                        Expert Score
+                      <div data-name="expert-score-shields" className="flex items-center gap-0.5">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <svg key={star} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
+                            <rect width="20" height="20" rx="5" fill={star <= Math.round(casino.expertScore) ? "#003EB6" : "#E5E7EB"} />
+                            <path d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z" fill="white" />
+                          </svg>
+                        ))}
+                      </div>
+                      <p className="text-[11px] font-medium text-[#060D17] whitespace-nowrap">
+                        Coinbets Expert Score
                       </p>
                       <p className="text-xs font-medium text-[#2563eb]">
-                        Audit
+                        Independent Audit
                       </p>
-                    </div>
-                  </div>
-
-                  {/* Views */}
-                  <div data-name="views" className="flex items-center gap-1.5">
-                    <Eye className="size-4 text-neutral-400" />
-                    <div data-name="views-details" className="flex flex-col">
-                      <span className="text-[10px] font-bold text-neutral-400 uppercase">
-                        Views
-                      </span>
-                      <span className="text-sm font-semibold text-[#060D17]">
-                        {casino.views}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Safety Index */}
-                  <div
-                    data-name="safety-index"
-                    className="flex items-center gap-1.5"
-                  >
-                    <div data-name="safety-index-details" className="flex flex-col gap-0.5">
-                      <span className="text-[10px] font-bold text-neutral-400 uppercase">
-                        Safety Index
-                      </span>
-                      <span
-                        className="rounded-full px-2 py-0.5 text-[10px] font-semibold text-[#060d17] w-fit"
-                        style={{
-                          backgroundColor:
-                            SAFETY_COLORS[casino.safetyIndex] || "#eaee45",
-                        }}
-                      >
-                        {casino.safetyIndex}
-                      </span>
                     </div>
                   </div>
                 </div>
+
+                {/* Official Site Info (mobile) */}
+                <Link
+                  href="#"
+                  data-name="cta-mobile"
+                  className="group flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2.5 text-sm font-semibold text-[#060D17] hover:bg-neutral-100 transition-colors lg:hidden"
+                >
+                  Official Site Info
+                  <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
               </div>
             </div>
             {/* ---- Tab Bar ---- */}
@@ -1110,7 +1082,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
             <div
               id="overview"
               data-name="main-content"
-              className="flex flex-col gap-6 rounded-lg border border-neutral-200 bg-white p-8 shadow-sm"
+              className="flex flex-col gap-6 rounded-lg border border-neutral-200 bg-white p-4 sm:p-8 shadow-sm"
             >
               {/* Review title + CTA */}
               <div
@@ -1127,6 +1099,13 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   borderRadius="8px"
                   background="rgba(23, 23, 23, 1)"
                   className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium shrink-0"
+                  onClick={() => {
+                    const el = document.getElementById("expert-review");
+                    if (el) {
+                      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+                      window.scrollTo({ top: y, behavior: "smooth" });
+                    }
+                  }}
                 >
                   <svg
                     width="20"
@@ -1181,7 +1160,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 {/* What We Liked */}
                 <div
                   data-name="what-we-liked"
-                  className="rounded-lg border border-green-100 bg-[#dcfce7] p-5 "
+                  className="rounded-lg border border-green-100 bg-[#dcfce7] p-3 sm:p-5"
                 >
                   <h3 className="text-xs font-bold text-[#104d0f] uppercase mb-4">
                     What We Liked
@@ -1201,7 +1180,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 {/* Red Flags */}
                 <div
                   data-name="red-flags"
-                  className="rounded-lg border border-red-100 bg-red-50 p-5"
+                  className="rounded-lg border border-red-100 bg-red-50 p-3 sm:p-5"
                 >
                   <h3 className="text-xs font-bold text-[#7a301f] uppercase mb-4">
                     Red Flags
@@ -1224,7 +1203,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
             <div
               id="user-reviews"
               data-name="user-feedback-summary"
-              className="rounded-lg border border-neutral-200 bg-white p-6 sm:p-8 shadow-sm flex flex-col gap-6"
+              className="rounded-lg border border-neutral-200 bg-white p-4 sm:p-8 shadow-sm flex flex-col gap-6"
             >
               {/* Top row: prominent CTA to write a review */}
               <div
@@ -1454,7 +1433,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
                 <div
                   key={idx}
                   data-name="user-review-card"
-                  className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm"
+                  className="rounded-lg border border-neutral-200 bg-white p-4 sm:p-6 shadow-sm"
                 >
                   {/* Reviewer header */}
                   <div
@@ -1913,7 +1892,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
             <div
               id="safety-index"
               data-name="safety-index-section"
-              className="rounded-lg border border-neutral-200 bg-white p-6 sm:p-8 shadow-sm flex flex-col gap-6"
+              className="rounded-lg border border-neutral-200 bg-white p-4 sm:p-8 shadow-sm flex flex-col gap-6"
             >
               <div data-name="safety-header" className="flex flex-col gap-3">
                 <h2
@@ -2178,7 +2157,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
               data-name="crypto-payments"
               className="rounded-lg border border-neutral-200 bg-white shadow-sm"
             >
-              <div data-name="crypto-payments-content" className="p-5">
+              <div data-name="crypto-payments-content" className="p-3 sm:p-5">
                 <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-4">
                   Crypto Accepted
                 </h3>
@@ -2236,7 +2215,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
             {/* Independence Card */}
             <div
               data-name="independence-card"
-              className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
+              className="rounded-lg border border-neutral-200 bg-white p-3 sm:p-5 shadow-sm"
             >
               <div data-name="independence-content" className="flex items-start gap-3">
                 <svg width="37" height="37" viewBox="0 0 37 37" fill="none" className="size-[37px] shrink-0">
@@ -2325,7 +2304,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
             {/* Casino Screenshots */}
             <div
               data-name="screenshots-carousel"
-              className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
+              className="rounded-lg border border-neutral-200 bg-white p-3 sm:p-5 shadow-sm"
             >
               <div
                 data-name="screenshots-header"
@@ -2384,7 +2363,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
             {/* Accepting players from */}
             <div
               data-name="accepting-players"
-              className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
+              className="rounded-lg border border-neutral-200 bg-white p-3 sm:p-5 shadow-sm"
             >
               <h3
                 data-name="accepting-players-title"
@@ -2430,7 +2409,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
             {/* Languages */}
             <div
               data-name="languages-section"
-              className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm flex flex-col gap-4"
+              className="rounded-lg border border-neutral-200 bg-white p-3 sm:p-5 shadow-sm flex flex-col gap-4"
             >
               {/* Website languages */}
               <Field>
@@ -2583,7 +2562,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
             {/* Information */}
             <div
               data-name="casino-information"
-              className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
+              className="rounded-lg border border-neutral-200 bg-white p-3 sm:p-5 shadow-sm"
             >
               <h3 className="text-lg font-bold text-[#060D17] mb-4">
                 Information
@@ -2703,7 +2682,7 @@ export function ReviewBlock({ slug }: { slug: string }) {
             {/* Author & Contact */}
             <div
               data-name="author-contact"
-              className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm"
+              className="rounded-lg border border-neutral-200 bg-white p-3 sm:p-5 shadow-sm"
             >
               <div data-name="author-contact-content" className="flex flex-col gap-6">
                 {/* Author */}

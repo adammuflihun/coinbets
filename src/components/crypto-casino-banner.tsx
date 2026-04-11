@@ -312,9 +312,11 @@ export function CryptoCasinoBanner() {
           {/* Center: Safety Index Card */}
           <div
             data-name="banner-card-center"
-            className="flex items-center justify-center pt-8 pb-4"
+            className="flex items-center justify-center pt-4 pb-2 sm:pt-8 sm:pb-4"
           >
-            <SafetyIndexCard />
+            <div data-name="safety-card-scale" className="scale-[0.8] sm:scale-100 origin-top mb-[-20%] sm:mb-0">
+              <SafetyIndexCard />
+            </div>
           </div>
 
           {/* Vertical Divider */}

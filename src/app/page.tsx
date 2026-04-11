@@ -13,7 +13,7 @@ export default function Home() {
     <main data-section="main" className="flex-1">
       <HeroHeader />
       <HeroCategory />
-      <div className="space-y-12">
+      <div className="space-y-3">
         <VideoHome />
         <CasinoCategories />
         <CryptoCasinoBanner />

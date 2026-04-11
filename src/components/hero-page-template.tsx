@@ -51,7 +51,7 @@ export function HeroPageTemplate({
           {/* Left: Content */}
           <div
             data-section="hero-content"
-            className={`flex w-full flex-col gap-4 sm:gap-5 ${contentMaxWidth}`}
+            className={`flex w-full flex-col gap-2 sm:gap-5 ${contentMaxWidth}`}
           >
             {/* Headline */}
             <div
@@ -69,17 +69,17 @@ export function HeroPageTemplate({
             {/* Description */}
             <div
               data-name="hero-description-cta"
-              className="flex flex-col gap-5"
+              className="flex flex-col gap-2 sm:gap-5"
             >
               {/* Description */}
-              <div data-section="hero-description" className="hidden sm:block">
+              <div data-section="hero-description">
                 <p className="text-sm sm:text-base font-normal text-white/70 leading-relaxed">
                   {description}
                 </p>
               </div>
 
               {/* CTA Button */}
-              <div data-name="hero-cta" className="pt-2 sm:pt-4">
+              <div data-name="hero-cta" className="pt-1 sm:pt-4">
                 <Link
                   href={buttonHref}
                   className="group inline-flex items-center gap-2 rounded-lg bg-[#e6b830] px-6 py-3 text-sm sm:text-base font-bold text-[#020202] transition-all hover:bg-[#f0c840]"

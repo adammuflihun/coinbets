@@ -100,7 +100,7 @@ export function LatestBlog() {
       >
         {/* Left content — aligned to site-container */}
         <div
-          className="min-w-[56ch] flex flex-col gap-4 sm:gap-6 shrink-0 lg:max-w-[380px] pl-5 sm:pl-10 lg:pl-[max(1.5rem,calc((100vw-1600px)/2+6.5rem))] pr-5 sm:pr-10 lg:pr-0"
+          className="flex flex-col gap-4 sm:gap-6 shrink-0 lg:min-w-[56ch] lg:max-w-[380px] pl-5 sm:pl-10 lg:pl-[max(1.5rem,calc((100vw-1600px)/2+6.5rem))] pr-5 sm:pr-10 lg:pr-0"
           data-name="blog-banner-text"
         >
           <p className="text-base font-bold text-[#060D17]">

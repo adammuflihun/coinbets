@@ -236,24 +236,26 @@ function CategoryCard({
       className="flex gap-3 items-center rounded-lg border border-neutral-200 bg-white px-3 py-3 shadow-sm hover:border-neutral-300 hover:shadow-md transition-all h-full"
     >
       {customIcon ? (
-        <CasinoIndex52Icon />
+        <div className="size-7 sm:size-10 shrink-0 [&>svg]:size-full">
+          <CasinoIndex52Icon />
+        </div>
       ) : (
         <Image
           src={icon}
           alt=""
           width={40}
           height={40}
-          className="size-10 shrink-0"
+          className="size-7 sm:size-10 shrink-0"
         />
       )}
       <div
         data-name="category-content"
         className="flex flex-1 flex-col min-w-0"
       >
-        <p className="text-sm font-semibold text-neutral-900 truncate">
+        <p className="text-xs sm:text-sm font-semibold text-neutral-900">
           {title}
         </p>
-        <p className="text-xs text-neutral-500 leading-snug truncate">
+        <p className="hidden sm:block text-xs text-neutral-500 leading-snug truncate">
           {description}
         </p>
       </div>
