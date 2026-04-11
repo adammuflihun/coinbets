@@ -21,7 +21,6 @@ export default function NoKycCasinosPage() {
         buttonHref="#write-review"
         heroImage="/hero/no-kyc-casinos-item.png"
         contentMaxWidth="max-w-[75ch]"
-        heroHeight="h-[200px] sm:h-[280px] lg:h-[400px]"
         heroObjectFit="object-contain"
         backgroundImage="/hero/no-kyc-casinos.svg"
         containerClassName="relative site-container py-6 lg:py-0"

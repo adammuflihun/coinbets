@@ -11,9 +11,7 @@ interface HeroPageTemplateProps {
   heroImage?: string;
   contentMaxWidth?: string;
   backgroundImage?: string;
-  heroHeight?: string;
   heroObjectFit?: string;
-  heroImageClassName?: string;
   containerClassName?: string;
 }
 
@@ -26,9 +24,7 @@ export function HeroPageTemplate({
   heroImage = "/hero/user-review-header.png",
   contentMaxWidth = "max-w-[52ch]",
   backgroundImage,
-  heroHeight = "h-[200px] sm:h-[280px] lg:h-[400px]",
   heroObjectFit = "object-contain",
-  heroImageClassName = "absolute inset-0 size-full",
   containerClassName = "relative site-container py-5 lg:py-5",
 }: HeroPageTemplateProps) {
   return (
@@ -46,22 +42,22 @@ export function HeroPageTemplate({
       <div data-name="hero-container" className={containerClassName}>
         <div
           data-name="hero-layout"
-          className="grid grid-cols-1 lg:grid-cols-2 items-center gap-4 lg:gap-5"
+          className="relative z-10 grid grid-cols-1 sm:grid-cols-2 items-center gap-0 sm:gap-4 lg:gap-5"
         >
           {/* Left: Content */}
           <div
             data-section="hero-content"
-            className={`flex w-full flex-col gap-2 sm:gap-5 ${contentMaxWidth}`}
+            className={`relative z-10 flex w-full flex-col gap-2 sm:gap-4 py-2 pb-6 sm:py-4 lg:py-8 ${contentMaxWidth}`}
           >
             {/* Headline */}
             <div
               data-section="hero-headline"
-              className="flex flex-col gap-2.5 text-white"
+              className="flex flex-col gap-1.5 sm:gap-2.5 text-white"
             >
-              <p className="text-sm sm:text-base font-bold leading-relaxed">
+              <p className="text-xs sm:text-sm font-bold leading-relaxed uppercase tracking-wider text-white/80">
                 {tagline}
               </p>
-              <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-[1.2]">
+              <h1 className="font-heading text-xl sm:text-2xl lg:text-4xl font-black tracking-tight leading-[1.2]">
                 {title}
               </h1>
             </div>
@@ -69,20 +65,19 @@ export function HeroPageTemplate({
             {/* Description */}
             <div
               data-name="hero-description-cta"
-              className="flex flex-col gap-2 sm:gap-5"
+              className="flex flex-col gap-2 sm:gap-4"
             >
-              {/* Description */}
               <div data-section="hero-description">
-                <p className="text-sm sm:text-base font-normal text-white/70 leading-relaxed">
+                <p className="text-xs sm:text-sm lg:text-base font-normal text-white/70 leading-relaxed sm:line-clamp-none">
                   {description}
                 </p>
               </div>
 
               {/* CTA Button */}
-              <div data-name="hero-cta" className="pt-1 sm:pt-4">
+              <div data-name="hero-cta">
                 <Link
                   href={buttonHref}
-                  className="group inline-flex items-center gap-2 rounded-lg bg-[#e6b830] px-6 py-3 text-sm sm:text-base font-bold text-[#020202] transition-all hover:bg-[#f0c840]"
+                  className="group inline-flex items-center gap-2 rounded-lg bg-[#e6b830] px-4 py-2 sm:px-6 sm:py-3 text-sm font-bold text-[#020202] transition-all hover:bg-[#f0c840]"
                 >
                   {buttonText}
                   <ChevronRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -91,17 +86,17 @@ export function HeroPageTemplate({
             </div>
           </div>
 
-          {/* Right: Casino Illustration */}
+          {/* Right: Image — overlaps into content on mobile */}
           <div
             data-section="hero-illustration"
-            className={`relative ${heroHeight}`}
+            className="absolute right-0 bottom-0 sm:relative sm:right-auto sm:bottom-auto w-[180px] sm:w-full h-[180px] sm:h-[220px] lg:h-[280px] self-end opacity-70 sm:opacity-100"
           >
             <Image
               src={heroImage}
-              alt="Player review card and casino screenshot"
+              alt=""
               width={540}
               height={500}
-              className={`${heroImageClassName} ${heroObjectFit}`}
+              className={`absolute bottom-0 right-0 w-full h-full ${heroObjectFit} object-bottom-right`}
               priority
             />
           </div>

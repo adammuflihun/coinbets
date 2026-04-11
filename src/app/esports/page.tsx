@@ -21,7 +21,6 @@ export default function EsportsBettingPage() {
         buttonHref="#write-review"
         heroImage="/hero/esport-betting-image.png"
         contentMaxWidth="max-w-[75ch]"
-        heroHeight="h-[200px] sm:h-[280px] lg:h-[400px]"
         heroObjectFit="object-contain"
         backgroundImage="/hero/esport-betting-bg.svg"
         containerClassName="relative site-container py-6 lg:py-0"

@@ -872,16 +872,14 @@ export function ReviewBlock({ slug }: { slug: string }) {
                           <span className="text-lg font-medium leading-none text-[#060D17]">
                             {casino.playerRating.toFixed(1)}
                           </span>
-                          <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="none"
-                            className="size-5 shrink-0"
-                          >
-                            <path d={STAR_BG} fill={ratingColor} />
-                            <path d={STAR_SHAPE} fill="white" />
-                          </svg>
+                          <div className="flex items-center gap-0.5">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <svg key={star} width="20" height="20" viewBox="0 0 20 20" fill="none" className="size-5 shrink-0">
+                                <path d={STAR_BG} fill={star <= Math.round(casino.playerRating) ? ratingColor : "#E5E7EB"} />
+                                <path d={STAR_SHAPE} fill="white" />
+                              </svg>
+                            ))}
+                          </div>
                         </div>
                         <p className="text-sm font-medium text-neutral-500">
                           Player Rating
@@ -903,24 +901,14 @@ export function ReviewBlock({ slug }: { slug: string }) {
                           <span className="text-lg font-medium leading-none text-[#060D17]">
                             {casino.expertScore.toFixed(1)}
                           </span>
-                          <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="none"
-                            className="size-5 shrink-0"
-                          >
-                            <rect
-                              width="20"
-                              height="20"
-                              rx="5"
-                              fill="#003EB6"
-                            />
-                            <path
-                              d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
-                              fill="white"
-                            />
-                          </svg>
+                          <div className="flex items-center gap-0.5">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <svg key={star} width="20" height="20" viewBox="0 0 20 20" fill="none" className="size-5 shrink-0">
+                                <rect width="20" height="20" rx="5" fill={star <= Math.round(casino.expertScore) ? "#003EB6" : "#E5E7EB"} />
+                                <path d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z" fill="white" />
+                              </svg>
+                            ))}
+                          </div>
                         </div>
                         <p className="text-sm font-medium text-neutral-500">
                           Coinbets Expert Score

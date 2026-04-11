@@ -21,7 +21,6 @@ export default function TopOnlineCasinoPage() {
         buttonHref="#write-review"
         heroImage="/hero/recommended.webp"
         contentMaxWidth="max-w-[75ch]"
-        heroHeight="h-[200px] sm:h-[280px] lg:h-[400px]"
         heroObjectFit="object-contain"
         containerClassName="relative site-container py:0 pt-6 lg:py-0"
       />

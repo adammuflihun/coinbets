@@ -1727,28 +1727,28 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
           {/* Mobile: Ratings + Description + Pros/Cons */}
           <div data-name="mobile-card-details" className="flex flex-col gap-3 sm:hidden">
             {/* Ratings Row (mobile - vertical) */}
-            <div data-name="expert-ratings-mobile" className="grid grid-cols-2 gap-3">
+            <div data-name="expert-ratings-mobile" className="flex items-start">
               {/* Player Rating */}
-              <div data-name="player-rating" className="flex items-start gap-1.5">
-                <PlayerRatingIcon size={20} />
+              <div data-name="player-rating" className="flex items-start gap-2 flex-1">
+                <PlayerRatingIcon size={24} />
                 <div data-name="player-rating-detail" className="flex flex-col gap-0.5">
                   <div data-name="player-score-row" className="flex items-center gap-1">
-                    <span className="text-base font-medium leading-none text-[#060d17]">
+                    <span className="text-lg font-semibold leading-none text-[#060d17]">
                       {casino.playerRating.toFixed(1)}
                     </span>
                   </div>
                   <div data-name="player-rating-stars" className="flex items-center gap-0.5">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <svg key={star} width="14" height="14" viewBox="0 0 20 20" fill="none" className="size-3.5 shrink-0">
+                      <svg key={star} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
                         <path d={STAR_BG} fill={star <= playerRatingKey ? playerColor : "#E5E7EB"} />
                         <path d={STAR_SHAPE} fill="white" />
                       </svg>
                     ))}
                   </div>
-                  <p className="text-xs font-medium text-[#060d17]">Player Rating</p>
+                  <p className="text-sm font-medium text-[#060d17]">Player Rating</p>
                   <Link
                     href={`/casino/review/${casino.slug}#reviews`}
-                    className="text-xs font-medium text-[#2563eb]"
+                    className="text-sm font-medium text-[#2563eb]"
                   >
                     {casino.playerReviews} Reviews
                   </Link>
@@ -1756,17 +1756,17 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
               </div>
 
               {/* Expert Score */}
-              <div data-name="expert-score" className="flex items-start gap-1.5">
-                <ExpertShieldIcon size={20} />
+              <div data-name="expert-score" className="flex items-start gap-2 flex-1">
+                <ExpertShieldIcon size={24} />
                 <div data-name="expert-score-detail" className="flex flex-col gap-0.5">
                   <div data-name="expert-score-row" className="flex items-center gap-1">
-                    <span className="text-base font-medium leading-none text-[#060d17]">
+                    <span className="text-lg font-semibold leading-none text-[#060d17]">
                       {casino.expertScore.toFixed(1)}
                     </span>
                   </div>
                   <div data-name="expert-score-shields" className="flex items-center gap-0.5">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <svg key={star} width="14" height="14" viewBox="0 0 20 20" fill="none" className="size-3.5 shrink-0">
+                      <svg key={star} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
                         <rect width="20" height="20" rx="5" fill={star <= expertRatingKey ? "#003EB6" : "#E5E7EB"} />
                         <path
                           d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
@@ -1775,10 +1775,10 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
                       </svg>
                     ))}
                   </div>
-                  <p className="text-[11px] font-medium text-[#060d17] whitespace-nowrap">Coinbets Expert Score</p>
+                  <p className="text-sm font-medium text-[#060d17] whitespace-nowrap">Coinbets Expert Score</p>
                   <Link
                     href={`/casino/review/${casino.slug}`}
-                    className="text-xs font-medium text-[#2563eb]"
+                    className="text-sm font-medium text-[#2563eb]"
                   >
                     Independent Audit
                   </Link>
@@ -1823,14 +1823,14 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
           <h4 className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.2em] mb-2.5">
             Available Games
           </h4>
-          <div data-name="game-tags" className="flex flex-wrap gap-2">
+          <div data-name="game-tags" className="flex gap-1.5 sm:gap-2 overflow-x-auto sm:overflow-x-visible sm:flex-wrap no-scrollbar">
             {visibleGames.map((game) => (
               <span
                 key={game}
                 data-name="game-tag"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 px-3 py-1.5 text-sm text-neutral-700"
+                className="inline-flex items-center gap-1 sm:gap-1.5 rounded-md sm:rounded-lg border border-neutral-200 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm text-neutral-700 whitespace-nowrap shrink-0 sm:shrink"
               >
-                <span className="size-5 shrink-0 flex items-center justify-center [&_img]:w-5! [&_img]:h-5!">
+                <span className="size-4 sm:size-5 shrink-0 flex items-center justify-center [&_img]:w-4! [&_img]:h-4! sm:[&_img]:w-5! sm:[&_img]:h-5!">
                   {GAME_ICONS[game] ?? null}
                 </span>
                 {game}
@@ -1841,7 +1841,7 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
                 type="button"
                 onClick={() => setShowAllGames(true)}
                 data-name="show-all-games"
-                className="inline-flex items-center rounded-lg border border-neutral-200 px-3 py-1.5 text-sm font-medium text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer"
+                className="inline-flex items-center rounded-md sm:rounded-lg border border-neutral-200 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer whitespace-nowrap shrink-0"
               >
                 Show All
               </button>
@@ -1998,7 +1998,8 @@ function CasinoCard({ casino }: { casino: CasinoReview }) {
             data-name="read-reviews-btn"
             className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-lg bg-yellow-400 px-5 py-2.5 text-sm font-semibold text-black hover:bg-yellow-500 transition-colors"
           >
-            Read Reviews
+            <span className="sm:hidden">Reviews</span>
+            <span className="hidden sm:inline">Read Reviews</span>
             <ChevronRight className="size-4" />
           </Link>
         </div>

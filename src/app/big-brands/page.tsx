@@ -21,10 +21,8 @@ export default function BigBrandsPage() {
         buttonHref="#write-review"
         heroImage="/hero/big-brands-item.webp"
         contentMaxWidth="max-w-[75ch]"
-        heroHeight="h-[200px] sm:h-[280px] lg:h-[400px]"
         heroObjectFit="object-contain"
         backgroundImage="/hero/big-brands-bg.svg"
-        heroImageClassName="absolute inset-0 size-full py-4 lg:py-12"
         containerClassName="relative site-container py-6 lg:py-0"
       />
 

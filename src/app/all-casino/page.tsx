@@ -21,10 +21,8 @@ export default function AllCasinoPage() {
         buttonHref="#write-review"
         heroImage="/hero/all-casino.webp"
         contentMaxWidth="max-w-[75ch]"
-        heroHeight="h-[200px] sm:h-[280px] lg:h-[400px]"
         heroObjectFit="object-contain"
         backgroundImage="/hero/all-casino.svg"
-        heroImageClassName="absolute inset-0 size-full lg:py-16 py-2"
         containerClassName="relative site-container py-6 lg:py-0"
       />
 

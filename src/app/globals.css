@@ -269,3 +269,11 @@
 @utility animate-grid-shimmer {
   animation: grid-shimmer 5s ease-in-out infinite;
 }
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
