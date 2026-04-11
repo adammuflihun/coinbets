@@ -74,7 +74,7 @@ export function MobileNav() {
       <button
         data-section="mobile-menu-trigger"
         onClick={() => setOpen(true)}
-        className="p-1.5 hover:bg-neutral-100 rounded-lg transition-colors lg:hidden"
+        className="p-1.5 hover:bg-neutral-100 rounded-lg transition-colors xl:hidden"
       >
         <Menu className="size-6 text-neutral-900" />
       </button>

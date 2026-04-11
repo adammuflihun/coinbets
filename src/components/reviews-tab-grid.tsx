@@ -154,47 +154,43 @@ function SimpleReviewCard({
                 {review.safetyIndex}
               </span>
             </div>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div data-name="divider" className="h-px bg-[#d9d9d9]" />
-
-        {/* ORIGINAL: Expert Score only (player-rating removed) */}
-        <div data-name="expert-ratings" className="flex items-start">
-          <div data-name="expert-score" className="flex items-start gap-2.5">
-            <ExpertShieldIcon />
-            <div
-              data-name="expert-score-detail"
-              className="flex flex-col gap-1"
-            >
-              <div
-                data-name="expert-score-row"
-                className="flex items-center gap-1.5"
-              >
-                <span className="text-[23px] font-medium leading-none text-[#060d17]">
-                  {review.expertScore.toFixed(1)}
-                </span>
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  className="size-5 shrink-0"
+            {/* Expert Score */}
+            <div data-name="expert-ratings" className="flex items-start">
+              <div data-name="expert-score" className="flex items-start gap-2.5">
+                <div className="hidden"><ExpertShieldIcon /></div>
+                <div
+                  data-name="expert-score-detail"
+                  className="flex flex-col gap-1"
                 >
-                  <rect width="20" height="20" rx="5" fill="#003EB6" />
-                  <path
-                    d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
-                    fill="white"
-                  />
-                </svg>
+                  <div
+                    data-name="expert-score-row"
+                    className="flex items-center gap-1.5"
+                  >
+                    <span className="text-[23px] font-medium leading-none text-[#060d17]">
+                      {review.expertScore.toFixed(1)}
+                    </span>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      className="size-5 shrink-0"
+                    >
+                      <rect width="20" height="20" rx="5" fill="#003EB6" />
+                      <path
+                        d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </div>
+                  <p className="text-sm font-medium text-[#060d17]">
+                    Coinbets Expert Score
+                  </p>
+                  <p className="text-sm font-medium text-[#2563eb]">
+                    Independent Audit
+                  </p>
+                </div>
               </div>
-              <p className="text-sm font-medium text-[#060d17]">
-                Coinbets Expert Score
-              </p>
-              <p className="text-sm font-medium text-[#2563eb]">
-                Independent Audit
-              </p>
             </div>
           </div>
         </div>

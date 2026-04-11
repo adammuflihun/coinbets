@@ -194,17 +194,17 @@ export function Navbar() {
     >
       <nav
         data-name="nav-bar"
-        className="flex items-center justify-between h-14 px-4 lg:px-10"
+        className="flex items-center justify-between h-14 px-4 xl:px-10"
       >
         {/* Mobile: Hamburger */}
-        <div data-name="nav-mobile-trigger" className="lg:hidden">
+        <div data-name="nav-mobile-trigger" className="xl:hidden">
           <MobileNav />
         </div>
 
         {/* Desktop: Category Nav */}
         <div
           data-section="nav-categories"
-          className="hidden lg:flex items-center gap-0"
+          className="hidden xl:flex items-center gap-0"
         >
           {/* Crypto Casinos Mega Dropdown */}
           <NavDropdown
@@ -293,7 +293,7 @@ export function Navbar() {
             alt="CoinBets"
             width={135}
             height={32}
-            className="w-[110px] lg:w-[135px]"
+            className="w-[110px] xl:w-[135px]"
             priority
           />
         </Link>
@@ -303,7 +303,7 @@ export function Navbar() {
           {/* Desktop only links */}
           <div
             data-name="nav-links"
-            className="hidden lg:flex items-center gap-1"
+            className="hidden xl:flex items-center gap-1"
           >
             {navLinks.map((link) => {
               const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
@@ -333,7 +333,7 @@ export function Navbar() {
             <button
               data-section="nav-search"
               onClick={() => setSearchOpen(true)}
-              className={`hidden lg:block rounded p-1 transition-colors cursor-pointer ${
+              className={`hidden xl:block rounded p-1 transition-colors cursor-pointer ${
                 isDark ? "bg-white/10 hover:bg-white/20" : "bg-neutral-100 hover:bg-neutral-200"
               }`}
             >
@@ -341,7 +341,7 @@ export function Navbar() {
             </button>
 
             {/* Language Selector - desktop only */}
-            <div data-name="nav-language" className="hidden lg:block">
+            <div data-name="nav-language" className="hidden xl:block">
               <CountrySelector />
             </div>
 
