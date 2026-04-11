@@ -57,11 +57,11 @@ function CardCarousel({
         <div
           key={card.title}
           data-name={cardDataName}
-          className="w-[calc(100vw-1.25rem)] mr-3"
+          className="w-[calc(100vw-8rem)] mr-3"
         >
           <div
             data-name={`${cardDataName}-inner`}
-            className="bg-white/5 rounded-xl flex flex-col items-center px-5 pt-5 pb-8"
+            className="bg-white/5 rounded-xl flex flex-col items-center px-5 pt-5 pb-8 min-h-[320px]"
           >
             <div
               data-name={`${cardDataName}-image`}
@@ -102,7 +102,7 @@ export function AboutCardCarousel({
   gridCols: string;
   imageSize?: number;
 }) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -110,6 +110,10 @@ export function AboutCardCarousel({
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
+
+  if (isMobile === null) {
+    return null;
+  }
 
   if (isMobile) {
     return (

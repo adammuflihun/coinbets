@@ -139,6 +139,7 @@
   display: none;
 }
 
+
 @keyframes aurora-1 {
   0%, 100% {
     transform: translateX(0) translateY(0) scale(1);
