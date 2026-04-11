@@ -43,7 +43,7 @@ export default function AboutPage() {
         >
           <div
             data-name="about-hero-content"
-            className="max-w-[480px] mr-auto flex flex-col gap-3 lg:gap-[22px]"
+            className="max-w-[36ch] mr-auto flex flex-col gap-3 lg:gap-[22px]"
           >
             <p
               data-name="about-tagline"
@@ -393,7 +393,10 @@ export default function AboutPage() {
           </div>
 
           {/* Three cards */}
-          <div data-name="about-corrupt-cards-wrapper" className="mt-6 lg:mt-12">
+          <div
+            data-name="about-corrupt-cards-wrapper"
+            className="mt-6 lg:mt-12"
+          >
             <AboutCardCarousel
               cards={[
                 {
@@ -534,7 +537,10 @@ export default function AboutPage() {
           data-name="about-cta-backdrop"
           className="relative bg-[#292a23] pt-24 lg:pt-80 pb-24 lg:pb-64 overflow-hidden min-h-[600px] lg:min-h-[1280px]"
         >
-          <div data-name="about-cta-bg-overlay" className="absolute top-0 left-0 right-0 h-[20%] bg-linear-to-b from-[#060505] to-transparent z-1" />
+          <div
+            data-name="about-cta-bg-overlay"
+            className="absolute top-0 left-0 right-0 h-[20%] bg-linear-to-b from-[#060505] to-transparent z-1"
+          />
           <Image
             data-name="about-cta-bg"
             src="/about/footer-about.png"
