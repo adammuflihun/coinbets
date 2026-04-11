@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { AboutCardCarousel } from "@/components/about-card-carousel";
 
 export const metadata: Metadata = {
   title: "About",
@@ -38,11 +39,11 @@ export default function AboutPage() {
 
         <div
           data-name="about-hero-container"
-          className="relative site-container py-12 lg:py-40 flex justify-center"
+          className="relative max-w-[1180px] mx-auto px-5 sm:px-10 py-12 lg:py-40 flex justify-center"
         >
           <div
             data-name="about-hero-content"
-            className="max-w-[480px] flex flex-col gap-3 lg:gap-[22px]"
+            className="max-w-[480px] mr-auto flex flex-col gap-3 lg:gap-[22px]"
           >
             <p
               data-name="about-tagline"
@@ -85,7 +86,7 @@ export default function AboutPage() {
       <div data-name="about-independent" className="bg-[#060505]">
         <div
           data-name="about-independent-container"
-          className="site-container pt-8 pb-4 lg:py-24"
+          className="max-w-[1180px] mx-auto px-5 sm:px-10 pt-8 pb-4 lg:py-24"
         >
           <div
             data-name="about-independent-grid"
@@ -173,7 +174,7 @@ export default function AboutPage() {
       <div data-name="about-ugly-truth" className="bg-[#060505]">
         <div
           data-name="about-ugly-truth-container"
-          className="site-container pt-8 pb-4 lg:py-24"
+          className="max-w-[1180px] mx-auto px-5 sm:px-10 pt-8 pb-4 lg:py-24"
         >
           <div
             data-name="about-ugly-truth-grid"
@@ -358,7 +359,7 @@ export default function AboutPage() {
       <div data-name="about-corrupt" className="bg-[#060505]">
         <div
           data-name="about-corrupt-container"
-          className="site-container pt-4 pb-8 lg:py-24"
+          className="max-w-[1180px] mx-auto px-5 sm:px-10 pt-4 pb-8 lg:py-24"
         >
           {/* Heading */}
           <h2
@@ -392,57 +393,30 @@ export default function AboutPage() {
           </div>
 
           {/* Three cards */}
-          <div
-            data-name="about-corrupt-cards"
-            className="mt-6 lg:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6"
-          >
-            {[
-              {
-                icon: "/hero/icon-about-01.png",
-                title: "Zero Casino Money",
-                text: "We don\u2019t get paid when you lose. Because we don\u2019t take casino money",
-              },
-              {
-                icon: "/hero/icon-about-02.png",
-                title: "Player Protection",
-                text: "Our player complaint system punishes casinos that ignore complaints and scam players",
-              },
-              {
-                icon: "/hero/icon-about-03.png",
-                title: "Full Transparency",
-                text: "We expose crypto casinos for every shady move they make",
-              },
-            ].map((card) => (
-              <div
-                key={card.title}
-                data-name="about-corrupt-card"
-                className="bg-white/5 rounded-xl flex flex-col items-center px-5 pt-5 pb-8"
-              >
-                <div
-                  data-name="about-corrupt-card-image"
-                  className="relative size-[179px]"
-                >
-                  <Image
-                    src={card.icon}
-                    alt=""
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <h3
-                  data-name="about-corrupt-card-title"
-                  className="mt-5 text-xl font-bold text-white text-center"
-                >
-                  {card.title}
-                </h3>
-                <p
-                  data-name="about-corrupt-card-text"
-                  className="mt-2 text-base text-white text-center leading-[1.4] tracking-[0.15px]"
-                >
-                  {card.text}
-                </p>
-              </div>
-            ))}
+          <div data-name="about-corrupt-cards-wrapper" className="mt-6 lg:mt-12">
+            <AboutCardCarousel
+              cards={[
+                {
+                  icon: "/hero/icon-about-01.png",
+                  title: "Zero Casino Money",
+                  text: "We don\u2019t get paid when you lose. Because we don\u2019t take casino money",
+                },
+                {
+                  icon: "/hero/icon-about-02.png",
+                  title: "Player Protection",
+                  text: "Our player complaint system punishes casinos that ignore complaints and scam players",
+                },
+                {
+                  icon: "/hero/icon-about-03.png",
+                  title: "Full Transparency",
+                  text: "We expose crypto casinos for every shady move they make",
+                },
+              ]}
+              dataName="about-corrupt-cards"
+              cardDataName="about-corrupt-card"
+              gridCols="md:grid-cols-3"
+              imageSize={179}
+            />
           </div>
 
           {/* Bottom image */}
@@ -464,7 +438,7 @@ export default function AboutPage() {
       <div data-name="about-monetize" className="bg-[#060505]">
         <div
           data-name="about-monetize-container"
-          className="site-container py-16 lg:py-24"
+          className="max-w-[1180px] mx-auto px-5 sm:px-10 py-16 lg:py-24"
         >
           {/* Intro */}
           <p
@@ -487,62 +461,34 @@ export default function AboutPage() {
           </div>
 
           {/* 4 cards */}
-          <div
-            data-name="about-monetize-cards"
-            className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-          >
-            {[
-              {
-                icon: "/hero/icon-plan-01.png",
-                title: "Pro Comparisons",
-                text: "Powerful premium casino comparison tools with advanced filters",
-              },
-              {
-                icon: "/hero/icon-plan-02.png",
-                title: "Deep Insights",
-                text: "Exclusive reports, deep-dive insights, and real payout data for b2b",
-              },
-              {
-                icon: "/hero/icon-plan-03.png",
-                title: "Scam Alerts",
-                text: "Advanced alerts when casinos are flagged for scams, frozen funds, or delayed withdrawals",
-              },
-              {
-                icon: "/hero/icon-plan-04.png",
-                title: "Dispute Support",
-                text: "Elite investigative support for high-stakes casino disputes",
-              },
-            ].map((card) => (
-              <div
-                key={card.title}
-                data-name="about-monetize-card"
-                className="bg-white/5 rounded-xl flex flex-col items-center px-5 pt-8 pb-8"
-              >
-                <div
-                  data-name="about-monetize-card-image"
-                  className="relative size-[140px]"
-                >
-                  <Image
-                    src={card.icon}
-                    alt=""
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <h3
-                  data-name="about-monetize-card-title"
-                  className="mt-5 text-xl font-bold text-white text-center"
-                >
-                  {card.title}
-                </h3>
-                <p
-                  data-name="about-monetize-card-text"
-                  className="mt-2 text-base text-white text-center leading-[1.4] tracking-[0.15px]"
-                >
-                  {card.text}
-                </p>
-              </div>
-            ))}
+          <div data-name="about-monetize-cards-wrapper" className="mt-12">
+            <AboutCardCarousel
+              cards={[
+                {
+                  icon: "/hero/icon-plan-01.png",
+                  title: "Pro Comparisons",
+                  text: "Powerful premium casino comparison tools with advanced filters",
+                },
+                {
+                  icon: "/hero/icon-plan-02.png",
+                  title: "Deep Insights",
+                  text: "Exclusive reports, deep-dive insights, and real payout data for b2b",
+                },
+                {
+                  icon: "/hero/icon-plan-03.png",
+                  title: "Scam Alerts",
+                  text: "Advanced alerts when casinos are flagged for scams, frozen funds, or delayed withdrawals",
+                },
+                {
+                  icon: "/hero/icon-plan-04.png",
+                  title: "Dispute Support",
+                  text: "Elite investigative support for high-stakes casino disputes",
+                },
+              ]}
+              dataName="about-monetize-cards"
+              cardDataName="about-monetize-card"
+              gridCols="sm:grid-cols-2 lg:grid-cols-4"
+            />
           </div>
 
           {/* Non-Casino Sponsors */}
@@ -554,57 +500,29 @@ export default function AboutPage() {
           </h2>
 
           {/* 3 cards */}
-          <div
-            data-name="about-sponsors-cards"
-            className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
-          >
-            {[
-              {
-                icon: "/hero/icon-plan-05.png",
-                title: "Crypto Partners",
-                text: "Crypto wallets, VPN providers, and crypto projects unrelated to gambling",
-              },
-              {
-                icon: "/hero/icon-plan-06.png",
-                title: "Privacy Tools",
-                text: "Tax reporting tools, password managers, and privacy-focused browser extensions",
-              },
-              {
-                icon: "/hero/icon-plan-07.png",
-                title: "Security Hardware",
-                text: "Hardware wallet companies and DeFi security projects that align with user-first values",
-              },
-            ].map((card) => (
-              <div
-                key={card.title}
-                data-name="about-sponsor-card"
-                className="bg-white/5 rounded-xl flex flex-col items-center px-5 pt-8 pb-8"
-              >
-                <div
-                  data-name="about-sponsor-card-image"
-                  className="relative size-[140px]"
-                >
-                  <Image
-                    src={card.icon}
-                    alt=""
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <h3
-                  data-name="about-sponsor-card-title"
-                  className="mt-5 text-xl font-bold text-white text-center"
-                >
-                  {card.title}
-                </h3>
-                <p
-                  data-name="about-sponsor-card-text"
-                  className="mt-2 text-base text-white text-center leading-[1.4] tracking-[0.15px]"
-                >
-                  {card.text}
-                </p>
-              </div>
-            ))}
+          <div data-name="about-sponsors-cards-wrapper" className="mt-12">
+            <AboutCardCarousel
+              cards={[
+                {
+                  icon: "/hero/icon-plan-05.png",
+                  title: "Crypto Partners",
+                  text: "Crypto wallets, VPN providers, and crypto projects unrelated to gambling",
+                },
+                {
+                  icon: "/hero/icon-plan-06.png",
+                  title: "Privacy Tools",
+                  text: "Tax reporting tools, password managers, and privacy-focused browser extensions",
+                },
+                {
+                  icon: "/hero/icon-plan-07.png",
+                  title: "Security Hardware",
+                  text: "Hardware wallet companies and DeFi security projects that align with user-first values",
+                },
+              ]}
+              dataName="about-sponsors-cards"
+              cardDataName="about-sponsor-card"
+              gridCols="md:grid-cols-3"
+            />
           </div>
         </div>
       </div>
@@ -626,13 +544,15 @@ export default function AboutPage() {
           />
           <div
             data-name="about-cta-heading-wrap"
-            className="absolute bottom-32 lg:bottom-64 left-0 right-0 site-container z-10"
+            className="absolute bottom-32 lg:bottom-64 left-0 right-0 max-w-[1180px] mx-auto px-5 sm:px-10 z-10"
           >
             <h2
               data-name="about-cta-heading"
               className="text-[28px] lg:text-[49px] font-extrabold leading-none tracking-[-0.49px] text-white text-center max-w-[1023px] mx-auto pb-8 lg:pb-12"
             >
-              Hold crypto casinos accountable. Join the fight with CoinBets.
+              Hold crypto casinos accountable.
+              <br />
+              Join the fight with CoinBets.
             </h2>
           </div>
         </div>
@@ -641,7 +561,7 @@ export default function AboutPage() {
         <div data-name="about-cta-cards-section" className="bg-[#060505]">
           <div
             data-name="about-cta-cards-container"
-            className="site-container -mt-32 lg:-mt-40 relative z-10 pb-20 lg:pb-28"
+            className="max-w-[1180px] mx-auto px-5 sm:px-10 -mt-32 lg:-mt-40 relative z-10 pb-20 lg:pb-28"
           >
             <div
               data-name="about-cta-cards"

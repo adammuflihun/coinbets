@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
@@ -366,13 +366,17 @@ export function LoginDialogContent({
 export function LoginDialog() {
   const [open, setOpen] = useState(false);
   const { isLoggedIn } = useAuth();
+  const pathname = usePathname();
+  const isDark = pathname === "/about";
 
   if (isLoggedIn) {
     return (
       <Link
         href="/profile"
         data-name="nav-user-avatar"
-        className="flex items-center gap-2 rounded-lg px-2 py-1 hover:bg-neutral-100 transition-colors"
+        className={`flex items-center gap-2 rounded-lg px-2 py-1 transition-colors ${
+          isDark ? "hover:bg-white/10" : "hover:bg-neutral-100"
+        }`}
       >
         <Image
           src="/icons/default-avatar.svg"
@@ -381,7 +385,9 @@ export function LoginDialog() {
           height={32}
           className="size-8 rounded-full"
         />
-        <span className="hidden sm:block text-sm font-semibold text-neutral-900">
+        <span className={`hidden sm:block text-sm font-semibold ${
+          isDark ? "text-white" : "text-neutral-900"
+        }`}>
           {"Coinbet User".split(" ")[0]}
         </span>
       </Link>
