@@ -15,7 +15,7 @@ export default function TopOnlineCasinoPage() {
     <main data-section="main" className="flex-1">
       <HeroPageTemplate
         tagline="Our Expert Picks"
-        title="CoinBets Recommended Casinos"
+        title="Recommended Casinos"
         description="These platforms passed our strict checks for trust, fairness, and user experience. Each casino earns its place through real testing and verified player reviews. We focus on game integrity, reliable withdrawals, strong support, and reputation. No paid placements, only proven sites."
         buttonText="Write a Review"
         buttonHref="#write-review"
