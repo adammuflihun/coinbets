@@ -22,8 +22,9 @@ export default function LiveDealerCasinosPage() {
         heroImage="/hero/live-dealer-item.png"
         contentMaxWidth="max-w-[75ch]"
         heroObjectFit="object-contain"
+        imageClassName="w-[180px] sm:w-full h-[180px] sm:h-[240px] lg:h-[300px]"
         backgroundImage="/hero/live-dealer-bg.svg"
-        containerClassName="relative site-container py-6 lg:py-0"
+        containerClassName="relative mx-auto max-w-[1200px] px-4 sm:px-5 py-6 lg:py-0"
       />
 
       <SportsSectionNav />

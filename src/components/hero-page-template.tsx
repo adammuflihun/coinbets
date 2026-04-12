@@ -13,6 +13,8 @@ interface HeroPageTemplateProps {
   backgroundImage?: string;
   heroObjectFit?: string;
   containerClassName?: string;
+  imageClassName?: string;
+  imageAlign?: string;
 }
 
 export function HeroPageTemplate({
@@ -25,7 +27,9 @@ export function HeroPageTemplate({
   contentMaxWidth = "max-w-[52ch]",
   backgroundImage,
   heroObjectFit = "object-contain",
-  containerClassName = "relative site-container py-5 lg:py-5",
+  containerClassName = "relative mx-auto max-w-[1200px] px-4 sm:px-5 py-5 lg:py-5",
+  imageClassName = "w-[140px] sm:w-full h-[140px] sm:h-[180px] lg:h-[220px]",
+  imageAlign = "self-center",
 }: HeroPageTemplateProps) {
   return (
     <section
@@ -89,7 +93,7 @@ export function HeroPageTemplate({
           {/* Right: Image — overlaps into content on mobile */}
           <div
             data-section="hero-illustration"
-            className="absolute right-0 bottom-0 sm:relative sm:right-auto sm:bottom-auto w-[180px] sm:w-full h-[180px] sm:h-[220px] lg:h-[280px] self-end opacity-70 sm:opacity-100"
+            className={`absolute right-0 bottom-0 sm:relative sm:right-auto sm:bottom-auto ${imageClassName} ${imageAlign} opacity-70 sm:opacity-100`}
           >
             <Image
               src={heroImage}

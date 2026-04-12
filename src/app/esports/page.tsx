@@ -23,7 +23,7 @@ export default function EsportsBettingPage() {
         contentMaxWidth="max-w-[75ch]"
         heroObjectFit="object-contain"
         backgroundImage="/hero/esport-betting-bg.svg"
-        containerClassName="relative site-container py-6 lg:py-0"
+        containerClassName="relative mx-auto max-w-[1200px] px-4 sm:px-5 py-6 lg:py-0"
       />
 
       <SportsSectionNav />

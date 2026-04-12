@@ -22,6 +22,7 @@ export default function SportsBettingPage() {
         heroImage="/hero/sports-betting.webp"
         contentMaxWidth="max-w-[75ch]"
         heroObjectFit="object-contain"
+        imageClassName="w-[180px] sm:w-full h-[180px] sm:h-[240px] lg:h-[300px]"
       />
 
       <SportsSectionNav />

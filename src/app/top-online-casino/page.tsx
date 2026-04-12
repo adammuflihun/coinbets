@@ -22,7 +22,9 @@ export default function TopOnlineCasinoPage() {
         heroImage="/hero/recommended.webp"
         contentMaxWidth="max-w-[75ch]"
         heroObjectFit="object-contain"
-        containerClassName="relative site-container py:0 pt-6 lg:py-0"
+        containerClassName="relative mx-auto max-w-[1200px] px-4 sm:px-5 py:0 pt-6 lg:py-0 lg:pb-0"
+        imageClassName="w-[180px] sm:w-full h-[180px] sm:h-[240px] lg:h-[300px]"
+        imageAlign="self-end"
       />
 
       <SportsSectionNav />
