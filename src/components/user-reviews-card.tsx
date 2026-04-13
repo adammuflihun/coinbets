@@ -148,7 +148,7 @@ function UserRatedCasinoCard({ casino }: { casino: UserRatedCasino }) {
         data-name="casino-content"
         className="flex flex-col gap-4 flex-1 min-w-0"
       >
-        <div data-name="name-safety-rating" className="flex flex-col gap-2.5">
+        <div data-name="name-safety-rating" className="flex flex-col gap-2.5 items-center lg:items-start text-center lg:text-left">
           {/* Name + Safety */}
           <div data-name="name-safety">
             <p className="text-lg font-semibold text-[#060D17]">

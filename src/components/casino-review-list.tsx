@@ -2100,169 +2100,267 @@ function BonusCasinoCard({ casino }: { casino: CasinoReview }) {
     >
       {/* Top section: Logo + Ratings */}
       <div data-name="casino-card-top" className="p-4 sm:p-6">
-        <div data-name="casino-card-header" className="flex flex-col sm:flex-row gap-4 sm:gap-5">
-          {/* Casino Logo */}
-          <Link
-            href={`/casino/review/${casino.slug}`}
-            data-name="casino-logo"
-            className="shrink-0 size-[100px] sm:size-[120px] rounded-lg bg-[#060D17] flex items-center justify-center overflow-hidden border border-neutral-200"
-          >
-            <Image
-              src={casino.logo}
-              alt={casino.name}
-              width={120}
-              height={120}
-              className="object-contain size-full"
-            />
-          </Link>
-
-          {/* Casino Info */}
-          <div data-name="casino-info" className="flex-1 min-w-0">
+        <div data-name="casino-card-header" className="flex flex-col gap-4 sm:gap-5">
+          {/* Mobile: Logo + Name + Safety row */}
+          <div data-name="logo-name-row" className="flex items-center gap-3 sm:hidden">
             <Link
               href={`/casino/review/${casino.slug}`}
-              data-name="casino-name"
-              className="text-xl sm:text-2xl font-bold text-[#060D17] hover:underline"
+              data-name="casino-logo-mobile"
+              className="shrink-0 size-[56px] rounded-lg bg-[#060D17] flex items-center justify-center overflow-hidden border border-neutral-200"
             >
-              {casino.name}
+              <Image
+                src={casino.logo}
+                alt={casino.name}
+                width={56}
+                height={56}
+                className="object-contain size-full"
+              />
             </Link>
-
-            {/* Ratings Row */}
-            <div data-name="bonus-ratings" className="flex flex-row items-start gap-6 mt-3">
-              {/* Player Rating */}
-              <div data-name="player-rating" className="flex items-start gap-2">
-                <PlayerRatingIcon size={24} />
-                <div data-name="player-rating-detail" className="flex flex-col gap-0.5">
-                  <div data-name="player-score-row" className="flex items-center gap-1">
-                    <span className="text-lg font-medium leading-none text-[#060d17]">
-                      {casino.playerRating.toFixed(1)}
-                    </span>
-                    <div data-name="rating-stars" className="flex items-center gap-0.5">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <svg key={star} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
-                          <path d={STAR_BG} fill={star <= playerRatingKey ? playerColor : "#DDDDDD"} />
-                          <path d={STAR_SHAPE} fill="white" />
-                        </svg>
-                      ))}
-                    </div>
-                  </div>
-                  <p className="text-xs font-medium text-[#060d17]">Player Rating</p>
-                  <Link
-                    href={`/casino/review/${casino.slug}#reviews`}
-                    className="text-xs font-medium text-[#2563eb]"
-                  >
-                    {casino.playerReviews} Reviews
-                  </Link>
-                </div>
-              </div>
-
-              {/* Expert Score */}
-              <div data-name="expert-score" className="flex items-start gap-2">
-                <ExpertShieldIcon size={24} />
-                <div data-name="expert-score-detail" className="flex flex-col gap-0.5">
-                  <div data-name="expert-score-row" className="flex items-center gap-1">
-                    <span className="text-lg font-medium leading-none text-[#060d17]">
-                      {casino.expertScore.toFixed(1)}
-                    </span>
-                    <div data-name="expert-shields" className="flex items-center gap-0.5">
-                      {[1, 2, 3, 4, 5].map((shield) => (
-                        <svg key={shield} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
-                          <rect width="20" height="20" rx="5" fill={shield <= expertRatingKey ? "#003EB6" : "#DDDDDD"} />
-                          <path
-                            d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
-                            fill="white"
-                          />
-                        </svg>
-                      ))}
-                    </div>
-                  </div>
-                  <p className="text-xs font-medium text-[#060d17]">Coinbets Expert Score</p>
-                  <Link
-                    href={`/casino/review/${casino.slug}`}
-                    className="text-xs font-medium text-[#2563eb]"
-                  >
-                    Independent Audit
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Bonus Banner */}
-            <div
-              data-name="bonus-banner"
-              className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-lg bg-green-500/10 px-4 sm:px-5 py-3.5 mt-4"
-            >
-              <p data-name="bonus-text" className="text-base sm:text-lg font-semibold text-[#060D17]">
-                {casino.bonus}
-              </p>
+            <div data-name="name-safety-mobile" className="flex flex-col gap-1 min-w-0">
               <Link
                 href={`/casino/review/${casino.slug}`}
-                data-name="bonus-info-btn"
+                data-name="casino-name"
+                className="text-lg font-bold text-[#060D17] hover:underline truncate"
               >
-                <ShimmerButton
-                  shimmerColor="#ffffff"
-                  shimmerDuration="2.5s"
-                  background="rgba(22, 163, 74, 1)"
-                  borderRadius="8px"
-                  className="px-5 py-2 text-sm font-semibold border-green-500/30"
-                >
-                  Bonus Info
-                </ShimmerButton>
+                {casino.name}
               </Link>
+              <div data-name="safety-index-mobile" className="flex items-center gap-1.5">
+                <span className="text-xs font-bold text-neutral-500 uppercase">Safety Index</span>
+                <span
+                  className="px-2 py-0.5 rounded-full text-xs font-semibold text-[#060D17]"
+                  style={{ backgroundColor: (SAFETY_COLORS[casino.safetyIndex] ?? SAFETY_COLORS["Normal"]).bg }}
+                >
+                  {casino.safetyIndex}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop: Logo + Name row */}
+          <div data-name="casino-card-header-desktop" className="hidden sm:flex sm:flex-row gap-5">
+            {/* Casino Logo */}
+            <Link
+              href={`/casino/review/${casino.slug}`}
+              data-name="casino-logo"
+              className="shrink-0 size-[120px] rounded-lg bg-[#060D17] flex items-center justify-center overflow-hidden border border-neutral-200"
+            >
+              <Image
+                src={casino.logo}
+                alt={casino.name}
+                width={120}
+                height={120}
+                className="object-contain size-full"
+              />
+            </Link>
+
+            {/* Casino Info — desktop only name + ratings inline */}
+            <div data-name="casino-info-desktop" className="flex-1 min-w-0">
+              <Link
+                href={`/casino/review/${casino.slug}`}
+                data-name="casino-name"
+                className="text-2xl font-bold text-[#060D17] hover:underline"
+              >
+                {casino.name}
+              </Link>
+
+              {/* Ratings Row */}
+              <div data-name="bonus-ratings" className="flex flex-row items-start gap-6 mt-3">
+                {/* Player Rating */}
+                <div data-name="player-rating" className="flex items-start gap-2">
+                  <PlayerRatingIcon size={24} />
+                  <div data-name="player-rating-detail" className="flex flex-col gap-0.5">
+                    <div data-name="player-score-row" className="flex items-center gap-1">
+                      <span className="text-lg font-medium leading-none text-[#060d17]">
+                        {casino.playerRating.toFixed(1)}
+                      </span>
+                      <div data-name="rating-stars" className="flex items-center gap-0.5">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <svg key={star} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
+                            <path d={STAR_BG} fill={star <= playerRatingKey ? playerColor : "#DDDDDD"} />
+                            <path d={STAR_SHAPE} fill="white" />
+                          </svg>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-xs font-medium text-[#060d17]">Player Rating</p>
+                    <Link
+                      href={`/casino/review/${casino.slug}#reviews`}
+                      className="text-xs font-medium text-[#2563eb]"
+                    >
+                      {casino.playerReviews} Reviews
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Expert Score */}
+                <div data-name="expert-score" className="flex items-start gap-2">
+                  <ExpertShieldIcon size={24} />
+                  <div data-name="expert-score-detail" className="flex flex-col gap-0.5">
+                    <div data-name="expert-score-row" className="flex items-center gap-1">
+                      <span className="text-lg font-medium leading-none text-[#060d17]">
+                        {casino.expertScore.toFixed(1)}
+                      </span>
+                      <div data-name="expert-shields" className="flex items-center gap-0.5">
+                        {[1, 2, 3, 4, 5].map((shield) => (
+                          <svg key={shield} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
+                            <rect width="20" height="20" rx="5" fill={shield <= expertRatingKey ? "#003EB6" : "#DDDDDD"} />
+                            <path
+                              d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
+                              fill="white"
+                            />
+                          </svg>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-xs font-medium text-[#060d17]">Coinbets Expert Score</p>
+                    <Link
+                      href={`/casino/review/${casino.slug}`}
+                      className="text-xs font-medium text-[#2563eb]"
+                    >
+                      Independent Audit
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile: Ratings Row */}
+          <div data-name="bonus-ratings-mobile" className="flex flex-row items-start gap-6 sm:hidden">
+            {/* Player Rating */}
+            <div data-name="player-rating" className="flex items-start gap-2">
+              <PlayerRatingIcon size={24} />
+              <div data-name="player-rating-detail" className="flex flex-col gap-0.5">
+                <div data-name="player-score-row" className="flex items-center gap-1">
+                  <span className="text-lg font-medium leading-none text-[#060d17]">
+                    {casino.playerRating.toFixed(1)}
+                  </span>
+                  <div data-name="rating-stars" className="flex items-center gap-0.5">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <svg key={star} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
+                        <path d={STAR_BG} fill={star <= playerRatingKey ? playerColor : "#DDDDDD"} />
+                        <path d={STAR_SHAPE} fill="white" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-xs font-medium text-[#060d17]">Player Rating</p>
+                <Link
+                  href={`/casino/review/${casino.slug}#reviews`}
+                  className="text-xs font-medium text-[#2563eb]"
+                >
+                  {casino.playerReviews} Reviews
+                </Link>
+              </div>
             </div>
 
-            {/* Bonus Details — Collapsible Sections */}
-            {bonus && (
-              <div data-name="bonus-details-section" className="mt-4">
-                <BonusDetailRow
-                  icon={<Calendar className="size-4" />}
-                  label={bonus.type}
+            {/* Expert Score */}
+            <div data-name="expert-score" className="flex items-start gap-2">
+              <ExpertShieldIcon size={24} />
+              <div data-name="expert-score-detail" className="flex flex-col gap-0.5">
+                <div data-name="expert-score-row" className="flex items-center gap-1">
+                  <span className="text-lg font-medium leading-none text-[#060d17]">
+                    {casino.expertScore.toFixed(1)}
+                  </span>
+                  <div data-name="expert-shields" className="flex items-center gap-0.5">
+                    {[1, 2, 3, 4, 5].map((shield) => (
+                      <svg key={shield} width="16" height="16" viewBox="0 0 20 20" fill="none" className="size-4 shrink-0">
+                        <rect width="20" height="20" rx="5" fill={shield <= expertRatingKey ? "#003EB6" : "#DDDDDD"} />
+                        <path
+                          d="M10 4.5C7.1 4.5 4.5 5.87 4.5 5.87V10.5C4.5 13.5 7 15.2 10 16.5C13 15.2 15.5 13.5 15.5 10.5V5.87C15.5 5.87 12.9 4.5 10 4.5Z"
+                          fill="white"
+                        />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-xs font-medium text-[#060d17]">Coinbets Expert Score</p>
+                <Link
+                  href={`/casino/review/${casino.slug}`}
+                  className="text-xs font-medium text-[#2563eb]"
                 >
-                  <p>{bonus.description}</p>
-                </BonusDetailRow>
-
-                <BonusDetailRow
-                  icon={<CircleDollarSign className="size-4" />}
-                  label={`Min Deposit: ${bonus.minDeposit}`}
-                  summary={`Max Deposit: ${bonus.maxDeposit}`}
-                >
-                  <p>{bonus.depositDescription}</p>
-                </BonusDetailRow>
-
-                <BonusDetailRow
-                  icon={<Gamepad2 className="size-4" />}
-                  label={`Wagering Requirement: ${bonus.wageringRequirement}`}
-                >
-                  <p>{bonus.wageringDescription}</p>
-                </BonusDetailRow>
-
-                <BonusDetailRow
-                  icon={<Clock className="size-4" />}
-                  label={`Bonus Timing: ${bonus.bonusTiming}`}
-                >
-                  <p>{bonus.timingDescription}</p>
-                </BonusDetailRow>
-
-                <BonusDetailRow
-                  icon={<ShieldCheck className="size-4" />}
-                  label={`VPN Allowed : ${bonus.vpnAllowed ? "Yes" : "No"}`}
-                  highlight={bonus.vpnAllowed ? "green" : "red"}
-                >
-                  {null}
-                </BonusDetailRow>
-
-                <BonusDetailRow
-                  icon={<Info className="size-4" />}
-                  label="Terms and Conditions"
-                >
-                  {bonus.termsAndConditions.split("\n\n").map((p, i) => (
-                    <p key={i} className={i > 0 ? "mt-3" : ""}>
-                      {p}
-                    </p>
-                  ))}
-                </BonusDetailRow>
+                  Independent Audit
+                </Link>
               </div>
-            )}
+            </div>
           </div>
+
+          {/* Bonus Banner */}
+          <div
+            data-name="bonus-banner"
+            className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-lg bg-green-500/10 px-4 sm:px-5 py-3.5"
+          >
+            <p data-name="bonus-text" className="text-base sm:text-lg font-semibold text-[#060D17]">
+              {casino.bonus}
+            </p>
+            <Link
+              href={`/casino/review/${casino.slug}`}
+              data-name="bonus-info-btn"
+            >
+              <ShimmerButton
+                shimmerColor="#ffffff"
+                shimmerDuration="2.5s"
+                background="rgba(22, 163, 74, 1)"
+                borderRadius="8px"
+                className="px-5 py-2 text-sm font-semibold border-green-500/30"
+              >
+                Bonus Info
+              </ShimmerButton>
+            </Link>
+          </div>
+
+          {/* Bonus Details — Collapsible Sections */}
+          {bonus && (
+            <div data-name="bonus-details-section">
+              <BonusDetailRow
+                icon={<Calendar className="size-4" />}
+                label={bonus.type}
+              >
+                <p>{bonus.description}</p>
+              </BonusDetailRow>
+
+              <BonusDetailRow
+                icon={<CircleDollarSign className="size-4" />}
+                label={`Min Deposit: ${bonus.minDeposit}`}
+                summary={`Max Deposit: ${bonus.maxDeposit}`}
+              >
+                <p>{bonus.depositDescription}</p>
+              </BonusDetailRow>
+
+              <BonusDetailRow
+                icon={<Gamepad2 className="size-4" />}
+                label={`Wagering Requirement: ${bonus.wageringRequirement}`}
+              >
+                <p>{bonus.wageringDescription}</p>
+              </BonusDetailRow>
+
+              <BonusDetailRow
+                icon={<Clock className="size-4" />}
+                label={`Bonus Timing: ${bonus.bonusTiming}`}
+              >
+                <p>{bonus.timingDescription}</p>
+              </BonusDetailRow>
+
+              <BonusDetailRow
+                icon={<ShieldCheck className="size-4" />}
+                label={`VPN Allowed : ${bonus.vpnAllowed ? "Yes" : "No"}`}
+                highlight={bonus.vpnAllowed ? "green" : "red"}
+              >
+                {null}
+              </BonusDetailRow>
+
+              <BonusDetailRow
+                icon={<Info className="size-4" />}
+                label="Terms and Conditions"
+              >
+                {bonus.termsAndConditions.split("\n\n").map((p, i) => (
+                  <p key={i} className={i > 0 ? "mt-3" : ""}>
+                    {p}
+                  </p>
+                ))}
+              </BonusDetailRow>
+            </div>
+          )}
         </div>
       </div>
 
