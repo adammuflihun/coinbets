@@ -52,7 +52,7 @@ export function GuidesTabGrid({ guides }: { guides: Guide[] }) {
     <>
       <div
         data-name="guides-tab-bar"
-        className="w-full border-b border-neutral-200 bg-white"
+        className="w-full border-b border-neutral-200 bg-white pt-6 lg:pt-0"
       >
         <nav
           data-name="guides-tabs"

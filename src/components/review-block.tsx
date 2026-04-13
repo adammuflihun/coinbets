@@ -1957,10 +1957,10 @@ export function ReviewBlock({ slug }: { slug: string }) {
                   {/* Reply thread */}
                   {(REVIEW_REPLIES[idx] ?? []).length > 0 && (
                     <div data-name="review-replies" className="mt-5 pt-4 border-t border-neutral-100">
-                      {/* Reply header + helpful actions — same row */}
+                      {/* Reply header + helpful actions */}
                       <div
                         data-name="reply-header"
-                        className="flex w-full items-center justify-between py-3"
+                        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-3"
                       >
                         <button
                           data-name="reply-count"
@@ -1971,10 +1971,10 @@ export function ReviewBlock({ slug }: { slug: string }) {
                             <ReviewerAvatar name="reply" size="xs" />
                             <ReviewerAvatar name="reply" size="xs" />
                           </div>
-                          <span className="text-base font-medium text-[#003EB6]">
+                          <span className="text-sm sm:text-base font-medium text-[#003EB6]">
                             {REVIEW_REPLIES[idx].length} {REVIEW_REPLIES[idx].length === 1 ? "Reply" : "Replies"}
                           </span>
-                          <span className="text-sm text-[#4a4a2c]">
+                          <span className="text-xs sm:text-sm text-[#4a4a2c]">
                             {REVIEW_REPLIES[idx][REVIEW_REPLIES[idx].length - 1].timestamp}
                           </span>
                           <ChevronDown className={`size-4 text-neutral-400 transition-transform ${expandedReplies[idx] ? "rotate-180" : ""}`} />
@@ -2042,71 +2042,77 @@ export function ReviewBlock({ slug }: { slug: string }) {
                         </div>
                       </div>
 
-                      {/* Reply thread with left connector — collapsible */}
+                      {/* Reply thread — collapsible */}
                       {expandedReplies[idx] && (
-                      <div data-name="reply-thread" className="flex gap-3 pl-7 relative">
-                        {/* Left connector line */}
-                        <div data-name="reply-connector" className="absolute left-2.5 top-0 bottom-0 w-px bg-[#d9d9d9]" />
-
-                        <div data-name="reply-list" className="flex flex-1 flex-col">
-                          {REVIEW_REPLIES[idx].map((reply, ri) => (
-                            <div key={reply.id}>
-                              <div data-name="reply-item" className="flex flex-col gap-2.5 py-3">
-                                {/* Reply header */}
-                                <div data-name="reply-item-header" className={`flex items-center gap-2.5 ${reply.type === "coinbets" ? "rounded-md bg-black px-2.5 py-2" : ""}`}>
-                                  {reply.type === "coinbets" ? (
-                                    <Image src="/icons/logo.svg" alt="CoinBets" width={100} height={24} className="h-5 w-auto" />
-                                  ) : (
+                      <div data-name="reply-thread" className="flex flex-col gap-3 mt-2">
+                        {REVIEW_REPLIES[idx].map((reply) => (
+                          <div
+                            key={reply.id}
+                            data-name="reply-card"
+                            className={cn(
+                              "rounded-lg p-3 sm:p-4 flex flex-col gap-2.5",
+                              "bg-[#f5f5f5]"
+                            )}
+                          >
+                            {/* Reply card header */}
+                            <div data-name="reply-card-header" className="flex flex-col items-start gap-1.5">
+                              <div data-name="reply-card-identity" className="flex items-center gap-2">
+                                {reply.type === "coinbets" ? (
+                                  <>
+                                    <Image src="/icons/logo.svg" alt="CoinBets" width={80} height={20} className="h-4 w-auto" />
+                                    <span className="inline-flex items-center rounded-md bg-[#003EB6] px-1.5 py-[2px] text-[11px] font-semibold text-white">
+                                      Admin
+                                    </span>
+                                  </>
+                                ) : (
+                                  <>
                                     <ReviewerAvatar name={reply.name} size="sm" />
-                                  )}
-                                  <span className={`text-base font-medium tracking-wide ${reply.type === "coinbets" ? "text-white" : "text-[#060D17]"}`}>
-                                    {reply.name}
-                                  </span>
-                                  {reply.type === "player" && reply.hasXVerified && (
-                                    <span data-name="reply-x-badge" className="inline-flex items-center gap-0.5 rounded-md bg-black px-2 py-[3px] text-xs text-white">
-                                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="size-3.5 shrink-0">
-                                        <path d="M8.32 5.93L13.49 0H12.27L7.78 5.15L4.2 0H0L5.42 7.78L0 14H1.22L5.96 8.56L9.74 14H13.94L8.32 5.93ZM6.58 7.85L6.03 7.08L1.66 0.91H3.61L7.07 5.89L7.62 6.66L12.27 13.13H10.32L6.58 7.85Z" fill="white" />
-                                      </svg>
-                                      Verified Account
+                                    <span className="text-sm font-semibold text-[#060D17]">
+                                      {reply.name}
                                     </span>
-                                  )}
-                                  {reply.type === "casino" && (
-                                    <span data-name="reply-casino-badge" className="inline-flex items-center gap-1 rounded-md bg-[#003EB6] px-2 py-[3px] text-xs text-white">
-                                      <Shield className="size-3" />
-                                      Casino Admin
-                                    </span>
-                                  )}
-                                  <span className={`ml-auto text-sm ${reply.type === "coinbets" ? "text-white/70" : "text-[#4a4a2c]"}`}>
-                                    {reply.timestamp}
+                                  </>
+                                )}
+                                {reply.type === "player" && reply.hasXVerified && (
+                                  <span data-name="reply-x-badge" className="inline-flex items-center gap-0.5 rounded-md bg-black px-1.5 py-[2px] text-[11px] text-white">
+                                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="size-3 shrink-0">
+                                      <path d="M8.32 5.93L13.49 0H12.27L7.78 5.15L4.2 0H0L5.42 7.78L0 14H1.22L5.96 8.56L9.74 14H13.94L8.32 5.93ZM6.58 7.85L6.03 7.08L1.66 0.91H3.61L7.07 5.89L7.62 6.66L12.27 13.13H10.32L6.58 7.85Z" fill="white" />
+                                    </svg>
+                                    Verified
                                   </span>
-                                </div>
-
-                                {/* Reply content */}
-                                <p data-name="reply-content" className="text-base leading-relaxed text-[#313339] whitespace-pre-line">
-                                  {reply.content}
-                                </p>
-
-                                {/* Reply votes */}
-                                <div data-name="reply-votes" className="flex items-center gap-1.5">
-                                  <button className="flex items-center justify-center rounded bg-[#eee] px-2.5 py-1">
-                                    <ThumbsUp className="size-4 text-neutral-600" />
-                                  </button>
-                                  <span className="text-sm text-[#1c1c1c]">({reply.upVotes})</span>
-                                  <button className="flex items-center justify-center rounded bg-[#eee] px-2.5 py-1">
-                                    <ThumbsDown className="size-4 text-neutral-600" />
-                                  </button>
-                                </div>
+                                )}
+                                {reply.type === "casino" && (
+                                  <span data-name="reply-casino-badge" className="inline-flex items-center gap-1 rounded-md bg-[#003EB6] px-1.5 py-[2px] text-[11px] text-white">
+                                    <Shield className="size-3" />
+                                    Casino
+                                  </span>
+                                )}
                               </div>
-                              {ri < REVIEW_REPLIES[idx].length - 1 && (
-                                <div data-name="reply-divider" className="h-px w-full bg-[#d9d9d9]" />
-                              )}
+                              <span className="text-xs text-neutral-400">
+                                {reply.timestamp}
+                              </span>
                             </div>
-                          ))}
 
-                          {/* Comment editor */}
-                          <div data-name="reply-editor" className="mt-3">
-                            <CommentEditor placeholder="Write your reply..." />
+                            {/* Reply content */}
+                            <p data-name="reply-content" className="text-sm leading-relaxed whitespace-pre-line text-[#313339]">
+                              {reply.content}
+                            </p>
+
+                            {/* Reply votes */}
+                            <div data-name="reply-votes" className="flex items-center gap-1.5">
+                              <button className="flex items-center justify-center rounded bg-white px-2 py-1">
+                                <ThumbsUp className="size-3.5 text-neutral-500" />
+                              </button>
+                              <span className="text-xs text-neutral-500">({reply.upVotes})</span>
+                              <button className="flex items-center justify-center rounded bg-white px-2 py-1">
+                                <ThumbsDown className="size-3.5 text-neutral-500" />
+                              </button>
+                            </div>
                           </div>
+                        ))}
+
+                        {/* Comment editor */}
+                        <div data-name="reply-editor">
+                          <CommentEditor placeholder="Write your reply..." />
                         </div>
                       </div>
                       )}
