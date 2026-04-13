@@ -571,7 +571,8 @@ export default function AboutPage() {
           >
             <div
               data-name="about-cta-cards"
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+              className="flex lg:grid lg:grid-cols-4 gap-6 overflow-x-auto lg:overflow-visible snap-x snap-mandatory"
+              style={{ scrollbarWidth: "none" }}
             >
               {[
                 {
@@ -606,7 +607,7 @@ export default function AboutPage() {
                 <div
                   key={card.title}
                   data-name="about-cta-card"
-                  className="flex flex-col items-center text-center h-full"
+                  className="flex flex-col items-center text-center shrink-0 w-[75vw] lg:w-auto snap-start rounded-xl bg-[#1a1a1a] p-5 lg:rounded-none lg:bg-transparent lg:p-0 self-stretch"
                 >
                   <div
                     data-name="about-cta-card-image"
