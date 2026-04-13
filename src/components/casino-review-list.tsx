@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -2362,11 +2363,21 @@ export function CasinoReviewList({ title = "Casino Reviews", variant = "default"
                     Filters
                   </div>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[320px] overflow-y-auto p-0">
-                  <SheetHeader className="px-4 pt-4 pb-2">
-                    <SheetTitle>Filters</SheetTitle>
-                  </SheetHeader>
-                  <div className="px-4 pb-4 space-y-6">
+                <SheetContent side="bottom" showCloseButton={false} className="w-full max-h-[85vh] overflow-y-auto rounded-t-2xl p-0">
+                  <div data-name="filter-sheet-header" className="sticky top-0 z-10 bg-white rounded-t-2xl">
+                    <div data-name="filter-drag-handle" className="flex justify-center pt-3 pb-1">
+                      <span className="h-1 w-10 rounded-full bg-neutral-300" />
+                    </div>
+                    <div className="flex items-center justify-between px-4 pb-3">
+                      <SheetTitle className="text-base font-bold">Filters</SheetTitle>
+                      <SheetClose className="flex items-center justify-center size-8 rounded-full bg-neutral-100 hover:bg-neutral-200 transition-colors cursor-pointer">
+                        <X className="size-4 text-neutral-600" />
+                        <span className="sr-only">Close</span>
+                      </SheetClose>
+                    </div>
+                    <div className="border-b border-neutral-100" />
+                  </div>
+                  <div className="px-4 pb-6 pt-2 space-y-6">
                     {variant === "bonus" && <BonusFilterSidebar />}
                     <FilterSidebar />
                   </div>

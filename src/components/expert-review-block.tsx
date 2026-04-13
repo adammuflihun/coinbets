@@ -155,7 +155,7 @@ const SAFETY_COLORS: Record<string, string> = {
   Normal: "#eaee45",
 };
 
-function ExpertHero({ casino }: { casino: CasinoReview }) {
+function ExpertHero({ casino, onReadFullReview }: { casino: CasinoReview; onReadFullReview?: () => void }) {
   return (
     <div
       data-name="expert-hero"
@@ -353,6 +353,18 @@ function ExpertHero({ casino }: { casino: CasinoReview }) {
             </div>
           </div>
         </div>
+
+        {/* Mobile-only: Read full review button */}
+        {onReadFullReview && (
+          <button
+            data-name="read-full-review-btn"
+            onClick={onReadFullReview}
+            className="lg:hidden relative flex w-full items-center justify-center gap-2 rounded-lg bg-[#003EB6] px-5 py-3.5 text-sm font-bold text-white hover:bg-[#002d8a] transition-colors cursor-pointer"
+          >
+            Read Full Review
+            <ChevronDown className="size-4" />
+          </button>
+        )}
       </div>
     </div>
   );
@@ -2528,6 +2540,7 @@ export function ExpertReviewBlock({ casino }: { casino: CasinoReview }) {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [galleryScreenshots, setGalleryScreenshots] = useState<string[]>([]);
+  const [mobileContentOpen, setMobileContentOpen] = useState(false);
 
   const openGallery = (src: string, screenshots: string[]) => {
     setGalleryScreenshots(screenshots);
@@ -2549,10 +2562,12 @@ export function ExpertReviewBlock({ casino }: { casino: CasinoReview }) {
         </div>
 
         {/* Hero */}
-        <ExpertHero casino={casino} />
+        <ExpertHero casino={casino} onReadFullReview={mobileContentOpen ? undefined : () => setMobileContentOpen(true)} />
 
-        {/* Content */}
-        <ExpertContent casino={casino} />
+        {/* Content — hidden on mobile until "Read full review" is tapped */}
+        <div className={mobileContentOpen ? "" : "hidden lg:block"}>
+          <ExpertContent casino={casino} />
+        </div>
       </div>
 
       <GalleryModal
